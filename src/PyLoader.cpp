@@ -1,7 +1,8 @@
 #include "PyLoader.h"
+#include <frameobject.h>
 #include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
-#include <frameobject.h>
+#include "sdk/PyOpcodes.h"
 
 void PyLoader::PluginThread(void* param)
 {
@@ -15,8 +16,9 @@ void PyLoader::PluginThread(void* param)
     if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
         return;
 
-    PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("common", &PyCommon::Init);
+    PyImport_AppendInittab("hud", &PyCHud::Init);
+    PyImport_AppendInittab("opcode", &PyOpcodes::Init);
 
     Py_Initialize();
     PyEval_InitThreads();
@@ -87,9 +89,10 @@ int PyLoader::ExecuteScript(std::string *file_name)
             }
             else {
                 PrintError();
-                PyErr_Restore(NULL,NULL,NULL);
                 Py_DECREF(pFunc);
                 Py_DECREF(pModule);
+                PyGILState_Release(gstate);
+                delete file_name;
                 return 1;
             }
         }
@@ -102,6 +105,8 @@ int PyLoader::ExecuteScript(std::string *file_name)
     }
     else {
         std::cout << "Failed to load " << file_name << std::endl;
+        PyGILState_Release(gstate);
+        delete file_name;
         return 1;
     }
 

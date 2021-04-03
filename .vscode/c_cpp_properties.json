@@ -9,7 +9,7 @@
                 "${PLUGIN_SDK_DIR}/plugin_sa/game_sa",
                 "${PLUGIN_SDK_DIR}/shared",
                 "${PLUGIN_SDK_DIR}/shared/game",
-                "C:/Program Files (x86)/Python39-32/include"
+                "C:\\Program Files (x86)\\Python38-32\\include"
             ],
             "defines": [
                 "CONSOLE=std::cout",

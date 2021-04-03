@@ -5,9 +5,10 @@ class PyCHud
 {
 private:
     static PyObject* SetHelpMessage(PyObject *self, PyObject *args);
+    static PyObject* SetMessage(PyObject *self, PyObject *args);
     static inline PyMethodDef Methods[] = 
     {
-        {"set_help_message", SetHelpMessage, METH_VARARGS,"Shows a help message with the string"},{NULL, NULL, 0, NULL}
+        {"set_help_message", SetHelpMessage, METH_VARARGS,"Shows a help message with given string"},{0,0,0,0}
     };
     static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "hud", NULL, -1, Methods, NULL, NULL, NULL, NULL};
 

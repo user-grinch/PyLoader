@@ -20,10 +20,12 @@ set(src_files
     "src/DllMain.cpp"
     "src/PyLoader.h"
     "src/PyLoader.cpp"
-    "src/sdk/PyCHud.h"
-    "src/sdk/PyCHud.cpp"
     "src/sdk/PyCommon.h"
     "src/sdk/PyCommon.cpp"
+    "src/sdk/PyCHud.h"
+    "src/sdk/PyCHud.cpp"
+    "src/sdk/PyOpcodes.h"
+    "src/sdk/PyOpcodes.cpp"
 )
 
 ################################################################################
