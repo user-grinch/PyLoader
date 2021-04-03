@@ -1,6 +1,9 @@
 #include "PyLoader.h"
+#include "sdk/PyCHud.h"
+#include "sdk/PyCommon.h"
+#include <frameobject.h>
 
-void PyLoader::PyLoaderThread(void* param)
+void PyLoader::PluginThread(void* param)
 {
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
@@ -12,7 +15,9 @@ void PyLoader::PyLoaderThread(void* param)
     if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
         return;
 
-    // init the interpreter 
+    PyImport_AppendInittab("hud", &PyCHud::Init);
+    PyImport_AppendInittab("common", &PyCommon::Init);
+
     Py_Initialize();
     PyEval_InitThreads();
     PyEval_ReleaseLock();
@@ -34,6 +39,28 @@ void PyLoader::PyLoaderThread(void* param)
     Py_Finalize();
 }
 
+void PyLoader::PrintError()
+{
+    PyObject* excType, *excValue, *excTraceback;
+    PyErr_Fetch(&excType, &excValue, &excTraceback);
+    PyErr_NormalizeException(&excType, &excValue, &excTraceback);
+
+    PyTracebackObject* traceback = (PyTracebackObject*)excTraceback;
+
+    std::cout << "Error occured, traceback" << std::endl;
+    while (traceback != NULL && traceback->tb_frame != NULL)
+    {
+        int line = PyCode_Addr2Line(traceback->tb_frame->f_code, traceback->tb_frame->f_lasti);
+        const char *filename = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_filename);
+        const char *funcname = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_name);
+        std::cout << filename << ", Line " << line << ", " << funcname << "()" <<  std::endl;  
+        traceback = traceback->tb_next;
+    }
+    Py_DECREF(excType);
+    Py_DECREF(excValue);
+    Py_DECREF(excTraceback);
+}
+
 int PyLoader::ExecuteScript(std::string *file_name)
 {
     PyGILState_STATE gstate;
@@ -44,14 +71,12 @@ int PyLoader::ExecuteScript(std::string *file_name)
     PyObject *pValue;
 
     pName = PyUnicode_FromString(file_name->c_str());
-    /* Error checking of pName left out */
 
     pModule = PyImport_Import(pName);
     Py_DECREF(pName);
 
     if (pModule != NULL) {
         pFunc = PyObject_GetAttrString(pModule, MAIN_FUNC_NAME);
-        /* pFunc is a new reference */
 
         if (pFunc && PyCallable_Check(pFunc)) {
             
@@ -61,23 +86,21 @@ int PyLoader::ExecuteScript(std::string *file_name)
                 Py_DECREF(pValue);
             }
             else {
+                PrintError();
+                PyErr_Restore(NULL,NULL,NULL);
                 Py_DECREF(pFunc);
                 Py_DECREF(pModule);
-                PyErr_Print();
-                std::cout << "Call failed" << std::endl;
                 return 1;
             }
         }
-        else {
-            if (PyErr_Occurred())
-                PyErr_Print();
-            std::cout << "Cannot find function " <<  MAIN_FUNC_NAME << std::endl;
+        else 
+        {
+            std::cout << "Couldn't find " <<  MAIN_FUNC_NAME << "()" << std::endl;
         }
         Py_XDECREF(pFunc);
         Py_DECREF(pModule);
     }
     else {
-        PyErr_Print();
         std::cout << "Failed to load " << file_name << std::endl;
         return 1;
     }

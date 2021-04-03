@@ -5,11 +5,11 @@ project(${PROJECT_NAME} CXX)
 ################################################################################
 # Configure paths
 ################################################################################
-set(GTA_SA_DIR F:/GTASanAndreas)
+set(GTA_SA_DIR C:/Work/GTASanAndreas)
 
 # Can ignore the below paths if you got them in system paths
 set(PLUGIN_SDK_DIR $ENV{PLUGIN_SDK_DIR})
-set(PYTHON_DIR "C:/Program Files (x86)/Python39-32")
+set(PYTHON_DIR "C:\\Program Files (x86)\\Python38-32")
 ################################################################################
 
 ################################################################################
@@ -20,6 +20,10 @@ set(src_files
     "src/DllMain.cpp"
     "src/PyLoader.h"
     "src/PyLoader.cpp"
+    "src/sdk/PyCHud.h"
+    "src/sdk/PyCHud.cpp"
+    "src/sdk/PyCommon.h"
+    "src/sdk/PyCommon.cpp"
 )
 
 ################################################################################
@@ -94,6 +98,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT};
     ${DEFAULT_CXX_EXCEPTION_HANDLING}
     /w44005
+    /w44996
 )
 string(CONCAT FILE_CL_OPTIONS
     "/Y-"

@@ -9,13 +9,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
 		uint gameVersion = plugin::GetGameVersion();
 		if (gameVersion == GAME_10US_HOODLUM || gameVersion == GAME_10US_COMPACT)
 		{
-			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::PyLoaderThread, NULL, NULL, NULL);
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::PluginThread, NULL, NULL, NULL);
 		}
 		else
 		{
 			MessageBox(HWND_DESKTOP, "Unknown game version. GTA SA v1.0 US is required.", "PyLoader", MB_ICONERROR);
 		}
-		MessageBox(HWND_DESKTOP, "Unknown game version. GTA SA v1.0 US is required.", "PyLoader", MB_ICONERROR);
 	}
     return TRUE;
 }
