@@ -8,7 +8,7 @@ private:
     static PyObject* SetMessage(PyObject *self, PyObject *args);
     static inline PyMethodDef Methods[] = 
     {
-        {"set_help_message", SetHelpMessage, METH_VARARGS,"Shows a help message with given string"},{0,0,0,0}
+        {"set_help_message", SetHelpMessage, METH_VARARGS,"Shows a help message with given string"},{}
     };
     static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "hud", NULL, -1, Methods, NULL, NULL, NULL, NULL};
 

@@ -6,9 +6,7 @@
 
 void PyLoader::PluginThread(void* param)
 {
-	AllocConsole();
-	freopen("CONOUT$", "w", stdout);
-	std::cout << "Starting PyLoader" << std::endl;
+	flog << "Starting PyLoader v" << plugin_ver << std::endl;
 
     HANDLE dir;
     WIN32_FIND_DATA file_data;
@@ -49,13 +47,13 @@ void PyLoader::PrintError()
 
     PyTracebackObject* traceback = (PyTracebackObject*)excTraceback;
 
-    std::cout << "Error occured, traceback" << std::endl;
+    flog << "Error occured, traceback" << std::endl;
     while (traceback != NULL && traceback->tb_frame != NULL)
     {
         int line = PyCode_Addr2Line(traceback->tb_frame->f_code, traceback->tb_frame->f_lasti);
         const char *filename = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_filename);
         const char *funcname = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_name);
-        std::cout << filename << ", Line " << line << ", " << funcname << "()" <<  std::endl;  
+        flog << filename << ", Line " << line << ", " << funcname << "()" <<  std::endl;  
         traceback = traceback->tb_next;
     }
     Py_DECREF(excType);
@@ -67,7 +65,7 @@ int PyLoader::ExecuteScript(std::string *file_name)
 {
     PyGILState_STATE gstate;
     gstate = PyGILState_Ensure();
-    std::cout << "Loading script " << *file_name << std::endl;
+    flog << "Loading script " << *file_name << std::endl;
 
     PyObject *pName, *pModule, *pFunc;
     PyObject *pValue;
@@ -78,13 +76,13 @@ int PyLoader::ExecuteScript(std::string *file_name)
     Py_DECREF(pName);
 
     if (pModule != NULL) {
-        pFunc = PyObject_GetAttrString(pModule, MAIN_FUNC_NAME);
+        pFunc = PyObject_GetAttrString(pModule, main_func_name);
 
         if (pFunc && PyCallable_Check(pFunc)) {
             
             pValue = PyObject_CallObject(pFunc, nullptr);
             if (pValue != NULL) {
-                std::cout << "Result of call: " << PyLong_AsLong(pValue) << std::endl;
+                flog << "Result of call: " << PyLong_AsLong(pValue) << std::endl;
                 Py_DECREF(pValue);
             }
             else {
@@ -97,14 +95,13 @@ int PyLoader::ExecuteScript(std::string *file_name)
             }
         }
         else 
-        {
-            std::cout << "Couldn't find " <<  MAIN_FUNC_NAME << "()" << std::endl;
-        }
+            flog << "Couldn't find " << main_func_name << "()" << std::endl;
+
         Py_XDECREF(pFunc);
         Py_DECREF(pModule);
     }
     else {
-        std::cout << "Failed to load " << file_name << std::endl;
+        flog << "Failed to load " << file_name << std::endl;
         PyGILState_Release(gstate);
         delete file_name;
         return 1;

@@ -1,152 +1,363 @@
-build/ALL_BUILD.vcxproj
-build/ALL_BUILD.vcxproj.filters
-build/cmake_install.cmake
-build/CMakeCache.txt
-build/PyLoader.sln
-build/PyLoader.vcxproj
-build/PyLoader.vcxproj.filters
-build/ZERO_CHECK.vcxproj
-build/ZERO_CHECK.vcxproj.filters
-build/.cmake/api/v1/query/client-vscode/query.json
-build/.cmake/api/v1/reply/cache-v2-9e52241c901f312052b5.json
-build/.cmake/api/v1/reply/codemodel-v2-4a51c2ac9d46ec6cb084.json
-build/.cmake/api/v1/reply/index-2021-04-01T18-18-03-0168.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-Debug-9e53b446e503e4a4ecc0.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-MinSizeRel-9e53b446e503e4a4ecc0.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-Release-9e53b446e503e4a4ecc0.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-RelWithDebInfo-9e53b446e503e4a4ecc0.json
-build/.cmake/api/v1/reply/target-PyLoader-Debug-e9aaf11040d261c2c619.json
-build/.cmake/api/v1/reply/target-PyLoader-MinSizeRel-a489019b9dc3134fd14a.json
-build/.cmake/api/v1/reply/target-PyLoader-Release-0341e1bf075812a0c5b2.json
-build/.cmake/api/v1/reply/target-PyLoader-RelWithDebInfo-56125046544bce74b752.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-Debug-65dd46401af48a343001.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-MinSizeRel-65dd46401af48a343001.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-Release-65dd46401af48a343001.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-RelWithDebInfo-65dd46401af48a343001.json
-build/CMakeFiles/cmake.check_cache
-build/CMakeFiles/CMakeOutput.log
-build/CMakeFiles/generate.stamp
-build/CMakeFiles/generate.stamp.depend
-build/CMakeFiles/generate.stamp.list
-build/CMakeFiles/TargetDirectories.txt
-build/CMakeFiles/3.18.3/CMakeCXXCompiler.cmake
-build/CMakeFiles/3.18.3/CMakeDetermineCompilerABI_CXX.bin
-build/CMakeFiles/3.18.3/CMakeRCCompiler.cmake
-build/CMakeFiles/3.18.3/CMakeSystem.cmake
-build/CMakeFiles/3.18.3/VCTargetsPath.txt
-build/CMakeFiles/3.18.3/VCTargetsPath.vcxproj
-build/CMakeFiles/3.18.3/CompilerIdCXX/CMakeCXXCompilerId.cpp
-build/CMakeFiles/3.18.3/CompilerIdCXX/CompilerIdCXX.exe
-build/CMakeFiles/3.18.3/CompilerIdCXX/CompilerIdCXX.vcxproj
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CMakeCXXCompilerId.obj
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.exe.recipe
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.command.1.tlog
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.read.1.tlog
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.write.1.tlog
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CompilerIdCXX.lastbuildstate
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.command.1.tlog
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.read.1.tlog
-build/CMakeFiles/3.18.3/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.write.1.tlog
-build/CMakeFiles/3.18.3/Debug/VCTargetsPath.recipe
-build/CMakeFiles/3.18.3/Debug/VCTargetsPath.tlog/VCTargetsPath.lastbuildstate
-build/CMakeFiles/3e254f5a9fae08f4c6632c5f8678d4da/generate.stamp.rule
-build/CMakeFiles/PyLoader.dir/cmake_pch.cxx
-build/CMakeFiles/PyLoader.dir/Debug/cmake_pch.hxx
-build/CMakeFiles/PyLoader.dir/MinSizeRel/cmake_pch.hxx
-build/CMakeFiles/PyLoader.dir/RelWithDebInfo/cmake_pch.hxx
-build/CMakeFiles/PyLoader.dir/Release/cmake_pch.hxx
-build/PyLoader.dir/Debug/cmake_pch.obj
-build/PyLoader.dir/Debug/cmake_pch.pch
-build/PyLoader.dir/Debug/DllMain.obj
-build/PyLoader.dir/Debug/PyLoader.asi.recipe
-build/PyLoader.dir/Debug/PyLoader.obj
-build/PyLoader.dir/Debug/vc142.pdb
-build/PyLoader.dir/Debug/PyLoader.tlog/CL.command.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/CL.read.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/CL.write.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/CustomBuild.command.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/CustomBuild.read.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/CustomBuild.write.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/link.command.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/link.read.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/link.write.1.tlog
-build/PyLoader.dir/Debug/PyLoader.tlog/PyLoader.lastbuildstate
-build/win32/Debug/ALL_BUILD/ALL_BUILD.recipe
-build/win32/Debug/ALL_BUILD/ALL_BUILD.tlog/ALL_BUILD.lastbuildstate
-build/win32/Debug/ALL_BUILD/ALL_BUILD.tlog/CustomBuild.command.1.tlog
-build/win32/Debug/ALL_BUILD/ALL_BUILD.tlog/CustomBuild.read.1.tlog
-build/win32/Debug/ALL_BUILD/ALL_BUILD.tlog/CustomBuild.write.1.tlog
-build/win32/Debug/ZERO_CHECK/ZERO_CHECK.recipe
-build/win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.command.1.tlog
-build/win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.read.1.tlog
-build/win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.write.1.tlog
-build/win32/Debug/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate
-build/.cmake/api/v1/reply/cache-v2-8a2bfea4e6339207b9b7.json
-build/.cmake/api/v1/reply/codemodel-v2-25c94181c3f3f1f61fae.json
-build/.cmake/api/v1/reply/index-2021-04-03T18-10-59-0133.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-Debug-8e85b9132d6f029c627f.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-MinSizeRel-8e85b9132d6f029c627f.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-Release-8e85b9132d6f029c627f.json
-build/.cmake/api/v1/reply/target-ALL_BUILD-RelWithDebInfo-8e85b9132d6f029c627f.json
-build/.cmake/api/v1/reply/target-PyLoader-Debug-efd15905dbdf85ca7689.json
-build/.cmake/api/v1/reply/target-PyLoader-MinSizeRel-adc5a494063f8a4abfe0.json
-build/.cmake/api/v1/reply/target-PyLoader-Release-8faef41df4efbf79e695.json
-build/.cmake/api/v1/reply/target-PyLoader-RelWithDebInfo-b58fb1bbb3d016ee984d.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-Debug-22987b3a8765f0dda17b.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-MinSizeRel-22987b3a8765f0dda17b.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-Release-22987b3a8765f0dda17b.json
-build/.cmake/api/v1/reply/target-ZERO_CHECK-RelWithDebInfo-22987b3a8765f0dda17b.json
-build/CMakeFiles/3.19.20122902-MSVC_2/CMakeCXXCompiler.cmake
-build/CMakeFiles/3.19.20122902-MSVC_2/CMakeDetermineCompilerABI_CXX.bin
-build/CMakeFiles/3.19.20122902-MSVC_2/CMakeRCCompiler.cmake
-build/CMakeFiles/3.19.20122902-MSVC_2/CMakeSystem.cmake
-build/CMakeFiles/3.19.20122902-MSVC_2/VCTargetsPath.txt
-build/CMakeFiles/3.19.20122902-MSVC_2/VCTargetsPath.vcxproj
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/CompilerIdCXX.exe
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/CompilerIdCXX.vcxproj
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CMakeCXXCompilerId.obj
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.exe.recipe
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.command.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.read.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CL.write.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/CompilerIdCXX.lastbuildstate
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.command.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.read.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/CompilerIdCXX/Debug/CompilerIdCXX.tlog/link.write.1.tlog
-build/CMakeFiles/3.19.20122902-MSVC_2/Debug/VCTargetsPath.recipe
-build/CMakeFiles/3.19.20122902-MSVC_2/Debug/VCTargetsPath.tlog/VCTargetsPath.lastbuildstate
-build/CMakeFiles/377ba6926d3336cd086b3ae4a038a2d1/generate.stamp.rule
-build/PyLoader.dir/Debug/PyCHud.obj
-build/PyLoader.dir/Debug/PyCommon.obj
-build/PyLoader.dir/Release/cmake_pch.obj
-build/PyLoader.dir/Release/cmake_pch.pch
-build/PyLoader.dir/Release/DllMain.obj
-build/PyLoader.dir/Release/PyCHud.obj
-build/PyLoader.dir/Release/PyCommon.obj
-build/PyLoader.dir/Release/PyLoader.asi.recipe
-build/PyLoader.dir/Release/PyLoader.iobj
-build/PyLoader.dir/Release/PyLoader.obj
-build/PyLoader.dir/Release/PyLoader.tlog/CL.command.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/CL.read.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/CL.write.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/CustomBuild.command.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/CustomBuild.read.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/CustomBuild.write.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/link.command.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/link.read.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/link.write.1.tlog
-build/PyLoader.dir/Release/PyLoader.tlog/PyLoader.lastbuildstate
-build/win32/Release/ZERO_CHECK/ZERO_CHECK.recipe
-build/win32/Release/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.command.1.tlog
-build/win32/Release/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.read.1.tlog
-build/win32/Release/ZERO_CHECK/ZERO_CHECK.tlog/CustomBuild.write.1.tlog
-build/win32/Release/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate
-build/.cmake/api/v1/reply/index-2021-04-03T20-49-45-0564.json
-build/.cmake/api/v1/reply/codemodel-v2-1b9c729f342a8e039104.json
-build/.cmake/api/v1/reply/index-2021-04-03T21-18-08-0866.json
-build/.cmake/api/v1/reply/target-PyLoader-Debug-e3b4cb212874e0dad86e.json
-build/.cmake/api/v1/reply/target-PyLoader-MinSizeRel-68d952ceccfea862c77c.json
-build/.cmake/api/v1/reply/target-PyLoader-Release-35a618c28e09d4f0f697.json
-build/.cmake/api/v1/reply/target-PyLoader-RelWithDebInfo-6db86c1f3fea4d3288fb.json
-build/PyLoader.dir/Release/PyOpcodes.obj
+## Ignore Visual Studio temporary files, build results, and
+## files generated by popular Visual Studio add-ons.
+##
+## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# Visual Studio 2017 auto generated files
+Generated\ Files/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# TFS 2012 Local Workspace
+$tf/
+
+# Guidance Automation Toolkit
+*.gpState
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity is a build add-in
+_TeamCity*
+
+# DotCover is a Code Coverage Tool
+*.dotCover
+
+# AxoCover is a Code Coverage Tool
+.axoCover/*
+!.axoCover/settings.json
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Web workbench (sass)
+.sass-cache/
+
+# Installshield output folder
+[Ee]xpress/
+
+# DocProject is a documentation generator add-in
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/Html2
+DocProject/Help/html
+
+# Click-Once directory
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# Note: Comment the next line if you want to checkin your web deploy settings,
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.publishproj
+
+# Microsoft Azure Web App publish settings. Comment the next line if you want to
+# checkin your Azure Web App publish settings, but sensitive information contained
+# in these scripts will be unencrypted
+PublishScripts/
+
+# NuGet Packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Microsoft Azure Emulator
+ecf/
+rcf/
+
+# Windows Store app package directories and files
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!?*.[Cc]ache/
+
+# Others
+ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs
+
+# Including strong name files can present a security risk
+# (https://github.com/github/gitignore/pull/2483#issue-259490424)
+#*.snk
+
+# Since there are multiple workflows, uncomment next line to ignore bower_components
+# (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
+#bower_components/
+
+# RIA/Silverlight projects
+Generated_Code/
+
+# Backup & report files from converting an old project file
+# to a newer Visual Studio version. Backup files are not needed,
+# because we have git ;-)
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+ServiceFabricBackup/
+*.rptproj.bak
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+*.rptproj.rsuser
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+
+# Microsoft Fakes
+FakesAssemblies/
+
+# GhostDoc plugin setting file
+*.GhostDoc.xml
+
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
+node_modules/
+
+# Visual Studio 6 build log
+*.plg
+
+# Visual Studio 6 workspace options file
+*.opt
+
+# Visual Studio 6 auto-generated workspace file (contains which files were open etc.)
+*.vbw
+
+# Visual Studio LightSwitch build output
+**/*.HTMLClient/GeneratedArtifacts
+**/*.DesktopClient/GeneratedArtifacts
+**/*.DesktopClient/ModelManifest.xml
+**/*.Server/GeneratedArtifacts
+**/*.Server/ModelManifest.xml
+_Pvt_Extensions
+
+# Paket dependency manager
+.paket/paket.exe
+paket-files/
+
+# FAKE - F# Make
+.fake/
+
+# CodeRush personal settings
+.cr/personal
+
+# Python Tools for Visual Studio (PTVS)
+__pycache__/
+*.pyc
+
+# Cake - Uncomment if you are using it
+# tools/**
+# !tools/packages.config
+
+# Tabs Studio
+*.tss
+
+# Telerik's JustMock configuration file
+*.jmconfig
+
+# BizTalk build output
+*.btp.cs
+*.btm.cs
+*.odx.cs
+*.xsd.cs
+
+# OpenCover UI analysis results
+OpenCover/
+
+# Azure Stream Analytics local run output
+ASALocalRun/
+
+# MSBuild Binary and Structured Log
+*.binlog
+
+# NVidia Nsight GPU debugger configuration file
+*.nvuser
+
+# MFractors (Xamarin productivity tool) working folder
+.mfractor/
+
+# Local History for Visual Studio
+.localhistory/
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
