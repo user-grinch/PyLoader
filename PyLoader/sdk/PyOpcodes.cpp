@@ -72,3 +72,45 @@ PyObject* PyOpcodes::DisplayRadar(PyObject* self, PyObject* args)
     plugin::Command<plugin::Commands::DISPLAY_RADAR>(state);
     return Py_True;
 }
+
+PyObject* PyOpcodes::GetCarCoordinates(PyObject* self, PyObject* args)
+{
+    int hveh = NULL;
+    CVector coord;
+
+    if (!PyArg_ParseTuple(args, "i", &hveh))
+        return NULL;
+
+    plugin::Command<plugin::Commands::GET_CAR_COORDINATES>(hveh, &coord.x, &coord.y, &coord.z);
+    return Py_BuildValue("fff", coord.x, coord.y, coord.z);
+}
+
+PyObject* PyOpcodes::GetCharCoordinates(PyObject* self, PyObject* args)
+{
+    int hchar = NULL;
+    CVector coord;
+
+    if (!PyArg_ParseTuple(args, "i", &hchar))
+        return NULL;
+
+    plugin::Command<plugin::Commands::GET_CHAR_COORDINATES>(hchar, &coord.x, &coord.y, &coord.z);
+    return Py_BuildValue("fff", coord.x, coord.y, coord.z);
+}
+
+PyObject* PyOpcodes::GetObjectCoordinates(PyObject* self, PyObject* args)
+{
+    int hobj = NULL;
+    CVector coord;
+
+    if (!PyArg_ParseTuple(args, "i", &hobj))
+        return NULL;
+
+    plugin::Command<plugin::Commands::GET_OBJECT_COORDINATES>(hobj, &coord.x, &coord.y, &coord.z);
+    return Py_BuildValue("fff", coord.x, coord.y, coord.z);
+}
+
+PyObject* PyOpcodes::GetPlayerChar(PyObject* self, PyObject* args)
+{
+    return PyLong_FromLong(int(FindPlayerPed()));
+}
+

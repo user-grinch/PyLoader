@@ -4,9 +4,12 @@
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
 
+std::ofstream flog("PyLoader.log");
+
 void PyLoader::PluginThread(void* param)
 {
-	flog << "Starting PyLoader v" << plugin_ver << std::endl;
+	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
+         << "\nAuthor: Grinch_\n------------------------------" << std::endl;
 
     HANDLE dir;
     WIN32_FIND_DATA file_data;
@@ -20,6 +23,7 @@ void PyLoader::PluginThread(void* param)
 
     Py_Initialize();
     PyEval_InitThreads();
+    PyImport_ImportModule("common");
     PyEval_ReleaseLock();
 
     do {

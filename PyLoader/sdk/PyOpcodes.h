@@ -11,18 +11,26 @@ private:
     static PyObject* CreateObject(PyObject* self, PyObject* args);
     static PyObject* DisplayHud(PyObject *self, PyObject *args);
     static PyObject* DisplayRadar(PyObject *self, PyObject *args);
+    static PyObject* GetCarCoordinates(PyObject* self, PyObject* args);
+    static PyObject* GetCharCoordinates(PyObject* self, PyObject* args);
+    static PyObject* GetObjectCoordinates(PyObject* self, PyObject* args);
+    static PyObject* GetPlayerChar(PyObject* self, PyObject* args);
     static PyObject* LoadAllModelsNow(PyObject* self, PyObject* args);
     static PyObject* RequestModel(PyObject* self, PyObject* args);
 
     static inline PyMethodDef Methods[] = 
     {
-        {"create_car", CreateCar, METH_VARARGS,"Create a car at the specified coordinates"},
-        {"create_char", CreateChar, METH_VARARGS,"Create a char at the specified coordinates"},
-        {"create_object", CreateObject, METH_VARARGS,"Create a object at the specified coordinates"},
-        {"display_hud", DisplayHud, METH_VARARGS,"Toggle hud"},
-        {"display_radar", DisplayRadar, METH_VARARGS,"Toggle radar"},
-        {"load_all_models_now", LoadAllModelsNow, METH_VARARGS,"Toggle radar"},
-        {"request_model", RequestModel, METH_VARARGS,"Toggle radar"},
+        {"create_car", CreateCar, METH_VARARGS},
+        {"create_char", CreateChar, METH_VARARGS},
+        {"create_object", CreateObject, METH_VARARGS},
+        {"get_car_coordinates", GetCarCoordinates, METH_VARARGS},
+        {"get_char_coordinates", GetCharCoordinates, METH_VARARGS},
+        {"get_object_coordinates", GetObjectCoordinates, METH_VARARGS},
+        {"get_player_char", GetPlayerChar, METH_VARARGS},
+        {"display_hud", DisplayHud, METH_VARARGS},
+        {"display_radar", DisplayRadar, METH_VARARGS},
+        {"load_all_models_now", LoadAllModelsNow, METH_VARARGS},
+        {"request_model", RequestModel, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "opcode", NULL, -1, Methods, NULL, NULL, NULL, NULL};

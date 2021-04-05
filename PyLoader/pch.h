@@ -5,4 +5,4 @@
 #include <fstream>
 #include "plugin.h"
 
-static inline std::ofstream flog("PyLoader.log");
+extern std::ofstream flog;
