@@ -94,6 +94,7 @@ PyObject* PyOpcodes::GetCharCoordinates(PyObject* self, PyObject* args)
         return NULL;
 
     plugin::Command<plugin::Commands::GET_CHAR_COORDINATES>(hchar, &coord.x, &coord.y, &coord.z);
+
     return Py_BuildValue("fff", coord.x, coord.y, coord.z);
 }
 
@@ -111,6 +112,6 @@ PyObject* PyOpcodes::GetObjectCoordinates(PyObject* self, PyObject* args)
 
 PyObject* PyOpcodes::GetPlayerChar(PyObject* self, PyObject* args)
 {
-    return PyLong_FromLong(int(FindPlayerPed()));
+    return PyLong_FromLong(CPools::GetPedRef(FindPlayerPed()));
 }
 

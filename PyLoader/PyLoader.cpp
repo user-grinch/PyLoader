@@ -13,19 +13,19 @@ void PyLoader::PluginThread(void* param)
 
     HANDLE dir;
     WIN32_FIND_DATA file_data;
-
+    
     if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
         return;
-
+    
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("opcode", &PyOpcodes::Init);
-
+    
     Py_Initialize();
     PyEval_InitThreads();
     PyImport_ImportModule("common");
     PyEval_ReleaseLock();
-
+    
     do {
         std::string *file_name = new std::string("PyLoader." + std::string(file_data.cFileName));
         
@@ -45,73 +45,56 @@ void PyLoader::PluginThread(void* param)
 
 void PyLoader::PrintError()
 {
-    PyObject* excType, *excValue, *excTraceback;
-    PyErr_Fetch(&excType, &excValue, &excTraceback);
-    PyErr_NormalizeException(&excType, &excValue, &excTraceback);
+    std::string result;
+    PyObject* ptype, * pvalue, * ptraceback;
+    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PyErr_NormalizeException(&ptype, &pvalue, &ptraceback);
+    PyTracebackObject* traceback = (PyTracebackObject*)ptraceback;
 
-    PyTracebackObject* traceback = (PyTracebackObject*)excTraceback;
+    PyObject* objectStr = PyObject_GetAttrString(ptype, "__name__");
+    result = PyUnicode_AsUTF8(objectStr);
+    result = "Exception: " + result;;
+    Py_XDECREF(objectStr);
+    objectStr = PyObject_Str(pvalue);
 
-    flog << "Error occured, traceback" << std::endl;
+    if (objectStr != NULL) {
+        result = result + " \"" + PyUnicode_AsUTF8(objectStr) + "\"\nTraceback,\n";
+        Py_XDECREF(objectStr);
+    }
+
     while (traceback != NULL && traceback->tb_frame != NULL)
     {
         int line = PyCode_Addr2Line(traceback->tb_frame->f_code, traceback->tb_frame->f_lasti);
-        const char *filename = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_filename);
-        const char *funcname = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_name);
-        flog << filename << ", Line " << line << ", " << funcname << "()" <<  std::endl;  
+        std::string file_path(PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_filename));
+        std::string filename = file_path.substr(file_path.find_last_of("/.") + 1) + ".py";
+        const char* funcname = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_name);
+
+        result += filename + ": Line " + std::to_string(line) + ", " + funcname + "()\n";
         traceback = traceback->tb_next;
     }
-    Py_DECREF(excType);
-    Py_DECREF(excValue);
-    Py_DECREF(excTraceback);
+
+    flog << result << std::endl;
 }
 
-int PyLoader::ExecuteScript(std::string *file_name)
+int PyLoader::ExecuteScript(std::string *path)
 {
-    PyGILState_STATE gstate;
-    gstate = PyGILState_Ensure();
-    flog << "Loading script " << *file_name << std::endl;
+    PyGILState_STATE gstate = PyGILState_Ensure();
 
-    PyObject *pName, *pModule, *pFunc;
-    PyObject *pValue;
+    std::string filename = path->substr(path->find_last_of("/.") + 1) + ".py";
+    flog << "Loading script " << filename << std::endl;
 
-    pName = PyUnicode_FromString(file_name->c_str());
+    PyObject* m_pMainModule = PyImport_AddModule("__main__");
+    PyObject* m_pGlobalDict = PyModule_GetDict(m_pMainModule);
 
-    pModule = PyImport_Import(pName);
-    Py_DECREF(pName);
+    std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
+    FILE* fp = _Py_fopen(file_path.c_str(), "r");
+    PyObject* s = PyRun_File(fp, path->c_str(), Py_file_input, m_pGlobalDict, m_pGlobalDict);
+    Py_XDECREF(s);
 
-    if (pModule != NULL) {
-        pFunc = PyObject_GetAttrString(pModule, main_func_name);
-
-        if (pFunc && PyCallable_Check(pFunc)) {
-            
-            pValue = PyObject_CallObject(pFunc, nullptr);
-            if (pValue != NULL) {
-                flog << "Result of call: " << PyLong_AsLong(pValue) << std::endl;
-                Py_DECREF(pValue);
-            }
-            else {
-                PrintError();
-                Py_DECREF(pFunc);
-                Py_DECREF(pModule);
-                PyGILState_Release(gstate);
-                delete file_name;
-                return 1;
-            }
-        }
-        else 
-            flog << "Couldn't find " << main_func_name << "()" << std::endl;
-
-        Py_XDECREF(pFunc);
-        Py_DECREF(pModule);
-    }
-    else {
-        flog << "Failed to load " << file_name << std::endl;
-        PyGILState_Release(gstate);
-        delete file_name;
-        return 1;
-    }
+    if (PyErr_Occurred())
+        PrintError();
 
     PyGILState_Release(gstate);
-    delete file_name;
+    delete path;
     return 0;
 }

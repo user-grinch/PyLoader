@@ -31,8 +31,8 @@ PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
         if (frame != NULL)
         {
             std::string path(_PyUnicode_AsString(frame->f_code->co_filename));
-            std::string filename = path.substr(path.find_last_of("/\\") + 1);
-            flog << filename + ": " + text  << std::endl;
+            std::string filename = path.substr(path.find_last_of("/.") + 1);
+            flog << filename + ".py: " + text  << std::endl;
         }
     }
     ignore_call = !ignore_call;
