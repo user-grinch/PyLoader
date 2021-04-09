@@ -1,7 +1,5 @@
 #pragma once
 #include "pch.h"
-constexpr const char* main_func_name = "__main__";
-constexpr const char* plugin_ver = "0.01-alpha";
 
 class PyLoader
 {

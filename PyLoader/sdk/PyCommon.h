@@ -5,15 +5,17 @@
 class PyCommon
 {
 private:
+    static PyObject* GetPyLoaderVersion(PyObject* self, PyObject* args);
     static PyObject* KeyPressed(PyObject *self, PyObject *args);
     static PyObject* WriteStream(PyObject* self, PyObject* args);
     static PyObject* FlushStream(PyObject* self, PyObject* args);
-
+   
     static inline PyMethodDef Methods[] = 
     {
-        {"write", WriteStream, METH_VARARGS},
+        {"get_pyloader_version", GetPyLoaderVersion, METH_VARARGS},
         {"flush", FlushStream, METH_VARARGS},
         {"key_pressed", KeyPressed, METH_VARARGS},
+        {"write", WriteStream, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "common", NULL, -1, Methods, NULL, NULL, NULL, NULL};

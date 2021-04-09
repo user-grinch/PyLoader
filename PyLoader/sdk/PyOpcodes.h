@@ -16,7 +16,13 @@ private:
     static PyObject* GetObjectCoordinates(PyObject* self, PyObject* args);
     static PyObject* GetPlayerChar(PyObject* self, PyObject* args);
     static PyObject* LoadAllModelsNow(PyObject* self, PyObject* args);
+    static PyObject* ReadMemory(PyObject* self, PyObject* args);
     static PyObject* RequestModel(PyObject* self, PyObject* args);
+    static PyObject* SetCarCoordinates(PyObject* self, PyObject* args);
+    static PyObject* SetCharCoordinates(PyObject* self, PyObject* args);
+    static PyObject* SetObjectCoordinates(PyObject* self, PyObject* args);
+    static PyObject* ShakeCam(PyObject* self, PyObject* args);
+    static PyObject* WriteMemory(PyObject* self, PyObject* args);
 
     static inline PyMethodDef Methods[] = 
     {
@@ -30,7 +36,13 @@ private:
         {"display_hud", DisplayHud, METH_VARARGS},
         {"display_radar", DisplayRadar, METH_VARARGS},
         {"load_all_models_now", LoadAllModelsNow, METH_VARARGS},
+        {"read_memory", ReadMemory, METH_VARARGS},
         {"request_model", RequestModel, METH_VARARGS},
+        {"set_car_coordinates", GetCarCoordinates, METH_VARARGS},
+        {"set_char_coordinates", GetCharCoordinates, METH_VARARGS},
+        {"set_object_coordinates", GetObjectCoordinates, METH_VARARGS},
+        {"shake_cam", ShakeCam, METH_VARARGS},
+        {"write_memory", WriteMemory, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "opcode", NULL, -1, Methods, NULL, NULL, NULL, NULL};

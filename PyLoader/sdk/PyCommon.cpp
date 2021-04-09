@@ -2,6 +2,11 @@
 #include <CHud.h>
 #include <frameobject.h>
 
+PyObject* PyCommon::GetPyLoaderVersion(PyObject* self, PyObject* args)
+{
+    return Py_BuildValue(plugin_ver);
+}
+
 PyObject* PyCommon::KeyPressed(PyObject *self, PyObject *args)
 {
     int key;

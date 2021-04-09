@@ -6,4 +6,5 @@
 #include <fstream>
 #include "plugin.h"
 
+constexpr const char* plugin_ver = "0.01";
 extern std::ofstream flog;
