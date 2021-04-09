@@ -9,6 +9,9 @@ private:
     static PyObject* CreateCar(PyObject* self, PyObject* args);
     static PyObject* CreateChar(PyObject* self, PyObject* args);
     static PyObject* CreateObject(PyObject* self, PyObject* args);
+    static PyObject* DeleteCar(PyObject* self, PyObject* args);
+    static PyObject* DeleteChar(PyObject* self, PyObject* args);
+    static PyObject* DeleteObject(PyObject* self, PyObject* args);
     static PyObject* DisplayHud(PyObject *self, PyObject *args);
     static PyObject* DisplayRadar(PyObject *self, PyObject *args);
     static PyObject* GetCarCoordinates(PyObject* self, PyObject* args);
@@ -29,6 +32,9 @@ private:
         {"create_car", CreateCar, METH_VARARGS},
         {"create_char", CreateChar, METH_VARARGS},
         {"create_object", CreateObject, METH_VARARGS},
+        {"delete_car", DeleteCar, METH_VARARGS},
+        {"delete_char", DeleteChar, METH_VARARGS},
+        {"delete_object", DeleteObject, METH_VARARGS},
         {"get_car_coordinates", GetCarCoordinates, METH_VARARGS},
         {"get_char_coordinates", GetCharCoordinates, METH_VARARGS},
         {"get_object_coordinates", GetObjectCoordinates, METH_VARARGS},

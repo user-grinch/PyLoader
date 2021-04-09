@@ -46,6 +46,39 @@ PyObject* PyOpcodes::CreateObject(PyObject* self, PyObject* args)
     return PyLong_FromLong(hveh);
 }
 
+PyObject* PyOpcodes::DeleteChar(PyObject* self, PyObject* args)
+{
+    int hanlde = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hanlde))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DELETE_CHAR>(hanlde);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::DeleteObject(PyObject* self, PyObject* args)
+{
+    int hanlde = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hanlde))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DELETE_OBJECT>(hanlde);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::DeleteCar(PyObject* self, PyObject* args)
+{
+    int hanlde = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hanlde))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DELETE_CAR>(hanlde);
+    return Py_True;
+}
+
 PyObject* PyOpcodes::RequestModel(PyObject* self, PyObject* args)
 {
     int model = NULL;
