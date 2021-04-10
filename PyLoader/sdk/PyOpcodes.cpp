@@ -1,5 +1,123 @@
 #include "PyOpcodes.h"
 
+PyObject* PyOpcodes::CarWanderRandomly(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hcar))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::CAR_WANDER_RANDOMLY>(hcar);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::CarSetIdle(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hcar))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::CAR_SET_IDLE>(hcar);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::CarGotoCoordinates(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+    CVector coord;
+
+    if (!PyArg_ParseTuple(args, "ifff", &hcar, &coord.x, &coord.y, &coord.z))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::CAR_GOTO_COORDINATES>(hcar, coord.x, coord.y, &coord.z);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetCarCruiseSpeed(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+    float speed = NULL;
+
+    if (!PyArg_ParseTuple(args, "if", &hcar, &speed))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_CAR_CRUISE_SPEED>(hcar,speed);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetCarDrivingStyle(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+    int style = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &hcar, &style))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_CAR_DRIVING_STYLE>(hcar, style);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetCarMission(PyObject* self, PyObject* args)
+{
+    int hcar = NULL;
+    int mission = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &hcar, &mission))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_CAR_MISSION>(hcar, mission);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::IsCharInArea2d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL;
+    CVector2D from, to;
+
+    if (!PyArg_ParseTuple(args, "iffff", &hchar, &from.x, &from.y, &to.x, &to.y))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_2D>(hchar, from.x, from.y, to.x, to.y, &result);
+    return Py_BuildValue("i",result);
+}
+
+PyObject* PyOpcodes::IsCharInArea3d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL;
+    CVector from, to;
+
+    if (!PyArg_ParseTuple(args, "iffffff", &hchar, &from.x, &from.y, &from.z, &to.x, &to.y, &to.z))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_3D>(hchar, from.x, from.y, from.z, to.x, to.y, to.z, &result);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsCarInArea2d(PyObject* self, PyObject* args)
+{
+    int hcar = NULL, result = NULL;
+    CVector2D from, to;
+
+    if (!PyArg_ParseTuple(args, "iffff", &hcar, &from.x, &from.y, &to.x, &to.y))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_CAR_IN_AREA_2D>(hcar, from.x, from.y, to.x, to.y, &result);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsCarInArea3d(PyObject* self, PyObject* args)
+{
+    int hcar = NULL, result = NULL;
+    CVector from, to;
+
+    if (!PyArg_ParseTuple(args, "iffffff", &hcar, &from.x, &from.y, &from.z, &to.x, &to.y, &to.z))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_CAR_IN_AREA_3D>(hcar, from.x, from.y, from.z, to.x, to.y, to.z, &result);
+    return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::DisplayHud(PyObject *self, PyObject *args)
 {
     int state;
@@ -154,6 +272,72 @@ PyObject* PyOpcodes::LoadAllModelsNow(PyObject* self, PyObject* args)
     return Py_True;
 }
 
+PyObject* PyOpcodes::PrintBig(PyObject* self, PyObject* args)
+{
+    char* gxt;
+    int time = NULL, style = NULL;
+
+    if (!PyArg_ParseTuple(args, "sii", &gxt, &time, &style))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::PRINT_BIG>(gxt, time, style);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::Print(PyObject* self, PyObject* args)
+{
+    char* gxt;
+    int time = NULL, style = NULL;
+
+    if (!PyArg_ParseTuple(args, "sii", &gxt, &time, &style))
+    return Py_False;
+
+    plugin::Command<plugin::Commands::PRINT>(gxt, time, style);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::PrintNow(PyObject* self, PyObject* args)
+{
+    char* gxt;
+    int time = NULL, style = NULL;
+
+    if (!PyArg_ParseTuple(args, "sii", &gxt, &time, &style))
+    return Py_False;
+
+    plugin::Command<plugin::Commands::PRINT_NOW>(gxt, time, style);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::ClearPrints(PyObject* self, PyObject* args)
+{
+    plugin::Command<plugin::Commands::CLEAR_PRINTS>();
+    return Py_True;
+}
+
+PyObject* PyOpcodes::PrintBigQ(PyObject* self, PyObject* args)
+{
+    char* gxt;
+    int time = NULL, style = NULL;
+
+    if (!PyArg_ParseTuple(args, "sii", &gxt, &time, &style))
+    return Py_False;
+
+    plugin::Command<plugin::Commands::PRINT_BIG_Q>(gxt, time, style);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::PrintBigString(PyObject* self, PyObject* args)
+{
+    char* text;
+    int time = NULL, style = NULL;
+
+    if (!PyArg_ParseTuple(args, "sii", &text, &time, &style))
+    return Py_False;
+
+    plugin::Command<0x0ACB>(text, time, style);
+    return Py_True;
+}
+
 PyObject* PyOpcodes::DisplayRadar(PyObject* self, PyObject* args)
 {
     int state;
@@ -162,6 +346,47 @@ PyObject* PyOpcodes::DisplayRadar(PyObject* self, PyObject* args)
 
     plugin::Command<plugin::Commands::DISPLAY_RADAR>(state);
     return Py_True;
+}
+
+PyObject* PyOpcodes::GetTimeOfDay(PyObject* self, PyObject* args)
+{
+    int h = NULL, m = NULL;
+
+    plugin::Command<plugin::Commands::GET_TIME_OF_DAY>(&h,&m);
+    return Py_BuildValue("ii", h, m);
+}
+
+PyObject* PyOpcodes::SetTimeOfDay(PyObject* self, PyObject* args)
+{
+    int h = NULL, m = NULL;
+    if (!PyArg_ParseTuple(args, "ii", &h, &m))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_TIME_OF_DAY>(h, m);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::GetMinutesToTimeOfDay(PyObject* self, PyObject* args)
+{
+    int h = NULL, m = NULL, result = NULL;
+    if (!PyArg_ParseTuple(args, "ii", &h, &m))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::GET_MINUTES_TO_TIME_OF_DAY>(&h, &m, &result);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsPointOnScreen(PyObject* self, PyObject* args)
+{
+    float radius = 0.0f;
+    CVector coord;
+    int result = NULL;
+
+    if (!PyArg_ParseTuple(args, "ffff", &coord.x, &coord.y, &coord.z, &radius))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_POINT_ON_SCREEN>(coord.x, coord.y, coord.z, radius, &result);
+    return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetCarCoordinates(PyObject* self, PyObject* args)
