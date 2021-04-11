@@ -89,6 +89,7 @@ int PyLoader::ExecuteScript(std::string *path)
     std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
     FILE* fp = _Py_fopen(file_path.c_str(), "r");
     PyObject* s = PyRun_File(fp, path->c_str(), Py_file_input, m_pGlobalDict, m_pGlobalDict);
+
     Py_XDECREF(s);
 
     if (PyErr_Occurred())

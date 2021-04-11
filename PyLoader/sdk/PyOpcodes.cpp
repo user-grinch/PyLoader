@@ -11,6 +11,49 @@ PyObject* PyOpcodes::CarWanderRandomly(PyObject* self, PyObject* args)
     return Py_True;
 }
 
+PyObject* PyOpcodes::StoreCarCharIsIn(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, hcar = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hchar))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::STORE_CAR_CHAR_IS_IN>(hchar, &hcar);
+    return Py_BuildValue("i", hcar);
+}
+
+PyObject* PyOpcodes::IsCharInCar(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, hcar = NULL, result = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &hchar, &hcar))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::IS_CHAR_IN_CAR>(hchar, hcar);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsCharInModel(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, model = NULL, result = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &hchar, &model))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::IS_CHAR_IN_MODEL>(hchar, model);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsCharInAnyCar(PyObject* self, PyObject* args)
+{
+    int hchar = NULL;
+
+    if (!PyArg_ParseTuple(args, "i", &hchar))
+        return Py_False;
+
+    return Py_BuildValue("i", plugin::Command<plugin::Commands::IS_CHAR_IN_ANY_CAR>(hchar));
+}
+
 PyObject* PyOpcodes::CarSetIdle(PyObject* self, PyObject* args)
 {
     int hcar = NULL;
@@ -19,6 +62,12 @@ PyObject* PyOpcodes::CarSetIdle(PyObject* self, PyObject* args)
         return Py_False;
 
     plugin::Command<plugin::Commands::CAR_SET_IDLE>(hcar);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::MissionHasFinished(PyObject* self, PyObject* args)
+{
+    plugin::Command<plugin::Commands::MISSION_HAS_FINISHED>();
     return Py_True;
 }
 
@@ -70,27 +119,48 @@ PyObject* PyOpcodes::SetCarMission(PyObject* self, PyObject* args)
     return Py_True;
 }
 
+PyObject* PyOpcodes::IsButtonPressed(PyObject* self, PyObject* args)
+{
+    int pad1 = NULL, pad2 = NULL, result;
+
+    if (!PyArg_ParseTuple(args, "ii", &pad1, &pad2))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::IS_BUTTON_PRESSED>(pad1, pad2);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::GetPadState(PyObject* self, PyObject* args)
+{
+    int pad1 = NULL, pad2 = NULL, result = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &pad1, &pad2))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::GET_PAD_STATE>(pad1, pad2, &result);
+    return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::IsCharInArea2d(PyObject* self, PyObject* args)
 {
-    int hchar = NULL, result = NULL;
+    int hchar = NULL;
     CVector2D from, to;
 
     if (!PyArg_ParseTuple(args, "iffff", &hchar, &from.x, &from.y, &to.x, &to.y))
         return Py_False;
 
-    plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_2D>(hchar, from.x, from.y, to.x, to.y, &result);
-    return Py_BuildValue("i",result);
+    return Py_BuildValue("i", plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_2D>(hchar, from.x, from.y, to.x, to.y));
 }
 
 PyObject* PyOpcodes::IsCharInArea3d(PyObject* self, PyObject* args)
 {
-    int hchar = NULL, result = NULL;
+    int hchar = NULL, result;
     CVector from, to;
 
     if (!PyArg_ParseTuple(args, "iffffff", &hchar, &from.x, &from.y, &from.z, &to.x, &to.y, &to.z))
         return Py_False;
 
-    plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_3D>(hchar, from.x, from.y, from.z, to.x, to.y, to.z, &result);
+    result = plugin::Command<plugin::Commands::IS_CHAR_IN_AREA_3D>(hchar, from.x, from.y, from.z, to.x, to.y, to.z);
     return Py_BuildValue("i", result);
 }
 
@@ -102,7 +172,7 @@ PyObject* PyOpcodes::IsCarInArea2d(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "iffff", &hcar, &from.x, &from.y, &to.x, &to.y))
         return Py_False;
 
-    plugin::Command<plugin::Commands::IS_CAR_IN_AREA_2D>(hcar, from.x, from.y, to.x, to.y, &result);
+    result = plugin::Command<plugin::Commands::IS_CAR_IN_AREA_2D>(hcar, from.x, from.y, to.x, to.y);
     return Py_BuildValue("i", result);
 }
 
@@ -114,7 +184,79 @@ PyObject* PyOpcodes::IsCarInArea3d(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "iffffff", &hcar, &from.x, &from.y, &from.z, &to.x, &to.y, &to.z))
         return Py_False;
 
-    plugin::Command<plugin::Commands::IS_CAR_IN_AREA_3D>(hcar, from.x, from.y, from.z, to.x, to.y, to.z, &result);
+    result = plugin::Command<plugin::Commands::IS_CAR_IN_AREA_3D>(hcar, from.x, from.y, from.z, to.x, to.y, to.z);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharAnyMeans3d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL, sphere = NULL;
+    CVector coord, radius;
+
+    if (!PyArg_ParseTuple(args, "iffffff", &hchar, &coord.x, &coord.y, &coord.z, &radius.x, &radius.y, &radius.z))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_ANY_MEANS_3D>(hchar, coord.x, coord.y, coord.z, radius.x, radius.y, radius.z, &sphere);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharAnyMeans2d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL, sphere = NULL;
+    CVector2D coord, radius;
+
+    if (!PyArg_ParseTuple(args, "iffffi", &hchar, &coord.x, &coord.y, &radius.x, &radius.y, &sphere))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_ANY_MEANS_2D>(hchar, coord.x, coord.y, radius.x, radius.y, sphere);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharInCar3d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL, sphere = NULL;
+    CVector coord, radius;
+
+    if (!PyArg_ParseTuple(args, "iffffff", &hchar, &coord.x, &coord.y, &coord.z, &radius.x, &radius.y, &radius.z))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_IN_CAR_3D>(hchar, coord.x, coord.y, coord.z, radius.x, radius.y, radius.z, &sphere);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharInCar2d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL, sphere = NULL;
+    CVector2D coord, radius;
+
+    if (!PyArg_ParseTuple(args, "iffffi", &hchar, &coord.x, &coord.y, &radius.x, &radius.y, &sphere))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_IN_CAR_2D>(hchar, coord.x, coord.y, radius.x, radius.y, sphere);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharOnFoot2d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL;
+    CVector2D coord;
+
+    if (!PyArg_ParseTuple(args, "iff", &hchar, &coord.x, &coord.y))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_ON_FOOT_2D>(hchar, coord.x, coord.y);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::LocateCharOnFoot3d(PyObject* self, PyObject* args)
+{
+    int hchar = NULL, result = NULL;
+    CVector coord;
+
+    if (!PyArg_ParseTuple(args, "ifff", &hchar, &coord.x, &coord.y, &coord.z))
+        return Py_False;
+
+    result = plugin::Command<plugin::Commands::LOCATE_CHAR_ON_FOOT_3D>(hchar, coord.x, coord.y, &coord.z);
     return Py_BuildValue("i", result);
 }
 
@@ -385,7 +527,7 @@ PyObject* PyOpcodes::IsPointOnScreen(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "ffff", &coord.x, &coord.y, &coord.z, &radius))
         return Py_False;
 
-    plugin::Command<plugin::Commands::IS_POINT_ON_SCREEN>(coord.x, coord.y, coord.z, radius, &result);
+    result = plugin::Command<plugin::Commands::IS_POINT_ON_SCREEN>(coord.x, coord.y, coord.z, radius);
     return Py_BuildValue("i", result);
 }
 
@@ -465,7 +607,7 @@ PyObject* PyOpcodes::SetObjectCoordinates(PyObject* self, PyObject* args)
 
 PyObject* PyOpcodes::GetPlayerChar(PyObject* self, PyObject* args)
 {
-    return PyLong_FromLong(CPools::GetPedRef(FindPlayerPed()));
+    return Py_BuildValue("i", CPools::GetPedRef(FindPlayerPed()));
 }
 
 PyObject* PyOpcodes::ShakeCam(PyObject* self, PyObject* args)
