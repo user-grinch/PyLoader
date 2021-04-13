@@ -1,33 +1,12 @@
 // List of opcodes that are not yet wrapped
-015B 3 int, int, int shake pad 
-016F 10 int, flt, flt, flt, flt, flt, int, int, int, int draw shadow 
-0179 2 char handle, object handle is char touching object 
-017B 3 char handle, int, int set char weapon ammo 
-023B 2 char handle, object handle is char touching object on foot 
-02B9 1 garage handle deactivate garage 
-02D6 6 char handle, flt, flt, flt, flt, int is char shooting in area 
-02DD 3 5 string, var string, int, int, int, var get random char in zone parameters rearranged in GTA III in SB
-0303 7 string, int, int, int, int, int, int print with 4 numbers now 
-0338 2 car handle, int set car visible 
-0344 1 flt set text centre size 
-0349 1 int set text font 
-0356 7 int, flt, flt, flt, flt, flt, flt is explosion in area 
-035D 1 2 object handle object handle, int make object targettable 
-0364 2 char handle, char handle has char spotted char 
-0385 4 string, string, int, int print string in string soon 
-0393 2 3 char handle, flt char handle, string, flt set char animation speed 
-03C3 2 3 global var, string global var, int, string display onscreen timer with string 
-03CF 1 2 string int, string load mission audio 
-03D0 0 1  int has mission audio loaded 
-03D1 0 1  int play mission audio 
-03D2 0 1  int has mission audio finished 
+03D1 1 int play mission audio 
 03D7 3 4 flt, flt, flt int, flt, flt, flt set mission audio position 
 03E0 1 int set text draw before fade 
 03FD 1 2 int player handle, int register 4x4 one time set player handling responsiveness 
 03FE 1 2 int char handle, int register 4x4 two time set char money 
 0400 1 7 int object handle, flt, flt, flt, var, var, var register 4x4 mayhem time get offset from object in world coords 
 0407 1 7 int car handle, flt, flt, flt, var, var, var register defuse bomb time get offset from car in world coords 
-040D 0 1  int clear mission audio 
+040D 0 1 int clear mission audio 
 0430 3 char handle, car handle, int warp char into car as passenger 
 0432 3 car handle, int, var get char in passenger seat 
 0458 2 player handle, object handle is player targetting object 
@@ -158,7 +137,7 @@
 0595 0  register oddjob mission passed 
 0597 1 char handle is char ducking 
 059A 0  is Australian game 
-059C]] {{Icon|SA}} {{Icon|VC}} 2 0 global var, int &nbsp; set onscreen counter flash when first displayed is Japanese game last opcode available for Vice City JP and Steam
+059C 2 0 global var, int &nbsp; set onscreen counter flash when first displayed is Japanese game last opcode available for Vice City JP and Steam
 059D 1 int shuffle card decks  Steam
 059E 1 var fetch next card  Steam
 059F 4 object handle, var, var, var get object velocity 
@@ -271,9 +250,6 @@
 01C5 1 char handle dont remove char 
 01C7 1 object handle dont remove object 
 01C8 5 car handle, int, int, int, var create char as passenger 
-01E3 4 string, int, int, int print with number big 
-01E4 4 string, int, int, int print with number 
-01E5 4 string, int, int, int print with number now 
 01E7 6 flt, flt, flt, flt, flt, flt switch roads on 
 01E8 6 flt, flt, flt, flt, flt, flt switch roads off 
 01E9 2 car handle, var get number of passengers 
@@ -305,7 +281,6 @@
 0214 1 pickup handle has pickup been collected 
 0215 1 pickup handle remove pickup 
 0216 2 car handle, int set taxi lights 
-0217 3 string, int, int print text big q 
 021B 2 garage handle, car handle set target car for mission garage 
 0221 2 player handle, int set player cannot exit car 
 0223 2 char handle, int set char health 
@@ -369,10 +344,6 @@
 02F8 2 car handle, var get car forward x 
 02F9 2 car handle, var get car forward y 
 02FA 2 garage handle, int change garage type 
-02FD 5 string, int, int, int, int print with 2 numbers now 
-02FF 6 string, int, int, int, int, int print with 3 numbers 
-0302 7 string, int, int, int, int, int, int print with 4 numbers 
-0308 9 string, int, int, int, int, int, int, int, int print with 6 numbers 
 030C 1 int player made progress 
 030D 1 int set max progress 
 0317 0  register mission given 
@@ -413,12 +384,10 @@
 0363 6 flt, flt, flt, flt, int, int set visibility of closest object of type 
 0366 1 object handle has object been damaged 
 036A 2 char handle, car handle warp char into car 
-036D 5 string, int, int, int, int print text with 2 numbers big 
 0373 0  set camera behind player 
 0376 4 flt, flt, flt, var create random char 
 0381 4 object handle, flt, flt, flt set object velocity 
 0382 2 object handle, int set object collision 
-0384 4 string, string, int, int print string in string now 
 038A 6 flt, flt, flt, flt, flt, flt is point obscured by a mission entity 
 038C 4 object handle, flt, flt, flt add to object velocity 
 038D 9 int, flt, flt, flt, flt, int, int, int, int draw texture 
@@ -530,3 +499,4 @@
 0477 3 car handle, int, int set car driving behavior 
 047A 1 char handle is char on any bike 
 0480 2 char handle, int is char looking at death of char with pedtype 
+

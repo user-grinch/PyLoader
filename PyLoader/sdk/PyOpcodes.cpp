@@ -426,6 +426,63 @@ PyObject* PyOpcodes::PrintBig(PyObject* self, PyObject* args)
     return Py_True;
 }
 
+PyObject* PyOpcodes::ShakePad(PyObject* self, PyObject* args)
+{
+    int a,b,c;
+
+    if (!PyArg_ParseTuple(args, "iii", &a, &b, &c))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SHAKE_PAD>(a, b, c);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::IsCharTouchingObject(PyObject* self, PyObject* args)
+{
+    int actor, obj;
+
+    if (!PyArg_ParseTuple(args, "ii", &actor, &obj))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::IS_CHAR_TOUCHING_OBJECT>(actor, obj);
+    return Py_BuildValue("i",result);
+}
+
+PyObject* PyOpcodes::IsCharTouchingObjectOnFoot(PyObject* self, PyObject* args)
+{
+    int actor, obj;
+
+    if (!PyArg_ParseTuple(args, "ii", &actor, &obj))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::IS_CHAR_TOUCHING_OBJECT_ON_FOOT>(actor, obj);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::SetCharAmmo(PyObject* self, PyObject* args)
+{
+    int actor, weapon_id, ammo;
+
+    if (!PyArg_ParseTuple(args, "iii", &actor, &weapon_id, &ammo))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::SET_CHAR_AMMO>(actor, weapon_id, ammo);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::DrawShadow(PyObject* self, PyObject* args)
+{
+    int shadow_id, unk, red, green, blue;
+    CVector coord;
+    float size, angle;
+
+    if (!PyArg_ParseTuple(args, "ifffffiiii", &shadow_id, &coord.x, &coord.y, &coord.z, &angle, &size, &unk, &red, &green, &blue))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DRAW_SHADOW>(shadow_id, coord.x, coord.y, coord.z, angle, size, unk, red, green, blue);
+    return Py_True;
+}
+
 PyObject* PyOpcodes::Print(PyObject* self, PyObject* args)
 {
     char* gxt;
@@ -436,6 +493,177 @@ PyObject* PyOpcodes::Print(PyObject* self, PyObject* args)
 
     plugin::Command<plugin::Commands::PRINT>(gxt, time, style);
     return Py_True;
+}
+
+PyObject* PyOpcodes::DeactivateGarage(PyObject* self, PyObject* args)
+{
+    char* name;
+
+    if (!PyArg_ParseTuple(args, "s", &name))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DEACTIVATE_GARAGE>(name);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::IsCharShootingInArea(PyObject* self, PyObject* args)
+{
+    CVector2D start, end;
+    int weapon_id, actor;
+
+    if (!PyArg_ParseTuple(args, "iffffi", &actor, &start.x, &start.y, &end.x, &end.y, &weapon_id))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::IS_CHAR_SHOOTING_IN_AREA>(actor, start.x, start.y, end.x, end.y, weapon_id);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::GetRandomCharInZone(PyObject* self, PyObject* args)
+{
+    char* area_name;
+    int civ, gang, crim, handle;
+
+    if (!PyArg_ParseTuple(args, "siiii", &area_name, &civ, &gang, &crim))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::GET_RANDOM_CHAR_IN_ZONE>(area_name, civ, gang, crim, &handle);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetCarVisible(PyObject* self, PyObject* args)
+{
+    int handle, state;
+
+    if (!PyArg_ParseTuple(args, "ii", &handle, &state))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_CAR_VISIBLE>(handle, state);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetTextCentreSize(PyObject* self, PyObject* args)
+{
+    float size;
+
+    if (!PyArg_ParseTuple(args, "f", &size))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_TEXT_CENTRE_SIZE>(size);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::SetTextFont(PyObject* self, PyObject* args)
+{
+    int font;
+
+    if (!PyArg_ParseTuple(args, "i", &font))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_TEXT_FONT>(font);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::MakeObjectTargettable(PyObject* self, PyObject* args)
+{
+    int handle, state;
+
+    if (!PyArg_ParseTuple(args, "ii", &handle, &state))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::MAKE_OBJECT_TARGETTABLE>(handle, state);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::HasCharSpottedChar(PyObject* self, PyObject* args)
+{
+    int actor1, actor2;
+
+    if (!PyArg_ParseTuple(args, "ii", &actor1, &actor2))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::HAS_CHAR_SPOTTED_CHAR>(actor1, actor2);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::SetCharAnimSpeed(PyObject* self, PyObject* args)
+{
+    int actor;
+    char* name;
+    float speed;
+
+    if (!PyArg_ParseTuple(args, "isf", &actor, &name, &speed))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::SET_CHAR_ANIM_SPEED>(actor, name, speed);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::DisplayOnScreenTimerWithString(PyObject* self, PyObject* args)
+{
+    int a1, a2;
+    char* gxt;
+
+    if (!PyArg_ParseTuple(args, "iis", &a1, &a2, &gxt))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::DISPLAY_ONSCREEN_TIMER_WITH_STRING>(a1, a2, gxt);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::LoadMissionAudio(PyObject* self, PyObject* args)
+{
+    int a1, sound_id;
+
+    if (!PyArg_ParseTuple(args, "ii", &a1, &sound_id))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::LOAD_MISSION_AUDIO>(a1, sound_id);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::HasMissionAudioLoaded(PyObject* self, PyObject* args)
+{
+    int a1;
+
+    if (!PyArg_ParseTuple(args, "i", &a1))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_LOADED>(a1);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::HasMissionAudioFinished(PyObject* self, PyObject* args)
+{
+    int a1;
+
+    if (!PyArg_ParseTuple(args, "i", &a1))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_FINISHED>(a1);
+    return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::PlayMissionAudio(PyObject* self, PyObject* args)
+{
+    int a1;
+
+    if (!PyArg_ParseTuple(args, "i", &a1))
+        return Py_False;
+
+    plugin::Command<plugin::Commands::PLAY_MISSION_AUDIO>(a1);
+    return Py_True;
+}
+
+PyObject* PyOpcodes::IsExplosionInArea(PyObject* self, PyObject* args)
+{
+    int explosion_type;
+    CVector coord1, coord2;
+
+    if (!PyArg_ParseTuple(args, "iffffff", &explosion_type, &coord1.x, &coord1.y, &coord1.z, &coord2.x, &coord2.y, &coord2.z))
+        return Py_False;
+
+    int result = plugin::Command<plugin::Commands::IS_EXPLOSION_IN_AREA>(explosion_type, coord1.x, coord1.y, coord1.z, coord2.x, coord2.y, coord2.z);
+    return Py_BuildValue("i",result);
 }
 
 PyObject* PyOpcodes::PrintNow(PyObject* self, PyObject* args)
