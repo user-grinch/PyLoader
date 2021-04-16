@@ -1,9 +1,4 @@
 // List of opcodes that are not yet wrapped
-03D1 1 int play mission audio 
-03D7 3 4 flt, flt, flt int, flt, flt, flt set mission audio position 
-03E0 1 int set text draw before fade 
-03FD 1 2 int player handle, int register 4x4 one time set player handling responsiveness 
-03FE 1 2 int char handle, int register 4x4 two time set char money 
 0400 1 7 int object handle, flt, flt, flt, var, var, var register 4x4 mayhem time get offset from object in world coords 
 0407 1 7 int car handle, flt, flt, flt, var, var, var register defuse bomb time get offset from car in world coords 
 040D 0 1 int clear mission audio 
@@ -11,7 +6,6 @@
 0432 3 car handle, int, var get char in passenger seat 
 0458 2 player handle, object handle is player targetting object 
 0484 2 player handle, var get remote controlled car 
-0485 0  check if game is PC version 
 0488 1 int is model available 
 0489 2 char handle, int shut character up 
 048A 1 int set enable rc detonate 
@@ -126,7 +120,6 @@
 0574 2 car handle, int freeze car position and dont load collision 
 0575 2 char handle, int freeze char position and dont load collision 
 057E 1 int set player is in stadium 
-0581 1 int display radar 
 0582 2 int, int register best position 
 0583 2 player handle, string is player in info zone 
 0587 2 car handle, int set load collision for car flag 
@@ -136,8 +129,6 @@
 0594 2 car handle, int set vehicle to fade in 
 0595 0  register oddjob mission passed 
 0597 1 char handle is char ducking 
-059A 0  is Australian game 
-059C 2 0 global var, int &nbsp; set onscreen counter flash when first displayed is Japanese game last opcode available for Vice City JP and Steam
 059D 1 int shuffle card decks  Steam
 059E 1 var fetch next card  Steam
 059F 4 object handle, var, var, var get object velocity 
@@ -295,7 +286,6 @@
 0241 1 player handle is player in remote mode 
 0244 3 flt, flt, flt set cutscene offset 
 0245 2 char handle, int set anim group for char 
-0247 1 int request model 
 0248 1 int has model loaded 
 0249 1 int mark model as no longer needed 
 024F 9 flt, flt, flt, flt, int, int, int, int, int create corona 
@@ -446,7 +436,6 @@
 03F3 3 car handle, var, var get car colours 
 03F4 1 int set all cars can be damaged 
 03F5 2 car handle, int set car can be damaged 
-040C 0  is German game 
 0414 2 player handle, int set free health care 
 0417 1 int launch mission 
 0418 2 object handle, int set object draw last 
