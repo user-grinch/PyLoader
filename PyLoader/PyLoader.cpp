@@ -3,6 +3,7 @@
 #include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
+#include "sdk/PyMemory.h"
 
 std::ofstream flog("PyLoader.log");
 
@@ -19,6 +20,7 @@ void PyLoader::PluginThread(void* param)
     
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
+    PyImport_AppendInittab("memory", &PyMemory::Init);
     PyImport_AppendInittab("opcode", &PyOpcodes::Init);
     
     Py_Initialize();

@@ -98,6 +98,7 @@
     <ClCompile Include="PyLoader.cpp" />
     <ClCompile Include="sdk\PyCHud.cpp" />
     <ClCompile Include="sdk\PyCommon.cpp" />
+    <ClCompile Include="sdk\PyMemory.cpp" />
     <ClCompile Include="sdk\PyOpcodes.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +106,7 @@
     <ClInclude Include="PyLoader.h" />
     <ClInclude Include="sdk\PyCHud.h" />
     <ClInclude Include="sdk\PyCommon.h" />
+    <ClInclude Include="sdk\PyMemory.h" />
     <ClInclude Include="sdk\PyOpcodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

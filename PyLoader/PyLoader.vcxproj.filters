@@ -6,6 +6,7 @@
     <ClCompile Include="sdk\PyCHud.cpp" />
     <ClCompile Include="sdk\PyCommon.cpp" />
     <ClCompile Include="sdk\PyOpcodes.cpp" />
+    <ClCompile Include="sdk\PyMemory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -13,5 +14,6 @@
     <ClInclude Include="sdk\PyCHud.h" />
     <ClInclude Include="sdk\PyCommon.h" />
     <ClInclude Include="sdk\PyOpcodes.h" />
+    <ClInclude Include="sdk\PyMemory.h" />
   </ItemGroup>
 </Project>
