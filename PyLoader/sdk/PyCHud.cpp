@@ -11,3 +11,13 @@ PyObject* PyCHud::SetHelpMessage(PyObject *self, PyObject *args)
     CHud::SetHelpMessage(str, quick_msg, perm, add_brief);
     return Py_True;
 }
+
+PyObject* PyCHud::SetMessage(PyObject* self, PyObject* args)
+{
+    char* str;
+    if (!PyArg_ParseTuple(args, "s", &str))
+        return Py_False;
+
+    CHud::SetMessage(str);
+    return Py_True;
+}

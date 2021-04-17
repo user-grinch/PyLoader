@@ -86,6 +86,7 @@ for header in xml_root:
             
 
             if len(params_tuple) != 0:
+                params_tuple.insert(0,params_tuple.pop())
                 fsrc.write('\tif (!PyArg_ParseTuple(args,"{}", {}))\n\t\treturn Py_False;\n\n'.format(''.join(params_tuple),ref_str[:-2]))
 
             # handle different types of opcodes
