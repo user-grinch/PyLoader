@@ -11,6 +11,7 @@ private:
     static PyObject* ActivateInteriorPeds(PyObject* self, PyObject* args);
     static PyObject* ActivateMenuItem(PyObject* self, PyObject* args);
     static PyObject* ActivatePimpCheat(PyObject* self, PyObject* args);
+    static PyObject* ActivateSaveMenu(PyObject* self, PyObject* args);
     static PyObject* AddAmmoToChar(PyObject* self, PyObject* args);
     static PyObject* AddArmourToChar(PyObject* self, PyObject* args);
     static PyObject* AddAttractor(PyObject* self, PyObject* args);
@@ -65,7 +66,11 @@ private:
     static PyObject* AppendToNextCutscene(PyObject* self, PyObject* args);
     static PyObject* ApplyBrakesToPlayersCar(PyObject* self, PyObject* args);
     static PyObject* ApplyForceToCar(PyObject* self, PyObject* args);
+    static PyObject* AreAnyCarCheatsActivated(PyObject* self, PyObject* args);
     static PyObject* AreAnyCharsNearChar(PyObject* self, PyObject* args);
+    static PyObject* AreCreditsFinished(PyObject* self, PyObject* args);
+    static PyObject* AreMeasurementsInMetres(PyObject* self, PyObject* args);
+    static PyObject* AreSubtitlesSwitchedOn(PyObject* self, PyObject* args);
     static PyObject* AttachAnimsToModel(PyObject* self, PyObject* args);
     static PyObject* AttachCameraToChar(PyObject* self, PyObject* args);
     static PyObject* AttachCameraToCharLookAtChar(PyObject* self, PyObject* args);
@@ -95,9 +100,12 @@ private:
     static PyObject* BuildPlayerModel(PyObject* self, PyObject* args);
     static PyObject* BurstCarTyre(PyObject* self, PyObject* args);
     static PyObject* BuyItem(PyObject* self, PyObject* args);
+    static PyObject* CameraIsVectorMoveRunning(PyObject* self, PyObject* args);
+    static PyObject* CameraIsVectorTrackRunning(PyObject* self, PyObject* args);
     static PyObject* CameraPersistFov(PyObject* self, PyObject* args);
     static PyObject* CameraPersistPos(PyObject* self, PyObject* args);
     static PyObject* CameraPersistTrack(PyObject* self, PyObject* args);
+    static PyObject* CameraResetNewScriptables(PyObject* self, PyObject* args);
     static PyObject* CameraSetLerpFov(PyObject* self, PyObject* args);
     static PyObject* CameraSetShakeSimulationSimple(PyObject* self, PyObject* args);
     static PyObject* CameraSetVectorMove(PyObject* self, PyObject* args);
@@ -105,6 +113,7 @@ private:
     static PyObject* CanCharSeeDeadChar(PyObject* self, PyObject* args);
     static PyObject* CanPlayerStartMission(PyObject* self, PyObject* args);
     static PyObject* CanTriggerGangWarWhenOnAMission(PyObject* self, PyObject* args);
+    static PyObject* CancelOverrideRestart(PyObject* self, PyObject* args);
     static PyObject* CarGotoCoordinates(PyObject* self, PyObject* args);
     static PyObject* CarGotoCoordinatesAccurate(PyObject* self, PyObject* args);
     static PyObject* CarGotoCoordinatesRacing(PyObject* self, PyObject* args);
@@ -118,6 +127,9 @@ private:
     static PyObject* ChangeGarageType(PyObject* self, PyObject* args);
     static PyObject* ChangePlaybackToUseAi(PyObject* self, PyObject* args);
     static PyObject* ClearAllCharRelationships(PyObject* self, PyObject* args);
+    static PyObject* ClearAllScriptFireFlags(PyObject* self, PyObject* args);
+    static PyObject* ClearAllScriptRoadblocks(PyObject* self, PyObject* args);
+    static PyObject* ClearAllViewVariables(PyObject* self, PyObject* args);
     static PyObject* ClearArea(PyObject* self, PyObject* args);
     static PyObject* ClearAreaOfCars(PyObject* self, PyObject* args);
     static PyObject* ClearAreaOfChars(PyObject* self, PyObject* args);
@@ -131,13 +143,16 @@ private:
     static PyObject* ClearCharTasks(PyObject* self, PyObject* args);
     static PyObject* ClearCharTasksImmediately(PyObject* self, PyObject* args);
     static PyObject* ClearConversationForChar(PyObject* self, PyObject* args);
+    static PyObject* ClearCutscene(PyObject* self, PyObject* args);
     static PyObject* ClearExtraColours(PyObject* self, PyObject* args);
     static PyObject* ClearGlobalVarBitConst(PyObject* self, PyObject* args);
     static PyObject* ClearGlobalVarBitLvar(PyObject* self, PyObject* args);
     static PyObject* ClearGlobalVarBitVar(PyObject* self, PyObject* args);
     static PyObject* ClearGroupDecisionMakerEventResponse(PyObject* self, PyObject* args);
     static PyObject* ClearHeliOrientation(PyObject* self, PyObject* args);
+    static PyObject* ClearHelp(PyObject* self, PyObject* args);
     static PyObject* ClearLastBuildingModelShotByPlayer(PyObject* self, PyObject* args);
+    static PyObject* ClearLoadedShop(PyObject* self, PyObject* args);
     static PyObject* ClearLocalVarBitConst(PyObject* self, PyObject* args);
     static PyObject* ClearLocalVarBitLvar(PyObject* self, PyObject* args);
     static PyObject* ClearLocalVarBitVar(PyObject* self, PyObject* args);
@@ -146,8 +161,12 @@ private:
     static PyObject* ClearObjectLastWeaponDamage(PyObject* self, PyObject* args);
     static PyObject* ClearOnscreenCounter(PyObject* self, PyObject* args);
     static PyObject* ClearOnscreenTimer(PyObject* self, PyObject* args);
+    static PyObject* ClearPrints(PyObject* self, PyObject* args);
     static PyObject* ClearRelationship(PyObject* self, PyObject* args);
     static PyObject* ClearSequenceTask(PyObject* self, PyObject* args);
+    static PyObject* ClearSkip(PyObject* self, PyObject* args);
+    static PyObject* ClearSmallPrints(PyObject* self, PyObject* args);
+    static PyObject* ClearSpecificZonesToTriggerGangWar(PyObject* self, PyObject* args);
     static PyObject* ClearThisBigPrint(PyObject* self, PyObject* args);
     static PyObject* ClearThisFloatWatchpoint(PyObject* self, PyObject* args);
     static PyObject* ClearThisIntegerWatchpoint(PyObject* self, PyObject* args);
@@ -156,6 +175,7 @@ private:
     static PyObject* ClearThisViewFloatVariable(PyObject* self, PyObject* args);
     static PyObject* ClearThisViewIntegerVariable(PyObject* self, PyObject* args);
     static PyObject* ClearWantedLevel(PyObject* self, PyObject* args);
+    static PyObject* ClearWantedLevelInGarage(PyObject* self, PyObject* args);
     static PyObject* CloseAllCarDoors(PyObject* self, PyObject* args);
     static PyObject* CloseGarage(PyObject* self, PyObject* args);
     static PyObject* CloseSequenceTask(PyObject* self, PyObject* args);
@@ -223,11 +243,13 @@ private:
     static PyObject* DeclareMissionFlag(PyObject* self, PyObject* args);
     static PyObject* DecrementFloatStat(PyObject* self, PyObject* args);
     static PyObject* DecrementIntStat(PyObject* self, PyObject* args);
+    static PyObject* DeleteAllTrains(PyObject* self, PyObject* args);
     static PyObject* DeleteCar(PyObject* self, PyObject* args);
     static PyObject* DeleteChar(PyObject* self, PyObject* args);
     static PyObject* DeleteCheckpoint(PyObject* self, PyObject* args);
     static PyObject* DeleteMenu(PyObject* self, PyObject* args);
     static PyObject* DeleteMissionTrain(PyObject* self, PyObject* args);
+    static PyObject* DeleteMissionTrains(PyObject* self, PyObject* args);
     static PyObject* DeleteObject(PyObject* self, PyObject* args);
     static PyObject* DeletePlayer(PyObject* self, PyObject* args);
     static PyObject* DeleteSearchlight(PyObject* self, PyObject* args);
@@ -257,6 +279,7 @@ private:
     static PyObject* Do2DRectanglesCollide(PyObject* self, PyObject* args);
     static PyObject* DoCameraBump(PyObject* self, PyObject* args);
     static PyObject* DoFade(PyObject* self, PyObject* args);
+    static PyObject* DoWeaponStuffAtStartOf2PGame(PyObject* self, PyObject* args);
     static PyObject* DoesBlipExist(PyObject* self, PyObject* args);
     static PyObject* DoesCarHaveHydraulics(PyObject* self, PyObject* args);
     static PyObject* DoesCarHaveStuckCarCheck(PyObject* self, PyObject* args);
@@ -271,6 +294,7 @@ private:
     static PyObject* DoesVehicleExist(PyObject* self, PyObject* args);
     static PyObject* DontRemoveChar(PyObject* self, PyObject* args);
     static PyObject* DontRemoveObject(PyObject* self, PyObject* args);
+    static PyObject* DontSuppressAnyCarModels(PyObject* self, PyObject* args);
     static PyObject* DontSuppressCarModel(PyObject* self, PyObject* args);
     static PyObject* DrawCorona(PyObject* self, PyObject* args);
     static PyObject* DrawCrosshair(PyObject* self, PyObject* args);
@@ -301,10 +325,14 @@ private:
     static PyObject* ExtendPatrolRoute(PyObject* self, PyObject* args);
     static PyObject* ExtendRoute(PyObject* self, PyObject* args);
     static PyObject* ExtinguishFireAtPoint(PyObject* self, PyObject* args);
+    static PyObject* FailCurrentMission(PyObject* self, PyObject* args);
+    static PyObject* FailKillFrenzy(PyObject* self, PyObject* args);
     static PyObject* FetchNextCard(PyObject* self, PyObject* args);
     static PyObject* FindMaxNumberOfGroupMembers(PyObject* self, PyObject* args);
     static PyObject* FindNumberTagsTagged(PyObject* self, PyObject* args);
     static PyObject* FindTrainDirection(PyObject* self, PyObject* args);
+    static PyObject* FinishSettingUpConversation(PyObject* self, PyObject* args);
+    static PyObject* FinishSettingUpConversationNoSubtitles(PyObject* self, PyObject* args);
     static PyObject* FireHunterGun(PyObject* self, PyObject* args);
     static PyObject* FireSingleBullet(PyObject* self, PyObject* args);
     static PyObject* FixCar(PyObject* self, PyObject* args);
@@ -312,9 +340,12 @@ private:
     static PyObject* FixCarPanel(PyObject* self, PyObject* args);
     static PyObject* FixCarTyre(PyObject* self, PyObject* args);
     static PyObject* FlashHudObject(PyObject* self, PyObject* args);
+    static PyObject* FlushPatrolRoute(PyObject* self, PyObject* args);
+    static PyObject* FlushRoute(PyObject* self, PyObject* args);
     static PyObject* ForceAllVehicleLightsOff(PyObject* self, PyObject* args);
     static PyObject* ForceBigMessageAndCounter(PyObject* self, PyObject* args);
     static PyObject* ForceCarLights(PyObject* self, PyObject* args);
+    static PyObject* ForceDeathRestart(PyObject* self, PyObject* args);
     static PyObject* ForceInteriorLightingForPlayer(PyObject* self, PyObject* args);
     static PyObject* ForceWeather(PyObject* self, PyObject* args);
     static PyObject* ForceWeatherNow(PyObject* self, PyObject* args);
@@ -396,6 +427,7 @@ private:
     static PyObject* GetDoorAngleRatio(PyObject* self, PyObject* args);
     static PyObject* GetDriverOfCar(PyObject* self, PyObject* args);
     static PyObject* GetExtraCarColours(PyObject* self, PyObject* args);
+    static PyObject* GetFadingStatus(PyObject* self, PyObject* args);
     static PyObject* GetFloatStat(PyObject* self, PyObject* args);
     static PyObject* GetGameTimer(PyObject* self, PyObject* args);
     static PyObject* GetGroundZFor3DCoord(PyObject* self, PyObject* args);
@@ -472,6 +504,7 @@ private:
     static PyObject* GetRandomCharInSphereOnlyDrugsBuyers(PyObject* self, PyObject* args);
     static PyObject* GetRandomCharInZone(PyObject* self, PyObject* args);
     static PyObject* GetRemoteControlledCar(PyObject* self, PyObject* args);
+    static PyObject* GetRidOfPlayerProstitute(PyObject* self, PyObject* args);
     static PyObject* GetRopeHeightForObject(PyObject* self, PyObject* args);
     static PyObject* GetScriptFireCoords(PyObject* self, PyObject* args);
     static PyObject* GetScriptTaskStatus(PyObject* self, PyObject* args);
@@ -519,6 +552,11 @@ private:
     static PyObject* HasCharGotWeapon(PyObject* self, PyObject* args);
     static PyObject* HasCharSpottedChar(PyObject* self, PyObject* args);
     static PyObject* HasCharSpottedCharInFront(PyObject* self, PyObject* args);
+    static PyObject* HasCutsceneFinished(PyObject* self, PyObject* args);
+    static PyObject* HasCutsceneLoaded(PyObject* self, PyObject* args);
+    static PyObject* HasDeatharrestBeenExecuted(PyObject* self, PyObject* args);
+    static PyObject* HasGameJustReturnedFromFrontend(PyObject* self, PyObject* args);
+    static PyObject* HasLanguageChanged(PyObject* self, PyObject* args);
     static PyObject* HasMissionAudioFinished(PyObject* self, PyObject* args);
     static PyObject* HasMissionAudioLoaded(PyObject* self, PyObject* args);
     static PyObject* HasModelLoaded(PyObject* self, PyObject* args);
@@ -530,6 +568,7 @@ private:
     static PyObject* HasObjectOfTypeBeenSmashed(PyObject* self, PyObject* args);
     static PyObject* HasPickupBeenCollected(PyObject* self, PyObject* args);
     static PyObject* HasPlayerBoughtItem(PyObject* self, PyObject* args);
+    static PyObject* HasSaveGameFinished(PyObject* self, PyObject* args);
     static PyObject* HasSpecialCharacterLoaded(PyObject* self, PyObject* args);
     static PyObject* HasStreamedScriptLoaded(PyObject* self, PyObject* args);
     static PyObject* HasTrainDerailed(PyObject* self, PyObject* args);
@@ -550,9 +589,12 @@ private:
     static PyObject* IncrementFloatStatNoMessage(PyObject* self, PyObject* args);
     static PyObject* IncrementIntStat(PyObject* self, PyObject* args);
     static PyObject* IncrementIntStatNoMessage(PyObject* self, PyObject* args);
+    static PyObject* InitZonePopulationSettings(PyObject* self, PyObject* args);
+    static PyObject* Is2PlayerGameGoingOn(PyObject* self, PyObject* args);
     static PyObject* IsAnyPickupAtCoords(PyObject* self, PyObject* args);
     static PyObject* IsAreaOccupied(PyObject* self, PyObject* args);
     static PyObject* IsAttachedPlayerHeadingAchieved(PyObject* self, PyObject* args);
+    static PyObject* IsAustralianGame(PyObject* self, PyObject* args);
     static PyObject* IsBigVehicle(PyObject* self, PyObject* args);
     static PyObject* IsButtonPressed(PyObject* self, PyObject* args);
     static PyObject* IsCarDead(PyObject* self, PyObject* args);
@@ -652,18 +694,23 @@ private:
     static PyObject* IsConversationAtNode(PyObject* self, PyObject* args);
     static PyObject* IsCopVehicleInArea3DNoSave(PyObject* self, PyObject* args);
     static PyObject* IsCurrentCharWeapon(PyObject* self, PyObject* args);
+    static PyObject* IsDebugCameraOn(PyObject* self, PyObject* args);
     static PyObject* IsEmergencyServicesVehicle(PyObject* self, PyObject* args);
     static PyObject* IsExplosionInArea(PyObject* self, PyObject* args);
     static PyObject* IsFlameInAngledArea2D(PyObject* self, PyObject* args);
     static PyObject* IsFlameInAngledArea3D(PyObject* self, PyObject* args);
     static PyObject* IsFloatLvarEqualToFloatVar(PyObject* self, PyObject* args);
+    static PyObject* IsGangWarFightingGoingOn(PyObject* self, PyObject* args);
+    static PyObject* IsGangWarGoingOn(PyObject* self, PyObject* args);
     static PyObject* IsGarageClosed(PyObject* self, PyObject* args);
     static PyObject* IsGarageOpen(PyObject* self, PyObject* args);
+    static PyObject* IsGermanGame(PyObject* self, PyObject* args);
     static PyObject* IsGlobalVarBitSetConst(PyObject* self, PyObject* args);
     static PyObject* IsGlobalVarBitSetLvar(PyObject* self, PyObject* args);
     static PyObject* IsGlobalVarBitSetVar(PyObject* self, PyObject* args);
     static PyObject* IsGroupLeader(PyObject* self, PyObject* args);
     static PyObject* IsGroupMember(PyObject* self, PyObject* args);
+    static PyObject* IsHelpMessageBeingDisplayed(PyObject* self, PyObject* args);
     static PyObject* IsIntLvarEqualToIntVar(PyObject* self, PyObject* args);
     static PyObject* IsLastBuildingModelShotByPlayer(PyObject* self, PyObject* args);
     static PyObject* IsLineOfSightClear(PyObject* self, PyObject* args);
@@ -671,10 +718,14 @@ private:
     static PyObject* IsLocalVarBitSetLvar(PyObject* self, PyObject* args);
     static PyObject* IsLocalVarBitSetVar(PyObject* self, PyObject* args);
     static PyObject* IsLvarTextLabelEqualToTextLabel(PyObject* self, PyObject* args);
+    static PyObject* IsMessageBeingDisplayed(PyObject* self, PyObject* args);
+    static PyObject* IsMinigameInProgress(PyObject* self, PyObject* args);
     static PyObject* IsModelAvailable(PyObject* self, PyObject* args);
     static PyObject* IsModelInCdimage(PyObject* self, PyObject* args);
     static PyObject* IsMoneyPickupAtCoords(PyObject* self, PyObject* args);
+    static PyObject* IsMouseUsingVerticalInversion(PyObject* self, PyObject* args);
     static PyObject* IsNextStationAllowed(PyObject* self, PyObject* args);
+    static PyObject* IsNightVisionActive(PyObject* self, PyObject* args);
     static PyObject* IsObjectAttached(PyObject* self, PyObject* args);
     static PyObject* IsObjectInAngledArea2D(PyObject* self, PyObject* args);
     static PyObject* IsObjectInAngledArea3D(PyObject* self, PyObject* args);
@@ -686,6 +737,8 @@ private:
     static PyObject* IsObjectPlayingAnim(PyObject* self, PyObject* args);
     static PyObject* IsObjectStatic(PyObject* self, PyObject* args);
     static PyObject* IsObjectWithinBrainActivationRange(PyObject* self, PyObject* args);
+    static PyObject* IsPcUsingJoypad(PyObject* self, PyObject* args);
+    static PyObject* IsPcVersion(PyObject* self, PyObject* args);
     static PyObject* IsPlaybackGoingOnForCar(PyObject* self, PyObject* args);
     static PyObject* IsPlayerClimbing(PyObject* self, PyObject* args);
     static PyObject* IsPlayerControlOn(PyObject* self, PyObject* args);
@@ -713,6 +766,8 @@ private:
     static PyObject* IsRelationshipSet(PyObject* self, PyObject* args);
     static PyObject* IsScoreGreater(PyObject* self, PyObject* args);
     static PyObject* IsScriptFireExtinguished(PyObject* self, PyObject* args);
+    static PyObject* IsSkipCutsceneButtonPressed(PyObject* self, PyObject* args);
+    static PyObject* IsSkipWaitingForScriptToFadeIn(PyObject* self, PyObject* args);
     static PyObject* IsThisHelpMessageBeingDisplayed(PyObject* self, PyObject* args);
     static PyObject* IsThisModelABoat(PyObject* self, PyObject* args);
     static PyObject* IsThisModelACar(PyObject* self, PyObject* args);
@@ -725,6 +780,7 @@ private:
     static PyObject* IsVehicleOnAllWheels(PyObject* self, PyObject* args);
     static PyObject* IsVehicleTouchingObject(PyObject* self, PyObject* args);
     static PyObject* IsWantedLevelGreater(PyObject* self, PyObject* args);
+    static PyObject* IsWidescreenOnInOptions(PyObject* self, PyObject* args);
     static PyObject* KillFxSystem(PyObject* self, PyObject* args);
     static PyObject* KillFxSystemNow(PyObject* self, PyObject* args);
     static PyObject* LaunchMission(PyObject* self, PyObject* args);
@@ -732,6 +788,7 @@ private:
     static PyObject* LimitTwoPlayerDistance(PyObject* self, PyObject* args);
     static PyObject* Line(PyObject* self, PyObject* args);
     static PyObject* ListenToPlayerGroupCommands(PyObject* self, PyObject* args);
+    static PyObject* LoadAllModelsNow(PyObject* self, PyObject* args);
     static PyObject* LoadAndLaunchMission(PyObject* self, PyObject* args);
     static PyObject* LoadAndLaunchMissionInternal(PyObject* self, PyObject* args);
     static PyObject* LoadCharDecisionMaker(PyObject* self, PyObject* args);
@@ -788,17 +845,22 @@ private:
     static PyObject* MakeHeliComeCrashingDown(PyObject* self, PyObject* args);
     static PyObject* MakeObjectTargettable(PyObject* self, PyObject* args);
     static PyObject* MakePlayerFireProof(PyObject* self, PyObject* args);
+    static PyObject* MakePlayerGangDisappear(PyObject* self, PyObject* args);
+    static PyObject* MakePlayerGangReappear(PyObject* self, PyObject* args);
     static PyObject* MakePlayerSafeForCutscene(PyObject* self, PyObject* args);
     static PyObject* MakeRoomInPlayerGangForMissionPeds(PyObject* self, PyObject* args);
+    static PyObject* ManageAllPopulation(PyObject* self, PyObject* args);
     static PyObject* MarkCarAsConvoyCar(PyObject* self, PyObject* args);
     static PyObject* MarkCarAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkCharAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkMissionTrainAsNoLongerNeeded(PyObject* self, PyObject* args);
+    static PyObject* MarkMissionTrainsAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkModelAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkObjectAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkRoadNodeAsDontWander(PyObject* self, PyObject* args);
     static PyObject* MarkStreamedScriptAsNoLongerNeeded(PyObject* self, PyObject* args);
     static PyObject* MarkVehicleModAsNoLongerNeeded(PyObject* self, PyObject* args);
+    static PyObject* MissionHasFinished(PyObject* self, PyObject* args);
     static PyObject* MoveSearchlightBetweenCoords(PyObject* self, PyObject* args);
     static PyObject* OpenCarDoor(PyObject* self, PyObject* args);
     static PyObject* OpenCarDoorABit(PyObject* self, PyObject* args);
@@ -817,10 +879,16 @@ private:
     static PyObject* PlaneGotoCoords(PyObject* self, PyObject* args);
     static PyObject* PlaneStartsInAir(PyObject* self, PyObject* args);
     static PyObject* PlayAndKillFxSystem(PyObject* self, PyObject* args);
+    static PyObject* PlayBeatTrack(PyObject* self, PyObject* args);
     static PyObject* PlayFxSystem(PyObject* self, PyObject* args);
     static PyObject* PlayMissionAudio(PyObject* self, PyObject* args);
     static PyObject* PlayMissionPassedTune(PyObject* self, PyObject* args);
     static PyObject* PlayObjectAnim(PyObject* self, PyObject* args);
+    static PyObject* PlayerEnteredBuildingsiteCrane(PyObject* self, PyObject* args);
+    static PyObject* PlayerEnteredDockCrane(PyObject* self, PyObject* args);
+    static PyObject* PlayerEnteredLasVegasCrane(PyObject* self, PyObject* args);
+    static PyObject* PlayerEnteredQuarryCrane(PyObject* self, PyObject* args);
+    static PyObject* PlayerLeftCrane(PyObject* self, PyObject* args);
     static PyObject* PlayerMadeProgress(PyObject* self, PyObject* args);
     static PyObject* PlayerTakeOffGoggles(PyObject* self, PyObject* args);
     static PyObject* PointCameraAtCar(PyObject* self, PyObject* args);
@@ -859,13 +927,19 @@ private:
     static PyObject* RegisterFastestTime(PyObject* self, PyObject* args);
     static PyObject* RegisterFloatStat(PyObject* self, PyObject* args);
     static PyObject* RegisterIntStat(PyObject* self, PyObject* args);
+    static PyObject* RegisterMissionGiven(PyObject* self, PyObject* args);
     static PyObject* RegisterMissionPassed(PyObject* self, PyObject* args);
+    static PyObject* RegisterOddjobMissionPassed(PyObject* self, PyObject* args);
     static PyObject* RegisterScriptBrainForCodeUse(PyObject* self, PyObject* args);
     static PyObject* RegisterStreamedScript(PyObject* self, PyObject* args);
     static PyObject* RegisterStreamedScriptInternal(PyObject* self, PyObject* args);
     static PyObject* ReleaseEntityFromRopeForObject(PyObject* self, PyObject* args);
     static PyObject* ReleaseEntityFromWinch(PyObject* self, PyObject* args);
+    static PyObject* ReleasePathNodes(PyObject* self, PyObject* args);
+    static PyObject* ReleaseTwoPlayerDistance(PyObject* self, PyObject* args);
+    static PyObject* ReleaseWeather(PyObject* self, PyObject* args);
     static PyObject* RemoveAllCharWeapons(PyObject* self, PyObject* args);
+    static PyObject* RemoveAllScriptFires(PyObject* self, PyObject* args);
     static PyObject* RemoveAnimation(PyObject* self, PyObject* args);
     static PyObject* RemoveBlip(PyObject* self, PyObject* args);
     static PyObject* RemoveCarRecording(PyObject* self, PyObject* args);
@@ -880,11 +954,13 @@ private:
     static PyObject* RemoveOilPuddlesInArea(PyObject* self, PyObject* args);
     static PyObject* RemovePickup(PyObject* self, PyObject* args);
     static PyObject* RemovePriceModifier(PyObject* self, PyObject* args);
+    static PyObject* RemoveRcBuggy(PyObject* self, PyObject* args);
     static PyObject* RemoveScriptFire(PyObject* self, PyObject* args);
     static PyObject* RemoveSound(PyObject* self, PyObject* args);
     static PyObject* RemoveSphere(PyObject* self, PyObject* args);
     static PyObject* RemoveStreamedScript(PyObject* self, PyObject* args);
     static PyObject* RemoveStuckCarCheck(PyObject* self, PyObject* args);
+    static PyObject* RemoveTextureDictionary(PyObject* self, PyObject* args);
     static PyObject* RemoveUpsidedownCarCheck(PyObject* self, PyObject* args);
     static PyObject* RemoveUser3DMarker(PyObject* self, PyObject* args);
     static PyObject* RemoveVehicleMod(PyObject* self, PyObject* args);
@@ -899,11 +975,20 @@ private:
     static PyObject* RequestIpl(PyObject* self, PyObject* args);
     static PyObject* RequestModel(PyObject* self, PyObject* args);
     static PyObject* RequestVehicleMod(PyObject* self, PyObject* args);
+    static PyObject* ResetLatestConsoleCommand(PyObject* self, PyObject* args);
     static PyObject* ResetNumOfModelsKilledByPlayer(PyObject* self, PyObject* args);
+    static PyObject* ResetStuffUponResurrection(PyObject* self, PyObject* args);
+    static PyObject* ResetVehicleCameraTweak(PyObject* self, PyObject* args);
     static PyObject* ResetVehicleHydraulics(PyObject* self, PyObject* args);
+    static PyObject* RestoreCamera(PyObject* self, PyObject* args);
+    static PyObject* RestoreCameraJumpcut(PyObject* self, PyObject* args);
+    static PyObject* RestoreCarModState(PyObject* self, PyObject* args);
+    static PyObject* RestoreClock(PyObject* self, PyObject* args);
+    static PyObject* RestoreClothesState(PyObject* self, PyObject* args);
     static PyObject* RotateObject(PyObject* self, PyObject* args);
     static PyObject* SaveFloatToDebugFile(PyObject* self, PyObject* args);
     static PyObject* SaveIntToDebugFile(PyObject* self, PyObject* args);
+    static PyObject* SaveNewlineToDebugFile(PyObject* self, PyObject* args);
     static PyObject* SaveTextLabelToDebugFile(PyObject* self, PyObject* args);
     static PyObject* ScriptName(PyObject* self, PyObject* args);
     static PyObject* SelectWeaponsForVehicle(PyObject* self, PyObject* args);
@@ -920,7 +1005,9 @@ private:
     static PyObject* SetBlipAsFriendly(PyObject* self, PyObject* args);
     static PyObject* SetBlipEntryExit(PyObject* self, PyObject* args);
     static PyObject* SetBoatCruiseSpeed(PyObject* self, PyObject* args);
+    static PyObject* SetCameraBehindPlayer(PyObject* self, PyObject* args);
     static PyObject* SetCameraInFrontOfChar(PyObject* self, PyObject* args);
+    static PyObject* SetCameraInFrontOfPlayer(PyObject* self, PyObject* args);
     static PyObject* SetCameraPositionUnfixed(PyObject* self, PyObject* args);
     static PyObject* SetCameraZoom(PyObject* self, PyObject* args);
     static PyObject* SetCanBurstCarTyres(PyObject* self, PyObject* args);
@@ -1160,8 +1247,10 @@ private:
     static PyObject* SetProgressTotal(PyObject* self, PyObject* args);
     static PyObject* SetRadarZoom(PyObject* self, PyObject* args);
     static PyObject* SetRadioChannel(PyObject* self, PyObject* args);
+    static PyObject* SetRadioToPlayersFavouriteStation(PyObject* self, PyObject* args);
     static PyObject* SetRailtrackResistanceMult(PyObject* self, PyObject* args);
     static PyObject* SetRelationship(PyObject* self, PyObject* args);
+    static PyObject* SetRenderPlayerWeapon(PyObject* self, PyObject* args);
     static PyObject* SetRespawnPointForDurationOfMission(PyObject* self, PyObject* args);
     static PyObject* SetRopeHeightForObject(PyObject* self, PyObject* args);
     static PyObject* SetScriptCoopGame(PyObject* self, PyObject* args);
@@ -1189,6 +1278,7 @@ private:
     static PyObject* SetTextScale(PyObject* self, PyObject* args);
     static PyObject* SetTextWrapx(PyObject* self, PyObject* args);
     static PyObject* SetTimeOfDay(PyObject* self, PyObject* args);
+    static PyObject* SetTimeOneDayForward(PyObject* self, PyObject* args);
     static PyObject* SetTimeScale(PyObject* self, PyObject* args);
     static PyObject* SetTimerBeepCountdownTime(PyObject* self, PyObject* args);
     static PyObject* SetTotalNumberOfMissions(PyObject* self, PyObject* args);
@@ -1204,6 +1294,7 @@ private:
     static PyObject* SetUpSkipAfterMission(PyObject* self, PyObject* args);
     static PyObject* SetUpSkipForSpecificVehicle(PyObject* self, PyObject* args);
     static PyObject* SetUpSkipForVehicleFinishedByScript(PyObject* self, PyObject* args);
+    static PyObject* SetUpSkipToBeFinishedByScript(PyObject* self, PyObject* args);
     static PyObject* SetUpsidedownCarNotDamaged(PyObject* self, PyObject* args);
     static PyObject* SetUsesCollisionOfClosestObjectOfType(PyObject* self, PyObject* args);
     static PyObject* SetVarTextLabel(PyObject* self, PyObject* args);
@@ -1217,6 +1308,7 @@ private:
     static PyObject* SetVehicleToFadeIn(PyObject* self, PyObject* args);
     static PyObject* SetVisibilityOfClosestObjectOfType(PyObject* self, PyObject* args);
     static PyObject* SetWantedMultiplier(PyObject* self, PyObject* args);
+    static PyObject* SetWeatherToAppropriateTypeNow(PyObject* self, PyObject* args);
     static PyObject* SetZoneDealerStrength(PyObject* self, PyObject* args);
     static PyObject* SetZoneForGangWarsTraining(PyObject* self, PyObject* args);
     static PyObject* SetZoneGangStrength(PyObject* self, PyObject* args);
@@ -1233,6 +1325,8 @@ private:
     static PyObject* ShutCharUpForScriptedSpeech(PyObject* self, PyObject* args);
     static PyObject* ShutPlayerUp(PyObject* self, PyObject* args);
     static PyObject* Sin(PyObject* self, PyObject* args);
+    static PyObject* SkipCutsceneEnd(PyObject* self, PyObject* args);
+    static PyObject* SkipCutsceneStart(PyObject* self, PyObject* args);
     static PyObject* SkipCutsceneStartInternal(PyObject* self, PyObject* args);
     static PyObject* SkipInPlaybackRecordedCar(PyObject* self, PyObject* args);
     static PyObject* SkipToEndAndStopPlaybackRecordedCar(PyObject* self, PyObject* args);
@@ -1243,6 +1337,8 @@ private:
     static PyObject* StartCarFire(PyObject* self, PyObject* args);
     static PyObject* StartCharFacialTalk(PyObject* self, PyObject* args);
     static PyObject* StartCharFire(PyObject* self, PyObject* args);
+    static PyObject* StartCredits(PyObject* self, PyObject* args);
+    static PyObject* StartCutscene(PyObject* self, PyObject* args);
     static PyObject* StartKillFrenzy(PyObject* self, PyObject* args);
     static PyObject* StartPlaybackRecordedCar(PyObject* self, PyObject* args);
     static PyObject* StartPlaybackRecordedCarLooped(PyObject* self, PyObject* args);
@@ -1250,13 +1346,18 @@ private:
     static PyObject* StartRecordingCar(PyObject* self, PyObject* args);
     static PyObject* StartScriptFire(PyObject* self, PyObject* args);
     static PyObject* StartSettingUpConversation(PyObject* self, PyObject* args);
+    static PyObject* StopBeatTrack(PyObject* self, PyObject* args);
     static PyObject* StopCharFacialTalk(PyObject* self, PyObject* args);
+    static PyObject* StopCredits(PyObject* self, PyObject* args);
     static PyObject* StopFxSystem(PyObject* self, PyObject* args);
     static PyObject* StopPlaybackRecordedCar(PyObject* self, PyObject* args);
     static PyObject* StopRecordingCar(PyObject* self, PyObject* args);
     static PyObject* StoreCarCharIsAttachedToNoSave(PyObject* self, PyObject* args);
     static PyObject* StoreCarCharIsIn(PyObject* self, PyObject* args);
     static PyObject* StoreCarCharIsInNoSave(PyObject* self, PyObject* args);
+    static PyObject* StoreCarModState(PyObject* self, PyObject* args);
+    static PyObject* StoreClock(PyObject* self, PyObject* args);
+    static PyObject* StoreClothesState(PyObject* self, PyObject* args);
     static PyObject* StoreScore(PyObject* self, PyObject* args);
     static PyObject* StoreWantedLevel(PyObject* self, PyObject* args);
     static PyObject* StreamScript(PyObject* self, PyObject* args);
@@ -1287,6 +1388,7 @@ private:
     static PyObject* SwitchStreaming(PyObject* self, PyObject* args);
     static PyObject* SwitchWidescreen(PyObject* self, PyObject* args);
     static PyObject* SwitchWorldProcessing(PyObject* self, PyObject* args);
+    static PyObject* SyncWater(PyObject* self, PyObject* args);
     static PyObject* TakePhoto(PyObject* self, PyObject* args);
     static PyObject* TakeRemoteControlOfCar(PyObject* self, PyObject* args);
     static PyObject* TaskAchieveHeading(PyObject* self, PyObject* args);
@@ -1390,8 +1492,10 @@ private:
     static PyObject* TerminateAllScriptsWithThisName(PyObject* self, PyObject* args);
     static PyObject* TurnCarToFaceCoord(PyObject* self, PyObject* args);
     static PyObject* UnloadSpecialCharacter(PyObject* self, PyObject* args);
+    static PyObject* UnmarkAllRoadNodesAsDontWander(PyObject* self, PyObject* args);
     static PyObject* UnpausePlaybackRecordedCar(PyObject* self, PyObject* args);
     static PyObject* UpdatePickupMoneyPerDay(PyObject* self, PyObject* args);
+    static PyObject* UseDetonator(PyObject* self, PyObject* args);
     static PyObject* UseTextCommands(PyObject* self, PyObject* args);
     static PyObject* VehicleCanBeTargettedByHsMissile(PyObject* self, PyObject* args);
     static PyObject* VehicleDoesProvideCover(PyObject* self, PyObject* args);
@@ -1400,6 +1504,7 @@ private:
     static PyObject* WarpCharFromCarToCoord(PyObject* self, PyObject* args);
     static PyObject* WarpCharIntoCar(PyObject* self, PyObject* args);
     static PyObject* WarpCharIntoCarAsPassenger(PyObject* self, PyObject* args);
+    static PyObject* WasCutsceneSkipped(PyObject* self, PyObject* args);
     static PyObject* WatchFloatVariable(PyObject* self, PyObject* args);
     static PyObject* WatchIntegerVariable(PyObject* self, PyObject* args);
     static PyObject* WinchCanPickObjectUp(PyObject* self, PyObject* args);
@@ -1415,6 +1520,7 @@ private:
         {"activate_interior_peds", ActivateInteriorPeds, METH_VARARGS},
         {"activate_menu_item", ActivateMenuItem, METH_VARARGS},
         {"activate_pimp_cheat", ActivatePimpCheat, METH_VARARGS},
+        {"activate_save_menu", ActivateSaveMenu, METH_VARARGS},
         {"add_ammo_to_char", AddAmmoToChar, METH_VARARGS},
         {"add_armour_to_char", AddArmourToChar, METH_VARARGS},
         {"add_attractor", AddAttractor, METH_VARARGS},
@@ -1469,7 +1575,11 @@ private:
         {"append_to_next_cutscene", AppendToNextCutscene, METH_VARARGS},
         {"apply_brakes_to_players_car", ApplyBrakesToPlayersCar, METH_VARARGS},
         {"apply_force_to_car", ApplyForceToCar, METH_VARARGS},
+        {"are_any_car_cheats_activated", AreAnyCarCheatsActivated, METH_VARARGS},
         {"are_any_chars_near_char", AreAnyCharsNearChar, METH_VARARGS},
+        {"are_credits_finished", AreCreditsFinished, METH_VARARGS},
+        {"are_measurements_in_metres", AreMeasurementsInMetres, METH_VARARGS},
+        {"are_subtitles_switched_on", AreSubtitlesSwitchedOn, METH_VARARGS},
         {"attach_anims_to_model", AttachAnimsToModel, METH_VARARGS},
         {"attach_camera_to_char", AttachCameraToChar, METH_VARARGS},
         {"attach_camera_to_char_look_at_char", AttachCameraToCharLookAtChar, METH_VARARGS},
@@ -1499,9 +1609,12 @@ private:
         {"build_player_model", BuildPlayerModel, METH_VARARGS},
         {"burst_car_tyre", BurstCarTyre, METH_VARARGS},
         {"buy_item", BuyItem, METH_VARARGS},
+        {"camera_is_vector_move_running", CameraIsVectorMoveRunning, METH_VARARGS},
+        {"camera_is_vector_track_running", CameraIsVectorTrackRunning, METH_VARARGS},
         {"camera_persist_fov", CameraPersistFov, METH_VARARGS},
         {"camera_persist_pos", CameraPersistPos, METH_VARARGS},
         {"camera_persist_track", CameraPersistTrack, METH_VARARGS},
+        {"camera_reset_new_scriptables", CameraResetNewScriptables, METH_VARARGS},
         {"camera_set_lerp_fov", CameraSetLerpFov, METH_VARARGS},
         {"camera_set_shake_simulation_simple", CameraSetShakeSimulationSimple, METH_VARARGS},
         {"camera_set_vector_move", CameraSetVectorMove, METH_VARARGS},
@@ -1509,6 +1622,7 @@ private:
         {"can_char_see_dead_char", CanCharSeeDeadChar, METH_VARARGS},
         {"can_player_start_mission", CanPlayerStartMission, METH_VARARGS},
         {"can_trigger_gang_war_when_on_a_mission", CanTriggerGangWarWhenOnAMission, METH_VARARGS},
+        {"cancel_override_restart", CancelOverrideRestart, METH_VARARGS},
         {"car_goto_coordinates", CarGotoCoordinates, METH_VARARGS},
         {"car_goto_coordinates_accurate", CarGotoCoordinatesAccurate, METH_VARARGS},
         {"car_goto_coordinates_racing", CarGotoCoordinatesRacing, METH_VARARGS},
@@ -1522,6 +1636,9 @@ private:
         {"change_garage_type", ChangeGarageType, METH_VARARGS},
         {"change_playback_to_use_ai", ChangePlaybackToUseAi, METH_VARARGS},
         {"clear_all_char_relationships", ClearAllCharRelationships, METH_VARARGS},
+        {"clear_all_script_fire_flags", ClearAllScriptFireFlags, METH_VARARGS},
+        {"clear_all_script_roadblocks", ClearAllScriptRoadblocks, METH_VARARGS},
+        {"clear_all_view_variables", ClearAllViewVariables, METH_VARARGS},
         {"clear_area", ClearArea, METH_VARARGS},
         {"clear_area_of_cars", ClearAreaOfCars, METH_VARARGS},
         {"clear_area_of_chars", ClearAreaOfChars, METH_VARARGS},
@@ -1535,13 +1652,16 @@ private:
         {"clear_char_tasks", ClearCharTasks, METH_VARARGS},
         {"clear_char_tasks_immediately", ClearCharTasksImmediately, METH_VARARGS},
         {"clear_conversation_for_char", ClearConversationForChar, METH_VARARGS},
+        {"clear_cutscene", ClearCutscene, METH_VARARGS},
         {"clear_extra_colours", ClearExtraColours, METH_VARARGS},
         {"clear_global_var_bit_const", ClearGlobalVarBitConst, METH_VARARGS},
         {"clear_global_var_bit_lvar", ClearGlobalVarBitLvar, METH_VARARGS},
         {"clear_global_var_bit_var", ClearGlobalVarBitVar, METH_VARARGS},
         {"clear_group_decision_maker_event_response", ClearGroupDecisionMakerEventResponse, METH_VARARGS},
         {"clear_heli_orientation", ClearHeliOrientation, METH_VARARGS},
+        {"clear_help", ClearHelp, METH_VARARGS},
         {"clear_last_building_model_shot_by_player", ClearLastBuildingModelShotByPlayer, METH_VARARGS},
+        {"clear_loaded_shop", ClearLoadedShop, METH_VARARGS},
         {"clear_local_var_bit_const", ClearLocalVarBitConst, METH_VARARGS},
         {"clear_local_var_bit_lvar", ClearLocalVarBitLvar, METH_VARARGS},
         {"clear_local_var_bit_var", ClearLocalVarBitVar, METH_VARARGS},
@@ -1550,8 +1670,12 @@ private:
         {"clear_object_last_weapon_damage", ClearObjectLastWeaponDamage, METH_VARARGS},
         {"clear_onscreen_counter", ClearOnscreenCounter, METH_VARARGS},
         {"clear_onscreen_timer", ClearOnscreenTimer, METH_VARARGS},
+        {"clear_prints", ClearPrints, METH_VARARGS},
         {"clear_relationship", ClearRelationship, METH_VARARGS},
         {"clear_sequence_task", ClearSequenceTask, METH_VARARGS},
+        {"clear_skip", ClearSkip, METH_VARARGS},
+        {"clear_small_prints", ClearSmallPrints, METH_VARARGS},
+        {"clear_specific_zones_to_trigger_gang_war", ClearSpecificZonesToTriggerGangWar, METH_VARARGS},
         {"clear_this_big_print", ClearThisBigPrint, METH_VARARGS},
         {"clear_this_float_watchpoint", ClearThisFloatWatchpoint, METH_VARARGS},
         {"clear_this_integer_watchpoint", ClearThisIntegerWatchpoint, METH_VARARGS},
@@ -1560,6 +1684,7 @@ private:
         {"clear_this_view_float_variable", ClearThisViewFloatVariable, METH_VARARGS},
         {"clear_this_view_integer_variable", ClearThisViewIntegerVariable, METH_VARARGS},
         {"clear_wanted_level", ClearWantedLevel, METH_VARARGS},
+        {"clear_wanted_level_in_garage", ClearWantedLevelInGarage, METH_VARARGS},
         {"close_all_car_doors", CloseAllCarDoors, METH_VARARGS},
         {"close_garage", CloseGarage, METH_VARARGS},
         {"close_sequence_task", CloseSequenceTask, METH_VARARGS},
@@ -1627,11 +1752,13 @@ private:
         {"declare_mission_flag", DeclareMissionFlag, METH_VARARGS},
         {"decrement_float_stat", DecrementFloatStat, METH_VARARGS},
         {"decrement_int_stat", DecrementIntStat, METH_VARARGS},
+        {"delete_all_trains", DeleteAllTrains, METH_VARARGS},
         {"delete_car", DeleteCar, METH_VARARGS},
         {"delete_char", DeleteChar, METH_VARARGS},
         {"delete_checkpoint", DeleteCheckpoint, METH_VARARGS},
         {"delete_menu", DeleteMenu, METH_VARARGS},
         {"delete_mission_train", DeleteMissionTrain, METH_VARARGS},
+        {"delete_mission_trains", DeleteMissionTrains, METH_VARARGS},
         {"delete_object", DeleteObject, METH_VARARGS},
         {"delete_player", DeletePlayer, METH_VARARGS},
         {"delete_searchlight", DeleteSearchlight, METH_VARARGS},
@@ -1661,6 +1788,7 @@ private:
         {"do_2d_rectangles_collide", Do2DRectanglesCollide, METH_VARARGS},
         {"do_camera_bump", DoCameraBump, METH_VARARGS},
         {"do_fade", DoFade, METH_VARARGS},
+        {"do_weapon_stuff_at_start_of_2p_game", DoWeaponStuffAtStartOf2PGame, METH_VARARGS},
         {"does_blip_exist", DoesBlipExist, METH_VARARGS},
         {"does_car_have_hydraulics", DoesCarHaveHydraulics, METH_VARARGS},
         {"does_car_have_stuck_car_check", DoesCarHaveStuckCarCheck, METH_VARARGS},
@@ -1675,6 +1803,7 @@ private:
         {"does_vehicle_exist", DoesVehicleExist, METH_VARARGS},
         {"dont_remove_char", DontRemoveChar, METH_VARARGS},
         {"dont_remove_object", DontRemoveObject, METH_VARARGS},
+        {"dont_suppress_any_car_models", DontSuppressAnyCarModels, METH_VARARGS},
         {"dont_suppress_car_model", DontSuppressCarModel, METH_VARARGS},
         {"draw_corona", DrawCorona, METH_VARARGS},
         {"draw_crosshair", DrawCrosshair, METH_VARARGS},
@@ -1705,10 +1834,14 @@ private:
         {"extend_patrol_route", ExtendPatrolRoute, METH_VARARGS},
         {"extend_route", ExtendRoute, METH_VARARGS},
         {"extinguish_fire_at_point", ExtinguishFireAtPoint, METH_VARARGS},
+        {"fail_current_mission", FailCurrentMission, METH_VARARGS},
+        {"fail_kill_frenzy", FailKillFrenzy, METH_VARARGS},
         {"fetch_next_card", FetchNextCard, METH_VARARGS},
         {"find_max_number_of_group_members", FindMaxNumberOfGroupMembers, METH_VARARGS},
         {"find_number_tags_tagged", FindNumberTagsTagged, METH_VARARGS},
         {"find_train_direction", FindTrainDirection, METH_VARARGS},
+        {"finish_setting_up_conversation", FinishSettingUpConversation, METH_VARARGS},
+        {"finish_setting_up_conversation_no_subtitles", FinishSettingUpConversationNoSubtitles, METH_VARARGS},
         {"fire_hunter_gun", FireHunterGun, METH_VARARGS},
         {"fire_single_bullet", FireSingleBullet, METH_VARARGS},
         {"fix_car", FixCar, METH_VARARGS},
@@ -1716,9 +1849,12 @@ private:
         {"fix_car_panel", FixCarPanel, METH_VARARGS},
         {"fix_car_tyre", FixCarTyre, METH_VARARGS},
         {"flash_hud_object", FlashHudObject, METH_VARARGS},
+        {"flush_patrol_route", FlushPatrolRoute, METH_VARARGS},
+        {"flush_route", FlushRoute, METH_VARARGS},
         {"force_all_vehicle_lights_off", ForceAllVehicleLightsOff, METH_VARARGS},
         {"force_big_message_and_counter", ForceBigMessageAndCounter, METH_VARARGS},
         {"force_car_lights", ForceCarLights, METH_VARARGS},
+        {"force_death_restart", ForceDeathRestart, METH_VARARGS},
         {"force_interior_lighting_for_player", ForceInteriorLightingForPlayer, METH_VARARGS},
         {"force_weather", ForceWeather, METH_VARARGS},
         {"force_weather_now", ForceWeatherNow, METH_VARARGS},
@@ -1800,6 +1936,7 @@ private:
         {"get_door_angle_ratio", GetDoorAngleRatio, METH_VARARGS},
         {"get_driver_of_car", GetDriverOfCar, METH_VARARGS},
         {"get_extra_car_colours", GetExtraCarColours, METH_VARARGS},
+        {"get_fading_status", GetFadingStatus, METH_VARARGS},
         {"get_float_stat", GetFloatStat, METH_VARARGS},
         {"get_game_timer", GetGameTimer, METH_VARARGS},
         {"get_ground_z_for_3d_coord", GetGroundZFor3DCoord, METH_VARARGS},
@@ -1876,6 +2013,7 @@ private:
         {"get_random_char_in_sphere_only_drugs_buyers", GetRandomCharInSphereOnlyDrugsBuyers, METH_VARARGS},
         {"get_random_char_in_zone", GetRandomCharInZone, METH_VARARGS},
         {"get_remote_controlled_car", GetRemoteControlledCar, METH_VARARGS},
+        {"get_rid_of_player_prostitute", GetRidOfPlayerProstitute, METH_VARARGS},
         {"get_rope_height_for_object", GetRopeHeightForObject, METH_VARARGS},
         {"get_script_fire_coords", GetScriptFireCoords, METH_VARARGS},
         {"get_script_task_status", GetScriptTaskStatus, METH_VARARGS},
@@ -1923,6 +2061,11 @@ private:
         {"has_char_got_weapon", HasCharGotWeapon, METH_VARARGS},
         {"has_char_spotted_char", HasCharSpottedChar, METH_VARARGS},
         {"has_char_spotted_char_in_front", HasCharSpottedCharInFront, METH_VARARGS},
+        {"has_cutscene_finished", HasCutsceneFinished, METH_VARARGS},
+        {"has_cutscene_loaded", HasCutsceneLoaded, METH_VARARGS},
+        {"has_deatharrest_been_executed", HasDeatharrestBeenExecuted, METH_VARARGS},
+        {"has_game_just_returned_from_frontend", HasGameJustReturnedFromFrontend, METH_VARARGS},
+        {"has_language_changed", HasLanguageChanged, METH_VARARGS},
         {"has_mission_audio_finished", HasMissionAudioFinished, METH_VARARGS},
         {"has_mission_audio_loaded", HasMissionAudioLoaded, METH_VARARGS},
         {"has_model_loaded", HasModelLoaded, METH_VARARGS},
@@ -1934,6 +2077,7 @@ private:
         {"has_object_of_type_been_smashed", HasObjectOfTypeBeenSmashed, METH_VARARGS},
         {"has_pickup_been_collected", HasPickupBeenCollected, METH_VARARGS},
         {"has_player_bought_item", HasPlayerBoughtItem, METH_VARARGS},
+        {"has_save_game_finished", HasSaveGameFinished, METH_VARARGS},
         {"has_special_character_loaded", HasSpecialCharacterLoaded, METH_VARARGS},
         {"has_streamed_script_loaded", HasStreamedScriptLoaded, METH_VARARGS},
         {"has_train_derailed", HasTrainDerailed, METH_VARARGS},
@@ -1954,9 +2098,12 @@ private:
         {"increment_float_stat_no_message", IncrementFloatStatNoMessage, METH_VARARGS},
         {"increment_int_stat", IncrementIntStat, METH_VARARGS},
         {"increment_int_stat_no_message", IncrementIntStatNoMessage, METH_VARARGS},
+        {"init_zone_population_settings", InitZonePopulationSettings, METH_VARARGS},
+        {"is_2player_game_going_on", Is2PlayerGameGoingOn, METH_VARARGS},
         {"is_any_pickup_at_coords", IsAnyPickupAtCoords, METH_VARARGS},
         {"is_area_occupied", IsAreaOccupied, METH_VARARGS},
         {"is_attached_player_heading_achieved", IsAttachedPlayerHeadingAchieved, METH_VARARGS},
+        {"is_australian_game", IsAustralianGame, METH_VARARGS},
         {"is_big_vehicle", IsBigVehicle, METH_VARARGS},
         {"is_button_pressed", IsButtonPressed, METH_VARARGS},
         {"is_car_dead", IsCarDead, METH_VARARGS},
@@ -2056,18 +2203,23 @@ private:
         {"is_conversation_at_node", IsConversationAtNode, METH_VARARGS},
         {"is_cop_vehicle_in_area_3d_no_save", IsCopVehicleInArea3DNoSave, METH_VARARGS},
         {"is_current_char_weapon", IsCurrentCharWeapon, METH_VARARGS},
+        {"is_debug_camera_on", IsDebugCameraOn, METH_VARARGS},
         {"is_emergency_services_vehicle", IsEmergencyServicesVehicle, METH_VARARGS},
         {"is_explosion_in_area", IsExplosionInArea, METH_VARARGS},
         {"is_flame_in_angled_area_2d", IsFlameInAngledArea2D, METH_VARARGS},
         {"is_flame_in_angled_area_3d", IsFlameInAngledArea3D, METH_VARARGS},
         {"is_float_lvar_equal_to_float_var", IsFloatLvarEqualToFloatVar, METH_VARARGS},
+        {"is_gang_war_fighting_going_on", IsGangWarFightingGoingOn, METH_VARARGS},
+        {"is_gang_war_going_on", IsGangWarGoingOn, METH_VARARGS},
         {"is_garage_closed", IsGarageClosed, METH_VARARGS},
         {"is_garage_open", IsGarageOpen, METH_VARARGS},
+        {"is_german_game", IsGermanGame, METH_VARARGS},
         {"is_global_var_bit_set_const", IsGlobalVarBitSetConst, METH_VARARGS},
         {"is_global_var_bit_set_lvar", IsGlobalVarBitSetLvar, METH_VARARGS},
         {"is_global_var_bit_set_var", IsGlobalVarBitSetVar, METH_VARARGS},
         {"is_group_leader", IsGroupLeader, METH_VARARGS},
         {"is_group_member", IsGroupMember, METH_VARARGS},
+        {"is_help_message_being_displayed", IsHelpMessageBeingDisplayed, METH_VARARGS},
         {"is_int_lvar_equal_to_int_var", IsIntLvarEqualToIntVar, METH_VARARGS},
         {"is_last_building_model_shot_by_player", IsLastBuildingModelShotByPlayer, METH_VARARGS},
         {"is_line_of_sight_clear", IsLineOfSightClear, METH_VARARGS},
@@ -2075,10 +2227,14 @@ private:
         {"is_local_var_bit_set_lvar", IsLocalVarBitSetLvar, METH_VARARGS},
         {"is_local_var_bit_set_var", IsLocalVarBitSetVar, METH_VARARGS},
         {"is_lvar_text_label_equal_to_text_label", IsLvarTextLabelEqualToTextLabel, METH_VARARGS},
+        {"is_message_being_displayed", IsMessageBeingDisplayed, METH_VARARGS},
+        {"is_minigame_in_progress", IsMinigameInProgress, METH_VARARGS},
         {"is_model_available", IsModelAvailable, METH_VARARGS},
         {"is_model_in_cdimage", IsModelInCdimage, METH_VARARGS},
         {"is_money_pickup_at_coords", IsMoneyPickupAtCoords, METH_VARARGS},
+        {"is_mouse_using_vertical_inversion", IsMouseUsingVerticalInversion, METH_VARARGS},
         {"is_next_station_allowed", IsNextStationAllowed, METH_VARARGS},
+        {"is_night_vision_active", IsNightVisionActive, METH_VARARGS},
         {"is_object_attached", IsObjectAttached, METH_VARARGS},
         {"is_object_in_angled_area_2d", IsObjectInAngledArea2D, METH_VARARGS},
         {"is_object_in_angled_area_3d", IsObjectInAngledArea3D, METH_VARARGS},
@@ -2090,6 +2246,8 @@ private:
         {"is_object_playing_anim", IsObjectPlayingAnim, METH_VARARGS},
         {"is_object_static", IsObjectStatic, METH_VARARGS},
         {"is_object_within_brain_activation_range", IsObjectWithinBrainActivationRange, METH_VARARGS},
+        {"is_pc_using_joypad", IsPcUsingJoypad, METH_VARARGS},
+        {"is_pc_version", IsPcVersion, METH_VARARGS},
         {"is_playback_going_on_for_car", IsPlaybackGoingOnForCar, METH_VARARGS},
         {"is_player_climbing", IsPlayerClimbing, METH_VARARGS},
         {"is_player_control_on", IsPlayerControlOn, METH_VARARGS},
@@ -2117,6 +2275,8 @@ private:
         {"is_relationship_set", IsRelationshipSet, METH_VARARGS},
         {"is_score_greater", IsScoreGreater, METH_VARARGS},
         {"is_script_fire_extinguished", IsScriptFireExtinguished, METH_VARARGS},
+        {"is_skip_cutscene_button_pressed", IsSkipCutsceneButtonPressed, METH_VARARGS},
+        {"is_skip_waiting_for_script_to_fade_in", IsSkipWaitingForScriptToFadeIn, METH_VARARGS},
         {"is_this_help_message_being_displayed", IsThisHelpMessageBeingDisplayed, METH_VARARGS},
         {"is_this_model_a_boat", IsThisModelABoat, METH_VARARGS},
         {"is_this_model_a_car", IsThisModelACar, METH_VARARGS},
@@ -2129,6 +2289,7 @@ private:
         {"is_vehicle_on_all_wheels", IsVehicleOnAllWheels, METH_VARARGS},
         {"is_vehicle_touching_object", IsVehicleTouchingObject, METH_VARARGS},
         {"is_wanted_level_greater", IsWantedLevelGreater, METH_VARARGS},
+        {"is_widescreen_on_in_options", IsWidescreenOnInOptions, METH_VARARGS},
         {"kill_fx_system", KillFxSystem, METH_VARARGS},
         {"kill_fx_system_now", KillFxSystemNow, METH_VARARGS},
         {"launch_mission", LaunchMission, METH_VARARGS},
@@ -2136,6 +2297,7 @@ private:
         {"limit_two_player_distance", LimitTwoPlayerDistance, METH_VARARGS},
         {"line", Line, METH_VARARGS},
         {"listen_to_player_group_commands", ListenToPlayerGroupCommands, METH_VARARGS},
+        {"load_all_models_now", LoadAllModelsNow, METH_VARARGS},
         {"load_and_launch_mission", LoadAndLaunchMission, METH_VARARGS},
         {"load_and_launch_mission_internal", LoadAndLaunchMissionInternal, METH_VARARGS},
         {"load_char_decision_maker", LoadCharDecisionMaker, METH_VARARGS},
@@ -2192,17 +2354,22 @@ private:
         {"make_heli_come_crashing_down", MakeHeliComeCrashingDown, METH_VARARGS},
         {"make_object_targettable", MakeObjectTargettable, METH_VARARGS},
         {"make_player_fire_proof", MakePlayerFireProof, METH_VARARGS},
+        {"make_player_gang_disappear", MakePlayerGangDisappear, METH_VARARGS},
+        {"make_player_gang_reappear", MakePlayerGangReappear, METH_VARARGS},
         {"make_player_safe_for_cutscene", MakePlayerSafeForCutscene, METH_VARARGS},
         {"make_room_in_player_gang_for_mission_peds", MakeRoomInPlayerGangForMissionPeds, METH_VARARGS},
+        {"manage_all_population", ManageAllPopulation, METH_VARARGS},
         {"mark_car_as_convoy_car", MarkCarAsConvoyCar, METH_VARARGS},
         {"mark_car_as_no_longer_needed", MarkCarAsNoLongerNeeded, METH_VARARGS},
         {"mark_char_as_no_longer_needed", MarkCharAsNoLongerNeeded, METH_VARARGS},
         {"mark_mission_train_as_no_longer_needed", MarkMissionTrainAsNoLongerNeeded, METH_VARARGS},
+        {"mark_mission_trains_as_no_longer_needed", MarkMissionTrainsAsNoLongerNeeded, METH_VARARGS},
         {"mark_model_as_no_longer_needed", MarkModelAsNoLongerNeeded, METH_VARARGS},
         {"mark_object_as_no_longer_needed", MarkObjectAsNoLongerNeeded, METH_VARARGS},
         {"mark_road_node_as_dont_wander", MarkRoadNodeAsDontWander, METH_VARARGS},
         {"mark_streamed_script_as_no_longer_needed", MarkStreamedScriptAsNoLongerNeeded, METH_VARARGS},
         {"mark_vehicle_mod_as_no_longer_needed", MarkVehicleModAsNoLongerNeeded, METH_VARARGS},
+        {"mission_has_finished", MissionHasFinished, METH_VARARGS},
         {"move_searchlight_between_coords", MoveSearchlightBetweenCoords, METH_VARARGS},
         {"open_car_door", OpenCarDoor, METH_VARARGS},
         {"open_car_door_a_bit", OpenCarDoorABit, METH_VARARGS},
@@ -2221,10 +2388,16 @@ private:
         {"plane_goto_coords", PlaneGotoCoords, METH_VARARGS},
         {"plane_starts_in_air", PlaneStartsInAir, METH_VARARGS},
         {"play_and_kill_fx_system", PlayAndKillFxSystem, METH_VARARGS},
+        {"play_beat_track", PlayBeatTrack, METH_VARARGS},
         {"play_fx_system", PlayFxSystem, METH_VARARGS},
         {"play_mission_audio", PlayMissionAudio, METH_VARARGS},
         {"play_mission_passed_tune", PlayMissionPassedTune, METH_VARARGS},
         {"play_object_anim", PlayObjectAnim, METH_VARARGS},
+        {"player_entered_buildingsite_crane", PlayerEnteredBuildingsiteCrane, METH_VARARGS},
+        {"player_entered_dock_crane", PlayerEnteredDockCrane, METH_VARARGS},
+        {"player_entered_las_vegas_crane", PlayerEnteredLasVegasCrane, METH_VARARGS},
+        {"player_entered_quarry_crane", PlayerEnteredQuarryCrane, METH_VARARGS},
+        {"player_left_crane", PlayerLeftCrane, METH_VARARGS},
         {"player_made_progress", PlayerMadeProgress, METH_VARARGS},
         {"player_take_off_goggles", PlayerTakeOffGoggles, METH_VARARGS},
         {"point_camera_at_car", PointCameraAtCar, METH_VARARGS},
@@ -2263,13 +2436,19 @@ private:
         {"register_fastest_time", RegisterFastestTime, METH_VARARGS},
         {"register_float_stat", RegisterFloatStat, METH_VARARGS},
         {"register_int_stat", RegisterIntStat, METH_VARARGS},
+        {"register_mission_given", RegisterMissionGiven, METH_VARARGS},
         {"register_mission_passed", RegisterMissionPassed, METH_VARARGS},
+        {"register_oddjob_mission_passed", RegisterOddjobMissionPassed, METH_VARARGS},
         {"register_script_brain_for_code_use", RegisterScriptBrainForCodeUse, METH_VARARGS},
         {"register_streamed_script", RegisterStreamedScript, METH_VARARGS},
         {"register_streamed_script_internal", RegisterStreamedScriptInternal, METH_VARARGS},
         {"release_entity_from_rope_for_object", ReleaseEntityFromRopeForObject, METH_VARARGS},
         {"release_entity_from_winch", ReleaseEntityFromWinch, METH_VARARGS},
+        {"release_path_nodes", ReleasePathNodes, METH_VARARGS},
+        {"release_two_player_distance", ReleaseTwoPlayerDistance, METH_VARARGS},
+        {"release_weather", ReleaseWeather, METH_VARARGS},
         {"remove_all_char_weapons", RemoveAllCharWeapons, METH_VARARGS},
+        {"remove_all_script_fires", RemoveAllScriptFires, METH_VARARGS},
         {"remove_animation", RemoveAnimation, METH_VARARGS},
         {"remove_blip", RemoveBlip, METH_VARARGS},
         {"remove_car_recording", RemoveCarRecording, METH_VARARGS},
@@ -2284,11 +2463,13 @@ private:
         {"remove_oil_puddles_in_area", RemoveOilPuddlesInArea, METH_VARARGS},
         {"remove_pickup", RemovePickup, METH_VARARGS},
         {"remove_price_modifier", RemovePriceModifier, METH_VARARGS},
+        {"remove_rc_buggy", RemoveRcBuggy, METH_VARARGS},
         {"remove_script_fire", RemoveScriptFire, METH_VARARGS},
         {"remove_sound", RemoveSound, METH_VARARGS},
         {"remove_sphere", RemoveSphere, METH_VARARGS},
         {"remove_streamed_script", RemoveStreamedScript, METH_VARARGS},
         {"remove_stuck_car_check", RemoveStuckCarCheck, METH_VARARGS},
+        {"remove_texture_dictionary", RemoveTextureDictionary, METH_VARARGS},
         {"remove_upsidedown_car_check", RemoveUpsidedownCarCheck, METH_VARARGS},
         {"remove_user_3d_marker", RemoveUser3DMarker, METH_VARARGS},
         {"remove_vehicle_mod", RemoveVehicleMod, METH_VARARGS},
@@ -2303,11 +2484,20 @@ private:
         {"request_ipl", RequestIpl, METH_VARARGS},
         {"request_model", RequestModel, METH_VARARGS},
         {"request_vehicle_mod", RequestVehicleMod, METH_VARARGS},
+        {"reset_latest_console_command", ResetLatestConsoleCommand, METH_VARARGS},
         {"reset_num_of_models_killed_by_player", ResetNumOfModelsKilledByPlayer, METH_VARARGS},
+        {"reset_stuff_upon_resurrection", ResetStuffUponResurrection, METH_VARARGS},
+        {"reset_vehicle_camera_tweak", ResetVehicleCameraTweak, METH_VARARGS},
         {"reset_vehicle_hydraulics", ResetVehicleHydraulics, METH_VARARGS},
+        {"restore_camera", RestoreCamera, METH_VARARGS},
+        {"restore_camera_jumpcut", RestoreCameraJumpcut, METH_VARARGS},
+        {"restore_car_mod_state", RestoreCarModState, METH_VARARGS},
+        {"restore_clock", RestoreClock, METH_VARARGS},
+        {"restore_clothes_state", RestoreClothesState, METH_VARARGS},
         {"rotate_object", RotateObject, METH_VARARGS},
         {"save_float_to_debug_file", SaveFloatToDebugFile, METH_VARARGS},
         {"save_int_to_debug_file", SaveIntToDebugFile, METH_VARARGS},
+        {"save_newline_to_debug_file", SaveNewlineToDebugFile, METH_VARARGS},
         {"save_text_label_to_debug_file", SaveTextLabelToDebugFile, METH_VARARGS},
         {"script_name", ScriptName, METH_VARARGS},
         {"select_weapons_for_vehicle", SelectWeaponsForVehicle, METH_VARARGS},
@@ -2324,7 +2514,9 @@ private:
         {"set_blip_as_friendly", SetBlipAsFriendly, METH_VARARGS},
         {"set_blip_entry_exit", SetBlipEntryExit, METH_VARARGS},
         {"set_boat_cruise_speed", SetBoatCruiseSpeed, METH_VARARGS},
+        {"set_camera_behind_player", SetCameraBehindPlayer, METH_VARARGS},
         {"set_camera_in_front_of_char", SetCameraInFrontOfChar, METH_VARARGS},
+        {"set_camera_in_front_of_player", SetCameraInFrontOfPlayer, METH_VARARGS},
         {"set_camera_position_unfixed", SetCameraPositionUnfixed, METH_VARARGS},
         {"set_camera_zoom", SetCameraZoom, METH_VARARGS},
         {"set_can_burst_car_tyres", SetCanBurstCarTyres, METH_VARARGS},
@@ -2564,8 +2756,10 @@ private:
         {"set_progress_total", SetProgressTotal, METH_VARARGS},
         {"set_radar_zoom", SetRadarZoom, METH_VARARGS},
         {"set_radio_channel", SetRadioChannel, METH_VARARGS},
+        {"set_radio_to_players_favourite_station", SetRadioToPlayersFavouriteStation, METH_VARARGS},
         {"set_railtrack_resistance_mult", SetRailtrackResistanceMult, METH_VARARGS},
         {"set_relationship", SetRelationship, METH_VARARGS},
+        {"set_render_player_weapon", SetRenderPlayerWeapon, METH_VARARGS},
         {"set_respawn_point_for_duration_of_mission", SetRespawnPointForDurationOfMission, METH_VARARGS},
         {"set_rope_height_for_object", SetRopeHeightForObject, METH_VARARGS},
         {"set_script_coop_game", SetScriptCoopGame, METH_VARARGS},
@@ -2593,6 +2787,7 @@ private:
         {"set_text_scale", SetTextScale, METH_VARARGS},
         {"set_text_wrapx", SetTextWrapx, METH_VARARGS},
         {"set_time_of_day", SetTimeOfDay, METH_VARARGS},
+        {"set_time_one_day_forward", SetTimeOneDayForward, METH_VARARGS},
         {"set_time_scale", SetTimeScale, METH_VARARGS},
         {"set_timer_beep_countdown_time", SetTimerBeepCountdownTime, METH_VARARGS},
         {"set_total_number_of_missions", SetTotalNumberOfMissions, METH_VARARGS},
@@ -2608,6 +2803,7 @@ private:
         {"set_up_skip_after_mission", SetUpSkipAfterMission, METH_VARARGS},
         {"set_up_skip_for_specific_vehicle", SetUpSkipForSpecificVehicle, METH_VARARGS},
         {"set_up_skip_for_vehicle_finished_by_script", SetUpSkipForVehicleFinishedByScript, METH_VARARGS},
+        {"set_up_skip_to_be_finished_by_script", SetUpSkipToBeFinishedByScript, METH_VARARGS},
         {"set_upsidedown_car_not_damaged", SetUpsidedownCarNotDamaged, METH_VARARGS},
         {"set_uses_collision_of_closest_object_of_type", SetUsesCollisionOfClosestObjectOfType, METH_VARARGS},
         {"set_var_text_label", SetVarTextLabel, METH_VARARGS},
@@ -2621,6 +2817,7 @@ private:
         {"set_vehicle_to_fade_in", SetVehicleToFadeIn, METH_VARARGS},
         {"set_visibility_of_closest_object_of_type", SetVisibilityOfClosestObjectOfType, METH_VARARGS},
         {"set_wanted_multiplier", SetWantedMultiplier, METH_VARARGS},
+        {"set_weather_to_appropriate_type_now", SetWeatherToAppropriateTypeNow, METH_VARARGS},
         {"set_zone_dealer_strength", SetZoneDealerStrength, METH_VARARGS},
         {"set_zone_for_gang_wars_training", SetZoneForGangWarsTraining, METH_VARARGS},
         {"set_zone_gang_strength", SetZoneGangStrength, METH_VARARGS},
@@ -2637,6 +2834,8 @@ private:
         {"shut_char_up_for_scripted_speech", ShutCharUpForScriptedSpeech, METH_VARARGS},
         {"shut_player_up", ShutPlayerUp, METH_VARARGS},
         {"sin", Sin, METH_VARARGS},
+        {"skip_cutscene_end", SkipCutsceneEnd, METH_VARARGS},
+        {"skip_cutscene_start", SkipCutsceneStart, METH_VARARGS},
         {"skip_cutscene_start_internal", SkipCutsceneStartInternal, METH_VARARGS},
         {"skip_in_playback_recorded_car", SkipInPlaybackRecordedCar, METH_VARARGS},
         {"skip_to_end_and_stop_playback_recorded_car", SkipToEndAndStopPlaybackRecordedCar, METH_VARARGS},
@@ -2647,6 +2846,8 @@ private:
         {"start_car_fire", StartCarFire, METH_VARARGS},
         {"start_char_facial_talk", StartCharFacialTalk, METH_VARARGS},
         {"start_char_fire", StartCharFire, METH_VARARGS},
+        {"start_credits", StartCredits, METH_VARARGS},
+        {"start_cutscene", StartCutscene, METH_VARARGS},
         {"start_kill_frenzy", StartKillFrenzy, METH_VARARGS},
         {"start_playback_recorded_car", StartPlaybackRecordedCar, METH_VARARGS},
         {"start_playback_recorded_car_looped", StartPlaybackRecordedCarLooped, METH_VARARGS},
@@ -2654,13 +2855,18 @@ private:
         {"start_recording_car", StartRecordingCar, METH_VARARGS},
         {"start_script_fire", StartScriptFire, METH_VARARGS},
         {"start_setting_up_conversation", StartSettingUpConversation, METH_VARARGS},
+        {"stop_beat_track", StopBeatTrack, METH_VARARGS},
         {"stop_char_facial_talk", StopCharFacialTalk, METH_VARARGS},
+        {"stop_credits", StopCredits, METH_VARARGS},
         {"stop_fx_system", StopFxSystem, METH_VARARGS},
         {"stop_playback_recorded_car", StopPlaybackRecordedCar, METH_VARARGS},
         {"stop_recording_car", StopRecordingCar, METH_VARARGS},
         {"store_car_char_is_attached_to_no_save", StoreCarCharIsAttachedToNoSave, METH_VARARGS},
         {"store_car_char_is_in", StoreCarCharIsIn, METH_VARARGS},
         {"store_car_char_is_in_no_save", StoreCarCharIsInNoSave, METH_VARARGS},
+        {"store_car_mod_state", StoreCarModState, METH_VARARGS},
+        {"store_clock", StoreClock, METH_VARARGS},
+        {"store_clothes_state", StoreClothesState, METH_VARARGS},
         {"store_score", StoreScore, METH_VARARGS},
         {"store_wanted_level", StoreWantedLevel, METH_VARARGS},
         {"stream_script", StreamScript, METH_VARARGS},
@@ -2691,6 +2897,7 @@ private:
         {"switch_streaming", SwitchStreaming, METH_VARARGS},
         {"switch_widescreen", SwitchWidescreen, METH_VARARGS},
         {"switch_world_processing", SwitchWorldProcessing, METH_VARARGS},
+        {"sync_water", SyncWater, METH_VARARGS},
         {"take_photo", TakePhoto, METH_VARARGS},
         {"take_remote_control_of_car", TakeRemoteControlOfCar, METH_VARARGS},
         {"task_achieve_heading", TaskAchieveHeading, METH_VARARGS},
@@ -2794,8 +3001,10 @@ private:
         {"terminate_all_scripts_with_this_name", TerminateAllScriptsWithThisName, METH_VARARGS},
         {"turn_car_to_face_coord", TurnCarToFaceCoord, METH_VARARGS},
         {"unload_special_character", UnloadSpecialCharacter, METH_VARARGS},
+        {"unmark_all_road_nodes_as_dont_wander", UnmarkAllRoadNodesAsDontWander, METH_VARARGS},
         {"unpause_playback_recorded_car", UnpausePlaybackRecordedCar, METH_VARARGS},
         {"update_pickup_money_per_day", UpdatePickupMoneyPerDay, METH_VARARGS},
+        {"use_detonator", UseDetonator, METH_VARARGS},
         {"use_text_commands", UseTextCommands, METH_VARARGS},
         {"vehicle_can_be_targetted_by_hs_missile", VehicleCanBeTargettedByHsMissile, METH_VARARGS},
         {"vehicle_does_provide_cover", VehicleDoesProvideCover, METH_VARARGS},
@@ -2804,6 +3013,7 @@ private:
         {"warp_char_from_car_to_coord", WarpCharFromCarToCoord, METH_VARARGS},
         {"warp_char_into_car", WarpCharIntoCar, METH_VARARGS},
         {"warp_char_into_car_as_passenger", WarpCharIntoCarAsPassenger, METH_VARARGS},
+        {"was_cutscene_skipped", WasCutsceneSkipped, METH_VARARGS},
         {"watch_float_variable", WatchFloatVariable, METH_VARARGS},
         {"watch_integer_variable", WatchIntegerVariable, METH_VARARGS},
         {"winch_can_pick_object_up", WinchCanPickObjectUp, METH_VARARGS},

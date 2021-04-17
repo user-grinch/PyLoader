@@ -1,4 +1,4 @@
-#include "PyOpcodes.h"
+#include "PyOpcodes.h
 
 PyObject* PyOpcodes::ShakeCam(PyObject* self, PyObject* args)
 {
@@ -330,6 +330,12 @@ PyObject* PyOpcodes::PrintNow(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearPrints(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_PRINTS>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetTimeOfDay(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -386,6 +392,12 @@ PyObject* PyOpcodes::LaunchMission(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::LAUNCH_MISSION>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::MissionHasFinished(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::MISSION_HAS_FINISHED>();
 	return Py_True;
 }
 
@@ -878,6 +890,12 @@ PyObject* PyOpcodes::SetDeatharrestState(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::HasDeatharrestBeenExecuted(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_DEATHARREST_BEEN_EXECUTED>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::AddAmmoToChar(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -1068,6 +1086,12 @@ PyObject* PyOpcodes::PointCameraAtChar(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::RestoreCamera(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESTORE_CAMERA>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::ShakePad(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -1209,6 +1233,12 @@ PyObject* PyOpcodes::DoFade(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::DO_FADE>(var1, var2);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::GetFadingStatus(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::GET_FADING_STATUS>();
 	return Py_True;
 }
 
@@ -1862,6 +1892,12 @@ PyObject* PyOpcodes::ForceWeatherNow(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ReleaseWeather(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RELEASE_WEATHER>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetCurrentCharWeapon(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -2169,6 +2205,12 @@ PyObject* PyOpcodes::GetPlayerChar(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", var2);
 }
 
+PyObject* PyOpcodes::CancelOverrideRestart(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CANCEL_OVERRIDE_RESTART>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetPoliceIgnorePlayer(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -2410,8 +2452,8 @@ PyObject* PyOpcodes::HasPickupBeenCollected(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_PICKUP_BEEN_COLLECTED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_PICKUP_BEEN_COLLECTED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::RemovePickup(PyObject* self, PyObject* args)
@@ -2612,8 +2654,8 @@ PyObject* PyOpcodes::HasSpecialCharacterLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_SPECIAL_CHARACTER_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_SPECIAL_CHARACTER_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::IsPlayerInRemoteMode(PyObject* self, PyObject* args)
@@ -2670,8 +2712,8 @@ PyObject* PyOpcodes::HasModelLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_MODEL_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_MODEL_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::MarkModelAsNoLongerNeeded(PyObject* self, PyObject* args)
@@ -2701,6 +2743,18 @@ PyObject* PyOpcodes::DrawCorona(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::DRAW_CORONA>(var1, var2, var3, var4, var5, var6, var7, var8, var9);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::StoreClock(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::STORE_CLOCK>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::RestoreClock(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESTORE_CLOCK>();
 	return Py_True;
 }
 
@@ -3199,12 +3253,36 @@ PyObject* PyOpcodes::LoadCutscene(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::StartCutscene(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::START_CUTSCENE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetCutsceneTime(PyObject* self, PyObject* args)
 {
 	int var1;
 
 	plugin::Command<plugin::Commands::GET_CUTSCENE_TIME>(&var1);
 	return Py_BuildValue("i", var1);
+}
+
+PyObject* PyOpcodes::HasCutsceneFinished(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_CUTSCENE_FINISHED>();
+	return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::ClearCutscene(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_CUTSCENE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::RestoreCameraJumpcut(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESTORE_CAMERA_JUMPCUT>();
+	return Py_True;
 }
 
 PyObject* PyOpcodes::CreateCollectable1(PyObject* self, PyObject* args)
@@ -3425,6 +3503,12 @@ PyObject* PyOpcodes::SetProgressTotal(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::RegisterMissionGiven(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::REGISTER_MISSION_GIVEN>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::RegisterMissionPassed(PyObject* self, PyObject* args)
 {
 	char* var1;
@@ -3436,6 +3520,12 @@ PyObject* PyOpcodes::RegisterMissionPassed(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::RemoveAllScriptFires(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::REMOVE_ALL_SCRIPT_FIRES>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::HasCharBeenDamagedByWeapon(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -3444,8 +3534,8 @@ PyObject* PyOpcodes::HasCharBeenDamagedByWeapon(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::HasCarBeenDamagedByWeapon(PyObject* self, PyObject* args)
@@ -3456,8 +3546,8 @@ PyObject* PyOpcodes::HasCarBeenDamagedByWeapon(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::ExplodeCharHead(PyObject* self, PyObject* args)
@@ -3930,8 +4020,8 @@ PyObject* PyOpcodes::HasCharSpottedChar(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_SPOTTED_CHAR>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_SPOTTED_CHAR>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::HasObjectBeenDamaged(PyObject* self, PyObject* args)
@@ -3941,8 +4031,8 @@ PyObject* PyOpcodes::HasObjectBeenDamaged(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_DAMAGED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_DAMAGED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::WarpCharIntoCar(PyObject* self, PyObject* args)
@@ -3969,6 +4059,12 @@ PyObject* PyOpcodes::PrintWith2NumbersBig(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::PRINT_WITH_2_NUMBERS_BIG>(var1, var2, var3, var4, var5);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SetCameraBehindPlayer(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_CAMERA_BEHIND_PLAYER>();
 	return Py_True;
 }
 
@@ -4042,6 +4138,12 @@ PyObject* PyOpcodes::IsPointObscuredByAMissionEntity(PyObject* self, PyObject* a
 	return Py_BuildValue("i", result);
 }
 
+PyObject* PyOpcodes::LoadAllModelsNow(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::LOAD_ALL_MODELS_NOW>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::AddToObjectVelocity(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -4113,6 +4215,12 @@ PyObject* PyOpcodes::LoadTextureDictionary(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::LOAD_TEXTURE_DICTIONARY>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::RemoveTextureDictionary(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::REMOVE_TEXTURE_DICTIONARY>();
 	return Py_True;
 }
 
@@ -4294,6 +4402,12 @@ PyObject* PyOpcodes::SaveFloatToDebugFile(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SAVE_FLOAT_TO_DEBUG_FILE>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SaveNewlineToDebugFile(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SAVE_NEWLINE_TO_DEBUG_FILE>();
 	return Py_True;
 }
 
@@ -4510,6 +4624,12 @@ PyObject* PyOpcodes::SetWantedMultiplier(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::SetCameraInFrontOfPlayer(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_CAMERA_IN_FRONT_OF_PLAYER>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::IsCarVisiblyDamaged(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -4599,8 +4719,8 @@ PyObject* PyOpcodes::HasMissionAudioLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::PlayMissionAudio(PyObject* self, PyObject* args)
@@ -4621,8 +4741,8 @@ PyObject* PyOpcodes::HasMissionAudioFinished(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_FINISHED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_MISSION_AUDIO_FINISHED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetClosestCarNodeWithHeading(PyObject* self, PyObject* args)
@@ -4676,6 +4796,18 @@ PyObject* PyOpcodes::SetMissionAudioPosition(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::SET_MISSION_AUDIO_POSITION>(var1, var2, var3, var4);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::ActivateSaveMenu(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::ACTIVATE_SAVE_MENU>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::HasSaveGameFinished(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_SAVE_GAME_FINISHED>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::AddBlipForPickup(PyObject* self, PyObject* args)
@@ -4745,6 +4877,12 @@ PyObject* PyOpcodes::PrintHelp(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearHelp(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_HELP>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::FlashHudObject(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -4753,6 +4891,12 @@ PyObject* PyOpcodes::FlashHudObject(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::FLASH_HUD_OBJECT>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ClearSmallPrints(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_SMALL_PRINTS>();
 	return Py_True;
 }
 
@@ -4895,6 +5039,12 @@ PyObject* PyOpcodes::GetOffsetFromCarInWorldCoords(PyObject* self, PyObject* arg
 	return Py_BuildValue("fff", var5, var6, var7);
 }
 
+PyObject* PyOpcodes::IsGermanGame(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_GERMAN_GAME>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::ClearMissionAudio(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -4996,6 +5146,12 @@ PyObject* PyOpcodes::SetCarTraction(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SET_CAR_TRACTION>(var1, var2);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::AreMeasurementsInMetres(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::ARE_MEASUREMENTS_IN_METRES>();
 	return Py_True;
 }
 
@@ -5124,6 +5280,24 @@ PyObject* PyOpcodes::SetCharIsChrisCriminal(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::StartCredits(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::START_CREDITS>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::StopCredits(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::STOP_CREDITS>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::AreCreditsFinished(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::ARE_CREDITS_FINISHED>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetMusicDoesFade(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -5145,6 +5319,12 @@ PyObject* PyOpcodes::GetCarModel(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::GET_CAR_MODEL>(var1, &var2);
 	return Py_BuildValue("i", var2);
+}
+
+PyObject* PyOpcodes::AreAnyCarCheatsActivated(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::ARE_ANY_CAR_CHEATS_ACTIVATED>();
+	return Py_True;
 }
 
 PyObject* PyOpcodes::SetCharSuffersCriticalHits(PyObject* self, PyObject* args)
@@ -5278,6 +5458,12 @@ PyObject* PyOpcodes::DisplayTextWith2Numbers(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::DISPLAY_TEXT_WITH_2_NUMBERS>(var1, var2, var3, var4, var5);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::FailCurrentMission(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FAIL_CURRENT_MISSION>();
 	return Py_True;
 }
 
@@ -5559,6 +5745,12 @@ PyObject* PyOpcodes::GetRemoteControlledCar(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", var2);
 }
 
+PyObject* PyOpcodes::IsPcVersion(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_PC_VERSION>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::IsModelAvailable(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -5637,8 +5829,8 @@ PyObject* PyOpcodes::HasCharGotWeapon(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_GOT_WEAPON>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_GOT_WEAPON>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetPositionOfAnalogueSticks(PyObject* self, PyObject* args)
@@ -5858,6 +6050,12 @@ PyObject* PyOpcodes::CreateScriptRoadblock(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearAllScriptRoadblocks(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_ALL_SCRIPT_ROADBLOCKS>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetOffsetFromCharInWorldCoords(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -5882,8 +6080,8 @@ PyObject* PyOpcodes::HasCharBeenPhotographed(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_BEEN_PHOTOGRAPHED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_BEEN_PHOTOGRAPHED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::IsCharInFlyingVehicle(PyObject* self, PyObject* args)
@@ -6041,7 +6239,13 @@ PyObject* PyOpcodes::HasObjectCollidedWithAnything(PyObject* self, PyObject* arg
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_COLLIDED_WITH_ANYTHING>(var1);
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_COLLIDED_WITH_ANYTHING>(var1);
+	return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::RemoveRcBuggy(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::REMOVE_RC_BUGGY>();
 	return Py_True;
 }
 
@@ -6238,8 +6442,8 @@ PyObject* PyOpcodes::HasAnimationLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "s", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_ANIMATION_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_ANIMATION_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::RemoveAnimation(PyObject* self, PyObject* args)
@@ -6573,8 +6777,8 @@ PyObject* PyOpcodes::HasCharBeenDamagedByChar(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_CHAR>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_CHAR>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::HasCharBeenDamagedByCar(PyObject* self, PyObject* args)
@@ -6585,8 +6789,8 @@ PyObject* PyOpcodes::HasCharBeenDamagedByCar(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_CAR>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_BEEN_DAMAGED_BY_CAR>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::HasCarBeenDamagedByChar(PyObject* self, PyObject* args)
@@ -6597,8 +6801,8 @@ PyObject* PyOpcodes::HasCarBeenDamagedByChar(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_CHAR>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_CHAR>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::HasCarBeenDamagedByCar(PyObject* self, PyObject* args)
@@ -6609,8 +6813,8 @@ PyObject* PyOpcodes::HasCarBeenDamagedByCar(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_CAR>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CAR_BEEN_DAMAGED_BY_CAR>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetRadioChannel(PyObject* self, PyObject* args)
@@ -6887,6 +7091,12 @@ PyObject* PyOpcodes::SetCharNeverTargetted(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::WasCutsceneSkipped(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::WAS_CUTSCENE_SKIPPED>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::IsCharInAnyPoliceVehicle(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -7076,6 +7286,12 @@ PyObject* PyOpcodes::SetVehicleToFadeIn(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::RegisterOddjobMissionPassed(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::REGISTER_ODDJOB_MISSION_PASSED>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::IsPlayerInShortcutTaxi(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -7095,6 +7311,12 @@ PyObject* PyOpcodes::IsCharDucking(PyObject* self, PyObject* args)
 		return Py_False;
 
 	int result = plugin::Command<plugin::Commands::IS_CHAR_DUCKING>(var1);
+	return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsAustralianGame(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_AUSTRALIAN_GAME>();
 	return Py_BuildValue("i", result);
 }
 
@@ -7141,6 +7363,12 @@ PyObject* PyOpcodes::GetObjectVelocity(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::GET_OBJECT_VELOCITY>(var1, &var2, &var3, &var4);
 	return Py_BuildValue("fff", var2, var3, var4);
+}
+
+PyObject* PyOpcodes::IsDebugCameraOn(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_DEBUG_CAMERA_ON>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::AddToObjectRotationVelocity(PyObject* self, PyObject* args)
@@ -7625,6 +7853,12 @@ PyObject* PyOpcodes::TaskAchieveHeading(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::TASK_ACHIEVE_HEADING>(var1, var2);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::FlushRoute(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FLUSH_ROUTE>();
 	return Py_True;
 }
 
@@ -8158,6 +8392,12 @@ PyObject* PyOpcodes::LoadPathNodesInArea(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::LOAD_PATH_NODES_IN_AREA>(var1, var2, var3, var4);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ReleasePathNodes(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RELEASE_PATH_NODES>();
 	return Py_True;
 }
 
@@ -9796,6 +10036,12 @@ PyObject* PyOpcodes::IsCharInSearchlight(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", result);
 }
 
+PyObject* PyOpcodes::HasCutsceneLoaded(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_CUTSCENE_LOADED>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::TaskTurnCharToFaceCoord(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -10109,6 +10355,24 @@ PyObject* PyOpcodes::CreateMissionTrain(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", var6);
 }
 
+PyObject* PyOpcodes::DeleteMissionTrains(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::DELETE_MISSION_TRAINS>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::MarkMissionTrainsAsNoLongerNeeded(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::MARK_MISSION_TRAINS_AS_NO_LONGER_NEEDED>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::DeleteAllTrains(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::DELETE_ALL_TRAINS>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetTrainSpeed(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -10289,8 +10553,8 @@ PyObject* PyOpcodes::HasVehicleModLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_VEHICLE_MOD_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_VEHICLE_MOD_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::MarkVehicleModAsNoLongerNeeded(PyObject* self, PyObject* args)
@@ -10372,6 +10636,12 @@ PyObject* PyOpcodes::LimitTwoPlayerDistance(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::LIMIT_TWO_PLAYER_DISTANCE>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ReleaseTwoPlayerDistance(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RELEASE_TWO_PLAYER_DISTANCE>();
 	return Py_True;
 }
 
@@ -10461,6 +10731,18 @@ PyObject* PyOpcodes::AreAnyCharsNearChar(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::ARE_ANY_CHARS_NEAR_CHAR>(var1, var2);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SkipCutsceneStart(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SKIP_CUTSCENE_START>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SkipCutsceneEnd(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SKIP_CUTSCENE_END>();
 	return Py_True;
 }
 
@@ -10741,6 +11023,12 @@ PyObject* PyOpcodes::StartSettingUpConversation(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::FinishSettingUpConversation(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FINISH_SETTING_UP_CONVERSATION>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::IsConversationAtNode(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -10975,6 +11263,12 @@ PyObject* PyOpcodes::DontSuppressCarModel(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::DontSuppressAnyCarModels(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::DONT_SUPPRESS_ANY_CAR_MODELS>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::IsPs2KeyboardKeyPressed(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -11074,8 +11368,8 @@ PyObject* PyOpcodes::HasCharBeenArrested(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_BEEN_ARRESTED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_BEEN_ARRESTED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetPlaneThrottle(PyObject* self, PyObject* args)
@@ -11285,6 +11579,12 @@ PyObject* PyOpcodes::StopRecordingCar(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::FlushPatrolRoute(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FLUSH_PATROL_ROUTE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::ExtendPatrolRoute(PyObject* self, PyObject* args)
 {
 	float var1;
@@ -11474,6 +11774,12 @@ PyObject* PyOpcodes::GetZoneGangStrength(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::GET_ZONE_GANG_STRENGTH>(var1, var2, &var3);
 	return Py_BuildValue("i", var3);
+}
+
+PyObject* PyOpcodes::IsMessageBeingDisplayed(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_MESSAGE_BEING_DISPLAYED>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetCharIsTargetPriority(PyObject* self, PyObject* args)
@@ -11784,6 +12090,18 @@ PyObject* PyOpcodes::ClearCharTasksImmediately(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::StoreClothesState(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::STORE_CLOTHES_STATE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::RestoreClothesState(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESTORE_CLOTHES_STATE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetRopeHeightForObject(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -11830,6 +12148,24 @@ PyObject* PyOpcodes::ReleaseEntityFromRopeForObject(PyObject* self, PyObject* ar
 		return Py_False;
 
 	plugin::Command<plugin::Commands::RELEASE_ENTITY_FROM_ROPE_FOR_OBJECT>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::PlayerEnteredDockCrane(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAYER_ENTERED_DOCK_CRANE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::PlayerEnteredBuildingsiteCrane(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAYER_ENTERED_BUILDINGSITE_CRANE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::PlayerLeftCrane(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAYER_LEFT_CRANE>();
 	return Py_True;
 }
 
@@ -12106,8 +12442,8 @@ PyObject* PyOpcodes::HasCarRecordingBeenLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CAR_RECORDING_BEEN_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CAR_RECORDING_BEEN_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetObjectQuaternion(PyObject* self, PyObject* args)
@@ -12495,8 +12831,8 @@ PyObject* PyOpcodes::HasObjectOfTypeBeenSmashed(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ffffi", &var1, &var2, &var3, &var4, &var5))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_OF_TYPE_BEEN_SMASHED>(var1, var2, var3, var4, var5);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_OF_TYPE_BEEN_SMASHED>(var1, var2, var3, var4, var5);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::IsPlayerPerformingWheelie(PyObject* self, PyObject* args)
@@ -12588,6 +12924,18 @@ PyObject* PyOpcodes::SetCarFollowCar(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::PlayerEnteredQuarryCrane(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAYER_ENTERED_QUARRY_CRANE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::PlayerEnteredLasVegasCrane(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAYER_ENTERED_LAS_VEGAS_CRANE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SwitchEntryExit(PyObject* self, PyObject* args)
 {
 	char* var1;
@@ -12649,6 +12997,12 @@ PyObject* PyOpcodes::SetCarHydraulics(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::SET_CAR_HYDRAULICS>(var1, var2);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::Is2PlayerGameGoingOn(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_2PLAYER_GAME_GOING_ON>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetCameraFov(PyObject* self, PyObject* args)
@@ -13074,8 +13428,8 @@ PyObject* PyOpcodes::HasObjectBeenPhotographed(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_PHOTOGRAPHED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_PHOTOGRAPHED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::DoCameraBump(PyObject* self, PyObject* args)
@@ -13501,6 +13855,12 @@ PyObject* PyOpcodes::ClearThisViewFloatVariable(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearAllViewVariables(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_ALL_VIEW_VARIABLES>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::ClearThisIntegerWatchpoint(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -13655,6 +14015,12 @@ PyObject* PyOpcodes::SetGangWarsActive(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::IsGangWarGoingOn(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_GANG_WAR_GOING_ON>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::GivePlayerClothesOutsideShop(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -13666,6 +14032,12 @@ PyObject* PyOpcodes::GivePlayerClothesOutsideShop(PyObject* self, PyObject* args
 		return Py_False;
 
 	plugin::Command<plugin::Commands::GIVE_PLAYER_CLOTHES_OUTSIDE_SHOP>(var1, var2, var3, var4);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ClearLoadedShop(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_LOADED_SHOP>();
 	return Py_True;
 }
 
@@ -13865,6 +14237,12 @@ PyObject* PyOpcodes::SetUsesCollisionOfClosestObjectOfType(PyObject* self, PyObj
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SET_USES_COLLISION_OF_CLOSEST_OBJECT_OF_TYPE>(var1, var2, var3, var4, var5, var6);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SetTimeOneDayForward(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_TIME_ONE_DAY_FORWARD>();
 	return Py_True;
 }
 
@@ -14086,8 +14464,8 @@ PyObject* PyOpcodes::HasStreamedScriptLoaded(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_STREAMED_SCRIPT_LOADED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_STREAMED_SCRIPT_LOADED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetGangWarsTrainingMission(PyObject* self, PyObject* args)
@@ -14425,6 +14803,12 @@ PyObject* PyOpcodes::RemovePriceModifier(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::InitZonePopulationSettings(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::INIT_ZONE_POPULATION_SETTINGS>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::ExplodeCarInCutsceneShakeAndBits(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -14437,6 +14821,12 @@ PyObject* PyOpcodes::ExplodeCarInCutsceneShakeAndBits(PyObject* self, PyObject* 
 
 	plugin::Command<plugin::Commands::EXPLODE_CAR_IN_CUTSCENE_SHAKE_AND_BITS>(var1, var2, var3, var4);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::IsSkipCutsceneButtonPressed(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_SKIP_CUTSCENE_BUTTON_PRESSED>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetCutsceneOffset(PyObject* self, PyObject* args)
@@ -14897,6 +15287,18 @@ PyObject* PyOpcodes::SetScriptLimitToGangSize(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::MakePlayerGangDisappear(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::MAKE_PLAYER_GANG_DISAPPEAR>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::MakePlayerGangReappear(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::MAKE_PLAYER_GANG_REAPPEAR>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetClothesItem(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -14945,6 +15347,12 @@ PyObject* PyOpcodes::SetHeathazeEffect(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::IsHelpMessageBeingDisplayed(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_HELP_MESSAGE_BEING_DISPLAYED>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::HasObjectBeenDamagedByWeapon(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -14953,8 +15361,8 @@ PyObject* PyOpcodes::HasObjectBeenDamagedByWeapon(PyObject* self, PyObject* args
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_DAMAGED_BY_WEAPON>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::ClearObjectLastWeaponDamage(PyObject* self, PyObject* args)
@@ -15066,6 +15474,12 @@ PyObject* PyOpcodes::SetSpecificZoneToTriggerGangWar(PyObject* self, PyObject* a
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearSpecificZonesToTriggerGangWar(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_SPECIFIC_ZONES_TO_TRIGGER_GANG_WAR>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetActiveMenuItem(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -15136,6 +15550,12 @@ PyObject* PyOpcodes::RegisterStreamedScriptInternal(PyObject* self, PyObject* ar
 	return Py_True;
 }
 
+PyObject* PyOpcodes::SetWeatherToAppropriateTypeNow(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_WEATHER_TO_APPROPRIATE_TYPE_NOW>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::WinchCanPickObjectUp(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -15190,6 +15610,12 @@ PyObject* PyOpcodes::GetLatestConsoleCommand(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::GET_LATEST_CONSOLE_COMMAND>(var1);
 	return Py_BuildValue("s", var1);
+}
+
+PyObject* PyOpcodes::ResetLatestConsoleCommand(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESET_LATEST_CONSOLE_COMMAND>();
+	return Py_True;
 }
 
 PyObject* PyOpcodes::GetUserOfClosestMapAttractor(PyObject* self, PyObject* args)
@@ -15308,6 +15734,12 @@ PyObject* PyOpcodes::SetDarknessEffect(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::CameraResetNewScriptables(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CAMERA_RESET_NEW_SCRIPTABLES>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetNumberOfInstancesOfStreamedScript(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -15405,6 +15837,18 @@ PyObject* PyOpcodes::CameraPersistFov(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::CAMERA_PERSIST_FOV>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::CameraIsVectorMoveRunning(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CAMERA_IS_VECTOR_MOVE_RUNNING>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::CameraIsVectorTrackRunning(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CAMERA_IS_VECTOR_TRACK_RUNNING>();
 	return Py_True;
 }
 
@@ -15538,8 +15982,8 @@ PyObject* PyOpcodes::HasPlayerBoughtItem(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_PLAYER_BOUGHT_ITEM>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_PLAYER_BOUGHT_ITEM>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetCameraInFrontOfChar(PyObject* self, PyObject* args)
@@ -15704,6 +16148,12 @@ PyObject* PyOpcodes::SetUpSkip(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearSkip(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_SKIP>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::PreloadBeatTrack(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -15721,6 +16171,18 @@ PyObject* PyOpcodes::GetBeatTrackStatus(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::GET_BEAT_TRACK_STATUS>(&var1);
 	return Py_BuildValue("i", var1);
+}
+
+PyObject* PyOpcodes::PlayBeatTrack(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::PLAY_BEAT_TRACK>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::StopBeatTrack(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::STOP_BEAT_TRACK>();
+	return Py_True;
 }
 
 PyObject* PyOpcodes::FindMaxNumberOfGroupMembers(PyObject* self, PyObject* args)
@@ -15792,8 +16254,8 @@ PyObject* PyOpcodes::HasObjectBeenUprooted(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_UPROOTED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_OBJECT_BEEN_UPROOTED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::AddSmokeParticle(PyObject* self, PyObject* args)
@@ -15967,6 +16429,18 @@ PyObject* PyOpcodes::SwitchPoliceHelis(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::StoreCarModState(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::STORE_CAR_MOD_STATE>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::RestoreCarModState(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESTORE_CAR_MOD_STATE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::GetCurrentCarMod(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -16002,6 +16476,18 @@ PyObject* PyOpcodes::IsCarStreetRacer(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", result);
 }
 
+PyObject* PyOpcodes::ForceDeathRestart(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FORCE_DEATH_RESTART>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SyncWater(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SYNC_WATER>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetCharCoordinatesNoOffset(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -16024,6 +16510,12 @@ PyObject* PyOpcodes::DoesScriptFireExist(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::DOES_SCRIPT_FIRE_EXIST>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ResetStuffUponResurrection(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESET_STUFF_UPON_RESURRECTION>();
 	return Py_True;
 }
 
@@ -16143,8 +16635,8 @@ PyObject* PyOpcodes::HasTrainDerailed(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_TRAIN_DERAILED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_TRAIN_DERAILED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetCharForceDieInCar(PyObject* self, PyObject* args)
@@ -16196,6 +16688,12 @@ PyObject* PyOpcodes::SetCharUsesCollisionClosestObjectOfType(PyObject* self, PyO
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SET_CHAR_USES_COLLISION_CLOSEST_OBJECT_OF_TYPE>(var1, var2, var3, var4, var5, var6, var7);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ClearAllScriptFireFlags(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_ALL_SCRIPT_FIRE_FLAGS>();
 	return Py_True;
 }
 
@@ -16306,6 +16804,12 @@ PyObject* PyOpcodes::MarkRoadNodeAsDontWander(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::UnmarkAllRoadNodesAsDontWander(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::UNMARK_ALL_ROAD_NODES_AS_DONT_WANDER>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetCheckpointHeading(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -16374,6 +16878,12 @@ PyObject* PyOpcodes::CameraSetShakeSimulationSimple(PyObject* self, PyObject* ar
 
 	plugin::Command<plugin::Commands::CAMERA_SET_SHAKE_SIMULATION_SIMPLE>(var1, var2, var3);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::IsNightVisionActive(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_NIGHT_VISION_ACTIVE>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::SetCreateRandomCops(PyObject* self, PyObject* args)
@@ -16751,6 +17261,12 @@ PyObject* PyOpcodes::SetMinigameInProgress(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::IsMinigameInProgress(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_MINIGAME_IN_PROGRESS>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::SetForceRandomCarModel(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -16787,6 +17303,12 @@ PyObject* PyOpcodes::AddNextMessageToPreviousBriefs(PyObject* self, PyObject* ar
 		return Py_False;
 
 	plugin::Command<plugin::Commands::ADD_NEXT_MESSAGE_TO_PREVIOUS_BRIEFS>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::FailKillFrenzy(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FAIL_KILL_FRENZY>();
 	return Py_True;
 }
 
@@ -16838,6 +17360,12 @@ PyObject* PyOpcodes::SetPlayerModel(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SET_PLAYER_MODEL>(var1, var2);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::AreSubtitlesSwitchedOn(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::ARE_SUBTITLES_SWITCHED_ON>();
 	return Py_True;
 }
 
@@ -16938,6 +17466,12 @@ PyObject* PyOpcodes::EnableAmbientCrime(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::ClearWantedLevelInGarage(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::CLEAR_WANTED_LEVEL_IN_GARAGE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetCharSayContextImportant(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -16989,6 +17523,12 @@ PyObject* PyOpcodes::Disable2NdPadForDebug(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::DISABLE_2ND_PAD_FOR_DEBUG>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::UseDetonator(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::USE_DETONATOR>();
 	return Py_True;
 }
 
@@ -17206,8 +17746,8 @@ PyObject* PyOpcodes::HasCharSpottedCharInFront(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "ii", &var1, &var2))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CHAR_SPOTTED_CHAR_IN_FRONT>(var1, var2);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CHAR_SPOTTED_CHAR_IN_FRONT>(var1, var2);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::ForceBigMessageAndCounter(PyObject* self, PyObject* args)
@@ -17232,6 +17772,12 @@ PyObject* PyOpcodes::SetVehicleCameraTweak(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::SET_VEHICLE_CAMERA_TWEAK>(var1, var2, var3, var4);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::ResetVehicleCameraTweak(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::RESET_VEHICLE_CAMERA_TWEAK>();
 	return Py_True;
 }
 
@@ -17303,6 +17849,18 @@ PyObject* PyOpcodes::ReportMissionAudioEventAtCar(PyObject* self, PyObject* args
 
 	plugin::Command<plugin::Commands::REPORT_MISSION_AUDIO_EVENT_AT_CAR>(var1, var2);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::DoWeaponStuffAtStartOf2PGame(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::DO_WEAPON_STUFF_AT_START_OF_2P_GAME>();
+	return Py_True;
+}
+
+PyObject* PyOpcodes::HasGameJustReturnedFromFrontend(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_GAME_JUST_RETURNED_FROM_FRONTEND>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::GetCurrentLanguage(PyObject* self, PyObject* args)
@@ -17381,6 +17939,12 @@ PyObject* PyOpcodes::SwitchOnGroundSearchlight(PyObject* self, PyObject* args)
 
 	plugin::Command<plugin::Commands::SWITCH_ON_GROUND_SEARCHLIGHT>(var1, var2);
 	return Py_True;
+}
+
+PyObject* PyOpcodes::IsGangWarFightingGoingOn(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_GANG_WAR_FIGHTING_GOING_ON>();
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::IsNextStationAllowed(PyObject* self, PyObject* args)
@@ -17478,6 +18042,12 @@ PyObject* PyOpcodes::ClearThisPrintBigNow(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::HasLanguageChanged(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::HAS_LANGUAGE_CHANGED>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::IncrementIntStatNoMessage(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -17516,6 +18086,12 @@ PyObject* PyOpcodes::GetExtraCarColours(PyObject* self, PyObject* args)
 	return Py_BuildValue("ii", var2, var3);
 }
 
+PyObject* PyOpcodes::ManageAllPopulation(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::MANAGE_ALL_POPULATION>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetNoResprays(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -17534,8 +18110,8 @@ PyObject* PyOpcodes::HasCarBeenResprayed(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return Py_False;
 
-	plugin::Command<plugin::Commands::HAS_CAR_BEEN_RESPRAYED>(var1);
-	return Py_True;
+	int result = plugin::Command<plugin::Commands::HAS_CAR_BEEN_RESPRAYED>(var1);
+	return Py_BuildValue("i", result);
 }
 
 PyObject* PyOpcodes::AttachMissionAudioToCar(PyObject* self, PyObject* args)
@@ -17741,6 +18317,12 @@ PyObject* PyOpcodes::SetCameraPositionUnfixed(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::SetRadioToPlayersFavouriteStation(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_RADIO_TO_PLAYERS_FAVOURITE_STATION>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetDeathWeaponsPersist(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -17784,6 +18366,12 @@ PyObject* PyOpcodes::IsThisHelpMessageBeingDisplayed(PyObject* self, PyObject* a
 		return Py_False;
 
 	int result = plugin::Command<plugin::Commands::IS_THIS_HELP_MESSAGE_BEING_DISPLAYED>(var1);
+	return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsWidescreenOnInOptions(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_WIDESCREEN_ON_IN_OPTIONS>();
 	return Py_BuildValue("i", result);
 }
 
@@ -17883,6 +18471,12 @@ PyObject* PyOpcodes::StoreCarCharIsAttachedToNoSave(PyObject* self, PyObject* ar
 	return Py_BuildValue("i", var2);
 }
 
+PyObject* PyOpcodes::SetUpSkipToBeFinishedByScript(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_UP_SKIP_TO_BE_FINISHED_BY_SCRIPT>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::SetUpSkipForVehicleFinishedByScript(PyObject* self, PyObject* args)
 {
 	float var1;
@@ -17898,6 +18492,12 @@ PyObject* PyOpcodes::SetUpSkipForVehicleFinishedByScript(PyObject* self, PyObjec
 	return Py_True;
 }
 
+PyObject* PyOpcodes::IsSkipWaitingForScriptToFadeIn(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_SKIP_WAITING_FOR_SCRIPT_TO_FADE_IN>();
+	return Py_BuildValue("i", result);
+}
+
 PyObject* PyOpcodes::ForceAllVehicleLightsOff(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -17906,6 +18506,12 @@ PyObject* PyOpcodes::ForceAllVehicleLightsOff(PyObject* self, PyObject* args)
 		return Py_False;
 
 	plugin::Command<plugin::Commands::FORCE_ALL_VEHICLE_LIGHTS_OFF>(var1);
+	return Py_True;
+}
+
+PyObject* PyOpcodes::SetRenderPlayerWeapon(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::SET_RENDER_PLAYER_WEAPON>();
 	return Py_True;
 }
 
@@ -18017,6 +18623,12 @@ PyObject* PyOpcodes::RemoveUser3DMarker(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::GetRidOfPlayerProstitute(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::GET_RID_OF_PLAYER_PROSTITUTE>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::DisplayNonMinigameHelpMessages(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -18051,6 +18663,12 @@ PyObject* PyOpcodes::SwitchObjectBrains(PyObject* self, PyObject* args)
 	return Py_True;
 }
 
+PyObject* PyOpcodes::FinishSettingUpConversationNoSubtitles(PyObject* self, PyObject* args)
+{
+	plugin::Command<plugin::Commands::FINISH_SETTING_UP_CONVERSATION_NO_SUBTITLES>();
+	return Py_True;
+}
+
 PyObject* PyOpcodes::AllowPauseInWidescreen(PyObject* self, PyObject* args)
 {
 	int var1;
@@ -18071,4 +18689,15 @@ PyObject* PyOpcodes::GetPcMouseMovement(PyObject* self, PyObject* args)
 	return Py_BuildValue("ff", var1, var2);
 }
 
+PyObject* PyOpcodes::IsPcUsingJoypad(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_PC_USING_JOYPAD>();
+	return Py_BuildValue("i", result);
+}
+
+PyObject* PyOpcodes::IsMouseUsingVerticalInversion(PyObject* self, PyObject* args)
+{
+	int result = plugin::Command<plugin::Commands::IS_MOUSE_USING_VERTICAL_INVERSION>();
+	return Py_BuildValue("i", result);
+}
 
