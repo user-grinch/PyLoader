@@ -6,8 +6,9 @@ PyObject* PyMemory::ReadMemory(PyObject* self, PyObject* args)
     int size = NULL;
     int val = NULL;
     int vp = NULL;
+    int is_float = NULL;
 
-    if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
+    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &vp, &is_float))
         return Py_False;
 
     switch (size)
@@ -19,7 +20,10 @@ PyObject* PyMemory::ReadMemory(PyObject* self, PyObject* args)
     }
     case 4:
     {
-        val = plugin::patch::Get<int>(addr, vp);
+        if (is_float)
+            val = plugin::patch::Get<float>(addr, vp);
+        else
+            val = plugin::patch::Get<int>(addr, vp);
         break;
     }
     default:
@@ -35,8 +39,9 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
     int size = NULL;
     int val = NULL;
     int vp = NULL;
+    int is_float = NULL;
 
-    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &val, &vp))
+    if (!PyArg_ParseTuple(args, "iiiii", &addr, &size, &val, &vp, &is_float))
         return Py_False;
 
     switch (size)
@@ -48,7 +53,10 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
     }
     case 4:
     {
-        plugin::patch::Set<int>(addr, val, vp);
+        if (is_float)
+            plugin::patch::Set<float>(addr, val, vp);
+        else
+            plugin::patch::Set<int>(addr, val, vp);
         break;
     }
     default:

@@ -1,10 +1,21 @@
 #include "PyCommon.h"
-#include <CHud.h>
 #include <frameobject.h>
 
 PyObject* PyCommon::GetPyLoaderVersion(PyObject* self, PyObject* args)
 {
-    return Py_BuildValue(plugin_ver);
+    return Py_BuildValue("s", plugin_ver);
+}
+
+PyObject* PyCommon::GetWorkingDir(PyObject* self, PyObject* args)
+{
+    char* path = PLUGIN_PATH((char*)"PyLoader\\");
+    return Py_BuildValue("s", path);
+}
+
+PyObject* PyCommon::GetGameDir(PyObject* self, PyObject* args)
+{
+    char* path = PLUGIN_PATH((char*)"");
+    return Py_BuildValue("s", path);
 }
 
 PyObject* PyCommon::KeyPressed(PyObject *self, PyObject *args)
@@ -44,7 +55,6 @@ PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
 
     return Py_BuildValue("");
 }
-
 
 PyObject* PyCommon::FlushStream(PyObject* self, PyObject* args)
 {
