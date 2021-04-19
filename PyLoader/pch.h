@@ -7,4 +7,5 @@
 #include "plugin.h"
 
 constexpr const char* plugin_ver = "0.01";
+extern bool thread_wait;
 extern std::ofstream flog;

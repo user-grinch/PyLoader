@@ -1,6 +1,27 @@
 #include "PyCommon.h"
 #include <frameobject.h>
 
+PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
+{
+    int ms;
+    if (!PyArg_ParseTuple(args, "i", &ms))
+        return PyBool_FromLong(0);
+
+    while (thread_wait)
+    {
+        PyRun_SimpleString("time.sleep(0.01)");
+    }
+
+    if (ms != 0)
+    {
+        std::string str = std::string("time.sleep(") + std::to_string(ms / 1000.0f) + ")";
+        PyRun_SimpleString(str.c_str());
+    }
+
+    flog << "SCRIPT RAN" << std::endl;
+    return PyBool_FromLong(1);
+}
+
 PyObject* PyCommon::GetPyLoaderVersion(PyObject* self, PyObject* args)
 {
     return Py_BuildValue("s", plugin_ver);
@@ -22,12 +43,12 @@ PyObject* PyCommon::KeyPressed(PyObject *self, PyObject *args)
 {
     int key;
     if (!PyArg_ParseTuple(args,"i", &key)) 
-        return Py_False;                               
+        return PyBool_FromLong(0);                               
     
     if (plugin::KeyPressed(key))
-        return Py_True;
+        return PyBool_FromLong(1);
     else
-        return Py_False;
+        return PyBool_FromLong(0);
 }
 
 PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)

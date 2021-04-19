@@ -9,7 +9,7 @@ PyObject* PyMemory::ReadMemory(PyObject* self, PyObject* args)
     int is_float = NULL;
 
     if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &vp, &is_float))
-        return Py_False;
+        return PyBool_FromLong(0);
 
     switch (size)
     {
@@ -42,7 +42,7 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
     int is_float = NULL;
 
     if (!PyArg_ParseTuple(args, "iiiii", &addr, &size, &val, &vp, &is_float))
-        return Py_False;
+        return PyBool_FromLong(0);
 
     switch (size)
     {
@@ -63,5 +63,5 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
         plugin::patch::SetRaw(addr, &val, size, vp);
     }
 
-    return Py_True;
+    return PyBool_FromLong(1);
 }

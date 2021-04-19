@@ -6,9 +6,16 @@
 #include "sdk/PyMemory.h"
 
 std::ofstream flog("PyLoader.log");
+bool thread_wait = true;
 
 void PyLoader::PluginThread(void* param)
 {
+    plugin::Events::processScriptsEvent += []
+    {
+        thread_wait = !thread_wait;
+        flog << "GAME RAN" << std::endl;
+    };
+
 	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
          << "\nAuthor: Grinch_\n------------------------------" << std::endl;
 
@@ -80,6 +87,7 @@ void PyLoader::PrintError()
 
 int PyLoader::ExecuteScript(std::string *path)
 {
+    size_t scriptTicks = 0;
     PyGILState_STATE gstate = PyGILState_Ensure();
 
     std::string filename = path->substr(path->find_last_of("/.") + 1) + ".py";
@@ -89,11 +97,11 @@ int PyLoader::ExecuteScript(std::string *path)
     PyObject* m_pGlobalDict = PyModule_GetDict(m_pMainModule);
 
     std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
-    FILE* fp = _Py_fopen(file_path.c_str(), "r");
+    FILE* fp = _Py_fopen(file_path.c_str(), "r+");
+    // Import needed stuff
+    PyRun_SimpleString("import time");
     PyObject* s = PyRun_File(fp, path->c_str(), Py_file_input, m_pGlobalDict, m_pGlobalDict);
-
     Py_XDECREF(s);
-
     if (PyErr_Occurred())
         PrintError();
 

@@ -47,7 +47,7 @@ for header in xml_root:
             if opcode_name_lower[:3] == "is_" or opcode_name_lower[:4] == "has_":
                 fsrc.write('\treturn Py_BuildValue("i", result);\n')
             else:
-                fsrc.write("\treturn Py_True;\n")
+                fsrc.write("\treturn PyBool_FromLong(1);\n")
 
         else:
             for args in header:
@@ -105,7 +105,7 @@ for header in xml_root:
 
                 if len(params_tuple) != 0:
                     params_tuple.insert(0,params_tuple.pop())
-                    fsrc.write('\tif (!PyArg_ParseTuple(args,"{}", {}))\n\t\treturn Py_False;\n\n'.format(''.join(params_tuple),ref_str[:-2]))
+                    fsrc.write('\tif (!PyArg_ParseTuple(args,"{}", {}))\n\t\treturn PyBool_FromLong(0);\n\n'.format(''.join(params_tuple),ref_str[:-2]))
 
                 # handle different types of opcodes
 
@@ -132,7 +132,7 @@ for header in xml_root:
                         index = index + 1
                     
                     if type_format == "":
-                        fsrc.write('\treturn Py_True;\n')
+                        fsrc.write('\treturn PyBool_FromLong(1);\n')
                     else:
                         fsrc.write('\treturn Py_BuildValue("{}", {});\n'.format(type_format,val[:-1]))
 
