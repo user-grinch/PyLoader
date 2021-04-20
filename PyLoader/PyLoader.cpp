@@ -13,7 +13,6 @@ void PyLoader::PluginThread(void* param)
     plugin::Events::processScriptsEvent += []
     {
         thread_wait = !thread_wait;
-        flog << "GAME RAN" << std::endl;
     };
 
 	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
@@ -28,7 +27,7 @@ void PyLoader::PluginThread(void* param)
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("memory", &PyMemory::Init);
-    PyImport_AppendInittab("opcode", &PyOpcodes::Init);
+    PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
     
     Py_Initialize();
     PyEval_InitThreads();

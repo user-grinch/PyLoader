@@ -62,18 +62,10 @@ for header in xml_root:
         fout.write(
         '''"{}":
 {{
-    "prefix": "opcode.{}",
+    "prefix": "opcodes.{}",
     "body": [
-        "{}opcode.{}({})",
+        "{}opcodes.{}({})",
     ],
 }},
 '''.format(opcode_name_title,opcode_name_lower,cmd_str_front,opcode_name_lower,cmd_str_back[:-2]))
-                
-                    
-
-                
-
-
-            
-
 fout.close()
