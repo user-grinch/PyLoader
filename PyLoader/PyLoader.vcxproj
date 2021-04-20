@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="PyLoader.cpp" />
+    <ClCompile Include="sdk\PyScript.cpp" />
     <ClCompile Include="PyUtils.cpp" />
     <ClCompile Include="sdk\PyCHud.cpp" />
     <ClCompile Include="sdk\PyCommon.cpp" />
@@ -105,7 +106,9 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="PyLoader.h" />
+    <ClInclude Include="sdk\PyScript.h" />
     <ClInclude Include="PyUtils.h" />
+    <ClInclude Include="ScriptData.hpp" />
     <ClInclude Include="sdk\PyCHud.h" />
     <ClInclude Include="sdk\PyCommon.h" />
     <ClInclude Include="sdk\PyMemory.h" />

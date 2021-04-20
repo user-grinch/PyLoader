@@ -1,18 +1,20 @@
+#include "ScriptData.hpp"
 #include "PyLoader.h"
 #include <frameobject.h>
 #include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
 #include "sdk/PyMemory.h"
+#include "sdk/PyScript.h"
 
 std::ofstream flog("PyLoader.log");
-bool thread_wait = true;
+size_t game_ticks = 0;
 
 void PyLoader::PluginThread(void* param)
 {
     plugin::Events::processScriptsEvent += []
     {
-        thread_wait = !thread_wait;
+        game_ticks++;
     };
 
 	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
@@ -28,7 +30,8 @@ void PyLoader::PluginThread(void* param)
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("memory", &PyMemory::Init);
     PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
-    
+    PyImport_AppendInittab("script", &PyScript::Init);
+
     Py_Initialize();
     PyEval_InitThreads();
     PyImport_ImportModule("common");
@@ -97,9 +100,14 @@ int PyLoader::ExecuteScript(std::string *path)
 
     std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
     FILE* fp = _Py_fopen(file_path.c_str(), "r+");
+
     // Import needed stuff
     PyRun_SimpleString("import time");
+    ScriptData::Data* script_data = ScriptData::Get(filename);
+    script_data->ticks = game_ticks;
+
     PyObject* s = PyRun_File(fp, path->c_str(), Py_file_input, m_pGlobalDict, m_pGlobalDict);
+    ScriptData::Remove(filename);
     Py_XDECREF(s);
     if (PyErr_Occurred())
         PrintError();

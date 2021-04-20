@@ -1,5 +1,9 @@
-import common, opcodes, hud
-import numpy as np
+import common, opcodes, hud, script
+
+script.name("CreateCar")
+script.author("Grinch_")
+script.desc("Spawns a car when Left Shift is pressed")
+script.version("1.0")
 
 while True:
     common.wait(0)
@@ -9,8 +13,6 @@ while True:
             common.wait(0)
 
         if opcodes.is_char_in_any_car(1):
-            a = np.arange(10,25,5)
-            print(a)
             hud.set_help_message("Already in a car", False, False, False)
         else:
             opcodes.request_model(400)

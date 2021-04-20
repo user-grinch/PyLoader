@@ -1,5 +1,6 @@
 #include "PyCommon.h"
 #include "../PyUtils.h"
+#include "../ScriptData.hpp"
 
 PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
@@ -7,10 +8,13 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "i", &ms))
         return PyBool_FromLong(0);
 
-    while (thread_wait)
+    std::string str = PyUtils::GetCurrentScriptName() + ".py";
+    ScriptData::Data* script_data = ScriptData::Get(str);
+    while (script_data->ticks == game_ticks)
     {
         PyRun_SimpleString("time.sleep(0.01)");
     }
+    script_data->ticks = game_ticks;
 
     if (ms != 0)
     {
