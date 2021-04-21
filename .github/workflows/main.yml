@@ -1,7 +1,6 @@
 on:
   push:
-    branches:
-      - vscode-extension
+    branches: [vscode-extension]
 name: Deploy Extension
 jobs:
   deploy:
