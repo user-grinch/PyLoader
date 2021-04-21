@@ -24,7 +24,8 @@ void PyLoader::PluginThread(void* param)
     WIN32_FIND_DATA file_data;
 
     // load plugins
-    if ((dir = FindFirstFile("./PyLoader/libstd/*.dll", &file_data)) != INVALID_HANDLE_VALUE)
+    dir = FindFirstFile("./PyLoader/libstd/*.dll", &file_data);
+    if (dir != INVALID_HANDLE_VALUE)
     {
         do {
             std::string file_name = PLUGIN_PATH((char*)"PyLoader\\libstd\\") + std::string(file_data.cFileName);
@@ -39,13 +40,16 @@ void PyLoader::PluginThread(void* param)
                     flog << "Loaded plugin " << file_data.cFileName << std::endl;
                 }
                 else
-                    flog << "Failed to find RegisterPlugin " << file_data.cFileName << std::endl;
+                    flog << "Failed to find register plugin " << file_data.cFileName << std::endl;
             }
             else
                 flog << "Failed to load plugin " << file_data.cFileName << std::endl;
 
         } while (FindNextFile(dir, &file_data));
     }
+
+    FindClose(dir);
+    dir = FindFirstFile("./PyLoader/*.py", &file_data);
 
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
@@ -59,17 +63,17 @@ void PyLoader::PluginThread(void* param)
     PyEval_ReleaseLock();
     
     // load scripts
-    if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
-        return;
+    if (dir != INVALID_HANDLE_VALUE)
+    {
+        do {
+            std::string* file_name = new std::string("PyLoader." + std::string(file_data.cFileName));
 
-    do {
-        std::string *file_name = new std::string("PyLoader." + std::string(file_data.cFileName));
-        
-        file_name->erase(file_name->end()-3,file_name->end());
-        CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, file_name, NULL, NULL);
-        Sleep(100);
+            file_name->erase(file_name->end() - 3, file_name->end());
+            CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, file_name, NULL, NULL);
+            Sleep(100);
 
-    } while (FindNextFile(dir, &file_data));
+        } while (FindNextFile(dir, &file_data));
+    }
 
     while (true)
     {   
