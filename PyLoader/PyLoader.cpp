@@ -18,25 +18,50 @@ void PyLoader::PluginThread(void* param)
     };
 
 	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
-         << "\nAuthor: Grinch_\n------------------------------" << std::endl;
+         << "\nAuthor: Grinch_\n------------------------------"<< std::endl;
 
     HANDLE dir;
     WIN32_FIND_DATA file_data;
-    
-    if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
-        return;
-    
+
+    // load plugins
+    if ((dir = FindFirstFile("./PyLoader/libstd/*.dll", &file_data)) != INVALID_HANDLE_VALUE)
+    {
+        do {
+            std::string file_name = PLUGIN_PATH((char*)"PyLoader\\libstd\\") + std::string(file_data.cFileName);
+            HINSTANCE hDll = LoadLibrary(file_name.c_str());
+
+            if (hDll)
+            {
+                FARPROC func = GetProcAddress(hDll, "RegisterPlugin");
+                if (func)
+                {
+                    func();
+                    flog << "Loaded plugin " << file_data.cFileName << std::endl;
+                }
+                else
+                    flog << "Failed to find RegisterPlugin " << file_data.cFileName << std::endl;
+            }
+            else
+                flog << "Failed to load plugin " << file_data.cFileName << std::endl;
+
+        } while (FindNextFile(dir, &file_data));
+    }
+
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("memory", &PyMemory::Init);
     PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
     PyImport_AppendInittab("script", &PyScript::Init);
-
+    
     Py_Initialize();
     PyEval_InitThreads();
     PyImport_ImportModule("common");
     PyEval_ReleaseLock();
     
+    // load scripts
+    if ((dir = FindFirstFile("./PyLoader/*.py", &file_data)) == INVALID_HANDLE_VALUE)
+        return;
+
     do {
         std::string *file_name = new std::string("PyLoader." + std::string(file_data.cFileName));
         
