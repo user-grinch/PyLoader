@@ -16,7 +16,7 @@ void PyLoader::PluginThread(void* param)
     {
         game_ticks++;
     };
-
+    
 	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
          << "\nAuthor: Grinch_\n------------------------------"<< std::endl;
 
