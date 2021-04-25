@@ -1,17 +1,11 @@
 #include "PyUtils.h"
-#include <Python.h>
-#include <frameobject.h>
+#include "pch.h"
+#include "ScriptData.hpp"
 
 std::string PyUtils::GetCurrentScriptName()
 {
-    PyThreadState* ts = PyThreadState_Get();
-    PyFrameObject* frame = ts->frame;
+    DWORD thread_id = GetCurrentThreadId();
+    ScriptData::Data* script_data = ScriptData::Get(thread_id);
 
-    if (frame != NULL)
-    {
-        std::string path(_PyUnicode_AsString(frame->f_code->co_filename));
-        return path.substr(path.find_last_of("/.") + 1);
-    }
-
-    return "";
+    return script_data->file_name;
 }

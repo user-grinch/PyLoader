@@ -9,5 +9,4 @@ public:
 
     static void PluginThread(void* param);
     static int ExecuteScript(std::string *file_name);
-    static void PrintError();
 };

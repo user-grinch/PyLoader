@@ -12,6 +12,8 @@ private:
     static PyObject* SetName(PyObject* self, PyObject* args);
     static PyObject* GetVersion(PyObject* self, PyObject* args);
     static PyObject* SetVersion(PyObject* self, PyObject* args);
+    static PyObject* Load(PyObject* self, PyObject* args);
+    static PyObject* Unload(PyObject* self, PyObject* args);
     static inline PyMethodDef Methods[] =
     {
         {"get_author", GetAuthor, METH_VARARGS},
@@ -22,6 +24,8 @@ private:
         {"name", SetName, METH_VARARGS},
         {"get_version", GetVersion, METH_VARARGS},
         {"version", SetVersion, METH_VARARGS},
+        {"load", Load, METH_VARARGS},
+        {"unload", Unload, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "script", NULL, -1, Methods, NULL, NULL, NULL, NULL };

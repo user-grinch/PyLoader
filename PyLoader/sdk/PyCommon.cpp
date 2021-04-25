@@ -1,6 +1,7 @@
 #include "PyCommon.h"
 #include "../PyUtils.h"
 #include "../ScriptData.hpp"
+#include <frameobject.h>
 
 PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
@@ -8,8 +9,8 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "i", &ms))
         return PyBool_FromLong(0);
 
-    std::string str = PyUtils::GetCurrentScriptName() + ".py";
-    ScriptData::Data* script_data = ScriptData::Get(str);
+    ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
+
     while (script_data->ticks == game_ticks)
     {
         PyRun_SimpleString("time.sleep(0.01)");
@@ -61,11 +62,13 @@ PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
 
     if (!ignore_call)
     {
-        const char* text;
+        char* text;
         if (!PyArg_ParseTuple(args, "s", &text))
             return NULL;
 
-         flog << PyUtils::GetCurrentScriptName() + ".py: " + text  << std::endl;
+        ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+        if (!data->is_unloading)
+            flog << PyUtils::GetCurrentScriptName() << ": " << text  << std::endl;
     }
     ignore_call = !ignore_call;
 

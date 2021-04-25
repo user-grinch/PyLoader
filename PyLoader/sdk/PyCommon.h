@@ -34,7 +34,7 @@ public:
         // redirect stdout, stderr to log
         PySys_SetObject("stdout", m);
         PySys_SetObject("stderr", m);
-
+        
         return m;
     }
 

@@ -83,39 +83,6 @@ void PyLoader::PluginThread(void* param)
     Py_Finalize();
 }
 
-void PyLoader::PrintError()
-{
-    std::string result;
-    PyObject* ptype, * pvalue, * ptraceback;
-    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    PyErr_NormalizeException(&ptype, &pvalue, &ptraceback);
-    PyTracebackObject* traceback = (PyTracebackObject*)ptraceback;
-
-    PyObject* objectStr = PyObject_GetAttrString(ptype, "__name__");
-    result = PyUnicode_AsUTF8(objectStr);
-    result = "Exception: " + result;;
-    Py_XDECREF(objectStr);
-    objectStr = PyObject_Str(pvalue);
-
-    if (objectStr != NULL) {
-        result = result + " \"" + PyUnicode_AsUTF8(objectStr) + "\"\nTraceback,\n";
-        Py_XDECREF(objectStr);
-    }
-
-    while (traceback != NULL && traceback->tb_frame != NULL)
-    {
-        int line = PyCode_Addr2Line(traceback->tb_frame->f_code, traceback->tb_frame->f_lasti);
-        std::string file_path(PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_filename));
-        std::string filename = file_path.substr(file_path.find_last_of("/.") + 1) + ".py";
-        const char* funcname = PyUnicode_AsUTF8(traceback->tb_frame->f_code->co_name);
-
-        result += filename + ": Line " + std::to_string(line) + ", " + funcname + "()\n";
-        traceback = traceback->tb_next;
-    }
-
-    flog << result << std::endl;
-}
-
 int PyLoader::ExecuteScript(std::string *path)
 {
     size_t scriptTicks = 0;
@@ -124,24 +91,28 @@ int PyLoader::ExecuteScript(std::string *path)
     std::string filename = path->substr(path->find_last_of("/.") + 1) + ".py";
     flog << "Loading script " << filename << std::endl;
 
-    PyObject* m_pMainModule = PyImport_AddModule("__main__");
-    PyObject* m_pGlobalDict = PyModule_GetDict(m_pMainModule);
-
     std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
-    FILE* fp = _Py_fopen(file_path.c_str(), "r+");
+    FILE* fp = fopen(file_path.c_str(), "rb");
 
-    // Import needed stuff
-    PyRun_SimpleString("import time");
-    ScriptData::Data* script_data = ScriptData::Get(filename);
+    fseek(fp, 0, SEEK_END);
+    size_t len = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    char* buf = (char*)malloc(len+1);
+    fread(buf, 1, len, fp);
+    buf[len] = '\0';
+    fclose(fp);
+
+    DWORD thread_id = GetCurrentThreadId();
+    ScriptData::Data* script_data = ScriptData::Get(thread_id);
+    script_data->file_name = filename;
     script_data->ticks = game_ticks;
+    PyRun_SimpleString("import time");
+    PyRun_SimpleString(buf);
 
-    PyObject* s = PyRun_File(fp, path->c_str(), Py_file_input, m_pGlobalDict, m_pGlobalDict);
-    ScriptData::Remove(filename);
-    Py_XDECREF(s);
-    if (PyErr_Occurred())
-        PrintError();
+    delete buf;
+    ScriptData::Remove(thread_id);
+    delete path;
 
     PyGILState_Release(gstate);
-    delete path;
     return 0;
 }
