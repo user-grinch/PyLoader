@@ -4,6 +4,7 @@
 #include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
+#include "sdk/PyCLEO.h"
 #include "sdk/PyMemory.h"
 #include "sdk/PyScript.h"
 
@@ -55,6 +56,7 @@ void PyLoader::PluginThread(void* param)
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("memory", &PyMemory::Init);
     PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
+    PyImport_AppendInittab("cleo", &PyCLEO::Init);
     PyImport_AppendInittab("script", &PyScript::Init);
     
     Py_Initialize();

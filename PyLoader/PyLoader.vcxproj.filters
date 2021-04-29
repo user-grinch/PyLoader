@@ -9,6 +9,7 @@
     <ClCompile Include="sdk\PyMemory.cpp" />
     <ClCompile Include="PyUtils.cpp" />
     <ClCompile Include="sdk\PyScript.cpp" />
+    <ClCompile Include="sdk\PyCLEO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -20,5 +21,6 @@
     <ClInclude Include="PyUtils.h" />
     <ClInclude Include="ScriptData.hpp" />
     <ClInclude Include="sdk\PyScript.h" />
+    <ClInclude Include="sdk\PyCLEO.h" />
   </ItemGroup>
 </Project>

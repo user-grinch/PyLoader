@@ -6,25 +6,6 @@
 class PyOpcodes
 {
 private:
-    // CLEO4 Opcodes
-    static PyObject* _FreeLibrary(PyObject* self, PyObject* args);
-    static PyObject* _GetProcAddress(PyObject* self, PyObject* args);
-    static PyObject* _LoadLibrary(PyObject* self, PyObject* args);
-    static PyObject* CallFunction(PyObject* self, PyObject* args);
-    static PyObject* CallMethod(PyObject* self, PyObject* args);
-    static PyObject* GetCarHandle(PyObject* self, PyObject* args);
-    static PyObject* GetCarPointer(PyObject* self, PyObject* args);
-    static PyObject* GetCharHandle(PyObject* self, PyObject* args);
-    static PyObject* GetCharPointer(PyObject* self, PyObject* args);
-    static PyObject* GetClosestPed(PyObject* self, PyObject* args);
-    static PyObject* GetClosestVehicle(PyObject* self, PyObject* args);
-    static PyObject* GetObjectHandle(PyObject* self, PyObject* args);
-    static PyObject* GetObjectPointer(PyObject* self, PyObject* args);
-    static PyObject* IsOnCutscene(PyObject* self, PyObject* args);
-    static PyObject* IsOnMission(PyObject* self, PyObject* args);
-    static PyObject* GetLargestGangIdInZone(PyObject* self, PyObject* args);
-
-    // Game Opcodes
     static PyObject* ActivateGarage(PyObject* self, PyObject* args);
     static PyObject* ActivateHeliSpeedCheat(PyObject* self, PyObject* args);
     static PyObject* ActivateInteriorPeds(PyObject* self, PyObject* args);
@@ -1534,25 +1515,6 @@ private:
 
     static inline PyMethodDef Methods[] = 
     {
-        // CLEO4 opcodes
-        {"call_function", CallFunction, METH_VARARGS},
-        {"call_method", CallMethod, METH_VARARGS},
-        {"free_library", _FreeLibrary, METH_VARARGS},
-        {"get_proc_address", _GetProcAddress, METH_VARARGS},
-        {"get_car_handle", GetCarHandle, METH_VARARGS},
-        {"get_car_pointer", GetCarPointer, METH_VARARGS},
-        {"get_char_handle", GetCharHandle, METH_VARARGS},
-        {"get_char_pointer", GetCharPointer, METH_VARARGS},
-        {"get_closest_ped", GetClosestPed, METH_VARARGS},
-        {"get_closest_vehicle", GetClosestVehicle, METH_VARARGS},
-        {"get_object_handle", GetObjectHandle, METH_VARARGS},
-        {"get_object_pointer", GetObjectPointer, METH_VARARGS},
-        {"is_on_cutscene", IsOnCutscene, METH_VARARGS},
-        {"is_on_mission", IsOnMission, METH_VARARGS},
-        {"get_largest_gangid_in_zone", GetLargestGangIdInZone, METH_VARARGS},
-        {"load_library", _LoadLibrary, METH_VARARGS},
-
-        // Game opcodes
         {"activate_garage", ActivateGarage, METH_VARARGS},
         {"activate_heli_speed_cheat", ActivateHeliSpeedCheat, METH_VARARGS},
         {"activate_interior_peds", ActivateInteriorPeds, METH_VARARGS},
@@ -3061,7 +3023,7 @@ private:
         {"write_debug_with_int", WriteDebugWithInt, METH_VARARGS},
         {} // sentinel
     };
-    static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "opcode", NULL, -1, Methods, NULL, NULL, NULL, NULL};
+    static inline PyModuleDef Module = {PyModuleDef_HEAD_INIT, "opcodes", NULL, -1, Methods, NULL, NULL, NULL, NULL};
 
 public:
     static PyObject* Init(void)
