@@ -62,7 +62,7 @@ public:
             {
                 (*it)->is_unloading = true;
                 flog << "Unloading script " << (*it)->file_name << std::endl;
-                PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_Exception);
+                PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_NameError);
                 break;
             }
         }

@@ -112,7 +112,6 @@ int PyLoader::ExecuteScript(std::string *path)
     delete buf;
     ScriptData::Remove(thread_id);
     delete path;
-
     PyGILState_Release(gstate);
     return 0;
 }

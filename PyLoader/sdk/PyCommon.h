@@ -11,7 +11,6 @@ private:
     static PyObject* KeyPressed(PyObject *self, PyObject *args);
     static PyObject* Wait(PyObject* self, PyObject* args);
     static PyObject* WriteStream(PyObject* self, PyObject* args);
-
    
     static inline PyMethodDef Methods[] = 
     {

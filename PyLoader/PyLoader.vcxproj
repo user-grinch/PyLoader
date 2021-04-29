@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="PyLoader.cpp" />
+    <ClCompile Include="sdk\PyOpcodesCLEO4.cpp" />
     <ClCompile Include="sdk\PyScript.cpp" />
     <ClCompile Include="PyUtils.cpp" />
     <ClCompile Include="sdk\PyCHud.cpp" />
