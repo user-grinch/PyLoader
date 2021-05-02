@@ -7,7 +7,7 @@ script.version("1.0")
 
 while True:
     common.wait(0)
-    
+
     if common.key_pressed(0xA0):
         while common.key_pressed(0xA0):
             common.wait(0)

@@ -7,29 +7,22 @@
 #include "sdk/PyCLEO.h"
 #include "sdk/PyMemory.h"
 #include "sdk/PyScript.h"
+#include "sdk/PyInternal.h"
 
 std::ofstream flog("PyLoader.log");
 size_t game_ticks = 0;
 
-void PyLoader::PluginThread(void* param)
+void PyLoader::LoadPlugins(std::string&& dir_name)
 {
-    plugin::Events::processScriptsEvent += []
-    {
-        game_ticks++;
-    };
-    
-	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
-         << "\nAuthor: Grinch_\n------------------------------"<< std::endl;
-
     HANDLE dir;
     WIN32_FIND_DATA file_data;
 
-    // load plugins
-    dir = FindFirstFile("./PyLoader/libstd/*.dll", &file_data);
+    std::string path = std::string(".\\PyLoader\\") + dir_name + "\\*.dll";
+    dir = FindFirstFile(path.c_str(), &file_data);
     if (dir != INVALID_HANDLE_VALUE)
     {
         do {
-            std::string file_name = PLUGIN_PATH((char*)"PyLoader\\libstd\\") + std::string(file_data.cFileName);
+            std::string file_name = PLUGIN_PATH((char*)"PyLoader\\") + dir_name + "\\" + std::string(file_data.cFileName);
             HINSTANCE hDll = LoadLibrary(file_name.c_str());
 
             if (hDll)
@@ -50,6 +43,24 @@ void PyLoader::PluginThread(void* param)
     }
 
     FindClose(dir);
+}
+
+void PyLoader::PluginThread(void* param)
+{
+    plugin::Events::processScriptsEvent += []
+    {
+        game_ticks++;
+    };
+    
+	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
+         << "\nAuthor: Grinch_\n------------------------------"<< std::endl;
+
+    HANDLE dir;
+    WIN32_FIND_DATA file_data;
+
+    LoadPlugins("lib");
+    LoadPlugins("libstd");
+
     dir = FindFirstFile("./PyLoader/*.py", &file_data);
 
     PyImport_AppendInittab("common", &PyCommon::Init);
@@ -58,6 +69,7 @@ void PyLoader::PluginThread(void* param)
     PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
     PyImport_AppendInittab("cleo", &PyCLEO::Init);
     PyImport_AppendInittab("script", &PyScript::Init);
+    PyImport_AppendInittab("_internal", &PyInternal::Init);
     
     Py_Initialize();
     PyEval_InitThreads();

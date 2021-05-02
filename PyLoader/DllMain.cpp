@@ -7,6 +7,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
    	if (fdwReason == DLL_PROCESS_ATTACH)
 	{	
 		uint gameVersion = plugin::GetGameVersion();
+
 		if (gameVersion == GAME_10US_HOODLUM || gameVersion == GAME_10US_COMPACT)
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::PluginThread, NULL, NULL, NULL);
 		else

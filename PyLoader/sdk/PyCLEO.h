@@ -65,6 +65,7 @@ private:
     };
     static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "cleo", NULL, -1, Methods, NULL, NULL, NULL, NULL };
 
+
 public:
     static PyObject* Init(void)
     {
