@@ -14,7 +14,7 @@ private:
     static inline PyMethodDef Methods[] =
     {
         {"_get_building_pool", GetBuildingPool, METH_VARARGS},
-        {"_get_object_pool", GetObjectPool, METH_VARARGS},
+        {"_get_obj_pool", GetObjectPool, METH_VARARGS},
         {"_get_ped_pool", GetPedPool, METH_VARARGS},
         {"_get_veh_pool", GetVehPool, METH_VARARGS},
         {} // sentinel

@@ -13,7 +13,7 @@ PyObject* PyInternal::GetVehPool(PyObject* self, PyObject* args)
 
     for (CVehicle* pVeh : CPools::ms_pVehiclePool)
     {
-        PyList_SetItem(list, index, Py_BuildValue("i", pVeh));
+        PyList_SetItem(list, index, Py_BuildValue("i", CPools::GetVehicleRef(pVeh)));
         ++index;
     }
 
@@ -32,7 +32,7 @@ PyObject* PyInternal::GetPedPool(PyObject* self, PyObject* args)
 
     for (CPed* ele : CPools::ms_pPedPool)
     {
-        PyList_SetItem(list, index, Py_BuildValue("i", ele));
+        PyList_SetItem(list, index, Py_BuildValue("i", CPools::GetPedRef(ele)));
         ++index;
     }
 
@@ -70,7 +70,7 @@ PyObject* PyInternal::GetObjectPool(PyObject* self, PyObject* args)
 
     for (CObject* ele : CPools::ms_pObjectPool)
     {
-        PyList_SetItem(list, index, Py_BuildValue("i", ele));
+        PyList_SetItem(list, index, Py_BuildValue("i", CPools::GetObjectRef(ele)));
         ++index;
     }
 

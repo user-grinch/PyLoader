@@ -1,7 +1,7 @@
 import _internal
 
 class pool_base():
-    pointers :list = [ 1, 2, 3]
+    pointers :list = []
     index :int = 0
 
     def __init__(self):
