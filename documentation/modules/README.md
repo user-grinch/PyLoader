@@ -1,9 +1,27 @@
-# Modules
+# Custom Modules
 
-Apart from all the features from python, pyloader contains some custom modules which expose the functionality of the game. List of modules,
+### How to import modules?
 
-* [Common](https://github.com/user-grinch/PyLoaderSA/wiki/Common-module)
-* [Hud](https://github.com/user-grinch/PyLoaderSA/wiki/Hud-module)
-* [Memory](https://github.com/user-grinch/PyLoaderSA/wiki/Memory-module)
-* [Opcodes](https://github.com/user-grinch/PyLoaderSA/wiki/Opcode-module)
+These modules expose functionality of the game to the python intrepreter. Can be imported as normal python modules.
+
+`import cleo  
+from cleo import  
+import cleo as cl`
+
+### Where to install third-party modules?
+
+To add your own modules, you can place them inside the **PyLoader/lib** folder. Do not place them inside the **PyLoader/libstd** as it is reserved for pyloader ones.
+
+### Install modules from pip \(site-packages\)
+
+For this, you need a local installation of python-pip. From there goto the **PyLoader/lib** folder run the command,
+
+`pip install <package_name> -t .`
+
+  
+  
+
+
+  
+
 
