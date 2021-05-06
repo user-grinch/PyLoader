@@ -4,7 +4,6 @@
 
 ## Documentation
 
-* [Extending-functionality](documentation/extending-functionality.md)
 * [Custom Modules](documentation/modules/README.md)
   * [CLEO](documentation/modules/cleo-module.md)
   * [Common](documentation/modules/common-module.md)

@@ -6,7 +6,7 @@ Returns the name of the script author. Returns an empty string if the author is 
 
 ### get\_desc\(\)
 
-Returns the describtion of the script. Returns an empty string if the describtion is not provided.
+Returns the description of the script. Returns an empty string if the description is not provided.
 
 ### get\_name\(\)
 
@@ -30,7 +30,7 @@ Sets the script name.
 
 ### version\(script\_version :str\)
 
-Sets the script verison.
+Sets the script version.
 
 ### load\(file\_name :str\)
 
