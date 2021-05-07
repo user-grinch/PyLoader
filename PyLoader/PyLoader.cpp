@@ -101,6 +101,7 @@ int PyLoader::ExecuteScript(std::string *path)
 {
     size_t scriptTicks = 0;
     PyGILState_STATE gstate = PyGILState_Ensure();
+    PyObject *pTerminateFunc, *pModule, *pGlobal, *pLocal;
 
     std::string filename = path->substr(path->find_last_of("/.") + 1) + ".py";
     flog << "Loading script " << filename << std::endl;
@@ -121,7 +122,31 @@ int PyLoader::ExecuteScript(std::string *path)
     script_data->file_name = filename;
     script_data->ticks = game_ticks;
     PyRun_SimpleString("import time");
-    PyRun_SimpleString(buf);
+    pGlobal = PyDict_New();
+
+    pModule = PyModule_New(filename.c_str());
+    PyModule_AddStringConstant(pModule, "__file__", "");
+    pLocal = PyModule_GetDict(pModule);
+    PyRun_String(buf, Py_file_input, pGlobal, pLocal);
+
+    bool error_state = false;
+    if (PyErr_Occurred())
+    {
+        error_state = true;
+        PyErr_Print();
+    }
+
+    pTerminateFunc = PyObject_GetAttrString(pModule, "on_script_terminate");
+
+    if (pTerminateFunc && PyCallable_Check(pTerminateFunc))
+    {
+        PyObject* pArgs = PyTuple_New(1);
+        PyTuple_SetItem(pArgs, 0, PyLong_FromLong(error_state));
+
+        PyObject_CallObject(pTerminateFunc, pArgs);
+        if (PyErr_Occurred())
+            PyErr_Print();
+    }
 
     delete buf;
     ScriptData::Remove(thread_id);
