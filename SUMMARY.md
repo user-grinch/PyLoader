@@ -2,13 +2,16 @@
 
 * [PyLoader](README.md)
 
-## Documentation
+## Doc
 
-* [Custom Modules](documentation/modules/README.md)
-  * [CLEO](documentation/modules/cleo-module.md)
-  * [Common](documentation/modules/common-module.md)
-  * [Hud](documentation/modules/hud-module.md)
-  * [Memory](documentation/modules/memory-module.md)
-  * [Pool](documentation/modules/pool-module.md)
-  * [Script](documentation/modules/script-module.md)
+* [Custom Modules](doc/modules.md)
+
+## API
+
+* [CLEO](api/cleo-module.md)
+* [Common](api/common-module.md)
+* [Hud](api/hud-module.md)
+* [Memory](api/memory-module.md)
+* [Pool](api/pool-module.md)
+* [Script](api/script-module.md)
 
