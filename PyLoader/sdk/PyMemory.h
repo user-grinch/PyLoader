@@ -4,10 +4,14 @@
 class PyMemory
 {
 private:
+    static PyObject* ReadFloat(PyObject* self, PyObject* args);
+    static PyObject* WriteFloat(PyObject* self, PyObject* args);
     static PyObject* ReadMemory(PyObject *self, PyObject *args);
     static PyObject* WriteMemory(PyObject *self, PyObject *args);
     static inline PyMethodDef Methods[] = 
     {
+        {"read_float", ReadFloat, METH_VARARGS},
+        {"write_float", WriteFloat, METH_VARARGS},
         {"read_memory", ReadMemory, METH_VARARGS},
         {"write_memory", WriteMemory, METH_VARARGS},
         {} // sentinel

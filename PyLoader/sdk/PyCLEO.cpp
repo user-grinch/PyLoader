@@ -258,12 +258,7 @@ PyObject* PyCLEO::GetLargestGangIdInZone(PyObject* self, PyObject* args)
 
 PyObject* PyCLEO::GetClosestVehicle(PyObject* self, PyObject* args)
 {
-	int handle;
-
-	if (!PyArg_ParseTuple(args, "i", &handle))
-		return PyBool_FromLong(0);
-
-	CPed* ped = CPools::GetPed(handle);
+	CPed* ped = FindPlayerPed();
 	CPedIntelligence* pedintel;
 	if (ped && (pedintel = ped->m_pIntelligence))
 	{
@@ -283,12 +278,7 @@ PyObject* PyCLEO::GetClosestVehicle(PyObject* self, PyObject* args)
 
 PyObject* PyCLEO::GetClosestPed(PyObject* self, PyObject* args)
 {
-	int handle;
-
-	if (!PyArg_ParseTuple(args, "i", &handle))
-		return PyBool_FromLong(0);
-
-	CPed* _ped = CPools::GetPed(handle);
+	CPed* _ped = FindPlayerPed();
 	CPedIntelligence* pedintel;
 	if (_ped && (pedintel = _ped->m_pIntelligence))
 	{

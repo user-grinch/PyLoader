@@ -4,11 +4,10 @@ PyObject* PyMemory::ReadMemory(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
-    int val = NULL;
     int vp = NULL;
-    int is_float = NULL;
+    int val = NULL;
 
-    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &vp, &is_float))
+    if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
         return PyBool_FromLong(0);
 
     switch (size)
@@ -20,10 +19,7 @@ PyObject* PyMemory::ReadMemory(PyObject* self, PyObject* args)
     }
     case 4:
     {
-        if (is_float)
-            val = plugin::patch::Get<float>(addr, vp);
-        else
-            val = plugin::patch::Get<int>(addr, vp);
+        val = plugin::patch::Get<int>(addr, vp);
         break;
     }
     default:
@@ -39,9 +35,8 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
     int size = NULL;
     int val = NULL;
     int vp = NULL;
-    int is_float = NULL;
 
-    if (!PyArg_ParseTuple(args, "iiiii", &addr, &size, &val, &vp, &is_float))
+    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &val, &vp))
         return PyBool_FromLong(0);
 
     switch (size)
@@ -53,15 +48,41 @@ PyObject* PyMemory::WriteMemory(PyObject* self, PyObject* args)
     }
     case 4:
     {
-        if (is_float)
-            plugin::patch::Set<float>(addr, val, vp);
-        else
-            plugin::patch::Set<int>(addr, val, vp);
+        plugin::patch::Set<int>(addr, val, vp);
         break;
     }
     default:
         plugin::patch::SetRaw(addr, &val, size, vp);
     }
+
+    return PyBool_FromLong(1);
+}
+
+PyObject* PyMemory::ReadFloat(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int vp = NULL;
+    float val = NULL;
+
+    if (!PyArg_ParseTuple(args, "ii", &addr, &vp))
+        return PyBool_FromLong(0);
+
+    val = plugin::patch::Get<float>(addr, vp);
+
+    return Py_BuildValue("f", val);
+}
+
+PyObject* PyMemory::WriteFloat(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int size = NULL;
+    float val = NULL;
+    int vp = NULL;
+
+    if (!PyArg_ParseTuple(args, "iifi", &addr, &size, &val, &vp))
+        return PyBool_FromLong(0);
+
+    plugin::patch::Set<float>(addr, val, vp);
 
     return PyBool_FromLong(1);
 }
