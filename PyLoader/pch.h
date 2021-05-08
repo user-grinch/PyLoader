@@ -7,6 +7,6 @@
 #include <frameobject.h>
 #include "plugin.h"
 
-constexpr const char* plugin_ver = "0.01";
+constexpr const char* plugin_ver = "0.02";
 extern size_t game_ticks;
 extern std::ofstream flog;

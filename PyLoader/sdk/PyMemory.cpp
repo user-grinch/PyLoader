@@ -86,3 +86,63 @@ PyObject* PyMemory::WriteFloat(PyObject* self, PyObject* args)
 
     return PyBool_FromLong(1);
 }
+
+PyObject* PyMemory::Nop(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int size = NULL;
+    int vp = NULL;
+
+    if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
+        return PyBool_FromLong(0);
+
+    plugin::patch::Nop(addr, size, vp);
+
+    return PyBool_FromLong(1);
+}
+
+PyObject* PyMemory::PutRetn(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int size = NULL;
+    int pop_bytes = NULL;
+    int vp = NULL;
+
+    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &pop_bytes, &vp))
+        return PyBool_FromLong(0);
+
+    plugin::patch::PutRetn(addr, pop_bytes, vp);
+
+    return PyBool_FromLong(1);
+}
+
+PyObject* PyMemory::GetRaw(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int size = NULL;
+    int vp = NULL;
+    char* data = nullptr;
+
+    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &vp))
+        return PyBool_FromLong(0);
+
+    plugin::patch::GetRaw(addr, data, size, vp);
+
+    return Py_BuildValue("s", data);
+}
+
+PyObject* PyMemory::SetRaw(PyObject* self, PyObject* args)
+{
+    int addr = NULL;
+    int size = NULL;
+    char* data = NULL;
+    int vp = NULL;
+
+    if (!PyArg_ParseTuple(args, "isii", &addr, &data , &size, &vp))
+        return PyBool_FromLong(0);
+
+    plugin::patch::SetRaw(addr, data, size, vp);
+
+    return PyBool_FromLong(1);
+}
+
