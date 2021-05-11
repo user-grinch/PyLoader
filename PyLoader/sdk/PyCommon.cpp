@@ -13,7 +13,7 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 
     while (script_data->ticks == game_ticks)
     {
-        PyRun_SimpleString("time.sleep(0.01)");
+        PyRun_SimpleString("import time\ntime.sleep(0.01)");
     }
     script_data->ticks = game_ticks;
 

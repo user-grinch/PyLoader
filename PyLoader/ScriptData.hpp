@@ -8,6 +8,7 @@ class ScriptData
 public:
     struct Data
     {
+        PyObject* pModule;
         std::string name, file_name, author, version, desc;
         size_t ticks;
         unsigned long thread_id;
@@ -46,6 +47,7 @@ public:
             // return the exisitng data 
             if ((*it)->thread_id == thread_id)
             {
+                Py_XDECREF((*it)->pModule);
                 scripts->erase(it-1);
                 break;
             }
@@ -62,7 +64,7 @@ public:
             {
                 (*it)->is_unloading = true;
                 flog << "Unloading script " << (*it)->file_name << std::endl;
-                PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_NameError);
+                PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_Exception);
                 break;
             }
         }

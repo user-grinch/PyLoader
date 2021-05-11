@@ -10,5 +10,4 @@ public:
     static int ExecuteScript(std::string *file_name);
     static void LoadPlugins(std::string&& dir_name);
     static void PluginThread(void* param);
-
 };

@@ -1,5 +1,6 @@
 #pragma once
 #define PY_SSIZE_T_CLEAN 
+#define WIN32_LEAN_AND_MEAN
 #include <Python.h>
 #include <windows.h>
 #include <iostream>

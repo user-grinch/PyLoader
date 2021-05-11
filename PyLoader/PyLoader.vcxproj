@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp" />
+    <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
     <ClCompile Include="PyLoader.cpp" />
     <ClCompile Include="sdk\PyCLEO.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="sdk\PyOpcodes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PyEvents.h" />
     <ClInclude Include="sdk\PyInternal.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PyLoader.h" />
