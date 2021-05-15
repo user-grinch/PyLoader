@@ -3,16 +3,24 @@
 #include <string>
 #include "pch.h"
 
+enum class EXITING_FLAGS
+{
+    EXITING,
+    RELOADING,
+    UNLOADING,
+};
+
 class ScriptData
 {
 public:
     struct Data
     {
-        PyObject* pModule;
+        PyObject* pModule = nullptr;
+        size_t ticks = NULL;
+        unsigned long thread_id = NULL;
+        bool events_registered = false;
+        EXITING_FLAGS exit_flag = EXITING_FLAGS::EXITING;
         std::string name, file_name, author, version, desc;
-        size_t ticks;
-        unsigned long thread_id;
-        bool is_unloading;
     };
     static inline std::vector<Data*>* scripts = nullptr;
 
@@ -39,6 +47,20 @@ public:
         return script;
     }
 
+    static Data* FindFromName(const std::string& str)
+    {
+        if (!scripts)
+            scripts = new std::vector<Data*>;
+
+        for (auto it = scripts->begin(); it != scripts->end(); ++it)
+        {
+            if ((*it)->file_name == str)
+                return *it;
+        }
+
+        return nullptr;
+    }
+
     static void Remove(int thread_id)
     {
         // create the object if it doesn't exist
@@ -48,13 +70,18 @@ public:
             if ((*it)->thread_id == thread_id)
             {
                 Py_XDECREF((*it)->pModule);
-                scripts->erase(it-1);
+                scripts->erase(it);
                 break;
             }
         }
     }
 
-    static void Unload(const std::string& str)
+    static void Reload(const std::string& str)
+    {
+        Unload(str, true);
+    }
+
+    static void Unload(const std::string& str, bool reload = false)
     {
         // create the object if it doesn't exist
         for (auto it = scripts->begin(); it != scripts->end(); ++it)
@@ -62,9 +89,14 @@ public:
             // return the exisitng data
             if ((*it)->file_name == str)
             {
-                (*it)->is_unloading = true;
-                flog << "Unloading script " << (*it)->file_name << std::endl;
-                PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_Exception);
+                if (reload)
+                    (*it)->exit_flag = EXITING_FLAGS::RELOADING;
+                else
+                    (*it)->exit_flag = EXITING_FLAGS::UNLOADING;
+
+                if (GetCurrentThreadId() == (*it)->thread_id)
+                    PyThreadState_SetAsyncExc((*it)->thread_id, PyExc_Exception);
+
                 break;
             }
         }

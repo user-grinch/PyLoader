@@ -13,6 +13,7 @@ private:
     static PyObject* GetVersion(PyObject* self, PyObject* args);
     static PyObject* SetVersion(PyObject* self, PyObject* args);
     static PyObject* Load(PyObject* self, PyObject* args);
+    static PyObject* Reload(PyObject* self, PyObject* args);
     static PyObject* Unload(PyObject* self, PyObject* args);
     static inline PyMethodDef Methods[] =
     {
@@ -25,6 +26,7 @@ private:
         {"get_version", GetVersion, METH_VARARGS},
         {"version", SetVersion, METH_VARARGS},
         {"load", Load, METH_VARARGS},
+        {"reload", Reload, METH_VARARGS},
         {"unload", Unload, METH_VARARGS},
         {} // sentinel
     };
@@ -39,3 +41,4 @@ public:
     PyScript() = delete;
     PyScript(PyScript&) = delete;
 };
+

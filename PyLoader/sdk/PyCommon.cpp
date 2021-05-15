@@ -2,6 +2,7 @@
 #include "../PyUtils.h"
 #include "../ScriptData.hpp"
 #include <frameobject.h>
+#include "../PyEvents.h"
 
 PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
@@ -11,10 +12,23 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 
     ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
 
+    if (!script_data->events_registered)
+    {
+        //PyEvents::VehicleCreate(script_data->pModule);
+        script_data->events_registered = true;
+    }
+
+    if (script_data->exit_flag != EXITING_FLAGS::EXITING)
+    {
+        PyThreadState_SetAsyncExc(script_data->thread_id, PyExc_Exception);
+        return PyBool_FromLong(1);
+    }
+
     while (script_data->ticks == game_ticks)
     {
         PyRun_SimpleString("import time\ntime.sleep(0.01)");
     }
+
     script_data->ticks = game_ticks;
 
     if (ms != 0)
@@ -67,7 +81,7 @@ PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
             return NULL;
 
         ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
-        if (!data->is_unloading)
+        if (data->exit_flag == EXITING_FLAGS::EXITING)
             flog << PyUtils::GetCurrentScriptName() << ": " << text  << std::endl;
     }
     ignore_call = !ignore_call;

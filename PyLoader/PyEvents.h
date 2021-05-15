@@ -4,7 +4,8 @@
 class PyEvents
 {
 public:
-	static void ScriptTerminate(PyObject* pModule);
+	static bool ScriptTerminate(PyObject* pModule);
+	static void VehicleCreate(PyObject* pModule);
 
 	PyEvents() = delete;
 	PyEvents(PyEvents&) = delete;

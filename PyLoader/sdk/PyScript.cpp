@@ -2,20 +2,61 @@
 #include "../ScriptData.hpp"
 #include "../PyUtils.h"
 #include "../PyLoader.h"
+#include "../PyEvents.h"
+
+PyObject* PyScript::Reload(PyObject* self, PyObject* args)
+{
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+	{
+		data = ScriptData::Get(GetCurrentThreadId());
+		str = (char*)data->file_name.c_str();
+	}
+	else
+		data = ScriptData::FindFromName(std::string(str));
+
+	if (data != NULL && data->exit_flag == EXITING_FLAGS::EXITING)
+	{
+		PyEvents::ScriptTerminate(data->pModule);
+		flog << "Unloading script " << str << std::endl;
+		ScriptData::Reload(str);
+
+		return PyBool_FromLong(1);
+	}
+	
+	return PyBool_FromLong(0);
+}
 
 PyObject* PyScript::Unload(PyObject* self, PyObject* args)
 {
-	char* str;
-	if (!PyArg_ParseTuple(args, "s", &str))
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
 		return PyBool_FromLong(0);
 
-	if (str[0] == '\0')
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
 	{
-		ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+		data = ScriptData::Get(GetCurrentThreadId());
 		str = (char*)data->file_name.c_str();
 	}
-	ScriptData::Unload(str);
-	return PyBool_FromLong(1);
+	else
+		data = ScriptData::FindFromName(std::string(str));
+
+	if (data != NULL && data->exit_flag == EXITING_FLAGS::EXITING)
+	{
+		PyEvents::ScriptTerminate(data->pModule);
+		flog << "Unloading script " << str << std::endl;
+
+		ScriptData::Unload(str);
+
+		return PyBool_FromLong(1);
+	}
+
+	return PyBool_FromLong(0);
 }
 
 PyObject* PyScript::Load(PyObject* self, PyObject* args)

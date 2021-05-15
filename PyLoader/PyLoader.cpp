@@ -103,9 +103,10 @@ int PyLoader::ExecuteScript(std::string *path)
     PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject *pGlobal, *pLocal;
 
-    std::string filename = path->substr(path->find_last_of("/.") + 1) + ".py";
-    std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + filename;
-    flog << "Loading script " << filename << std::endl;
+    std::string filename = path->substr(path->find_last_of("/.") + 1);
+    std::string fullname = filename + ".py";
+    std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + fullname;
+    flog << "Loading script " << fullname << std::endl;
 
     FILE* fp = fopen(file_path.c_str(), "rb");
     fseek(fp, 0, SEEK_END);
@@ -118,25 +119,32 @@ int PyLoader::ExecuteScript(std::string *path)
 
     DWORD thread_id = GetCurrentThreadId();
     ScriptData::Data* script_data = ScriptData::Get(thread_id);
-    script_data->file_name = filename;
+    script_data->file_name = fullname;
     script_data->ticks = game_ticks;
-    script_data->pModule = PyModule_New(filename.c_str());
+    script_data->pModule = PyModule_New(fullname.c_str());
 
-    PyModule_AddStringConstant(script_data->pModule, "__name__", "__main__");
-    PyModule_AddStringConstant(script_data->pModule, "__file__", filename.c_str());
+    PyModule_AddStringConstant(script_data->pModule, "__name__", filename.c_str());
+    PyModule_AddStringConstant(script_data->pModule, "__file__", fullname.c_str());
+
     pGlobal = PyDict_New();
     pLocal = PyModule_GetDict(script_data->pModule);
+
     PyRun_String(buf, Py_file_input, pGlobal, pLocal);
+    
+    if (script_data->exit_flag != EXITING_FLAGS::EXITING)
+        PyErr_Clear();
 
-    PyEvents::ScriptTerminate(script_data->pModule);
-    PyErr_Clear();
-
-    if (PyErr_Occurred())
+    if (PyEvents::ScriptTerminate(script_data->pModule) && PyErr_Occurred())
         PyErr_Print();
 
-    delete buf;
+    if (script_data->exit_flag == EXITING_FLAGS::RELOADING)
+        CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, path, NULL, NULL);
+    else
+        delete path;
+
     ScriptData::Remove(thread_id);
-    delete path;
+
+    delete buf;
     PyGILState_Release(gstate);
     return 0;
 }
