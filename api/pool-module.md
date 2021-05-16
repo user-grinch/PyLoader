@@ -5,6 +5,7 @@ Iterative lists containing handles to game types.
 * building
 * object
 * ped
+* script
 * veh
 
 **Example:**
