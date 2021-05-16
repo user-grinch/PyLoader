@@ -1,6 +1,8 @@
 #include "ScriptData.hpp"
 #include "PyLoader.h"
 #include <frameobject.h>
+#include <Urlmon.h>
+#include "depend/jute.h"
 #include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
@@ -46,6 +48,45 @@ void PyLoader::LoadPlugins(std::string&& dir_name)
     FindClose(dir);
 }
 
+void PyLoader::CheckUpdate()
+{
+    const char* link = "https://api.github.com/repos/user-grinch/PyLoaderSA/tags";
+    char* path = PLUGIN_PATH((char*)"versioninfo.json");
+    HRESULT res = URLDownloadToFile(NULL, link, path, 0, NULL);
+
+    if (res == E_OUTOFMEMORY || res == INET_E_DOWNLOAD_FAILURE)
+    {
+        flog << "Failed checking for updates." << std::endl;
+        return;
+    }
+
+    FILE* fp = fopen(path, "r");
+    fseek(fp, 0, SEEK_END);
+    size_t len = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    char* buf = (char*)malloc(len + 1);
+
+    if (buf != NULL)
+    {
+        fread(buf, 1, len, fp);
+        buf[len] = '\0';
+        fclose(fp);
+        jute::jValue v = jute::parser::parse(buf);
+
+        std::string ver = v[0]["name"].as_string();
+        if (ver > plugin_ver)
+            flog << "New version available. Download: https:///github.com/user-grinch/PyLoaderSA/releases/tag/"
+            << ver << std::endl;
+        else
+            flog << "No updates found" << std::endl;
+    }
+    else
+        flog << "Failed to download update info" << std::endl;
+   
+    delete buf;
+    std::remove(path);
+}
+
 void PyLoader::PluginThread(void* param)
 {
     plugin::Events::processScriptsEvent += []
@@ -53,8 +94,12 @@ void PyLoader::PluginThread(void* param)
         game_ticks++;
     };
     
-	flog << "------------------------------\nStarting PyLoader v" << plugin_ver
-         << "\nAuthor: Grinch_\n------------------------------"<< std::endl;
+    flog << "------------------------------\nStarting PyLoader v" << plugin_ver
+        << "\nAuthor: Grinch_\nMore info: https:///github.com/user-grinch/PyLoaderSA/" << std::endl;
+
+    CheckUpdate();
+
+    flog << "------------------------------"<< std::endl;
 
     HANDLE dir;
     WIN32_FIND_DATA file_data;

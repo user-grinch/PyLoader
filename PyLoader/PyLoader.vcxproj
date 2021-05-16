@@ -71,7 +71,7 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>$(PLUGIN_SDK_DIR)\output\lib\;C:\Program Files (x86)\Python38-32\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>plugin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>plugin.lib;Urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -89,11 +89,12 @@
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Python38-32\libs;$(PLUGIN_SDK_DIR)\output\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>plugin_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>plugin_d.lib;Urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="depend\jute.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="sdk\PyOpcodes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="depend\jute.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="sdk\PyInternal.h" />
     <ClInclude Include="pch.h" />

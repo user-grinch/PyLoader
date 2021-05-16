@@ -11,6 +11,7 @@
     <ClCompile Include="sdk\PyCLEO.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
     <ClCompile Include="PyEvents.cpp" />
+    <ClCompile Include="depend\jute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -24,5 +25,6 @@
     <ClInclude Include="sdk\PyCLEO.h" />
     <ClInclude Include="sdk\PyInternal.h" />
     <ClInclude Include="PyEvents.h" />
+    <ClInclude Include="depend\jute.h" />
   </ItemGroup>
 </Project>
