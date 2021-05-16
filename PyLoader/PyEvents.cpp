@@ -17,7 +17,6 @@ void PyEvents::VehicleCreate(PyObject* pModule)
             PyGILState_Release(gstate);
         }
     };
-   
 }
 
 bool PyEvents::ScriptTerminate(PyObject* pModule)
@@ -35,7 +34,6 @@ bool PyEvents::ScriptTerminate(PyObject* pModule)
     if (pTerminateFunc && PyCallable_Check(pTerminateFunc))
     {
         PyObject_CallFunction(pTerminateFunc, "i", error_state);
-        
         return false;
     }
 

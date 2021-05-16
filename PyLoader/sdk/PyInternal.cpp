@@ -1,5 +1,20 @@
 #include "PyInternal.h"
 #include "CPools.h"
+#include "../ScriptData.hpp"
+
+PyObject* PyInternal::GetScriptPool(PyObject* self, PyObject* args)
+{
+    size_t size = ScriptData::scripts->size();
+    PyObject* list = PyList_New(size);
+    size_t index = 0;
+    for (auto it = ScriptData::scripts->begin(); it != ScriptData::scripts->end(); ++it)
+    {
+        PyList_SetItem(list, index, Py_BuildValue("s", (*it)->file_name.c_str()));
+        ++index;
+    }
+
+    return list;
+}
 
 PyObject* PyInternal::GetVehPool(PyObject* self, PyObject* args)
 {

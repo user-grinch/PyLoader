@@ -14,7 +14,7 @@ class pool_base():
         if self.index >= len(self.pointers):
             raise StopIteration
         else:
-            val :int = self.pointers[self.index]
+            val = self.pointers[self.index]
             self.index += 1
             return val
 
@@ -33,6 +33,9 @@ class object(pool_base):
 class building(pool_base):
     def __init__(self):
         self.pointers = _internal._get_building_pool()
-        
+
+class script(pool_base):
+    def __init__(self):
+        self.pointers = _internal._get_script_pool()   
 
 

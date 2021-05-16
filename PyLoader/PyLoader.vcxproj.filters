@@ -7,7 +7,6 @@
     <ClCompile Include="sdk\PyCommon.cpp" />
     <ClCompile Include="sdk\PyOpcodes.cpp" />
     <ClCompile Include="sdk\PyMemory.cpp" />
-    <ClCompile Include="PyUtils.cpp" />
     <ClCompile Include="sdk\PyScript.cpp" />
     <ClCompile Include="sdk\PyCLEO.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
@@ -20,7 +19,6 @@
     <ClInclude Include="sdk\PyCommon.h" />
     <ClInclude Include="sdk\PyOpcodes.h" />
     <ClInclude Include="sdk\PyMemory.h" />
-    <ClInclude Include="PyUtils.h" />
     <ClInclude Include="ScriptData.hpp" />
     <ClInclude Include="sdk\PyScript.h" />
     <ClInclude Include="sdk\PyCLEO.h" />

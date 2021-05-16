@@ -8,6 +8,7 @@ private:
     static PyObject* SetAuthor(PyObject* self, PyObject* args);
     static PyObject* GetDesc(PyObject* self, PyObject* args);
     static PyObject* SetDesc(PyObject* self, PyObject* args);
+    static PyObject* GetFileName(PyObject* self, PyObject* args);
     static PyObject* GetName(PyObject* self, PyObject* args);
     static PyObject* SetName(PyObject* self, PyObject* args);
     static PyObject* GetVersion(PyObject* self, PyObject* args);
@@ -21,6 +22,7 @@ private:
         {"author", SetAuthor, METH_VARARGS},
         {"get_desc", GetDesc, METH_VARARGS},
         {"desc", SetDesc, METH_VARARGS},
+        {"get_file_name", GetFileName, METH_VARARGS},
         {"get_name", GetName, METH_VARARGS},
         {"name", SetName, METH_VARARGS},
         {"get_version", GetVersion, METH_VARARGS},

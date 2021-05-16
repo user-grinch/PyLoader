@@ -1,5 +1,4 @@
 #include "PyCommon.h"
-#include "../PyUtils.h"
 #include "../ScriptData.hpp"
 #include <frameobject.h>
 #include "../PyEvents.h"
@@ -11,15 +10,16 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
         return PyBool_FromLong(0);
 
     ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
-
     if (!script_data->events_registered)
     {
         //PyEvents::VehicleCreate(script_data->pModule);
         script_data->events_registered = true;
     }
 
-    if (script_data->exit_flag != EXITING_FLAGS::EXITING)
+    if (script_data->exit_flag != EXITING_FLAGS::NORMAL_EXIT)
     {
+        PyEvents::ScriptTerminate(script_data->pModule);
+        return PyBool_FromLong(1);
         PyThreadState_SetAsyncExc(script_data->thread_id, PyExc_Exception);
         return PyBool_FromLong(1);
     }
@@ -81,8 +81,8 @@ PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
             return NULL;
 
         ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
-        if (data->exit_flag == EXITING_FLAGS::EXITING)
-            flog << PyUtils::GetCurrentScriptName() << ": " << text  << std::endl;
+        if (data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
+            flog << data->file_name << ": " << text  << std::endl;
     }
     ignore_call = !ignore_call;
 

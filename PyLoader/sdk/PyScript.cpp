@@ -1,6 +1,5 @@
 #include "PyScript.h"
 #include "../ScriptData.hpp"
-#include "../PyUtils.h"
 #include "../PyLoader.h"
 #include "../PyEvents.h"
 
@@ -19,7 +18,7 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 	else
 		data = ScriptData::FindFromName(std::string(str));
 
-	if (data != NULL && data->exit_flag == EXITING_FLAGS::EXITING)
+	if (data != NULL && data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
 	{
 		PyEvents::ScriptTerminate(data->pModule);
 		flog << "Unloading script " << str << std::endl;
@@ -46,11 +45,10 @@ PyObject* PyScript::Unload(PyObject* self, PyObject* args)
 	else
 		data = ScriptData::FindFromName(std::string(str));
 
-	if (data != NULL && data->exit_flag == EXITING_FLAGS::EXITING)
+	if (data != NULL && data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
 	{
 		PyEvents::ScriptTerminate(data->pModule);
 		flog << "Unloading script " << str << std::endl;
-
 		ScriptData::Unload(str);
 
 		return PyBool_FromLong(1);
@@ -73,28 +71,76 @@ PyObject* PyScript::Load(PyObject* self, PyObject* args)
 
 PyObject* PyScript::GetDesc(PyObject* self, PyObject* args)
 {
-	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+	
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+		data = ScriptData::Get(GetCurrentThreadId());
+	else
+		data = ScriptData::FindFromName(std::string(str));
 
 	return Py_BuildValue("s", data->desc.c_str());
 }
 
 PyObject* PyScript::GetName(PyObject* self, PyObject* args)
 {
-	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+		data = ScriptData::Get(GetCurrentThreadId());
+	else
+		data = ScriptData::FindFromName(std::string(str));
 
 	return Py_BuildValue("s", data->name.c_str());
 }
 
+PyObject* PyScript::GetFileName(PyObject* self, PyObject* args)
+{
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+		data = ScriptData::Get(GetCurrentThreadId());
+	else
+		data = ScriptData::FindFromName(std::string(str));
+
+	return Py_BuildValue("s", data->file_name.c_str());
+}
+
+
 PyObject* PyScript::GetAuthor(PyObject* self, PyObject* args)
 {
-	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+		data = ScriptData::Get(GetCurrentThreadId());
+	else
+		data = ScriptData::FindFromName(std::string(str));
 
 	return Py_BuildValue("s", data->author.c_str());
 }
 
 PyObject* PyScript::GetVersion(PyObject* self, PyObject* args)
 {
-	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "|s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = nullptr;
+	if (str == NULL || str[0] == '\0')
+		data = ScriptData::Get(GetCurrentThreadId());
+	else
+		data = ScriptData::FindFromName(std::string(str));
 
 	return Py_BuildValue("s", data->version.c_str());
 }

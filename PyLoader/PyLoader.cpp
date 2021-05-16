@@ -131,7 +131,7 @@ int PyLoader::ExecuteScript(std::string *path)
 
     PyRun_String(buf, Py_file_input, pGlobal, pLocal);
     
-    if (script_data->exit_flag != EXITING_FLAGS::EXITING)
+    if (script_data->exit_flag != EXITING_FLAGS::NORMAL_EXIT)
         PyErr_Clear();
 
     if (PyEvents::ScriptTerminate(script_data->pModule) && PyErr_Occurred())

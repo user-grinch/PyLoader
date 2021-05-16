@@ -90,7 +90,7 @@ for header in xml_root:
                     if i == "f":
                         fsrc.write("\tfloat var{};\n".format(count))
                     if i == "s":
-                        fsrc.write("\tchar* var{};\n".format(count))
+                        fsrc.write("\tchar* var{} = NULL;\n".format(count))
 
                     if not is_out[count-1]:
                         ref_str = ref_str + "&var" + str(count) + ", "

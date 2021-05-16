@@ -12047,7 +12047,7 @@ PyObject* PyOpcodes::GrabEntityOnWinch(PyObject* self, PyObject* args)
 PyObject* PyOpcodes::GetNameOfItem(PyObject* self, PyObject* args)
 {
 	int var1;
-	char* var2;
+	char* var2 = NULL;
 
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return PyBool_FromLong(0);
@@ -12322,7 +12322,7 @@ PyObject* PyOpcodes::GetPlayerGroup(PyObject* self, PyObject* args)
 
 PyObject* PyOpcodes::GetLoadedShop(PyObject* self, PyObject* args)
 {
-	char* var1;
+	char* var1 = NULL;
 
 	plugin::Command<plugin::Commands::GET_LOADED_SHOP>(var1);
 	return Py_BuildValue("s", var1);
@@ -13599,7 +13599,7 @@ PyObject* PyOpcodes::GetNameOfZone(PyObject* self, PyObject* args)
 	float var1;
 	float var2;
 	float var3;
-	char* var4;
+	char* var4 = NULL;
 
 	if (!PyArg_ParseTuple(args, "fff", &var1, &var2, &var3))
 		return PyBool_FromLong(0);
@@ -15243,7 +15243,7 @@ PyObject* PyOpcodes::GetNameOfInfoZone(PyObject* self, PyObject* args)
 	float var1;
 	float var2;
 	float var3;
-	char* var4;
+	char* var4 = NULL;
 
 	if (!PyArg_ParseTuple(args, "fff", &var1, &var2, &var3))
 		return PyBool_FromLong(0);
@@ -15606,7 +15606,7 @@ PyObject* PyOpcodes::SetCarLightsOn(PyObject* self, PyObject* args)
 
 PyObject* PyOpcodes::GetLatestConsoleCommand(PyObject* self, PyObject* args)
 {
-	char* var1;
+	char* var1 = NULL;
 
 	plugin::Command<plugin::Commands::GET_LATEST_CONSOLE_COMMAND>(var1);
 	return Py_BuildValue("s", var1);
@@ -16076,7 +16076,7 @@ PyObject* PyOpcodes::UpdatePickupMoneyPerDay(PyObject* self, PyObject* args)
 PyObject* PyOpcodes::GetNameOfEntryExitCharUsed(PyObject* self, PyObject* args)
 {
 	int var1;
-	char* var2;
+	char* var2 = NULL;
 
 	if (!PyArg_ParseTuple(args, "i", &var1))
 		return PyBool_FromLong(0);

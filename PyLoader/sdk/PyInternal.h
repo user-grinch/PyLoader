@@ -9,6 +9,7 @@ private:
     static PyObject* GetPedPool(PyObject* self, PyObject* args);
     static PyObject* GetBuildingPool(PyObject* self, PyObject* args);
     static PyObject* GetObjectPool(PyObject* self, PyObject* args);
+    static PyObject* GetScriptPool(PyObject* self, PyObject* args);
     static PyObject* GetVehPool(PyObject* self, PyObject* args);
 
     static inline PyMethodDef Methods[] =
@@ -16,6 +17,7 @@ private:
         {"_get_building_pool", GetBuildingPool, METH_VARARGS},
         {"_get_obj_pool", GetObjectPool, METH_VARARGS},
         {"_get_ped_pool", GetPedPool, METH_VARARGS},
+        {"_get_script_pool", GetScriptPool, METH_VARARGS},
         {"_get_veh_pool", GetVehPool, METH_VARARGS},
         {} // sentinel
     };

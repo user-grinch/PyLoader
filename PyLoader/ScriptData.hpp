@@ -5,7 +5,7 @@
 
 enum class EXITING_FLAGS
 {
-    EXITING,
+    NORMAL_EXIT,
     RELOADING,
     UNLOADING,
 };
@@ -19,7 +19,7 @@ public:
         size_t ticks = NULL;
         unsigned long thread_id = NULL;
         bool events_registered = false;
-        EXITING_FLAGS exit_flag = EXITING_FLAGS::EXITING;
+        EXITING_FLAGS exit_flag = EXITING_FLAGS::NORMAL_EXIT;
         std::string name, file_name, author, version, desc;
     };
     static inline std::vector<Data*>* scripts = nullptr;
