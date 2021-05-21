@@ -38,6 +38,10 @@ Sets the name of the script author.
 
 Sets the script description.
 
+### **minimum\_version\(version: str\)**
+
+Specifies the minimum version required by the script. If not met, a warning is shown in the **PyLoader.log**.
+
 ### name\(script\_name :str\)
 
 Sets the script name.
