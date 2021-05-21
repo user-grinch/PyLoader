@@ -13,6 +13,7 @@ private:
     static PyObject* SetName(PyObject* self, PyObject* args);
     static PyObject* GetVersion(PyObject* self, PyObject* args);
     static PyObject* SetVersion(PyObject* self, PyObject* args);
+    static PyObject* MinRequiredVersion(PyObject* self, PyObject* args);
     static PyObject* Load(PyObject* self, PyObject* args);
     static PyObject* Reload(PyObject* self, PyObject* args);
     static PyObject* Unload(PyObject* self, PyObject* args);
@@ -27,6 +28,7 @@ private:
         {"name", SetName, METH_VARARGS},
         {"get_version", GetVersion, METH_VARARGS},
         {"version", SetVersion, METH_VARARGS},
+        {"minimum_version", MinRequiredVersion, METH_VARARGS},
         {"load", Load, METH_VARARGS},
         {"reload", Reload, METH_VARARGS},
         {"unload", Unload, METH_VARARGS},

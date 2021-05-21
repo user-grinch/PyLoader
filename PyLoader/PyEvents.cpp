@@ -9,6 +9,9 @@ void PyEvents::InitAllEvents()
     PyEvents::pedCreateEvent.Init();
     PyEvents::pedRenderEvent.Init();
     PyEvents::pedDestroyEvent.Init();
+    PyEvents::objCreateEvent.Init();
+    PyEvents::objRenderEvent.Init();
+    PyEvents::objDestroyEvent.Init();
 }
 
 bool PyEvents::ScriptTerminate(PyObject* pModule)

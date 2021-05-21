@@ -192,3 +192,20 @@ PyObject* PyScript::SetVersion(PyObject* self, PyObject* args)
 
 	return PyBool_FromLong(1);
 }
+
+PyObject* PyScript::MinRequiredVersion(PyObject* self, PyObject* args)
+{
+	char* str = NULL;
+	if (!PyArg_ParseTuple(args, "s", &str))
+		return PyBool_FromLong(0);
+
+	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+
+	if (plugin_ver < std::string(str))
+	{
+		flog << data->file_name << " requires at least PyLoader v" << str << std::endl;
+		return PyBool_FromLong(0);
+	}
+
+	return PyBool_FromLong(1);
+}
