@@ -122,6 +122,8 @@ void PyLoader::PluginThread(void* param)
     PyImport_ImportModule("common");
     PyEval_ReleaseLock();
     
+    PyEvents::InitAllEvents();
+
     // load scripts
     if (dir != INVALID_HANDLE_VALUE)
     {

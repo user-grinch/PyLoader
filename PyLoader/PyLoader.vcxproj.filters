@@ -26,5 +26,6 @@
     <ClInclude Include="sdk\PyInternal.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="depend\jute.h" />
+    <ClInclude Include="PyEventsInternal.h" />
   </ItemGroup>
 </Project>

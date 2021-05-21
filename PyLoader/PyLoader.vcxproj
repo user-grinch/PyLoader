@@ -109,6 +109,7 @@
   <ItemGroup>
     <ClInclude Include="depend\jute.h" />
     <ClInclude Include="PyEvents.h" />
+    <ClInclude Include="PyEventsInternal.h" />
     <ClInclude Include="sdk\PyInternal.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PyLoader.h" />

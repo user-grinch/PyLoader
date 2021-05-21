@@ -31,7 +31,7 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 	AnyType* params = new AnyType[num_param];
 	AnyType* params_end = params + num_param * 0x4;
 
-	for (int i = 0; i < num_param; i++)
+	for (size_t i = 0; i < num_param; i++)
 	{
 		size_t index = i + 3; // addr, count, pop
 
@@ -41,7 +41,7 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 			if (PyNumber_Check(ptemp))
 			{
 				if (PyFloat_Check(ptemp))
-					params[i].f = PyFloat_AsDouble(PyNumber_Float(ptemp));
+					params[i].f = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
 				else
 					params[i].i = PyLong_AsLong(PyNumber_Long(ptemp));
 			}
@@ -90,7 +90,7 @@ PyObject* PyCLEO::CallMethod(PyObject* self, PyObject* args)
 	AnyType* params = new AnyType[num_param];
 	AnyType* params_end = (AnyType*)(int(params) + num_param * 0x4);
 
-	for (int i = 0; i < num_param; i++)
+	for (size_t i = 0; i < num_param; i++)
 	{
 		size_t index = i + 4; // addr, struc, count, pop
 
@@ -100,7 +100,7 @@ PyObject* PyCLEO::CallMethod(PyObject* self, PyObject* args)
 			if (PyNumber_Check(ptemp))
 			{
 				if (PyFloat_Check(ptemp))
-					params[i].f = PyFloat_AsDouble(PyNumber_Float(ptemp));
+					params[i].f = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
 				else
 					params[i].i = PyLong_AsLong(PyNumber_Long(ptemp));
 			}

@@ -12,7 +12,18 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
     ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
     if (!script_data->events_registered)
     {
-        //PyEvents::VehicleCreate(script_data->pModule);
+
+        PyEvents::vehCreateEvent.AddModule(script_data->pModule, "on_veh_create");
+        PyEvents::vehDestroyEvent.AddModule(script_data->pModule, "on_veh_destroy");
+        PyEvents::vehRenderEvent.AddModule(script_data->pModule, "on_veh_render");
+        PyEvents::pedCreateEvent.AddModule(script_data->pModule, "on_ped_create");
+        PyEvents::pedDestroyEvent.AddModule(script_data->pModule, "on_ped_destroy");
+        PyEvents::pedRenderEvent.AddModule(script_data->pModule, "on_ped_render");
+        PyEvents::objCreateEvent.AddModule(script_data->pModule, "on_obj_create");
+        PyEvents::objDestroyEvent.AddModule(script_data->pModule, "on_obj_destroy");
+        PyEvents::objRenderEvent.AddModule(script_data->pModule, "on_obj_render");
+        PyErr_Clear();
+
         script_data->events_registered = true;
     }
 
