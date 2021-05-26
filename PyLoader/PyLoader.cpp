@@ -10,6 +10,7 @@
 #include "sdk/PyMemory.h"
 #include "sdk/PyScript.h"
 #include "sdk/PyInternal.h"
+#include "sdk/PyBass.h"
 #include "PyEvents.h"
 
 std::ofstream flog("PyLoader.log");
@@ -109,6 +110,7 @@ void PyLoader::PluginThread(void* param)
 
     dir = FindFirstFileA("./PyLoader/*.py", &file_data);
 
+    PyImport_AppendInittab("bass", &PyBass::Init);
     PyImport_AppendInittab("common", &PyCommon::Init);
     PyImport_AppendInittab("hud", &PyCHud::Init);
     PyImport_AppendInittab("memory", &PyMemory::Init);

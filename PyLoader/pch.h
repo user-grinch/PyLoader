@@ -7,7 +7,9 @@
 #include <fstream>
 #include <frameobject.h>
 #include "plugin.h"
+#include <filesystem>
 
+namespace fs = std::filesystem;
 constexpr const char* plugin_ver = "0.03";
 extern size_t game_ticks;
 extern std::ofstream flog;

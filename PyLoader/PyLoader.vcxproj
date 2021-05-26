@@ -70,9 +70,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalLibraryDirectories>$(PLUGIN_SDK_DIR)\output\lib\;C:\Program Files (x86)\Python38-32\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>plugin.lib;Urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(PLUGIN_SDK_DIR)\output\lib\;C:\Program Files (x86)\Python38-32\libs;$(ProjectDir)\depend;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>bass.lib;plugin.lib;Urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GTASA zDebug|Win32'">
@@ -96,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="depend\jute.cpp" />
     <ClCompile Include="DllMain.cpp" />
+    <ClCompile Include="sdk\PyBass.cpp" />
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
     <ClCompile Include="PyLoader.cpp" />
@@ -107,7 +109,9 @@
     <ClCompile Include="sdk\PyOpcodes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="depend\bass.h" />
     <ClInclude Include="depend\jute.h" />
+    <ClInclude Include="sdk\PyBass.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="PyEventsInternal.h" />
     <ClInclude Include="sdk\PyInternal.h" />
@@ -120,6 +124,9 @@
     <ClInclude Include="sdk\PyCommon.h" />
     <ClInclude Include="sdk\PyMemory.h" />
     <ClInclude Include="sdk\PyOpcodes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="depend\bass.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

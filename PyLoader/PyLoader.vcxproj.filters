@@ -12,6 +12,7 @@
     <ClCompile Include="sdk\PyInternal.cpp" />
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="depend\jute.cpp" />
+    <ClCompile Include="sdk\PyBass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -27,5 +28,10 @@
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="depend\jute.h" />
     <ClInclude Include="PyEventsInternal.h" />
+    <ClInclude Include="sdk\PyBass.h" />
+    <ClInclude Include="depend\bass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="depend\bass.lib" />
   </ItemGroup>
 </Project>
