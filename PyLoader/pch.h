@@ -10,6 +10,6 @@
 #include <filesystem>
 
 namespace fs = std::filesystem;
-constexpr const char* plugin_ver = "0.03";
+constexpr const char* plugin_ver = "0.05";
 extern size_t game_ticks;
 extern std::ofstream flog;

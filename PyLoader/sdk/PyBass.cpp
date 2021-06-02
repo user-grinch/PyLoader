@@ -1,47 +1,62 @@
 #include "PyBass.h"
-#include "../depend/bass.h"
-#include "../pch.h"
+#include "../CSoundSystem.h"
+
+PyObject* PyBass::Init(void)
+{
+	return PyModule_Create(&Module);
+}
+
+PyObject* PyBass::Link3dAudioStreamToVehicle(PyObject* self, PyObject* args)
+{
+	CAudioStream* stream;
+	int handle;
+	if (!PyArg_ParseTuple(args, "ii", &handle, &stream))
+		return PyBool_FromLong(0);
+
+	stream->Link(CPools::GetVehicle(handle));
+	return PyBool_FromLong(1);
+}
+
+PyObject* PyBass::Link3dAudioStreamToObject(PyObject* self, PyObject* args)
+{
+	CAudioStream* stream;
+	int handle;
+	if (!PyArg_ParseTuple(args, "ii", &handle, &stream))
+		return PyBool_FromLong(0);
+
+	stream->Link(CPools::GetObject(handle));
+	return PyBool_FromLong(1);
+}
+
+PyObject* PyBass::Link3dAudioStreamToActor(PyObject* self, PyObject* args)
+{
+	CAudioStream* stream;
+	int handle;
+	if (!PyArg_ParseTuple(args, "ii", &handle, &stream))
+		return PyBool_FromLong(0);
+
+	stream->Link(CPools::GetPed(handle));
+	return PyBool_FromLong(1);
+}
 
 PyObject* PyBass::LoadAudioStreamWith3dSupport(PyObject* self, PyObject* args)
 {
 	char* path;
-	int handle = 0;
+
 	if (!PyArg_ParseTuple(args, "s", &path))
 		return PyBool_FromLong(0);
 
-	if (fs::exists(path))
-	{
-		// shouldn't need FP check for Win 7+?
-		unsigned flags = BASS_SAMPLE_3D | BASS_SAMPLE_MONO | BASS_SAMPLE_SOFTWARE | BASS_SAMPLE_FLOAT;
-
-		if ((handle = BASS_StreamCreateFile(FALSE, path, 0, 0, flags)) || (handle = BASS_StreamCreateURL(path, 0, flags, nullptr, nullptr)))
-		{
-			BASS_ChannelSet3DAttributes(handle, 0, -1.0, -1.0, -1, -1, -1.0);
-			return Py_BuildValue("i", handle);
-		}
-	}
-
-	return Py_BuildValue("i", -1);
+	return Py_BuildValue("i", SoundSystem.LoadStream(path, true));
 }
 
 PyObject* PyBass::LoadAudioStream(PyObject* self, PyObject* args)
 {
 	char* path;
-	int handle = 0;
 
 	if (!PyArg_ParseTuple(args, "s", &path))
 		return PyBool_FromLong(0);
 
-	if (fs::exists(path))
-	{
-		// shouldn't need FP check for Win 7+?
-		unsigned flags = BASS_SAMPLE_SOFTWARE | BASS_SAMPLE_FLOAT;
-
-		if ((handle = BASS_StreamCreateFile(FALSE, path, 0, 0, flags)) || (handle = BASS_StreamCreateURL(path, 0, flags, 0, nullptr)))
-			return Py_BuildValue("i", handle);
-	}
-
-	return Py_BuildValue("i", -1);
+	return Py_BuildValue("i", SoundSystem.LoadStream(path));
 }
 
 PyObject* PyBass::ReleaseAudioStream(PyObject* self, PyObject* args)
@@ -51,99 +66,94 @@ PyObject* PyBass::ReleaseAudioStream(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "i", &handle))
 		return PyBool_FromLong(0);
 
-	return Py_BuildValue("i", BASS_StreamFree(handle));
+	SoundSystem.UnloadStream((CAudioStream*)handle);
+	return Py_BuildValue("i", 1);
 }
 
 PyObject* PyBass::GetAudioStreamLength(PyObject* self, PyObject* args)
 {
-	int handle;
+	CAudioStream* stream;
 
-	if (!PyArg_ParseTuple(args, "i", &handle))
+	if (!PyArg_ParseTuple(args, "i", &stream))
 		return PyBool_FromLong(0);
 
-	return Py_BuildValue("i", BASS_ChannelBytes2Seconds(handle, BASS_ChannelGetLength(handle, BASS_POS_BYTE)));
+	return Py_BuildValue("i", stream->GetLength());
 }
 
 PyObject* PyBass::GetAudioStreamVolume(PyObject* self, PyObject* args)
 {
-	int handle;
-	float result = 0.0f;
+	CAudioStream* stream;
 
-	if (!PyArg_ParseTuple(args, "i", &handle))
+	if (!PyArg_ParseTuple(args, "i", &stream))
 		return PyBool_FromLong(0);
 
-	if (!BASS_ChannelGetAttribute(handle, BASS_ATTRIB_VOL, &result))
-		result =  -1.0f;
-
-	return Py_BuildValue("f", result);
+	return Py_BuildValue("f", stream->GetVolume());
 }
 
 PyObject* PyBass::LoopAudioStream(PyObject* self, PyObject* args)
 {
-	int handle = 0;
+	CAudioStream* stream;
 	int flag = 0;
 
-	if (!PyArg_ParseTuple(args, "ii", &handle, &flag))
+	if (!PyArg_ParseTuple(args, "ii", &stream, &flag))
 		return PyBool_FromLong(0);
 
-	BASS_ChannelFlags(handle, flag ? BASS_SAMPLE_LOOP : 0, BASS_SAMPLE_LOOP);
-
+	stream->Loop(flag);
 	return PyBool_FromLong(1);
 }
 
 PyObject* PyBass::Set3dAudioStreamPosition(PyObject* self, PyObject* args)
 {
-	int handle = 0;
-	BASS_3DVECTOR pos;
+	CAudioStream* stream;
+	CVector pos;
 
-	if (!PyArg_ParseTuple(args, "ifff", &handle, &pos.x, &pos.y, &pos.z))
+	if (!PyArg_ParseTuple(args, "ifff", &stream, &pos.x, &pos.y, &pos.z))
 		return PyBool_FromLong(0);
 
-	BASS_ChannelSet3DPosition(handle, &pos, nullptr, nullptr);
+	stream->Set3dPosition(pos);
 	return PyBool_FromLong(1);
 }
 
 PyObject* PyBass::SetAudioStreamVolume(PyObject* self, PyObject* args)
 {
-	int handle;
+	CAudioStream* stream;
 	float vol;
 
-	if (!PyArg_ParseTuple(args, "if", &handle, &vol))
+	if (!PyArg_ParseTuple(args, "if", &stream, &vol))
 		return PyBool_FromLong(0);
 
-	BASS_ChannelSetAttribute(handle, BASS_ATTRIB_VOL, vol);
-
+	stream->SetVolume(vol);
 	return PyBool_FromLong(1);
 }
 
 PyObject* PyBass::SetAudioStreamPerformAction(PyObject* self, PyObject* args)
 {
-	int handle, action;
+	CAudioStream* stream;
+	int action;
 
-	if (!PyArg_ParseTuple(args, "ii", &handle, &action))
+	if (!PyArg_ParseTuple(args, "ii", &stream, &action))
 		return PyBool_FromLong(0);
 
 	switch (action)
 	{
 		case 0: // stop
 		{
-			BASS_ChannelPause(handle);
-			BASS_ChannelSetPosition(handle, 0, BASS_POS_BYTE);
+			stream->Stop();
 			break;
 		}
 		case 1: // play
 		{
-			BASS_ChannelPlay(handle, true);
+			stream->Play();
 			break;
 		}
 		case 2: // pause
 		{
-			BASS_ChannelPause(handle);
+			stream->Pause();
 			break;
 		}
 		case 3: // resume
 		{
-			BASS_ChannelPlay(handle, false);
+			stream->Resume();
 			break;
 		}
 	}

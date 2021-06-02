@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="depend\jute.cpp" />
     <ClCompile Include="DllMain.cpp" />
+    <ClCompile Include="CSoundSystem.cpp" />
     <ClCompile Include="sdk\PyBass.cpp" />
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="sdk\PyInternal.cpp" />
@@ -111,6 +112,7 @@
   <ItemGroup>
     <ClInclude Include="depend\bass.h" />
     <ClInclude Include="depend\jute.h" />
+    <ClInclude Include="CSoundSystem.h" />
     <ClInclude Include="sdk\PyBass.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="PyEventsInternal.h" />

@@ -12,9 +12,11 @@
 #include "sdk/PyInternal.h"
 #include "sdk/PyBass.h"
 #include "PyEvents.h"
+#include "CSoundSystem.h"
 
 std::ofstream flog("PyLoader.log");
 size_t game_ticks = 0;
+CSoundSystem SoundSystem;
 
 void PyLoader::LoadPlugins(std::string&& dir_name)
 {
@@ -96,7 +98,7 @@ void PyLoader::PluginThread(void* param)
     };
     
     flog << "------------------------------\nStarting PyLoader v" << plugin_ver
-        << "\nAuthor: Grinch_\nMore info: https:///github.com/user-grinch/PyLoaderSA/" << std::endl;
+        << "\nAuthor: Grinch_\nThanks: CLEO4 & PluginSDK devs\nMore info: https:///github.com/user-grinch/PyLoaderSA/" << std::endl;
 
     CheckUpdate();
 
@@ -125,6 +127,8 @@ void PyLoader::PluginThread(void* param)
     PyEval_ReleaseLock();
     
     PyEvents::InitAllEvents();
+    SoundSystem.Inject();
+    SoundSystem.Init(RsGlobal.ps->window);
 
     // load scripts
     if (dir != INVALID_HANDLE_VALUE)

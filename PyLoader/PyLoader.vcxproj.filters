@@ -13,6 +13,7 @@
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="depend\jute.cpp" />
     <ClCompile Include="sdk\PyBass.cpp" />
+    <ClCompile Include="CSoundSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="PyEventsInternal.h" />
     <ClInclude Include="sdk\PyBass.h" />
     <ClInclude Include="depend\bass.h" />
+    <ClInclude Include="CSoundSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="depend\bass.lib" />
