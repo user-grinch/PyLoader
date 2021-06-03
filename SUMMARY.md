@@ -9,6 +9,7 @@
 
 ## API
 
+* [Bass](api/bass.md)
 * [CLEO](api/cleo-module.md)
 * [Common](api/common-module.md)
 * [Events](api/events.md)
