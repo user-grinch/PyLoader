@@ -7,8 +7,6 @@ This is a **.asi** plugin that allows writing custom Python scripts for GTA SanA
 **Python version**: 3.8x \(Windows 7+\)  
 **Sample scripts**: [here](https://github.com/user-grinch/PyLoaderSA/tree/master/examples)  
 **Plugin template**: [here](https://github.com/user-grinch/PyLoaderSA/tree/plugin-template)  
-**VS Code extension** [here](https://marketplace.visualstudio.com/items?itemName=Grinch.sa-pyloader)  
-**Wiki**: [here](https://user-grinch.gitbook.io/pyloader/)
 
 ## Installation
 
