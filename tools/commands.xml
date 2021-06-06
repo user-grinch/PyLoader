@@ -357,8 +357,8 @@
     </Command>
     <Command ID="0xe2" Name="GET_PAD_STATE">
       <Args>
-        <Arg Type="INT" Enum="PAD" Desc = "1"/>
-        <Arg Type="INT" Enum="BUTTON" Desc = "2"/>
+        <Arg Type="INT" Enum="PAD" Desc = "pad"/>
+        <Arg Type="INT" Enum="BUTTON" Desc = "button"/>
         <Arg Type="INT" Out="true" Desc = "3"/>
       </Args>
     </Command>

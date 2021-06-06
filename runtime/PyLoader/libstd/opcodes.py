@@ -33,13 +33,13 @@ def set_char_coordinates(hchar: int, x_coord: float, y_coord: float, z_coord: fl
 	'''More info: https://gtamods.com/wiki/00a1/ https://gtagmodding.com/opcode-database/opcode/00A1/'''
 	_opcodes.set_char_coordinates(hchar, x_coord, y_coord, z_coord)
 
-def is_char_in_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_in_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00a3/ https://gtagmodding.com/opcode-database/opcode/00A3/'''
-	_opcodes.is_char_in_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_in_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_in_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_in_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00a4/ https://gtagmodding.com/opcode-database/opcode/00A4/'''
-	_opcodes.is_char_in_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_in_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
 def create_car(unknown1: int, x_coord: float, y_coord: float, z_coord: float) -> int:
 	'''More info: https://gtamods.com/wiki/00a5/ https://gtagmodding.com/opcode-database/opcode/00A5/'''
@@ -81,13 +81,13 @@ def set_car_mission(hveh: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/00af/ https://gtagmodding.com/opcode-database/opcode/00AF/'''
 	_opcodes.set_car_mission(hveh, unknown2)
 
-def is_car_in_area_2d(hveh: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_car_in_area_2d(hveh: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00b0/ https://gtagmodding.com/opcode-database/opcode/00B0/'''
-	_opcodes.is_car_in_area_2d(hveh, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_car_in_area_2d(hveh, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_car_in_area_3d(hveh: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_car_in_area_3d(hveh: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00b1/ https://gtagmodding.com/opcode-database/opcode/00B1/'''
-	_opcodes.is_car_in_area_3d(hveh, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_car_in_area_3d(hveh, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
 def print_big(unknown1: str, time: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/00ba/ https://gtagmodding.com/opcode-database/opcode/00BA/'''
@@ -117,9 +117,9 @@ def get_minutes_to_time_of_day(unknown1: int, unknown2: int) -> int:
 	'''More info: https://gtamods.com/wiki/00c1/ https://gtagmodding.com/opcode-database/opcode/00C1/'''
 	return _opcodes.get_minutes_to_time_of_day(unknown1, unknown2)
 
-def is_point_on_screen(x_coord: float, y_coord: float, z_coord: float, radius: float) -> None:
+def is_point_on_screen(x_coord: float, y_coord: float, z_coord: float, radius: float) -> bool:
 	'''More info: https://gtamods.com/wiki/00c2/ https://gtagmodding.com/opcode-database/opcode/00C2/'''
-	_opcodes.is_point_on_screen(x_coord, y_coord, z_coord, radius)
+	return _opcodes.is_point_on_screen(x_coord, y_coord, z_coord, radius)
 
 def launch_mission(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/00d7/ https://gtagmodding.com/opcode-database/opcode/00D7/'''
@@ -133,21 +133,21 @@ def store_car_char_is_in(hchar: int) -> int:
 	'''More info: https://gtamods.com/wiki/00d9/ https://gtagmodding.com/opcode-database/opcode/00D9/'''
 	return _opcodes.store_car_char_is_in(hchar)
 
-def is_char_in_car(hchar: int, hveh: int) -> None:
+def is_char_in_car(hchar: int, hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00db/ https://gtagmodding.com/opcode-database/opcode/00DB/'''
-	_opcodes.is_char_in_car(hchar, hveh)
+	return _opcodes.is_char_in_car(hchar, hveh)
 
-def is_char_in_model(hchar: int, unknown2: int) -> None:
+def is_char_in_model(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00dd/ https://gtagmodding.com/opcode-database/opcode/00DD/'''
-	_opcodes.is_char_in_model(hchar, unknown2)
+	return _opcodes.is_char_in_model(hchar, unknown2)
 
-def is_char_in_any_car(hchar: int) -> None:
+def is_char_in_any_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00df/ https://gtagmodding.com/opcode-database/opcode/00DF/'''
-	_opcodes.is_char_in_any_car(hchar)
+	return _opcodes.is_char_in_any_car(hchar)
 
-def is_button_pressed(unknown1: int, unknown2: int) -> None:
+def is_button_pressed(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00e1/ https://gtagmodding.com/opcode-database/opcode/00E1/'''
-	_opcodes.is_button_pressed(unknown1, unknown2)
+	return _opcodes.is_button_pressed(unknown1, unknown2)
 
 def get_pad_state(unknown1: int, unknown2: int) -> int:
 	'''More info: https://gtamods.com/wiki/00e2/ https://gtagmodding.com/opcode-database/opcode/00E2/'''
@@ -237,9 +237,9 @@ def add_score(player: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0109/ https://gtagmodding.com/opcode-database/opcode/0109/'''
 	_opcodes.add_score(player, unknown2)
 
-def is_score_greater(player: int, unknown2: int) -> None:
+def is_score_greater(player: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/010a/ https://gtagmodding.com/opcode-database/opcode/010A/'''
-	_opcodes.is_score_greater(player, unknown2)
+	return _opcodes.is_score_greater(player, unknown2)
 
 def store_score(player: int) -> int:
 	'''More info: https://gtamods.com/wiki/010b/ https://gtagmodding.com/opcode-database/opcode/010B/'''
@@ -253,9 +253,9 @@ def alter_wanted_level_no_drop(player: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/010e/ https://gtagmodding.com/opcode-database/opcode/010E/'''
 	_opcodes.alter_wanted_level_no_drop(player, unknown2)
 
-def is_wanted_level_greater(player: int, unknown2: int) -> None:
+def is_wanted_level_greater(player: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/010f/ https://gtagmodding.com/opcode-database/opcode/010F/'''
-	_opcodes.is_wanted_level_greater(player, unknown2)
+	return _opcodes.is_wanted_level_greater(player, unknown2)
 
 def clear_wanted_level(player: int) -> None:
 	'''More info: https://gtamods.com/wiki/0110/ https://gtagmodding.com/opcode-database/opcode/0110/'''
@@ -265,37 +265,37 @@ def set_deatharrest_state(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0111/ https://gtagmodding.com/opcode-database/opcode/0111/'''
 	_opcodes.set_deatharrest_state(state)
 
-def has_deatharrest_been_executed() -> None:
+def has_deatharrest_been_executed() -> bool:
 	'''More info: https://gtamods.com/wiki/0112/ https://gtagmodding.com/opcode-database/opcode/0112/'''
-	_opcodes.has_deatharrest_been_executed()
+	return _opcodes.has_deatharrest_been_executed()
 
 def add_ammo_to_char(hchar: int, unknown2: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/0114/ https://gtagmodding.com/opcode-database/opcode/0114/'''
 	_opcodes.add_ammo_to_char(hchar, unknown2, unknown3)
 
-def is_player_dead(player: int) -> None:
+def is_player_dead(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0117/ https://gtagmodding.com/opcode-database/opcode/0117/'''
-	_opcodes.is_player_dead(player)
+	return _opcodes.is_player_dead(player)
 
-def is_char_dead(hchar: int) -> None:
+def is_char_dead(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0118/ https://gtagmodding.com/opcode-database/opcode/0118/'''
-	_opcodes.is_char_dead(hchar)
+	return _opcodes.is_char_dead(hchar)
 
-def is_car_dead(hveh: int) -> None:
+def is_car_dead(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0119/ https://gtagmodding.com/opcode-database/opcode/0119/'''
-	_opcodes.is_car_dead(hveh)
+	return _opcodes.is_car_dead(hveh)
 
-def is_player_pressing_horn(player: int) -> None:
+def is_player_pressing_horn(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0122/ https://gtagmodding.com/opcode-database/opcode/0122/'''
-	_opcodes.is_player_pressing_horn(player)
+	return _opcodes.is_player_pressing_horn(player)
 
 def create_char_inside_car(hveh: int, unknown2: int, unknown3: int) -> int:
 	'''More info: https://gtamods.com/wiki/0129/ https://gtagmodding.com/opcode-database/opcode/0129/'''
 	return _opcodes.create_char_inside_car(hveh, unknown2, unknown3)
 
-def is_car_model(hveh: int, unknown2: int) -> None:
+def is_car_model(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0137/ https://gtagmodding.com/opcode-database/opcode/0137/'''
-	_opcodes.is_car_model(hveh, unknown2)
+	return _opcodes.is_car_model(hveh, unknown2)
 
 def create_car_generator(x_coord: float, y_coord: float, z_coord: float, angle: float, unknown5: int, unknown6: int, unknown7: int, state: int, unknown9: int, unknown10: int, time: int, time12: int) -> int:
 	'''More info: https://gtamods.com/wiki/014b/ https://gtagmodding.com/opcode-database/opcode/014B/'''
@@ -317,9 +317,9 @@ def clear_onscreen_counter(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0151/ https://gtagmodding.com/opcode-database/opcode/0151/'''
 	_opcodes.clear_onscreen_counter(unknown1)
 
-def is_char_in_zone(hchar: int, unknown2: str) -> None:
+def is_char_in_zone(hchar: int, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0154/ https://gtagmodding.com/opcode-database/opcode/0154/'''
-	_opcodes.is_char_in_zone(hchar, unknown2)
+	return _opcodes.is_char_in_zone(hchar, unknown2)
 
 def point_camera_at_car(hveh: int, unknown2: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/0158/ https://gtagmodding.com/opcode-database/opcode/0158/'''
@@ -421,9 +421,9 @@ def set_object_heading(hobj: int, angle: float) -> None:
 	'''More info: https://gtamods.com/wiki/0177/ https://gtagmodding.com/opcode-database/opcode/0177/'''
 	_opcodes.set_object_heading(hobj, angle)
 
-def is_char_touching_object(hchar: int, hobj: int) -> None:
+def is_char_touching_object(hchar: int, hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0179/ https://gtagmodding.com/opcode-database/opcode/0179/'''
-	_opcodes.is_char_touching_object(hchar, hobj)
+	return _opcodes.is_char_touching_object(hchar, hobj)
 
 def set_char_ammo(hchar: int, unknown2: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/017b/ https://gtagmodding.com/opcode-database/opcode/017B/'''
@@ -433,13 +433,13 @@ def declare_mission_flag(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0180/ https://gtagmodding.com/opcode-database/opcode/0180/'''
 	_opcodes.declare_mission_flag(unknown1)
 
-def is_char_health_greater(hchar: int, unknown2: int) -> None:
+def is_char_health_greater(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0184/ https://gtagmodding.com/opcode-database/opcode/0184/'''
-	_opcodes.is_char_health_greater(hchar, unknown2)
+	return _opcodes.is_char_health_greater(hchar, unknown2)
 
-def is_car_health_greater(hveh: int, unknown2: int) -> None:
+def is_car_health_greater(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0185/ https://gtagmodding.com/opcode-database/opcode/0185/'''
-	_opcodes.is_car_health_greater(hveh, unknown2)
+	return _opcodes.is_car_health_greater(hveh, unknown2)
 
 def add_blip_for_car(hveh: int) -> int:
 	'''More info: https://gtamods.com/wiki/0186/ https://gtagmodding.com/opcode-database/opcode/0186/'''
@@ -473,9 +473,9 @@ def remove_sound(sound: int) -> None:
 	'''More info: https://gtamods.com/wiki/018e/ https://gtagmodding.com/opcode-database/opcode/018E/'''
 	_opcodes.remove_sound(sound)
 
-def is_car_stuck_on_roof(hveh: int) -> None:
+def is_car_stuck_on_roof(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/018f/ https://gtagmodding.com/opcode-database/opcode/018F/'''
-	_opcodes.is_car_stuck_on_roof(hveh)
+	return _opcodes.is_car_stuck_on_roof(hveh)
 
 def add_upsidedown_car_check(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0190/ https://gtagmodding.com/opcode-database/opcode/0190/'''
@@ -485,53 +485,53 @@ def remove_upsidedown_car_check(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0191/ https://gtagmodding.com/opcode-database/opcode/0191/'''
 	_opcodes.remove_upsidedown_car_check(hveh)
 
-def is_char_in_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_in_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a1/ https://gtagmodding.com/opcode-database/opcode/01A1/'''
-	_opcodes.is_char_in_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_in_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_in_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_in_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a2/ https://gtagmodding.com/opcode-database/opcode/01A2/'''
-	_opcodes.is_char_in_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_in_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_stopped_in_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_stopped_in_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a3/ https://gtagmodding.com/opcode-database/opcode/01A3/'''
-	_opcodes.is_char_stopped_in_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_stopped_in_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_stopped_in_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_stopped_in_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a4/ https://gtagmodding.com/opcode-database/opcode/01A4/'''
-	_opcodes.is_char_stopped_in_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_stopped_in_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_stopped_in_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_char_stopped_in_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a5/ https://gtagmodding.com/opcode-database/opcode/01A5/'''
-	_opcodes.is_char_stopped_in_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_char_stopped_in_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_char_in_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_in_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a6/ https://gtagmodding.com/opcode-database/opcode/01A6/'''
-	_opcodes.is_char_in_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_in_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
-def is_char_in_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_in_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a7/ https://gtagmodding.com/opcode-database/opcode/01A7/'''
-	_opcodes.is_char_in_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_in_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
-def is_char_stopped_in_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_stopped_in_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a8/ https://gtagmodding.com/opcode-database/opcode/01A8/'''
-	_opcodes.is_char_stopped_in_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_stopped_in_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
-def is_char_stopped_in_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_stopped_in_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01a9/ https://gtagmodding.com/opcode-database/opcode/01A9/'''
-	_opcodes.is_char_stopped_in_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_stopped_in_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
-def is_char_stopped_in_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_char_stopped_in_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01aa/ https://gtagmodding.com/opcode-database/opcode/01AA/'''
-	_opcodes.is_char_stopped_in_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_char_stopped_in_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
-def is_car_stopped_in_area_2d(hveh: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_car_stopped_in_area_2d(hveh: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01ab/ https://gtagmodding.com/opcode-database/opcode/01AB/'''
-	_opcodes.is_car_stopped_in_area_2d(hveh, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_car_stopped_in_area_2d(hveh, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_car_stopped_in_area_3d(hveh: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_car_stopped_in_area_3d(hveh: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01ac/ https://gtagmodding.com/opcode-database/opcode/01AC/'''
-	_opcodes.is_car_stopped_in_area_3d(hveh, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_car_stopped_in_area_3d(hveh, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
 def locate_car_2d(hveh: int, x_coord: float, y_coord: float, x_radius: float, y_radius: float, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/01ad/ https://gtagmodding.com/opcode-database/opcode/01AD/'''
@@ -589,9 +589,9 @@ def store_wanted_level(player: int) -> int:
 	'''More info: https://gtamods.com/wiki/01c0/ https://gtagmodding.com/opcode-database/opcode/01C0/'''
 	return _opcodes.store_wanted_level(player)
 
-def is_car_stopped(hveh: int) -> None:
+def is_car_stopped(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01c1/ https://gtagmodding.com/opcode-database/opcode/01C1/'''
-	_opcodes.is_car_stopped(hveh)
+	return _opcodes.is_car_stopped(hveh)
 
 def mark_char_as_no_longer_needed(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/01c2/ https://gtagmodding.com/opcode-database/opcode/01C2/'''
@@ -657,13 +657,13 @@ def set_max_wanted_level(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/01f0/ https://gtagmodding.com/opcode-database/opcode/01F0/'''
 	_opcodes.set_max_wanted_level(unknown1)
 
-def is_car_in_air_proper(hveh: int) -> None:
+def is_car_in_air_proper(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01f3/ https://gtagmodding.com/opcode-database/opcode/01F3/'''
-	_opcodes.is_car_in_air_proper(hveh)
+	return _opcodes.is_car_in_air_proper(hveh)
 
-def is_car_upsidedown(hveh: int) -> None:
+def is_car_upsidedown(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/01f4/ https://gtagmodding.com/opcode-database/opcode/01F4/'''
-	_opcodes.is_car_upsidedown(hveh)
+	return _opcodes.is_car_upsidedown(hveh)
 
 def get_player_char(player: int) -> int:
 	'''More info: https://gtamods.com/wiki/01f5/ https://gtagmodding.com/opcode-database/opcode/01F5/'''
@@ -733,17 +733,17 @@ def add_explosion(x_coord: float, y_coord: float, z_coord: float, unknown4: int)
 	'''More info: https://gtamods.com/wiki/020c/ https://gtagmodding.com/opcode-database/opcode/020C/'''
 	_opcodes.add_explosion(x_coord, y_coord, z_coord, unknown4)
 
-def is_car_upright(hveh: int) -> None:
+def is_car_upright(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/020d/ https://gtagmodding.com/opcode-database/opcode/020D/'''
-	_opcodes.is_car_upright(hveh)
+	return _opcodes.is_car_upright(hveh)
 
 def create_pickup(unknown1: int, unknown2: int, x_coord: float, y_coord: float, z_coord: float) -> int:
 	'''More info: https://gtamods.com/wiki/0213/ https://gtagmodding.com/opcode-database/opcode/0213/'''
 	return _opcodes.create_pickup(unknown1, unknown2, x_coord, y_coord, z_coord)
 
-def has_pickup_been_collected(pickup: int) -> None:
+def has_pickup_been_collected(pickup: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0214/ https://gtagmodding.com/opcode-database/opcode/0214/'''
-	_opcodes.has_pickup_been_collected(pickup)
+	return _opcodes.has_pickup_been_collected(pickup)
 
 def remove_pickup(pickup: int) -> None:
 	'''More info: https://gtamods.com/wiki/0215/ https://gtagmodding.com/opcode-database/opcode/0215/'''
@@ -797,21 +797,21 @@ def set_gang_weapons(unknown1: int, unknown2: int, unknown3: int, unknown4: int)
 	'''More info: https://gtamods.com/wiki/0237/ https://gtagmodding.com/opcode-database/opcode/0237/'''
 	_opcodes.set_gang_weapons(unknown1, unknown2, unknown3, unknown4)
 
-def is_char_touching_object_on_foot(hchar: int, hobj: int) -> None:
+def is_char_touching_object_on_foot(hchar: int, hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/023b/ https://gtagmodding.com/opcode-database/opcode/023B/'''
-	_opcodes.is_char_touching_object_on_foot(hchar, hobj)
+	return _opcodes.is_char_touching_object_on_foot(hchar, hobj)
 
 def load_special_character(unknown1: int, unknown2: str) -> None:
 	'''More info: https://gtamods.com/wiki/023c/ https://gtagmodding.com/opcode-database/opcode/023C/'''
 	_opcodes.load_special_character(unknown1, unknown2)
 
-def has_special_character_loaded(unknown1: int) -> None:
+def has_special_character_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/023d/ https://gtagmodding.com/opcode-database/opcode/023D/'''
-	_opcodes.has_special_character_loaded(unknown1)
+	return _opcodes.has_special_character_loaded(unknown1)
 
-def is_player_in_remote_mode(player: int) -> None:
+def is_player_in_remote_mode(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0241/ https://gtagmodding.com/opcode-database/opcode/0241/'''
-	_opcodes.is_player_in_remote_mode(player)
+	return _opcodes.is_player_in_remote_mode(player)
 
 def set_cutscene_offset(x_coord: float, y_coord: float, z_coord: float) -> None:
 	'''More info: https://gtamods.com/wiki/0244/ https://gtagmodding.com/opcode-database/opcode/0244/'''
@@ -825,9 +825,9 @@ def request_model(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0247/ https://gtagmodding.com/opcode-database/opcode/0247/'''
 	_opcodes.request_model(unknown1)
 
-def has_model_loaded(unknown1: int) -> None:
+def has_model_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0248/ https://gtagmodding.com/opcode-database/opcode/0248/'''
-	_opcodes.has_model_loaded(unknown1)
+	return _opcodes.has_model_loaded(unknown1)
 
 def mark_model_as_no_longer_needed(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0249/ https://gtagmodding.com/opcode-database/opcode/0249/'''
@@ -845,9 +845,9 @@ def restore_clock() -> None:
 	'''More info: https://gtamods.com/wiki/0254/ https://gtagmodding.com/opcode-database/opcode/0254/'''
 	_opcodes.restore_clock()
 
-def is_player_playing(player: int) -> None:
+def is_player_playing(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0256/ https://gtagmodding.com/opcode-database/opcode/0256/'''
-	_opcodes.is_player_playing(player)
+	return _opcodes.is_player_playing(player)
 
 def get_controller_mode() -> int:
 	'''More info: https://gtamods.com/wiki/0293/ https://gtagmodding.com/opcode-database/opcode/0293/'''
@@ -877,9 +877,9 @@ def create_object_no_offset(unknown1: int, x_coord: float, y_coord: float, z_coo
 	'''More info: https://gtamods.com/wiki/029b/ https://gtagmodding.com/opcode-database/opcode/029B/'''
 	return _opcodes.create_object_no_offset(unknown1, x_coord, y_coord, z_coord)
 
-def is_char_stopped(hchar: int) -> None:
+def is_char_stopped(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02a0/ https://gtagmodding.com/opcode-database/opcode/02A0/'''
-	_opcodes.is_char_stopped(hchar)
+	return _opcodes.is_char_stopped(hchar)
 
 def switch_widescreen(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/02a3/ https://gtagmodding.com/opcode-database/opcode/02A3/'''
@@ -913,9 +913,9 @@ def deactivate_garage(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/02b9/ https://gtagmodding.com/opcode-database/opcode/02B9/'''
 	_opcodes.deactivate_garage(unknown1)
 
-def is_car_in_water(hveh: int) -> None:
+def is_car_in_water(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02bf/ https://gtagmodding.com/opcode-database/opcode/02BF/'''
-	_opcodes.is_car_in_water(hveh)
+	return _opcodes.is_car_in_water(hveh)
 
 def get_closest_char_node(x_coord: float, y_coord: float, z_coord: float) -> Tuple[float, float, float]:
 	'''More info: https://gtamods.com/wiki/02c0/ https://gtagmodding.com/opcode-database/opcode/02C0/'''
@@ -929,17 +929,17 @@ def car_goto_coordinates_accurate(hveh: int, x_coord: float, y_coord: float, z_c
 	'''More info: https://gtamods.com/wiki/02c2/ https://gtagmodding.com/opcode-database/opcode/02C2/'''
 	_opcodes.car_goto_coordinates_accurate(hveh, x_coord, y_coord, z_coord)
 
-def is_car_on_screen(hveh: int) -> None:
+def is_car_on_screen(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02ca/ https://gtagmodding.com/opcode-database/opcode/02CA/'''
-	_opcodes.is_car_on_screen(hveh)
+	return _opcodes.is_car_on_screen(hveh)
 
-def is_char_on_screen(hchar: int) -> None:
+def is_char_on_screen(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02cb/ https://gtagmodding.com/opcode-database/opcode/02CB/'''
-	_opcodes.is_char_on_screen(hchar)
+	return _opcodes.is_char_on_screen(hchar)
 
-def is_object_on_screen(hobj: int) -> None:
+def is_object_on_screen(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02cc/ https://gtagmodding.com/opcode-database/opcode/02CC/'''
-	_opcodes.is_object_on_screen(hobj)
+	return _opcodes.is_object_on_screen(hobj)
 
 def get_ground_z_for_3d_coord(x_coord: float, y_coord: float, z_coord: float) -> float:
 	'''More info: https://gtamods.com/wiki/02ce/ https://gtagmodding.com/opcode-database/opcode/02CE/'''
@@ -949,9 +949,9 @@ def start_script_fire(x_coord: float, y_coord: float, z_coord: float, unknown4: 
 	'''More info: https://gtamods.com/wiki/02cf/ https://gtagmodding.com/opcode-database/opcode/02CF/'''
 	return _opcodes.start_script_fire(x_coord, y_coord, z_coord, unknown4, unknown5)
 
-def is_script_fire_extinguished(script_fire: int) -> None:
+def is_script_fire_extinguished(script_fire: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02d0/ https://gtagmodding.com/opcode-database/opcode/02D0/'''
-	_opcodes.is_script_fire_extinguished(script_fire)
+	return _opcodes.is_script_fire_extinguished(script_fire)
 
 def remove_script_fire(script_fire: int) -> None:
 	'''More info: https://gtamods.com/wiki/02d1/ https://gtagmodding.com/opcode-database/opcode/02D1/'''
@@ -965,13 +965,13 @@ def boat_stop(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/02d4/ https://gtagmodding.com/opcode-database/opcode/02D4/'''
 	_opcodes.boat_stop(hveh)
 
-def is_char_shooting_in_area(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, unknown6: int) -> None:
+def is_char_shooting_in_area(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, unknown6: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02d6/ https://gtagmodding.com/opcode-database/opcode/02D6/'''
-	_opcodes.is_char_shooting_in_area(hchar, x_coord, y_coord, x_coord4, y_coord5, unknown6)
+	return _opcodes.is_char_shooting_in_area(hchar, x_coord, y_coord, x_coord4, y_coord5, unknown6)
 
-def is_current_char_weapon(hchar: int, unknown2: int) -> None:
+def is_current_char_weapon(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02d8/ https://gtagmodding.com/opcode-database/opcode/02D8/'''
-	_opcodes.is_current_char_weapon(hchar, unknown2)
+	return _opcodes.is_current_char_weapon(hchar, unknown2)
 
 def set_boat_cruise_speed(hveh: int, unknown2: float) -> None:
 	'''More info: https://gtamods.com/wiki/02db/ https://gtagmodding.com/opcode-database/opcode/02DB/'''
@@ -981,9 +981,9 @@ def get_random_char_in_zone(unknown1: str, state: int, state3: int, state4: int)
 	'''More info: https://gtamods.com/wiki/02dd/ https://gtagmodding.com/opcode-database/opcode/02DD/'''
 	return _opcodes.get_random_char_in_zone(unknown1, state, state3, state4)
 
-def is_char_shooting(hchar: int) -> None:
+def is_char_shooting(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02e0/ https://gtagmodding.com/opcode-database/opcode/02E0/'''
-	_opcodes.is_char_shooting(hchar)
+	return _opcodes.is_char_shooting(hchar)
 
 def create_money_pickup(unknown1: float, unknown2: float, unknown3: float, unknown4: int, unknown5: int) -> int:
 	'''More info: https://gtamods.com/wiki/02e1/ https://gtagmodding.com/opcode-database/opcode/02E1/'''
@@ -1009,9 +1009,9 @@ def get_cutscene_time() -> int:
 	'''More info: https://gtamods.com/wiki/02e8/ https://gtagmodding.com/opcode-database/opcode/02E8/'''
 	return _opcodes.get_cutscene_time()
 
-def has_cutscene_finished() -> None:
+def has_cutscene_finished() -> bool:
 	'''More info: https://gtamods.com/wiki/02e9/ https://gtagmodding.com/opcode-database/opcode/02E9/'''
-	_opcodes.has_cutscene_finished()
+	return _opcodes.has_cutscene_finished()
 
 def clear_cutscene() -> None:
 	'''More info: https://gtamods.com/wiki/02ea/ https://gtagmodding.com/opcode-database/opcode/02EA/'''
@@ -1029,13 +1029,13 @@ def set_collectable1_total(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/02ed/ https://gtagmodding.com/opcode-database/opcode/02ED/'''
 	_opcodes.set_collectable1_total(unknown1)
 
-def is_projectile_in_area(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float) -> None:
+def is_projectile_in_area(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float) -> bool:
 	'''More info: https://gtamods.com/wiki/02ee/ https://gtagmodding.com/opcode-database/opcode/02EE/'''
-	_opcodes.is_projectile_in_area(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6)
+	return _opcodes.is_projectile_in_area(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6)
 
-def is_char_model(hchar: int, unknown2: int) -> None:
+def is_char_model(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/02f2/ https://gtagmodding.com/opcode-database/opcode/02F2/'''
-	_opcodes.is_char_model(hchar, unknown2)
+	return _opcodes.is_char_model(hchar, unknown2)
 
 def sin(angle: float) -> float:
 	'''More info: https://gtamods.com/wiki/02f6/ https://gtagmodding.com/opcode-database/opcode/02F6/'''
@@ -1097,13 +1097,13 @@ def remove_all_script_fires() -> None:
 	'''More info: https://gtamods.com/wiki/031a/ https://gtagmodding.com/opcode-database/opcode/031A/'''
 	_opcodes.remove_all_script_fires()
 
-def has_char_been_damaged_by_weapon(hchar: int, unknown2: int) -> None:
+def has_char_been_damaged_by_weapon(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/031d/ https://gtagmodding.com/opcode-database/opcode/031D/'''
-	_opcodes.has_char_been_damaged_by_weapon(hchar, unknown2)
+	return _opcodes.has_char_been_damaged_by_weapon(hchar, unknown2)
 
-def has_car_been_damaged_by_weapon(hveh: int, unknown2: int) -> None:
+def has_car_been_damaged_by_weapon(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/031e/ https://gtagmodding.com/opcode-database/opcode/031E/'''
-	_opcodes.has_car_been_damaged_by_weapon(hveh, unknown2)
+	return _opcodes.has_car_been_damaged_by_weapon(hveh, unknown2)
 
 def explode_char_head(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/0321/ https://gtagmodding.com/opcode-database/opcode/0321/'''
@@ -1157,9 +1157,9 @@ def set_car_visible(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0338/ https://gtagmodding.com/opcode-database/opcode/0338/'''
 	_opcodes.set_car_visible(hveh, state)
 
-def is_area_occupied(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, state: int, state8: int, state9: int, state10: int, state11: int) -> None:
+def is_area_occupied(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, state: int, state8: int, state9: int, state10: int, state11: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0339/ https://gtagmodding.com/opcode-database/opcode/0339/'''
-	_opcodes.is_area_occupied(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, state, state8, state9, state10, state11)
+	return _opcodes.is_area_occupied(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, state, state8, state9, state10, state11)
 
 def display_text(unknown1: float, unknown2: float, unknown3: str) -> None:
 	'''More info: https://gtamods.com/wiki/033e/ https://gtagmodding.com/opcode-database/opcode/033E/'''
@@ -1217,9 +1217,9 @@ def set_char_stay_in_same_place(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0350/ https://gtagmodding.com/opcode-database/opcode/0350/'''
 	_opcodes.set_char_stay_in_same_place(hchar, state)
 
-def is_explosion_in_area(unknown1: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float) -> None:
+def is_explosion_in_area(unknown1: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float) -> bool:
 	'''More info: https://gtamods.com/wiki/0356/ https://gtagmodding.com/opcode-database/opcode/0356/'''
-	_opcodes.is_explosion_in_area(unknown1, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7)
+	return _opcodes.is_explosion_in_area(unknown1, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7)
 
 def place_object_relative_to_car(hobj: int, hveh: int, x_offset: float, y_offset: float, z_offset: float) -> None:
 	'''More info: https://gtamods.com/wiki/035c/ https://gtagmodding.com/opcode-database/opcode/035C/'''
@@ -1249,13 +1249,13 @@ def set_visibility_of_closest_object_of_type(x_coord: float, y_coord: float, z_c
 	'''More info: https://gtamods.com/wiki/0363/ https://gtagmodding.com/opcode-database/opcode/0363/'''
 	_opcodes.set_visibility_of_closest_object_of_type(x_coord, y_coord, z_coord, radius, unknown5, state)
 
-def has_char_spotted_char(hchar: int, hchar2: int) -> None:
+def has_char_spotted_char(hchar: int, hchar2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0364/ https://gtagmodding.com/opcode-database/opcode/0364/'''
-	_opcodes.has_char_spotted_char(hchar, hchar2)
+	return _opcodes.has_char_spotted_char(hchar, hchar2)
 
-def has_object_been_damaged(hobj: int) -> None:
+def has_object_been_damaged(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0366/ https://gtagmodding.com/opcode-database/opcode/0366/'''
-	_opcodes.has_object_been_damaged(hobj)
+	return _opcodes.has_object_been_damaged(hobj)
 
 def warp_char_into_car(hchar: int, hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/036a/ https://gtagmodding.com/opcode-database/opcode/036A/'''
@@ -1285,9 +1285,9 @@ def print_string_in_string_now(unknown1: str, unknown2: str, time: int, unknown4
 	'''More info: https://gtamods.com/wiki/0384/ https://gtagmodding.com/opcode-database/opcode/0384/'''
 	_opcodes.print_string_in_string_now(unknown1, unknown2, time, unknown4)
 
-def is_point_obscured_by_a_mission_entity(x_coord: float, y_coord: float, z_coord: float, x_radius: float, y_radius: float, z_radius: float) -> None:
+def is_point_obscured_by_a_mission_entity(x_coord: float, y_coord: float, z_coord: float, x_radius: float, y_radius: float, z_radius: float) -> bool:
 	'''More info: https://gtamods.com/wiki/038a/ https://gtagmodding.com/opcode-database/opcode/038A/'''
-	_opcodes.is_point_obscured_by_a_mission_entity(x_coord, y_coord, z_coord, x_radius, y_radius, z_radius)
+	return _opcodes.is_point_obscured_by_a_mission_entity(x_coord, y_coord, z_coord, x_radius, y_radius, z_radius)
 
 def load_all_models_now() -> None:
 	'''More info: https://gtamods.com/wiki/038b/ https://gtagmodding.com/opcode-database/opcode/038B/'''
@@ -1361,9 +1361,9 @@ def set_car_status(hveh: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/03a2/ https://gtagmodding.com/opcode-database/opcode/03A2/'''
 	_opcodes.set_car_status(hveh, unknown2)
 
-def is_char_male(hchar: int) -> None:
+def is_char_male(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/03a3/ https://gtagmodding.com/opcode-database/opcode/03A3/'''
-	_opcodes.is_char_male(hchar)
+	return _opcodes.is_char_male(hchar)
 
 def script_name(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/03a4/ https://gtagmodding.com/opcode-database/opcode/03A4/'''
@@ -1397,13 +1397,13 @@ def switch_streaming(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/03af/ https://gtagmodding.com/opcode-database/opcode/03AF/'''
 	_opcodes.switch_streaming(state)
 
-def is_garage_open(unknown1: str) -> None:
+def is_garage_open(unknown1: str) -> bool:
 	'''More info: https://gtamods.com/wiki/03b0/ https://gtagmodding.com/opcode-database/opcode/03B0/'''
-	_opcodes.is_garage_open(unknown1)
+	return _opcodes.is_garage_open(unknown1)
 
-def is_garage_closed(unknown1: str) -> None:
+def is_garage_closed(unknown1: str) -> bool:
 	'''More info: https://gtamods.com/wiki/03b1/ https://gtagmodding.com/opcode-database/opcode/03B1/'''
-	_opcodes.is_garage_closed(unknown1)
+	return _opcodes.is_garage_closed(unknown1)
 
 def swap_nearest_building_model(x_coord: float, y_coord: float, z_coord: float, radius: float, unknown5: int, unknown6: int) -> None:
 	'''More info: https://gtamods.com/wiki/03b6/ https://gtagmodding.com/opcode-database/opcode/03B6/'''
@@ -1453,9 +1453,9 @@ def set_camera_in_front_of_player() -> None:
 	'''More info: https://gtamods.com/wiki/03c8/ https://gtagmodding.com/opcode-database/opcode/03C8/'''
 	_opcodes.set_camera_in_front_of_player()
 
-def is_car_visibly_damaged(hveh: int) -> None:
+def is_car_visibly_damaged(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/03c9/ https://gtagmodding.com/opcode-database/opcode/03C9/'''
-	_opcodes.is_car_visibly_damaged(hveh)
+	return _opcodes.is_car_visibly_damaged(hveh)
 
 def does_object_exist(hobj: int) -> None:
 	'''More info: https://gtamods.com/wiki/03ca/ https://gtagmodding.com/opcode-database/opcode/03CA/'''
@@ -1473,25 +1473,25 @@ def remove_stuck_car_check(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/03cd/ https://gtagmodding.com/opcode-database/opcode/03CD/'''
 	_opcodes.remove_stuck_car_check(hveh)
 
-def is_car_stuck(hveh: int) -> None:
+def is_car_stuck(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/03ce/ https://gtagmodding.com/opcode-database/opcode/03CE/'''
-	_opcodes.is_car_stuck(hveh)
+	return _opcodes.is_car_stuck(hveh)
 
 def load_mission_audio(unknown1: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/03cf/ https://gtagmodding.com/opcode-database/opcode/03CF/'''
 	_opcodes.load_mission_audio(unknown1, unknown2)
 
-def has_mission_audio_loaded(unknown1: int) -> None:
+def has_mission_audio_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/03d0/ https://gtagmodding.com/opcode-database/opcode/03D0/'''
-	_opcodes.has_mission_audio_loaded(unknown1)
+	return _opcodes.has_mission_audio_loaded(unknown1)
 
 def play_mission_audio(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/03d1/ https://gtagmodding.com/opcode-database/opcode/03D1/'''
 	_opcodes.play_mission_audio(unknown1)
 
-def has_mission_audio_finished(unknown1: int) -> None:
+def has_mission_audio_finished(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/03d2/ https://gtagmodding.com/opcode-database/opcode/03D2/'''
-	_opcodes.has_mission_audio_finished(unknown1)
+	return _opcodes.has_mission_audio_finished(unknown1)
 
 def get_closest_car_node_with_heading(x_coord: float, y_coord: float, z_coord: float) -> Tuple[float, float, float, float]:
 	'''More info: https://gtamods.com/wiki/03d3/ https://gtagmodding.com/opcode-database/opcode/03D3/'''
@@ -1513,9 +1513,9 @@ def activate_save_menu() -> None:
 	'''More info: https://gtamods.com/wiki/03d8/ https://gtagmodding.com/opcode-database/opcode/03D8/'''
 	_opcodes.activate_save_menu()
 
-def has_save_game_finished() -> None:
+def has_save_game_finished() -> bool:
 	'''More info: https://gtamods.com/wiki/03d9/ https://gtagmodding.com/opcode-database/opcode/03D9/'''
-	_opcodes.has_save_game_finished()
+	return _opcodes.has_save_game_finished()
 
 def add_blip_for_pickup(pickup: int) -> int:
 	'''More info: https://gtamods.com/wiki/03dc/ https://gtagmodding.com/opcode-database/opcode/03DC/'''
@@ -1597,9 +1597,9 @@ def get_offset_from_car_in_world_coords(hveh: int, x_offset: float, y_offset: fl
 	'''More info: https://gtamods.com/wiki/0407/ https://gtagmodding.com/opcode-database/opcode/0407/'''
 	return _opcodes.get_offset_from_car_in_world_coords(hveh, x_offset, y_offset, z_offset)
 
-def is_german_game() -> None:
+def is_german_game() -> bool:
 	'''More info: https://gtamods.com/wiki/040c/ https://gtagmodding.com/opcode-database/opcode/040C/'''
-	_opcodes.is_german_game()
+	return _opcodes.is_german_game()
 
 def clear_mission_audio(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/040d/ https://gtagmodding.com/opcode-database/opcode/040D/'''
@@ -1669,9 +1669,9 @@ def warp_char_into_car_as_passenger(hchar: int, hveh: int, unknown3: int) -> Non
 	'''More info: https://gtamods.com/wiki/0430/ https://gtagmodding.com/opcode-database/opcode/0430/'''
 	_opcodes.warp_char_into_car_as_passenger(hchar, hveh, unknown3)
 
-def is_car_passenger_seat_free(hveh: int, unknown2: int) -> None:
+def is_car_passenger_seat_free(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0431/ https://gtagmodding.com/opcode-database/opcode/0431/'''
-	_opcodes.is_car_passenger_seat_free(hveh, unknown2)
+	return _opcodes.is_car_passenger_seat_free(hveh, unknown2)
 
 def get_char_in_car_passenger_seat(hveh: int, unknown2: int) -> int:
 	'''More info: https://gtamods.com/wiki/0432/ https://gtagmodding.com/opcode-database/opcode/0432/'''
@@ -1709,17 +1709,17 @@ def set_char_suffers_critical_hits(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0446/ https://gtagmodding.com/opcode-database/opcode/0446/'''
 	_opcodes.set_char_suffers_critical_hits(hchar, state)
 
-def is_char_sitting_in_car(hchar: int, hveh: int) -> None:
+def is_char_sitting_in_car(hchar: int, hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0448/ https://gtagmodding.com/opcode-database/opcode/0448/'''
-	_opcodes.is_char_sitting_in_car(hchar, hveh)
+	return _opcodes.is_char_sitting_in_car(hchar, hveh)
 
-def is_char_sitting_in_any_car(hchar: int) -> None:
+def is_char_sitting_in_any_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0449/ https://gtagmodding.com/opcode-database/opcode/0449/'''
-	_opcodes.is_char_sitting_in_any_car(hchar)
+	return _opcodes.is_char_sitting_in_any_car(hchar)
 
-def is_char_on_foot(hchar: int) -> None:
+def is_char_on_foot(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/044b/ https://gtagmodding.com/opcode-database/opcode/044B/'''
-	_opcodes.is_char_on_foot(hchar)
+	return _opcodes.is_char_on_foot(hchar)
 
 def set_object_rotation(hobj: int, x_rotation: float, y_rotation: float, angle: float) -> None:
 	'''More info: https://gtamods.com/wiki/0453/ https://gtagmodding.com/opcode-database/opcode/0453/'''
@@ -1729,13 +1729,13 @@ def get_debug_camera_coordinates() -> Tuple[float, float, float]:
 	'''More info: https://gtamods.com/wiki/0454/ https://gtagmodding.com/opcode-database/opcode/0454/'''
 	return _opcodes.get_debug_camera_coordinates()
 
-def is_player_targetting_char(player: int, hchar: int) -> None:
+def is_player_targetting_char(player: int, hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0457/ https://gtagmodding.com/opcode-database/opcode/0457/'''
-	_opcodes.is_player_targetting_char(player, hchar)
+	return _opcodes.is_player_targetting_char(player, hchar)
 
-def is_player_targetting_object(player: int, hobj: int) -> None:
+def is_player_targetting_object(player: int, hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0458/ https://gtagmodding.com/opcode-database/opcode/0458/'''
-	_opcodes.is_player_targetting_object(player, hobj)
+	return _opcodes.is_player_targetting_object(player, hobj)
 
 def terminate_all_scripts_with_this_name(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/0459/ https://gtagmodding.com/opcode-database/opcode/0459/'''
@@ -1825,9 +1825,9 @@ def set_car_temp_action(hveh: int, unknown2: int, time: int) -> None:
 	'''More info: https://gtamods.com/wiki/0477/ https://gtagmodding.com/opcode-database/opcode/0477/'''
 	_opcodes.set_car_temp_action(hveh, unknown2, time)
 
-def is_char_on_any_bike(hchar: int) -> None:
+def is_char_on_any_bike(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/047a/ https://gtagmodding.com/opcode-database/opcode/047A/'''
-	_opcodes.is_char_on_any_bike(hchar)
+	return _opcodes.is_char_on_any_bike(hchar)
 
 def can_char_see_dead_char(hchar: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0480/ https://gtagmodding.com/opcode-database/opcode/0480/'''
@@ -1837,13 +1837,13 @@ def get_remote_controlled_car(player: int) -> int:
 	'''More info: https://gtamods.com/wiki/0484/ https://gtagmodding.com/opcode-database/opcode/0484/'''
 	return _opcodes.get_remote_controlled_car(player)
 
-def is_pc_version() -> None:
+def is_pc_version() -> bool:
 	'''More info: https://gtamods.com/wiki/0485/ https://gtagmodding.com/opcode-database/opcode/0485/'''
-	_opcodes.is_pc_version()
+	return _opcodes.is_pc_version()
 
-def is_model_available(unknown1: int) -> None:
+def is_model_available(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0488/ https://gtagmodding.com/opcode-database/opcode/0488/'''
-	_opcodes.is_model_available(unknown1)
+	return _opcodes.is_model_available(unknown1)
 
 def shut_char_up(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0489/ https://gtagmodding.com/opcode-database/opcode/0489/'''
@@ -1857,29 +1857,29 @@ def set_car_random_route_seed(hveh: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/048b/ https://gtagmodding.com/opcode-database/opcode/048B/'''
 	_opcodes.set_car_random_route_seed(hveh, unknown2)
 
-def is_any_pickup_at_coords(x_coord: float, y_coord: float, z_coord: float) -> None:
+def is_any_pickup_at_coords(x_coord: float, y_coord: float, z_coord: float) -> bool:
 	'''More info: https://gtamods.com/wiki/048c/ https://gtagmodding.com/opcode-database/opcode/048C/'''
-	_opcodes.is_any_pickup_at_coords(x_coord, y_coord, z_coord)
+	return _opcodes.is_any_pickup_at_coords(x_coord, y_coord, z_coord)
 
 def remove_all_char_weapons(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/048f/ https://gtagmodding.com/opcode-database/opcode/048F/'''
 	_opcodes.remove_all_char_weapons(hchar)
 
-def has_char_got_weapon(hchar: int, unknown2: int) -> None:
+def has_char_got_weapon(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0491/ https://gtagmodding.com/opcode-database/opcode/0491/'''
-	_opcodes.has_char_got_weapon(hchar, unknown2)
+	return _opcodes.has_char_got_weapon(hchar, unknown2)
 
 def get_position_of_analogue_sticks(unknown1: int) -> Tuple[int, int, int, int]:
 	'''More info: https://gtamods.com/wiki/0494/ https://gtagmodding.com/opcode-database/opcode/0494/'''
 	return _opcodes.get_position_of_analogue_sticks(unknown1)
 
-def is_car_on_fire(hveh: int) -> None:
+def is_car_on_fire(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0495/ https://gtagmodding.com/opcode-database/opcode/0495/'''
-	_opcodes.is_car_on_fire(hveh)
+	return _opcodes.is_car_on_fire(hveh)
 
-def is_car_tyre_burst(hveh: int, unknown2: int) -> None:
+def is_car_tyre_burst(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0496/ https://gtagmodding.com/opcode-database/opcode/0496/'''
-	_opcodes.is_car_tyre_burst(hveh, unknown2)
+	return _opcodes.is_car_tyre_burst(hveh, unknown2)
 
 def heli_goto_coords(hveh: int, x_coord: float, y_coord: float, z_coord: float, z_coord5: float, z_coord6: float) -> None:
 	'''More info: https://gtamods.com/wiki/04a2/ https://gtagmodding.com/opcode-database/opcode/04A2/'''
@@ -1893,21 +1893,21 @@ def create_protection_pickup(x_coord: float, y_coord: float, z_coord: float, unk
 	'''More info: https://gtamods.com/wiki/04a6/ https://gtagmodding.com/opcode-database/opcode/04A6/'''
 	return _opcodes.create_protection_pickup(x_coord, y_coord, z_coord, unknown4, unknown5)
 
-def is_char_in_any_boat(hchar: int) -> None:
+def is_char_in_any_boat(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04a7/ https://gtagmodding.com/opcode-database/opcode/04A7/'''
-	_opcodes.is_char_in_any_boat(hchar)
+	return _opcodes.is_char_in_any_boat(hchar)
 
-def is_char_in_any_heli(hchar: int) -> None:
+def is_char_in_any_heli(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04a9/ https://gtagmodding.com/opcode-database/opcode/04A9/'''
-	_opcodes.is_char_in_any_heli(hchar)
+	return _opcodes.is_char_in_any_heli(hchar)
 
-def is_char_in_any_plane(hchar: int) -> None:
+def is_char_in_any_plane(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04ab/ https://gtagmodding.com/opcode-database/opcode/04AB/'''
-	_opcodes.is_char_in_any_plane(hchar)
+	return _opcodes.is_char_in_any_plane(hchar)
 
-def is_char_in_water(hchar: int) -> None:
+def is_char_in_water(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04ad/ https://gtagmodding.com/opcode-database/opcode/04AD/'''
-	_opcodes.is_char_in_water(hchar)
+	return _opcodes.is_char_in_water(hchar)
 
 def get_char_weapon_in_slot(hchar: int, unknown2: int) -> Tuple[int, int, int]:
 	'''More info: https://gtamods.com/wiki/04b8/ https://gtagmodding.com/opcode-database/opcode/04B8/'''
@@ -1941,13 +1941,13 @@ def get_offset_from_char_in_world_coords(hchar: int, x_offset: float, y_offset: 
 	'''More info: https://gtamods.com/wiki/04c4/ https://gtagmodding.com/opcode-database/opcode/04C4/'''
 	return _opcodes.get_offset_from_char_in_world_coords(hchar, x_offset, y_offset, z_offset)
 
-def has_char_been_photographed(hchar: int) -> None:
+def has_char_been_photographed(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04c5/ https://gtagmodding.com/opcode-database/opcode/04C5/'''
-	_opcodes.has_char_been_photographed(hchar)
+	return _opcodes.has_char_been_photographed(hchar)
 
-def is_char_in_flying_vehicle(hchar: int) -> None:
+def is_char_in_flying_vehicle(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04c8/ https://gtagmodding.com/opcode-database/opcode/04C8/'''
-	_opcodes.is_char_in_flying_vehicle(hchar)
+	return _opcodes.is_char_in_flying_vehicle(hchar)
 
 def add_short_range_sprite_blip_for_coord(x_coord: float, y_coord: float, z_coord: float, unknown4: int) -> int:
 	'''More info: https://gtamods.com/wiki/04ce/ https://gtagmodding.com/opcode-database/opcode/04CE/'''
@@ -1989,9 +1989,9 @@ def set_object_records_collisions(hobj: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/04d9/ https://gtagmodding.com/opcode-database/opcode/04D9/'''
 	_opcodes.set_object_records_collisions(hobj, state)
 
-def has_object_collided_with_anything(hobj: int) -> None:
+def has_object_collided_with_anything(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04da/ https://gtagmodding.com/opcode-database/opcode/04DA/'''
-	_opcodes.has_object_collided_with_anything(hobj)
+	return _opcodes.has_object_collided_with_anything(hobj)
 
 def remove_rc_buggy() -> None:
 	'''More info: https://gtamods.com/wiki/04db/ https://gtagmodding.com/opcode-database/opcode/04DB/'''
@@ -2033,17 +2033,17 @@ def locate_object_3d(hobj: int, x_coord: float, y_coord: float, z_coord: float, 
 	'''More info: https://gtamods.com/wiki/04e6/ https://gtagmodding.com/opcode-database/opcode/04E6/'''
 	_opcodes.locate_object_3d(hobj, x_coord, y_coord, z_coord, x_radius, y_radius, z_radius, state)
 
-def is_object_in_water(hobj: int) -> None:
+def is_object_in_water(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04e7/ https://gtagmodding.com/opcode-database/opcode/04E7/'''
-	_opcodes.is_object_in_water(hobj)
+	return _opcodes.is_object_in_water(hobj)
 
-def is_object_in_area_2d(hobj: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> None:
+def is_object_in_area_2d(hobj: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04e9/ https://gtagmodding.com/opcode-database/opcode/04E9/'''
-	_opcodes.is_object_in_area_2d(hobj, x_coord, y_coord, x_coord4, y_coord5, state)
+	return _opcodes.is_object_in_area_2d(hobj, x_coord, y_coord, x_coord4, y_coord5, state)
 
-def is_object_in_area_3d(hobj: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> None:
+def is_object_in_area_3d(hobj: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04ea/ https://gtagmodding.com/opcode-database/opcode/04EA/'''
-	_opcodes.is_object_in_area_3d(hobj, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
+	return _opcodes.is_object_in_area_3d(hobj, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, state)
 
 def task_toggle_duck(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/04eb/ https://gtagmodding.com/opcode-database/opcode/04EB/'''
@@ -2053,21 +2053,21 @@ def request_animation(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/04ed/ https://gtagmodding.com/opcode-database/opcode/04ED/'''
 	_opcodes.request_animation(unknown1)
 
-def has_animation_loaded(unknown1: str) -> None:
+def has_animation_loaded(unknown1: str) -> bool:
 	'''More info: https://gtamods.com/wiki/04ee/ https://gtagmodding.com/opcode-database/opcode/04EE/'''
-	_opcodes.has_animation_loaded(unknown1)
+	return _opcodes.has_animation_loaded(unknown1)
 
 def remove_animation(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/04ef/ https://gtagmodding.com/opcode-database/opcode/04EF/'''
 	_opcodes.remove_animation(unknown1)
 
-def is_char_waiting_for_world_collision(hchar: int) -> None:
+def is_char_waiting_for_world_collision(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04f0/ https://gtagmodding.com/opcode-database/opcode/04F0/'''
-	_opcodes.is_char_waiting_for_world_collision(hchar)
+	return _opcodes.is_char_waiting_for_world_collision(hchar)
 
-def is_car_waiting_for_world_collision(hveh: int) -> None:
+def is_car_waiting_for_world_collision(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/04f1/ https://gtagmodding.com/opcode-database/opcode/04F1/'''
-	_opcodes.is_car_waiting_for_world_collision(hveh)
+	return _opcodes.is_car_waiting_for_world_collision(hveh)
 
 def attach_char_to_object(hchar: int, hobj: int, x_offset: float, y_offset: float, z_offset: float, unknown6: int, angle: float, unknown8: int) -> None:
 	'''More info: https://gtamods.com/wiki/04f4/ https://gtagmodding.com/opcode-database/opcode/04F4/'''
@@ -2097,9 +2097,9 @@ def burst_car_tyre(hveh: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/04fe/ https://gtagmodding.com/opcode-database/opcode/04FE/'''
 	_opcodes.burst_car_tyre(hveh, unknown2)
 
-def is_player_wearing(player: int, unknown2: int, unknown3: str) -> None:
+def is_player_wearing(player: int, unknown2: int, unknown3: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0500/ https://gtagmodding.com/opcode-database/opcode/0500/'''
-	_opcodes.is_player_wearing(player, unknown2, unknown3)
+	return _opcodes.is_player_wearing(player, unknown2, unknown3)
 
 def set_player_can_do_drive_by(player: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0501/ https://gtagmodding.com/opcode-database/opcode/0501/'''
@@ -2153,21 +2153,21 @@ def freeze_car_position(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0519/ https://gtagmodding.com/opcode-database/opcode/0519/'''
 	_opcodes.freeze_car_position(hveh, state)
 
-def has_char_been_damaged_by_char(hchar: int, hchar2: int) -> None:
+def has_char_been_damaged_by_char(hchar: int, hchar2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/051a/ https://gtagmodding.com/opcode-database/opcode/051A/'''
-	_opcodes.has_char_been_damaged_by_char(hchar, hchar2)
+	return _opcodes.has_char_been_damaged_by_char(hchar, hchar2)
 
-def has_char_been_damaged_by_car(hchar: int, hveh: int) -> None:
+def has_char_been_damaged_by_car(hchar: int, hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/051b/ https://gtagmodding.com/opcode-database/opcode/051B/'''
-	_opcodes.has_char_been_damaged_by_car(hchar, hveh)
+	return _opcodes.has_char_been_damaged_by_car(hchar, hveh)
 
-def has_car_been_damaged_by_char(hveh: int, hchar: int) -> None:
+def has_car_been_damaged_by_char(hveh: int, hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/051c/ https://gtagmodding.com/opcode-database/opcode/051C/'''
-	_opcodes.has_car_been_damaged_by_char(hveh, hchar)
+	return _opcodes.has_car_been_damaged_by_char(hveh, hchar)
 
-def has_car_been_damaged_by_car(hveh: int, hveh2: int) -> None:
+def has_car_been_damaged_by_car(hveh: int, hveh2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/051d/ https://gtagmodding.com/opcode-database/opcode/051D/'''
-	_opcodes.has_car_been_damaged_by_car(hveh, hveh2)
+	return _opcodes.has_car_been_damaged_by_car(hveh, hveh2)
 
 def get_radio_channel() -> int:
 	'''More info: https://gtamods.com/wiki/051e/ https://gtagmodding.com/opcode-database/opcode/051E/'''
@@ -2193,9 +2193,9 @@ def fire_hunter_gun(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0541/ https://gtagmodding.com/opcode-database/opcode/0541/'''
 	_opcodes.fire_hunter_gun(hveh)
 
-def is_char_touching_vehicle(hchar: int, hveh: int) -> None:
+def is_char_touching_vehicle(hchar: int, hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0547/ https://gtagmodding.com/opcode-database/opcode/0547/'''
-	_opcodes.is_char_touching_vehicle(hchar, hveh)
+	return _opcodes.is_char_touching_vehicle(hchar, hveh)
 
 def set_char_can_be_shot_in_vehicle(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/054a/ https://gtagmodding.com/opcode-database/opcode/054A/'''
@@ -2265,9 +2265,9 @@ def was_cutscene_skipped() -> None:
 	'''More info: https://gtamods.com/wiki/056a/ https://gtagmodding.com/opcode-database/opcode/056A/'''
 	_opcodes.was_cutscene_skipped()
 
-def is_char_in_any_police_vehicle(hchar: int) -> None:
+def is_char_in_any_police_vehicle(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/056c/ https://gtagmodding.com/opcode-database/opcode/056C/'''
-	_opcodes.is_char_in_any_police_vehicle(hchar)
+	return _opcodes.is_char_in_any_police_vehicle(hchar)
 
 def does_char_exist(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/056d/ https://gtagmodding.com/opcode-database/opcode/056D/'''
@@ -2305,9 +2305,9 @@ def register_best_position(unknown1: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0582/ https://gtagmodding.com/opcode-database/opcode/0582/'''
 	_opcodes.register_best_position(unknown1, unknown2)
 
-def is_player_in_info_zone(player: int, unknown2: str) -> None:
+def is_player_in_info_zone(player: int, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0583/ https://gtagmodding.com/opcode-database/opcode/0583/'''
-	_opcodes.is_player_in_info_zone(player, unknown2)
+	return _opcodes.is_player_in_info_zone(player, unknown2)
 
 def set_load_collision_for_car_flag(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0587/ https://gtagmodding.com/opcode-database/opcode/0587/'''
@@ -2333,17 +2333,17 @@ def register_oddjob_mission_passed() -> None:
 	'''More info: https://gtamods.com/wiki/0595/ https://gtagmodding.com/opcode-database/opcode/0595/'''
 	_opcodes.register_oddjob_mission_passed()
 
-def is_player_in_shortcut_taxi(player: int) -> None:
+def is_player_in_shortcut_taxi(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0596/ https://gtagmodding.com/opcode-database/opcode/0596/'''
-	_opcodes.is_player_in_shortcut_taxi(player)
+	return _opcodes.is_player_in_shortcut_taxi(player)
 
-def is_char_ducking(hchar: int) -> None:
+def is_char_ducking(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0597/ https://gtagmodding.com/opcode-database/opcode/0597/'''
-	_opcodes.is_char_ducking(hchar)
+	return _opcodes.is_char_ducking(hchar)
 
-def is_australian_game() -> None:
+def is_australian_game() -> bool:
 	'''More info: https://gtamods.com/wiki/059a/ https://gtagmodding.com/opcode-database/opcode/059A/'''
-	_opcodes.is_australian_game()
+	return _opcodes.is_australian_game()
 
 def set_onscreen_counter_flash_when_first_displayed(unknown1: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/059c/ https://gtagmodding.com/opcode-database/opcode/059C/'''
@@ -2361,9 +2361,9 @@ def get_object_velocity(hobj: int) -> Tuple[float, float, float]:
 	'''More info: https://gtamods.com/wiki/059f/ https://gtagmodding.com/opcode-database/opcode/059F/'''
 	return _opcodes.get_object_velocity(hobj)
 
-def is_debug_camera_on() -> None:
+def is_debug_camera_on() -> bool:
 	'''More info: https://gtamods.com/wiki/05a0/ https://gtagmodding.com/opcode-database/opcode/05A0/'''
-	_opcodes.is_debug_camera_on()
+	return _opcodes.is_debug_camera_on()
 
 def add_to_object_rotation_velocity(hobj: int, x_rotation: float, y_rotation: float, z_rotation: float) -> None:
 	'''More info: https://gtamods.com/wiki/05a1/ https://gtagmodding.com/opcode-database/opcode/05A1/'''
@@ -2373,9 +2373,9 @@ def set_object_rotation_velocity(hobj: int, x_rotation: float, y_rotation: float
 	'''More info: https://gtamods.com/wiki/05a2/ https://gtagmodding.com/opcode-database/opcode/05A2/'''
 	_opcodes.set_object_rotation_velocity(hobj, x_rotation, y_rotation, z_rotation)
 
-def is_object_static(hobj: int) -> None:
+def is_object_static(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05a3/ https://gtagmodding.com/opcode-database/opcode/05A3/'''
-	_opcodes.is_object_static(hobj)
+	return _opcodes.is_object_static(hobj)
 
 def get_angle_between_2d_vectors(x_offset: float, y_offset: float, x_offset3: float, y_offset4: float) -> float:
 	'''More info: https://gtamods.com/wiki/05a4/ https://gtagmodding.com/opcode-database/opcode/05A4/'''
@@ -2405,13 +2405,13 @@ def set_lvar_text_label(unknown1: str, unknown2: str) -> None:
 	'''More info: https://gtamods.com/wiki/05aa/ https://gtagmodding.com/opcode-database/opcode/05AA/'''
 	_opcodes.set_lvar_text_label(unknown1, unknown2)
 
-def is_var_text_label_equal_to_text_label(unknown1: str, unknown2: str) -> None:
+def is_var_text_label_equal_to_text_label(unknown1: str, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/05ad/ https://gtagmodding.com/opcode-database/opcode/05AD/'''
-	_opcodes.is_var_text_label_equal_to_text_label(unknown1, unknown2)
+	return _opcodes.is_var_text_label_equal_to_text_label(unknown1, unknown2)
 
-def is_lvar_text_label_equal_to_text_label(unknown1: str, unknown2: str) -> None:
+def is_lvar_text_label_equal_to_text_label(unknown1: str, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/05ae/ https://gtagmodding.com/opcode-database/opcode/05AE/'''
-	_opcodes.is_lvar_text_label_equal_to_text_label(unknown1, unknown2)
+	return _opcodes.is_lvar_text_label_equal_to_text_label(unknown1, unknown2)
 
 def get_2d_lines_intersect_point(unknown1: float, unknown2: float, unknown3: float, unknown4: float, unknown5: float, unknown6: float, unknown7: float, unknown8: float) -> Tuple[float, float]:
 	'''More info: https://gtamods.com/wiki/05b0/ https://gtagmodding.com/opcode-database/opcode/05B0/'''
@@ -2593,57 +2593,57 @@ def task_follow_path_nodes_to_coord(hchar: int, x_coord: float, y_coord: float, 
 	'''More info: https://gtamods.com/wiki/05f5/ https://gtagmodding.com/opcode-database/opcode/05F5/'''
 	_opcodes.task_follow_path_nodes_to_coord(hchar, x_coord, y_coord, z_coord, unknown5, time)
 
-def is_char_in_angled_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_in_angled_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05f6/ https://gtagmodding.com/opcode-database/opcode/05F6/'''
-	_opcodes.is_char_in_angled_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_in_angled_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_in_angled_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_in_angled_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05f7/ https://gtagmodding.com/opcode-database/opcode/05F7/'''
-	_opcodes.is_char_in_angled_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_in_angled_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_in_angled_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_in_angled_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05f8/ https://gtagmodding.com/opcode-database/opcode/05F8/'''
-	_opcodes.is_char_in_angled_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_in_angled_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_stopped_in_angled_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05f9/ https://gtagmodding.com/opcode-database/opcode/05F9/'''
-	_opcodes.is_char_stopped_in_angled_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_stopped_in_angled_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_on_foot_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05fa/ https://gtagmodding.com/opcode-database/opcode/05FA/'''
-	_opcodes.is_char_stopped_in_angled_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_on_foot_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_stopped_in_angled_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_in_car_2d(hchar: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05fb/ https://gtagmodding.com/opcode-database/opcode/05FB/'''
-	_opcodes.is_char_stopped_in_angled_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_in_car_2d(hchar, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_char_in_angled_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_char_in_angled_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05fc/ https://gtagmodding.com/opcode-database/opcode/05FC/'''
-	_opcodes.is_char_in_angled_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_char_in_angled_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
-def is_char_in_angled_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_char_in_angled_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05fd/ https://gtagmodding.com/opcode-database/opcode/05FD/'''
-	_opcodes.is_char_in_angled_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_char_in_angled_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
-def is_char_in_angled_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, unknown8: float, state: int) -> None:
+def is_char_in_angled_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, unknown8: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05fe/ https://gtagmodding.com/opcode-database/opcode/05FE/'''
-	_opcodes.is_char_in_angled_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, unknown8, state)
+	return _opcodes.is_char_in_angled_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, unknown8, state)
 
-def is_char_stopped_in_angled_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/05ff/ https://gtagmodding.com/opcode-database/opcode/05FF/'''
-	_opcodes.is_char_stopped_in_angled_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
-def is_char_stopped_in_angled_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_on_foot_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0600/ https://gtagmodding.com/opcode-database/opcode/0600/'''
-	_opcodes.is_char_stopped_in_angled_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_on_foot_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
-def is_char_stopped_in_angled_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_char_stopped_in_angled_area_in_car_3d(hchar: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0601/ https://gtagmodding.com/opcode-database/opcode/0601/'''
-	_opcodes.is_char_stopped_in_angled_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_char_stopped_in_angled_area_in_car_3d(hchar, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
-def is_char_in_taxi(hchar: int) -> None:
+def is_char_in_taxi(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0602/ https://gtagmodding.com/opcode-database/opcode/0602/'''
-	_opcodes.is_char_in_taxi(hchar)
+	return _opcodes.is_char_in_taxi(hchar)
 
 def task_go_to_coord_any_means(hchar: int, x_coord: float, y_coord: float, z_coord: float, unknown5: int, hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0603/ https://gtagmodding.com/opcode-database/opcode/0603/'''
@@ -2677,17 +2677,17 @@ def set_text_dropshadow(unknown1: int, red: int, green: int, blue: int, alpha: i
 	'''More info: https://gtamods.com/wiki/060d/ https://gtagmodding.com/opcode-database/opcode/060D/'''
 	_opcodes.set_text_dropshadow(unknown1, red, green, blue, alpha)
 
-def is_playback_going_on_for_car(hveh: int) -> None:
+def is_playback_going_on_for_car(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/060e/ https://gtagmodding.com/opcode-database/opcode/060E/'''
-	_opcodes.is_playback_going_on_for_car(hveh)
+	return _opcodes.is_playback_going_on_for_car(hveh)
 
 def set_sense_range(hchar: int, unknown2: float) -> None:
 	'''More info: https://gtamods.com/wiki/060f/ https://gtagmodding.com/opcode-database/opcode/060F/'''
 	_opcodes.set_sense_range(hchar, unknown2)
 
-def is_char_playing_anim(hchar: int, unknown2: str) -> None:
+def is_char_playing_anim(hchar: int, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0611/ https://gtagmodding.com/opcode-database/opcode/0611/'''
-	_opcodes.is_char_playing_anim(hchar, unknown2)
+	return _opcodes.is_char_playing_anim(hchar, unknown2)
 
 def set_char_anim_playing_flag(hchar: int, unknown2: str, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0612/ https://gtagmodding.com/opcode-database/opcode/0612/'''
@@ -2817,9 +2817,9 @@ def task_turn_char_to_face_char(hchar: int, hchar2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0639/ https://gtagmodding.com/opcode-database/opcode/0639/'''
 	_opcodes.task_turn_char_to_face_char(hchar, hchar2)
 
-def is_char_at_scripted_attractor(hchar: int, attractor: int) -> None:
+def is_char_at_scripted_attractor(hchar: int, attractor: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0642/ https://gtagmodding.com/opcode-database/opcode/0642/'''
-	_opcodes.is_char_at_scripted_attractor(hchar, attractor)
+	return _opcodes.is_char_at_scripted_attractor(hchar, attractor)
 
 def set_sequence_to_repeat(sequence_task: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0643/ https://gtagmodding.com/opcode-database/opcode/0643/'''
@@ -3021,13 +3021,13 @@ def detach_car(hveh: int, x_coord: float, y_coord: float, z_coord: float, state:
 	'''More info: https://gtamods.com/wiki/0684/ https://gtagmodding.com/opcode-database/opcode/0684/'''
 	_opcodes.detach_car(hveh, x_coord, y_coord, z_coord, state)
 
-def is_object_attached(hobj: int) -> None:
+def is_object_attached(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0685/ https://gtagmodding.com/opcode-database/opcode/0685/'''
-	_opcodes.is_object_attached(hobj)
+	return _opcodes.is_object_attached(hobj)
 
-def is_vehicle_attached(hveh: int) -> None:
+def is_vehicle_attached(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0686/ https://gtagmodding.com/opcode-database/opcode/0686/'''
-	_opcodes.is_vehicle_attached(hveh)
+	return _opcodes.is_vehicle_attached(hveh)
 
 def clear_char_tasks(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/0687/ https://gtagmodding.com/opcode-database/opcode/0687/'''
@@ -3049,9 +3049,9 @@ def task_everyone_leave_car(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/068b/ https://gtagmodding.com/opcode-database/opcode/068B/'''
 	_opcodes.task_everyone_leave_car(hveh)
 
-def is_player_targetting_anything(player: int) -> None:
+def is_player_targetting_anything(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/068c/ https://gtagmodding.com/opcode-database/opcode/068C/'''
-	_opcodes.is_player_targetting_anything(player)
+	return _opcodes.is_player_targetting_anything(player)
 
 def get_active_camera_coordinates() -> Tuple[float, float, float]:
 	'''More info: https://gtamods.com/wiki/068d/ https://gtagmodding.com/opcode-database/opcode/068D/'''
@@ -3105,9 +3105,9 @@ def task_look_at_coord(hchar: int, x_coord: float, y_coord: float, z_coord: floa
 	'''More info: https://gtamods.com/wiki/06a9/ https://gtagmodding.com/opcode-database/opcode/06A9/'''
 	_opcodes.task_look_at_coord(hchar, x_coord, y_coord, z_coord, time)
 
-def is_recording_going_on_for_car(hveh: int) -> None:
+def is_recording_going_on_for_car(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06aa/ https://gtagmodding.com/opcode-database/opcode/06AA/'''
-	_opcodes.is_recording_going_on_for_car(hveh)
+	return _opcodes.is_recording_going_on_for_car(hveh)
 
 def hide_char_weapon_for_scripted_cutscene(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/06ab/ https://gtagmodding.com/opcode-database/opcode/06AB/'''
@@ -3157,13 +3157,13 @@ def point_searchlight_at_char(searchlight: int, hchar: int, unknown3: float) -> 
 	'''More info: https://gtamods.com/wiki/06b6/ https://gtagmodding.com/opcode-database/opcode/06B6/'''
 	_opcodes.point_searchlight_at_char(searchlight, hchar, unknown3)
 
-def is_char_in_searchlight(searchlight: int, hchar: int) -> None:
+def is_char_in_searchlight(searchlight: int, hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06b7/ https://gtagmodding.com/opcode-database/opcode/06B7/'''
-	_opcodes.is_char_in_searchlight(searchlight, hchar)
+	return _opcodes.is_char_in_searchlight(searchlight, hchar)
 
-def has_cutscene_loaded() -> None:
+def has_cutscene_loaded() -> bool:
 	'''More info: https://gtamods.com/wiki/06b9/ https://gtagmodding.com/opcode-database/opcode/06B9/'''
-	_opcodes.has_cutscene_loaded()
+	return _opcodes.has_cutscene_loaded()
 
 def task_turn_char_to_face_coord(hchar: int, x_coord: float, y_coord: float, z_coord: float) -> None:
 	'''More info: https://gtamods.com/wiki/06ba/ https://gtagmodding.com/opcode-database/opcode/06BA/'''
@@ -3177,9 +3177,9 @@ def fire_single_bullet(x_coord: float, y_coord: float, z_coord: float, x_coord4:
 	'''More info: https://gtamods.com/wiki/06bc/ https://gtagmodding.com/opcode-database/opcode/06BC/'''
 	_opcodes.fire_single_bullet(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, unknown7)
 
-def is_line_of_sight_clear(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, state: int, state8: int, state9: int, state10: int, state11: int) -> None:
+def is_line_of_sight_clear(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, state: int, state8: int, state9: int, state10: int, state11: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06bd/ https://gtagmodding.com/opcode-database/opcode/06BD/'''
-	_opcodes.is_line_of_sight_clear(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, state, state8, state9, state10, state11)
+	return _opcodes.is_line_of_sight_clear(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, state, state8, state9, state10, state11)
 
 def get_car_roll(hveh: int) -> float:
 	'''More info: https://gtamods.com/wiki/06be/ https://gtagmodding.com/opcode-database/opcode/06BE/'''
@@ -3189,9 +3189,9 @@ def point_searchlight_at_vehicle(searchlight: int, hveh: int, unknown3: float) -
 	'''More info: https://gtamods.com/wiki/06bf/ https://gtagmodding.com/opcode-database/opcode/06BF/'''
 	_opcodes.point_searchlight_at_vehicle(searchlight, hveh, unknown3)
 
-def is_vehicle_in_searchlight(searchlight: int, hveh: int) -> None:
+def is_vehicle_in_searchlight(searchlight: int, hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06c0/ https://gtagmodding.com/opcode-database/opcode/06C0/'''
-	_opcodes.is_vehicle_in_searchlight(searchlight, hveh)
+	return _opcodes.is_vehicle_in_searchlight(searchlight, hveh)
 
 def create_searchlight_on_vehicle(hveh: int, x_offset: float, y_offset: float, z_offset: float, x_coord: float, y_coord: float, z_coord: float, radius: float, radius9: float) -> int:
 	'''More info: https://gtamods.com/wiki/06c1/ https://gtagmodding.com/opcode-database/opcode/06C1/'''
@@ -3321,9 +3321,9 @@ def request_vehicle_mod(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/06e9/ https://gtagmodding.com/opcode-database/opcode/06E9/'''
 	_opcodes.request_vehicle_mod(unknown1)
 
-def has_vehicle_mod_loaded(unknown1: int) -> None:
+def has_vehicle_mod_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06ea/ https://gtagmodding.com/opcode-database/opcode/06EA/'''
-	_opcodes.has_vehicle_mod_loaded(unknown1)
+	return _opcodes.has_vehicle_mod_loaded(unknown1)
 
 def mark_vehicle_mod_as_no_longer_needed(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/06eb/ https://gtagmodding.com/opcode-database/opcode/06EB/'''
@@ -3337,13 +3337,13 @@ def give_vehicle_paintjob(hveh: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/06ed/ https://gtagmodding.com/opcode-database/opcode/06ED/'''
 	_opcodes.give_vehicle_paintjob(hveh, unknown2)
 
-def is_group_member(hchar: int, group: int) -> None:
+def is_group_member(hchar: int, group: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06ee/ https://gtagmodding.com/opcode-database/opcode/06EE/'''
-	_opcodes.is_group_member(hchar, group)
+	return _opcodes.is_group_member(hchar, group)
 
-def is_group_leader(hchar: int, group: int) -> None:
+def is_group_leader(hchar: int, group: int) -> bool:
 	'''More info: https://gtamods.com/wiki/06ef/ https://gtagmodding.com/opcode-database/opcode/06EF/'''
-	_opcodes.is_group_leader(hchar, group)
+	return _opcodes.is_group_leader(hchar, group)
 
 def set_group_separation_range(group: int, unknown2: float) -> None:
 	'''More info: https://gtamods.com/wiki/06f0/ https://gtagmodding.com/opcode-database/opcode/06F0/'''
@@ -3465,9 +3465,9 @@ def take_remote_control_of_car(player: int, hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0715/ https://gtagmodding.com/opcode-database/opcode/0715/'''
 	_opcodes.take_remote_control_of_car(player, hveh)
 
-def is_closest_object_of_type_smashed_or_damaged(x_coord: float, y_coord: float, z_coord: float, radius: float, unknown5: int, state: int, state7: int) -> None:
+def is_closest_object_of_type_smashed_or_damaged(x_coord: float, y_coord: float, z_coord: float, radius: float, unknown5: int, state: int, state7: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0716/ https://gtagmodding.com/opcode-database/opcode/0716/'''
-	_opcodes.is_closest_object_of_type_smashed_or_damaged(x_coord, y_coord, z_coord, radius, unknown5, state, state7)
+	return _opcodes.is_closest_object_of_type_smashed_or_damaged(x_coord, y_coord, z_coord, radius, unknown5, state, state7)
 
 def start_setting_up_conversation(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/0717/ https://gtagmodding.com/opcode-database/opcode/0717/'''
@@ -3477,9 +3477,9 @@ def finish_setting_up_conversation() -> None:
 	'''More info: https://gtamods.com/wiki/0719/ https://gtagmodding.com/opcode-database/opcode/0719/'''
 	_opcodes.finish_setting_up_conversation()
 
-def is_conversation_at_node(hchar: int, unknown2: str) -> None:
+def is_conversation_at_node(hchar: int, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/071a/ https://gtagmodding.com/opcode-database/opcode/071A/'''
-	_opcodes.is_conversation_at_node(hchar, unknown2)
+	return _opcodes.is_conversation_at_node(hchar, unknown2)
 
 def get_object_health(hobj: int) -> int:
 	'''More info: https://gtamods.com/wiki/071e/ https://gtagmodding.com/opcode-database/opcode/071E/'''
@@ -3521,13 +3521,13 @@ def switch_cops_on_bikes(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/072c/ https://gtagmodding.com/opcode-database/opcode/072C/'''
 	_opcodes.switch_cops_on_bikes(state)
 
-def is_flame_in_angled_area_2d(x_coord: float, y_coord: float, x_coord3: float, y_coord4: float, angle: float, state: int) -> None:
+def is_flame_in_angled_area_2d(x_coord: float, y_coord: float, x_coord3: float, y_coord4: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/072d/ https://gtagmodding.com/opcode-database/opcode/072D/'''
-	_opcodes.is_flame_in_angled_area_2d(x_coord, y_coord, x_coord3, y_coord4, angle, state)
+	return _opcodes.is_flame_in_angled_area_2d(x_coord, y_coord, x_coord3, y_coord4, angle, state)
 
-def is_flame_in_angled_area_3d(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, angle: float, state: int) -> None:
+def is_flame_in_angled_area_3d(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/072e/ https://gtagmodding.com/opcode-database/opcode/072E/'''
-	_opcodes.is_flame_in_angled_area_3d(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, angle, state)
+	return _opcodes.is_flame_in_angled_area_3d(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6, angle, state)
 
 def add_stuck_car_check_with_warp(hveh: int, unknown2: float, time: int, state: int, state5: int, state6: int, unknown7: int) -> None:
 	'''More info: https://gtamods.com/wiki/072f/ https://gtagmodding.com/opcode-database/opcode/072F/'''
@@ -3553,17 +3553,17 @@ def dont_suppress_any_car_models() -> None:
 	'''More info: https://gtamods.com/wiki/0734/ https://gtagmodding.com/opcode-database/opcode/0734/'''
 	_opcodes.dont_suppress_any_car_models()
 
-def is_ps2_keyboard_key_pressed(unknown1: int) -> None:
+def is_ps2_keyboard_key_pressed(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0735/ https://gtagmodding.com/opcode-database/opcode/0735/'''
-	_opcodes.is_ps2_keyboard_key_pressed(unknown1)
+	return _opcodes.is_ps2_keyboard_key_pressed(unknown1)
 
-def is_ps2_keyboard_key_just_pressed(unknown1: int) -> None:
+def is_ps2_keyboard_key_just_pressed(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0736/ https://gtagmodding.com/opcode-database/opcode/0736/'''
-	_opcodes.is_ps2_keyboard_key_just_pressed(unknown1)
+	return _opcodes.is_ps2_keyboard_key_just_pressed(unknown1)
 
-def is_char_holding_object(hchar: int, hobj: int) -> None:
+def is_char_holding_object(hchar: int, hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0737/ https://gtagmodding.com/opcode-database/opcode/0737/'''
-	_opcodes.is_char_holding_object(hchar, hobj)
+	return _opcodes.is_char_holding_object(hchar, hobj)
 
 def set_car_can_go_against_traffic(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/073b/ https://gtagmodding.com/opcode-database/opcode/073B/'''
@@ -3581,9 +3581,9 @@ def get_random_char_in_sphere(x_coord: float, y_coord: float, z_coord: float, ra
 	'''More info: https://gtamods.com/wiki/073f/ https://gtagmodding.com/opcode-database/opcode/073F/'''
 	return _opcodes.get_random_char_in_sphere(x_coord, y_coord, z_coord, radius, state, state6, state7)
 
-def has_char_been_arrested(hchar: int) -> None:
+def has_char_been_arrested(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0741/ https://gtagmodding.com/opcode-database/opcode/0741/'''
-	_opcodes.has_char_been_arrested(hchar)
+	return _opcodes.has_char_been_arrested(hchar)
 
 def set_plane_throttle(hveh: int, unknown2: float) -> None:
 	'''More info: https://gtamods.com/wiki/0742/ https://gtagmodding.com/opcode-database/opcode/0742/'''
@@ -3629,9 +3629,9 @@ def set_inform_respected_friends(hchar: int, unknown2: float, unknown3: int) -> 
 	'''More info: https://gtamods.com/wiki/074e/ https://gtagmodding.com/opcode-database/opcode/074E/'''
 	_opcodes.set_inform_respected_friends(hchar, unknown2, unknown3)
 
-def is_char_responding_to_event(hchar: int, unknown2: int) -> None:
+def is_char_responding_to_event(hchar: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/074f/ https://gtagmodding.com/opcode-database/opcode/074F/'''
-	_opcodes.is_char_responding_to_event(hchar, unknown2)
+	return _opcodes.is_char_responding_to_event(hchar, unknown2)
 
 def set_object_visible(hobj: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0750/ https://gtagmodding.com/opcode-database/opcode/0750/'''
@@ -3713,9 +3713,9 @@ def get_zone_gang_strength(unknown1: str, unknown2: int) -> int:
 	'''More info: https://gtamods.com/wiki/076d/ https://gtagmodding.com/opcode-database/opcode/076D/'''
 	return _opcodes.get_zone_gang_strength(unknown1, unknown2)
 
-def is_message_being_displayed() -> None:
+def is_message_being_displayed() -> bool:
 	'''More info: https://gtamods.com/wiki/076f/ https://gtagmodding.com/opcode-database/opcode/076F/'''
-	_opcodes.is_message_being_displayed()
+	return _opcodes.is_message_being_displayed()
 
 def set_char_is_target_priority(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0770/ https://gtagmodding.com/opcode-database/opcode/0770/'''
@@ -3885,13 +3885,13 @@ def set_area51_sam_site(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/07a8/ https://gtagmodding.com/opcode-database/opcode/07A8/'''
 	_opcodes.set_area51_sam_site(state)
 
-def is_char_in_any_searchlight(hchar: int) -> int:
+def is_char_in_any_searchlight(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07a9/ https://gtagmodding.com/opcode-database/opcode/07A9/'''
 	return _opcodes.is_char_in_any_searchlight(hchar)
 
-def is_trailer_attached_to_cab(hveh: int, hveh2: int) -> None:
+def is_trailer_attached_to_cab(hveh: int, hveh2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07ab/ https://gtagmodding.com/opcode-database/opcode/07AB/'''
-	_opcodes.is_trailer_attached_to_cab(hveh, hveh2)
+	return _opcodes.is_trailer_attached_to_cab(hveh, hveh2)
 
 def detach_trailer_from_cab(hveh: int, hveh2: int) -> None:
 	'''More info: https://gtamods.com/wiki/07ac/ https://gtagmodding.com/opcode-database/opcode/07AC/'''
@@ -3941,9 +3941,9 @@ def request_car_recording(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/07c0/ https://gtagmodding.com/opcode-database/opcode/07C0/'''
 	_opcodes.request_car_recording(unknown1)
 
-def has_car_recording_been_loaded(unknown1: int) -> None:
+def has_car_recording_been_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07c1/ https://gtagmodding.com/opcode-database/opcode/07C1/'''
-	_opcodes.has_car_recording_been_loaded(unknown1)
+	return _opcodes.has_car_recording_been_loaded(unknown1)
 
 def get_object_quaternion(hobj: int) -> Tuple[float, float, float, float]:
 	'''More info: https://gtamods.com/wiki/07c3/ https://gtagmodding.com/opcode-database/opcode/07C3/'''
@@ -3993,13 +3993,13 @@ def apply_force_to_car(hveh: int, x_offset: float, y_offset: float, z_offset: fl
 	'''More info: https://gtamods.com/wiki/07d5/ https://gtagmodding.com/opcode-database/opcode/07D5/'''
 	_opcodes.apply_force_to_car(hveh, x_offset, y_offset, z_offset, x_rotation, y_rotation, z_rotation)
 
-def is_int_lvar_equal_to_int_var(unknown1: int, unknown2: int) -> None:
+def is_int_lvar_equal_to_int_var(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07d6/ https://gtagmodding.com/opcode-database/opcode/07D6/'''
-	_opcodes.is_int_lvar_equal_to_int_var(unknown1, unknown2)
+	return _opcodes.is_int_lvar_equal_to_int_var(unknown1, unknown2)
 
-def is_float_lvar_equal_to_float_var(unknown1: float, unknown2: float) -> None:
+def is_float_lvar_equal_to_float_var(unknown1: float, unknown2: float) -> bool:
 	'''More info: https://gtamods.com/wiki/07d7/ https://gtagmodding.com/opcode-database/opcode/07D7/'''
-	_opcodes.is_float_lvar_equal_to_float_var(unknown1, unknown2)
+	return _opcodes.is_float_lvar_equal_to_float_var(unknown1, unknown2)
 
 def add_to_car_rotation_velocity(hveh: int, unknown2: float, unknown3: float, unknown4: float) -> None:
 	'''More info: https://gtamods.com/wiki/07da/ https://gtagmodding.com/opcode-database/opcode/07DA/'''
@@ -4013,9 +4013,9 @@ def set_char_shoot_rate(hchar: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/07dd/ https://gtagmodding.com/opcode-database/opcode/07DD/'''
 	_opcodes.set_char_shoot_rate(hchar, unknown2)
 
-def is_model_in_cdimage(unknown1: int) -> None:
+def is_model_in_cdimage(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07de/ https://gtagmodding.com/opcode-database/opcode/07DE/'''
-	_opcodes.is_model_in_cdimage(unknown1)
+	return _opcodes.is_model_in_cdimage(unknown1)
 
 def remove_oil_puddles_in_area(x_coord: float, y_coord: float, x_coord3: float, y_coord4: float) -> None:
 	'''More info: https://gtamods.com/wiki/07df/ https://gtagmodding.com/opcode-database/opcode/07DF/'''
@@ -4045,9 +4045,9 @@ def task_drive_point_route_advanced(hchar: int, hveh: int, unknown3: float, unkn
 	'''More info: https://gtamods.com/wiki/07e7/ https://gtagmodding.com/opcode-database/opcode/07E7/'''
 	_opcodes.task_drive_point_route_advanced(hchar, hveh, unknown3, unknown4, unknown5, unknown6)
 
-def is_relationship_set(unknown1: int, unknown2: int, unknown3: int) -> None:
+def is_relationship_set(unknown1: int, unknown2: int, unknown3: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07e8/ https://gtagmodding.com/opcode-database/opcode/07E8/'''
-	_opcodes.is_relationship_set(unknown1, unknown2, unknown3)
+	return _opcodes.is_relationship_set(unknown1, unknown2, unknown3)
 
 def set_car_always_create_skids(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/07ee/ https://gtagmodding.com/opcode-database/opcode/07EE/'''
@@ -4057,17 +4057,17 @@ def get_city_from_coords(x_coord: float, y_coord: float, z_coord: float) -> int:
 	'''More info: https://gtamods.com/wiki/07ef/ https://gtagmodding.com/opcode-database/opcode/07EF/'''
 	return _opcodes.get_city_from_coords(x_coord, y_coord, z_coord)
 
-def has_object_of_type_been_smashed(x_coord: float, y_coord: float, z_coord: float, radius: float, unknown5: int) -> None:
+def has_object_of_type_been_smashed(x_coord: float, y_coord: float, z_coord: float, radius: float, unknown5: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07f0/ https://gtagmodding.com/opcode-database/opcode/07F0/'''
-	_opcodes.has_object_of_type_been_smashed(x_coord, y_coord, z_coord, radius, unknown5)
+	return _opcodes.has_object_of_type_been_smashed(x_coord, y_coord, z_coord, radius, unknown5)
 
-def is_player_performing_wheelie(player: int) -> None:
+def is_player_performing_wheelie(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07f1/ https://gtagmodding.com/opcode-database/opcode/07F1/'''
-	_opcodes.is_player_performing_wheelie(player)
+	return _opcodes.is_player_performing_wheelie(player)
 
-def is_player_performing_stoppie(player: int) -> None:
+def is_player_performing_stoppie(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/07f2/ https://gtagmodding.com/opcode-database/opcode/07F2/'''
-	_opcodes.is_player_performing_stoppie(player)
+	return _opcodes.is_player_performing_stoppie(player)
 
 def set_checkpoint_coords(checkpoint: int, x_coord: float, y_coord: float, z_coord: float) -> None:
 	'''More info: https://gtamods.com/wiki/07f3/ https://gtagmodding.com/opcode-database/opcode/07F3/'''
@@ -4117,9 +4117,9 @@ def set_car_hydraulics(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/07ff/ https://gtagmodding.com/opcode-database/opcode/07FF/'''
 	_opcodes.set_car_hydraulics(hveh, state)
 
-def is_2player_game_going_on() -> None:
+def is_2player_game_going_on() -> bool:
 	'''More info: https://gtamods.com/wiki/0800/ https://gtagmodding.com/opcode-database/opcode/0800/'''
-	_opcodes.is_2player_game_going_on()
+	return _opcodes.is_2player_game_going_on()
 
 def get_camera_fov() -> float:
 	'''More info: https://gtamods.com/wiki/0801/ https://gtagmodding.com/opcode-database/opcode/0801/'''
@@ -4177,9 +4177,9 @@ def task_follow_patrol_route(hchar: int, unknown2: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/0817/ https://gtagmodding.com/opcode-database/opcode/0817/'''
 	_opcodes.task_follow_patrol_route(hchar, unknown2, unknown3)
 
-def is_char_in_air(hchar: int) -> None:
+def is_char_in_air(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0818/ https://gtagmodding.com/opcode-database/opcode/0818/'''
-	_opcodes.is_char_in_air(hchar)
+	return _opcodes.is_char_in_air(hchar)
 
 def get_char_height_above_ground(hchar: int) -> float:
 	'''More info: https://gtamods.com/wiki/0819/ https://gtagmodding.com/opcode-database/opcode/0819/'''
@@ -4197,17 +4197,17 @@ def set_car_engine_broken(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/081d/ https://gtagmodding.com/opcode-database/opcode/081D/'''
 	_opcodes.set_car_engine_broken(hveh, state)
 
-def is_this_model_a_boat(unknown1: int) -> None:
+def is_this_model_a_boat(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/081e/ https://gtagmodding.com/opcode-database/opcode/081E/'''
-	_opcodes.is_this_model_a_boat(unknown1)
+	return _opcodes.is_this_model_a_boat(unknown1)
 
-def is_this_model_a_plane(unknown1: int) -> None:
+def is_this_model_a_plane(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/081f/ https://gtagmodding.com/opcode-database/opcode/081F/'''
-	_opcodes.is_this_model_a_plane(unknown1)
+	return _opcodes.is_this_model_a_plane(unknown1)
 
-def is_this_model_a_heli(unknown1: int) -> None:
+def is_this_model_a_heli(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0820/ https://gtagmodding.com/opcode-database/opcode/0820/'''
-	_opcodes.is_this_model_a_heli(unknown1)
+	return _opcodes.is_this_model_a_heli(unknown1)
 
 def set_first_person_in_car_camera_mode(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0822/ https://gtagmodding.com/opcode-database/opcode/0822/'''
@@ -4245,9 +4245,9 @@ def set_pool_table_coords(x_coord: float, y_coord: float, z_coord: float, x_coor
 	'''More info: https://gtamods.com/wiki/0830/ https://gtagmodding.com/opcode-database/opcode/0830/'''
 	_opcodes.set_pool_table_coords(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6)
 
-def has_object_been_photographed(hobj: int) -> None:
+def has_object_been_photographed(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0833/ https://gtagmodding.com/opcode-database/opcode/0833/'''
-	_opcodes.has_object_been_photographed(hobj)
+	return _opcodes.has_object_been_photographed(hobj)
 
 def do_camera_bump(x_offset: float, y_offset: float) -> None:
 	'''More info: https://gtamods.com/wiki/0834/ https://gtagmodding.com/opcode-database/opcode/0834/'''
@@ -4261,9 +4261,9 @@ def set_object_anim_speed(hobj: int, unknown2: str, unknown3: float) -> None:
 	'''More info: https://gtamods.com/wiki/0836/ https://gtagmodding.com/opcode-database/opcode/0836/'''
 	_opcodes.set_object_anim_speed(hobj, unknown2, unknown3)
 
-def is_object_playing_anim(hobj: int, unknown2: str) -> None:
+def is_object_playing_anim(hobj: int, unknown2: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0837/ https://gtagmodding.com/opcode-database/opcode/0837/'''
-	_opcodes.is_object_playing_anim(hobj, unknown2)
+	return _opcodes.is_object_playing_anim(hobj, unknown2)
 
 def get_object_anim_current_time(hobj: int, unknown2: str) -> float:
 	'''More info: https://gtamods.com/wiki/0839/ https://gtagmodding.com/opcode-database/opcode/0839/'''
@@ -4361,9 +4361,9 @@ def set_char_area_visible(hchar: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0860/ https://gtagmodding.com/opcode-database/opcode/0860/'''
 	_opcodes.set_char_area_visible(hchar, unknown2)
 
-def is_attached_player_heading_achieved(player: int) -> None:
+def is_attached_player_heading_achieved(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0861/ https://gtagmodding.com/opcode-database/opcode/0861/'''
-	_opcodes.is_attached_player_heading_achieved(player)
+	return _opcodes.is_attached_player_heading_achieved(player)
 
 def enable_entry_exit_player_group_warping(x_coord: float, y_coord: float, radius: float, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0864/ https://gtagmodding.com/opcode-database/opcode/0864/'''
@@ -4373,9 +4373,9 @@ def get_closest_stealable_object(x_coord: float, y_coord: float, z_coord: float,
 	'''More info: https://gtamods.com/wiki/0866/ https://gtagmodding.com/opcode-database/opcode/0866/'''
 	return _opcodes.get_closest_stealable_object(x_coord, y_coord, z_coord, radius)
 
-def is_procedural_interior_active(unknown1: int) -> None:
+def is_procedural_interior_active(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0867/ https://gtagmodding.com/opcode-database/opcode/0867/'''
-	_opcodes.is_procedural_interior_active(unknown1)
+	return _opcodes.is_procedural_interior_active(unknown1)
 
 def clear_this_view_integer_variable(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0868/ https://gtagmodding.com/opcode-database/opcode/0868/'''
@@ -4429,9 +4429,9 @@ def set_gang_wars_active(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0879/ https://gtagmodding.com/opcode-database/opcode/0879/'''
 	_opcodes.set_gang_wars_active(state)
 
-def is_gang_war_going_on() -> None:
+def is_gang_war_going_on() -> bool:
 	'''More info: https://gtamods.com/wiki/087a/ https://gtagmodding.com/opcode-database/opcode/087A/'''
-	_opcodes.is_gang_war_going_on()
+	return _opcodes.is_gang_war_going_on()
 
 def give_player_clothes_outside_shop(player: int, unknown2: str, unknown3: str, unknown4: int) -> None:
 	'''More info: https://gtamods.com/wiki/087b/ https://gtagmodding.com/opcode-database/opcode/087B/'''
@@ -4513,17 +4513,17 @@ def attach_trailer_to_cab(hveh: int, hveh2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0893/ https://gtagmodding.com/opcode-database/opcode/0893/'''
 	_opcodes.attach_trailer_to_cab(hveh, hveh2)
 
-def is_vehicle_touching_object(hveh: int, hobj: int) -> None:
+def is_vehicle_touching_object(hveh: int, hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0897/ https://gtagmodding.com/opcode-database/opcode/0897/'''
-	_opcodes.is_vehicle_touching_object(hveh, hobj)
+	return _opcodes.is_vehicle_touching_object(hveh, hobj)
 
 def enable_crane_controls(state: int, state2: int, state3: int) -> None:
 	'''More info: https://gtamods.com/wiki/0898/ https://gtagmodding.com/opcode-database/opcode/0898/'''
 	_opcodes.enable_crane_controls(state, state2, state3)
 
-def is_player_in_position_for_conversation(hchar: int) -> None:
+def is_player_in_position_for_conversation(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/089b/ https://gtagmodding.com/opcode-database/opcode/089B/'''
-	_opcodes.is_player_in_position_for_conversation(hchar)
+	return _opcodes.is_player_in_position_for_conversation(hchar)
 
 def enable_conversation(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/089c/ https://gtagmodding.com/opcode-database/opcode/089C/'''
@@ -4561,9 +4561,9 @@ def open_car_door_a_bit(hveh: int, unknown2: int, rotation: float) -> None:
 	'''More info: https://gtamods.com/wiki/08a6/ https://gtagmodding.com/opcode-database/opcode/08A6/'''
 	_opcodes.open_car_door_a_bit(hveh, unknown2, rotation)
 
-def is_car_door_fully_open(hveh: int, unknown2: int) -> None:
+def is_car_door_fully_open(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08a7/ https://gtagmodding.com/opcode-database/opcode/08A7/'''
-	_opcodes.is_car_door_fully_open(hveh, unknown2)
+	return _opcodes.is_car_door_fully_open(hveh, unknown2)
 
 def set_always_draw_3d_markers(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/08a8/ https://gtagmodding.com/opcode-database/opcode/08A8/'''
@@ -4573,9 +4573,9 @@ def stream_script(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/08a9/ https://gtagmodding.com/opcode-database/opcode/08A9/'''
 	_opcodes.stream_script(unknown1)
 
-def has_streamed_script_loaded(unknown1: int) -> None:
+def has_streamed_script_loaded(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08ab/ https://gtagmodding.com/opcode-database/opcode/08AB/'''
-	_opcodes.has_streamed_script_loaded(unknown1)
+	return _opcodes.has_streamed_script_loaded(unknown1)
 
 def set_gang_wars_training_mission(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/08ac/ https://gtagmodding.com/opcode-database/opcode/08AC/'''
@@ -4601,29 +4601,29 @@ def set_zone_for_gang_wars_training(unknown1: str) -> None:
 	'''More info: https://gtamods.com/wiki/08b3/ https://gtagmodding.com/opcode-database/opcode/08B3/'''
 	_opcodes.set_zone_for_gang_wars_training(unknown1)
 
-def is_global_var_bit_set_const(unknown1: int, unknown2: int) -> None:
+def is_global_var_bit_set_const(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b4/ https://gtagmodding.com/opcode-database/opcode/08B4/'''
-	_opcodes.is_global_var_bit_set_const(unknown1, unknown2)
+	return _opcodes.is_global_var_bit_set_const(unknown1, unknown2)
 
-def is_global_var_bit_set_var(unknown1: int, unknown2: int) -> None:
+def is_global_var_bit_set_var(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b5/ https://gtagmodding.com/opcode-database/opcode/08B5/'''
-	_opcodes.is_global_var_bit_set_var(unknown1, unknown2)
+	return _opcodes.is_global_var_bit_set_var(unknown1, unknown2)
 
-def is_global_var_bit_set_lvar(unknown1: int, unknown2: int) -> None:
+def is_global_var_bit_set_lvar(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b6/ https://gtagmodding.com/opcode-database/opcode/08B6/'''
-	_opcodes.is_global_var_bit_set_lvar(unknown1, unknown2)
+	return _opcodes.is_global_var_bit_set_lvar(unknown1, unknown2)
 
-def is_local_var_bit_set_const(unknown1: int, unknown2: int) -> None:
+def is_local_var_bit_set_const(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b7/ https://gtagmodding.com/opcode-database/opcode/08B7/'''
-	_opcodes.is_local_var_bit_set_const(unknown1, unknown2)
+	return _opcodes.is_local_var_bit_set_const(unknown1, unknown2)
 
-def is_local_var_bit_set_var(unknown1: int, unknown2: int) -> None:
+def is_local_var_bit_set_var(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b8/ https://gtagmodding.com/opcode-database/opcode/08B8/'''
-	_opcodes.is_local_var_bit_set_var(unknown1, unknown2)
+	return _opcodes.is_local_var_bit_set_var(unknown1, unknown2)
 
-def is_local_var_bit_set_lvar(unknown1: int, unknown2: int) -> None:
+def is_local_var_bit_set_lvar(unknown1: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08b9/ https://gtagmodding.com/opcode-database/opcode/08B9/'''
-	_opcodes.is_local_var_bit_set_lvar(unknown1, unknown2)
+	return _opcodes.is_local_var_bit_set_lvar(unknown1, unknown2)
 
 def set_global_var_bit_const(unknown1: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/08ba/ https://gtagmodding.com/opcode-database/opcode/08BA/'''
@@ -4697,9 +4697,9 @@ def explode_car_in_cutscene_shake_and_bits(hveh: int, state: int, state3: int, s
 	'''More info: https://gtamods.com/wiki/08cb/ https://gtagmodding.com/opcode-database/opcode/08CB/'''
 	_opcodes.explode_car_in_cutscene_shake_and_bits(hveh, state, state3, state4)
 
-def is_skip_cutscene_button_pressed() -> None:
+def is_skip_cutscene_button_pressed() -> bool:
 	'''More info: https://gtamods.com/wiki/08d0/ https://gtagmodding.com/opcode-database/opcode/08D0/'''
-	_opcodes.is_skip_cutscene_button_pressed()
+	return _opcodes.is_skip_cutscene_button_pressed()
 
 def get_cutscene_offset() -> Tuple[float, float, float]:
 	'''More info: https://gtamods.com/wiki/08d1/ https://gtagmodding.com/opcode-database/opcode/08D1/'''
@@ -4769,13 +4769,13 @@ def get_territory_under_control_percentage() -> int:
 	'''More info: https://gtamods.com/wiki/08e2/ https://gtagmodding.com/opcode-database/opcode/08E2/'''
 	return _opcodes.get_territory_under_control_percentage()
 
-def is_object_in_angled_area_2d(hobj: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> None:
+def is_object_in_angled_area_2d(hobj: int, x_coord: float, y_coord: float, x_coord4: float, y_coord5: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08e3/ https://gtagmodding.com/opcode-database/opcode/08E3/'''
-	_opcodes.is_object_in_angled_area_2d(hobj, x_coord, y_coord, x_coord4, y_coord5, angle, state)
+	return _opcodes.is_object_in_angled_area_2d(hobj, x_coord, y_coord, x_coord4, y_coord5, angle, state)
 
-def is_object_in_angled_area_3d(hobj: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> None:
+def is_object_in_angled_area_3d(hobj: int, x_coord: float, y_coord: float, z_coord: float, x_coord5: float, y_coord6: float, z_coord7: float, angle: float, state: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08e4/ https://gtagmodding.com/opcode-database/opcode/08E4/'''
-	_opcodes.is_object_in_angled_area_3d(hobj, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
+	return _opcodes.is_object_in_angled_area_3d(hobj, x_coord, y_coord, z_coord, x_coord5, y_coord6, z_coord7, angle, state)
 
 def get_random_char_in_sphere_no_brain(x_coord: float, y_coord: float, z_coord: float, radius: float) -> int:
 	'''More info: https://gtamods.com/wiki/08e5/ https://gtagmodding.com/opcode-database/opcode/08E5/'''
@@ -4865,13 +4865,13 @@ def set_heathaze_effect(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/08fd/ https://gtagmodding.com/opcode-database/opcode/08FD/'''
 	_opcodes.set_heathaze_effect(state)
 
-def is_help_message_being_displayed() -> None:
+def is_help_message_being_displayed() -> bool:
 	'''More info: https://gtamods.com/wiki/08fe/ https://gtagmodding.com/opcode-database/opcode/08FE/'''
-	_opcodes.is_help_message_being_displayed()
+	return _opcodes.is_help_message_being_displayed()
 
-def has_object_been_damaged_by_weapon(hobj: int, unknown2: int) -> None:
+def has_object_been_damaged_by_weapon(hobj: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/08ff/ https://gtagmodding.com/opcode-database/opcode/08FF/'''
-	_opcodes.has_object_been_damaged_by_weapon(hobj, unknown2)
+	return _opcodes.has_object_been_damaged_by_weapon(hobj, unknown2)
 
 def clear_object_last_weapon_damage(hobj: int) -> None:
 	'''More info: https://gtamods.com/wiki/0900/ https://gtagmodding.com/opcode-database/opcode/0900/'''
@@ -5077,9 +5077,9 @@ def set_searchlight_clip_if_colliding(searchlight: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0941/ https://gtagmodding.com/opcode-database/opcode/0941/'''
 	_opcodes.set_searchlight_clip_if_colliding(searchlight, state)
 
-def has_player_bought_item(unknown1: int) -> None:
+def has_player_bought_item(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0942/ https://gtagmodding.com/opcode-database/opcode/0942/'''
-	_opcodes.has_player_bought_item(unknown1)
+	return _opcodes.has_player_bought_item(unknown1)
 
 def set_camera_in_front_of_char(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/0944/ https://gtagmodding.com/opcode-database/opcode/0944/'''
@@ -5117,9 +5117,9 @@ def get_position_of_entry_exit_char_used(hchar: int) -> Tuple[float, float, floa
 	'''More info: https://gtamods.com/wiki/094c/ https://gtagmodding.com/opcode-database/opcode/094C/'''
 	return _opcodes.get_position_of_entry_exit_char_used(hchar)
 
-def is_char_talking(hchar: int) -> None:
+def is_char_talking(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/094d/ https://gtagmodding.com/opcode-database/opcode/094D/'''
-	_opcodes.is_char_talking(hchar)
+	return _opcodes.is_char_talking(hchar)
 
 def disable_char_speech(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/094e/ https://gtagmodding.com/opcode-database/opcode/094E/'''
@@ -5173,17 +5173,17 @@ def create_oyster_pickup(x_coord: float, y_coord: float, z_coord: float) -> int:
 	'''More info: https://gtamods.com/wiki/095a/ https://gtagmodding.com/opcode-database/opcode/095A/'''
 	return _opcodes.create_oyster_pickup(x_coord, y_coord, z_coord)
 
-def has_object_been_uprooted(hobj: int) -> None:
+def has_object_been_uprooted(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/095b/ https://gtagmodding.com/opcode-database/opcode/095B/'''
-	_opcodes.has_object_been_uprooted(hobj)
+	return _opcodes.has_object_been_uprooted(hobj)
 
 def add_smoke_particle(x_coord: float, y_coord: float, z_coord: float, unknown4: float, unknown5: float, unknown6: float, unknown7: float, unknown8: float, unknown9: float, unknown10: float, unknown11: float, unknown12: float) -> None:
 	'''More info: https://gtamods.com/wiki/095c/ https://gtagmodding.com/opcode-database/opcode/095C/'''
 	_opcodes.add_smoke_particle(x_coord, y_coord, z_coord, unknown4, unknown5, unknown6, unknown7, unknown8, unknown9, unknown10, unknown11, unknown12)
 
-def is_char_stuck_under_car(hchar: int) -> None:
+def is_char_stuck_under_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/095d/ https://gtagmodding.com/opcode-database/opcode/095D/'''
-	_opcodes.is_char_stuck_under_car(hchar)
+	return _opcodes.is_char_stuck_under_car(hchar)
 
 def control_car_door(hveh: int, unknown2: int, unknown3: int, unknown4: float) -> None:
 	'''More info: https://gtamods.com/wiki/095e/ https://gtagmodding.com/opcode-database/opcode/095E/'''
@@ -5205,9 +5205,9 @@ def create_menu_grid(unknown1: str, unknown2: float, unknown3: float, width: flo
 	'''More info: https://gtamods.com/wiki/0964/ https://gtagmodding.com/opcode-database/opcode/0964/'''
 	return _opcodes.create_menu_grid(unknown1, unknown2, unknown3, width, unknown5, state, state7, unknown8)
 
-def is_char_swimming(hchar: int) -> None:
+def is_char_swimming(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0965/ https://gtagmodding.com/opcode-database/opcode/0965/'''
-	_opcodes.is_char_swimming(hchar)
+	return _opcodes.is_char_swimming(hchar)
 
 def get_char_swim_state(hchar: int) -> int:
 	'''More info: https://gtamods.com/wiki/0966/ https://gtagmodding.com/opcode-database/opcode/0966/'''
@@ -5221,9 +5221,9 @@ def stop_char_facial_talk(hchar: int) -> None:
 	'''More info: https://gtamods.com/wiki/0968/ https://gtagmodding.com/opcode-database/opcode/0968/'''
 	_opcodes.stop_char_facial_talk(hchar)
 
-def is_big_vehicle(hveh: int) -> None:
+def is_big_vehicle(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0969/ https://gtagmodding.com/opcode-database/opcode/0969/'''
-	_opcodes.is_big_vehicle(hveh)
+	return _opcodes.is_big_vehicle(hveh)
 
 def switch_police_helis(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/096a/ https://gtagmodding.com/opcode-database/opcode/096A/'''
@@ -5241,13 +5241,13 @@ def get_current_car_mod(hveh: int, unknown2: int) -> int:
 	'''More info: https://gtamods.com/wiki/096d/ https://gtagmodding.com/opcode-database/opcode/096D/'''
 	return _opcodes.get_current_car_mod(hveh, unknown2)
 
-def is_car_low_rider(hveh: int) -> None:
+def is_car_low_rider(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/096e/ https://gtagmodding.com/opcode-database/opcode/096E/'''
-	_opcodes.is_car_low_rider(hveh)
+	return _opcodes.is_car_low_rider(hveh)
 
-def is_car_street_racer(hveh: int) -> None:
+def is_car_street_racer(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/096f/ https://gtagmodding.com/opcode-database/opcode/096F/'''
-	_opcodes.is_car_street_racer(hveh)
+	return _opcodes.is_car_street_racer(hveh)
 
 def force_death_restart() -> None:
 	'''More info: https://gtamods.com/wiki/0970/ https://gtagmodding.com/opcode-database/opcode/0970/'''
@@ -5269,17 +5269,17 @@ def reset_stuff_upon_resurrection() -> None:
 	'''More info: https://gtamods.com/wiki/0974/ https://gtagmodding.com/opcode-database/opcode/0974/'''
 	_opcodes.reset_stuff_upon_resurrection()
 
-def is_emergency_services_vehicle(hveh: int) -> None:
+def is_emergency_services_vehicle(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0975/ https://gtagmodding.com/opcode-database/opcode/0975/'''
-	_opcodes.is_emergency_services_vehicle(hveh)
+	return _opcodes.is_emergency_services_vehicle(hveh)
 
 def kill_fx_system_now(fx_system: int) -> None:
 	'''More info: https://gtamods.com/wiki/0976/ https://gtagmodding.com/opcode-database/opcode/0976/'''
 	_opcodes.kill_fx_system_now(fx_system)
 
-def is_object_within_brain_activation_range(hobj: int) -> None:
+def is_object_within_brain_activation_range(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0977/ https://gtagmodding.com/opcode-database/opcode/0977/'''
-	_opcodes.is_object_within_brain_activation_range(hobj)
+	return _opcodes.is_object_within_brain_activation_range(hobj)
 
 def copy_shared_char_decision_maker(unknown1: int) -> int:
 	'''More info: https://gtamods.com/wiki/0978/ https://gtagmodding.com/opcode-database/opcode/0978/'''
@@ -5305,9 +5305,9 @@ def extinguish_fire_at_point(x_coord: float, y_coord: float, z_coord: float, rad
 	'''More info: https://gtamods.com/wiki/0980/ https://gtagmodding.com/opcode-database/opcode/0980/'''
 	_opcodes.extinguish_fire_at_point(x_coord, y_coord, z_coord, radius)
 
-def has_train_derailed(hveh: int) -> None:
+def has_train_derailed(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0981/ https://gtagmodding.com/opcode-database/opcode/0981/'''
-	_opcodes.has_train_derailed(hveh)
+	return _opcodes.has_train_derailed(hveh)
 
 def set_char_force_die_in_car(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0982/ https://gtagmodding.com/opcode-database/opcode/0982/'''
@@ -5393,9 +5393,9 @@ def camera_set_shake_simulation_simple(unknown1: int, time: float, unknown3: flo
 	'''More info: https://gtamods.com/wiki/099c/ https://gtagmodding.com/opcode-database/opcode/099C/'''
 	_opcodes.camera_set_shake_simulation_simple(unknown1, time, unknown3)
 
-def is_night_vision_active() -> None:
+def is_night_vision_active() -> bool:
 	'''More info: https://gtamods.com/wiki/099d/ https://gtagmodding.com/opcode-database/opcode/099D/'''
-	_opcodes.is_night_vision_active()
+	return _opcodes.is_night_vision_active()
 
 def set_create_random_cops(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/099e/ https://gtagmodding.com/opcode-database/opcode/099E/'''
@@ -5433,9 +5433,9 @@ def set_char_drugged_up(hchar: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09a7/ https://gtagmodding.com/opcode-database/opcode/09A7/'''
 	_opcodes.set_char_drugged_up(hchar, state)
 
-def is_char_head_missing(hchar: int) -> None:
+def is_char_head_missing(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09a8/ https://gtagmodding.com/opcode-database/opcode/09A8/'''
-	_opcodes.is_char_head_missing(hchar)
+	return _opcodes.is_char_head_missing(hchar)
 
 def get_hash_key(unknown1: str) -> int:
 	'''More info: https://gtamods.com/wiki/09a9/ https://gtagmodding.com/opcode-database/opcode/09A9/'''
@@ -5457,9 +5457,9 @@ def set_player_in_car_camera_mode(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/09ad/ https://gtagmodding.com/opcode-database/opcode/09AD/'''
 	_opcodes.set_player_in_car_camera_mode(unknown1)
 
-def is_char_in_any_train(hchar: int) -> None:
+def is_char_in_any_train(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09ae/ https://gtagmodding.com/opcode-database/opcode/09AE/'''
-	_opcodes.is_char_in_any_train(hchar)
+	return _opcodes.is_char_in_any_train(hchar)
 
 def set_up_skip_after_mission(x_coord: float, y_coord: float, z_coord: float, angle: float) -> None:
 	'''More info: https://gtamods.com/wiki/09af/ https://gtagmodding.com/opcode-database/opcode/09AF/'''
@@ -5505,9 +5505,9 @@ def display_zone_names(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09ba/ https://gtagmodding.com/opcode-database/opcode/09BA/'''
 	_opcodes.display_zone_names(state)
 
-def is_car_door_damaged(hveh: int, unknown2: int) -> None:
+def is_car_door_damaged(hveh: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09bb/ https://gtagmodding.com/opcode-database/opcode/09BB/'''
-	_opcodes.is_car_door_damaged(hveh, unknown2)
+	return _opcodes.is_car_door_damaged(hveh, unknown2)
 
 def set_char_coordinates_dont_warp_gang_no_offset(hchar: int, x_coord: float, y_coord: float, z_coord: float) -> None:
 	'''More info: https://gtamods.com/wiki/09bc/ https://gtagmodding.com/opcode-database/opcode/09BC/'''
@@ -5517,9 +5517,9 @@ def set_minigame_in_progress(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09bd/ https://gtagmodding.com/opcode-database/opcode/09BD/'''
 	_opcodes.set_minigame_in_progress(state)
 
-def is_minigame_in_progress() -> None:
+def is_minigame_in_progress() -> bool:
 	'''More info: https://gtamods.com/wiki/09be/ https://gtagmodding.com/opcode-database/opcode/09BE/'''
-	_opcodes.is_minigame_in_progress()
+	return _opcodes.is_minigame_in_progress()
 
 def set_force_random_car_model(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/09bf/ https://gtagmodding.com/opcode-database/opcode/09BF/'''
@@ -5537,17 +5537,17 @@ def fail_kill_frenzy() -> None:
 	'''More info: https://gtamods.com/wiki/09c2/ https://gtagmodding.com/opcode-database/opcode/09C2/'''
 	_opcodes.fail_kill_frenzy()
 
-def is_cop_vehicle_in_area_3d_no_save(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float) -> None:
+def is_cop_vehicle_in_area_3d_no_save(x_coord: float, y_coord: float, z_coord: float, x_coord4: float, y_coord5: float, z_coord6: float) -> bool:
 	'''More info: https://gtamods.com/wiki/09c3/ https://gtagmodding.com/opcode-database/opcode/09C3/'''
-	_opcodes.is_cop_vehicle_in_area_3d_no_save(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6)
+	return _opcodes.is_cop_vehicle_in_area_3d_no_save(x_coord, y_coord, z_coord, x_coord4, y_coord5, z_coord6)
 
 def set_petrol_tank_weakpoint(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09c4/ https://gtagmodding.com/opcode-database/opcode/09C4/'''
 	_opcodes.set_petrol_tank_weakpoint(hveh, state)
 
-def is_char_using_map_attractor(hchar: int) -> None:
+def is_char_using_map_attractor(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09c5/ https://gtagmodding.com/opcode-database/opcode/09C5/'''
-	_opcodes.is_char_using_map_attractor(hchar)
+	return _opcodes.is_char_using_map_attractor(hchar)
 
 def set_player_model(player: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/09c7/ https://gtagmodding.com/opcode-database/opcode/09C7/'''
@@ -5565,9 +5565,9 @@ def set_object_proofs(hobj: int, state: int, state3: int, state4: int, state5: i
 	'''More info: https://gtamods.com/wiki/09ca/ https://gtagmodding.com/opcode-database/opcode/09CA/'''
 	_opcodes.set_object_proofs(hobj, state, state3, state4, state5, state6)
 
-def is_car_touching_car(hveh: int, hveh2: int) -> None:
+def is_car_touching_car(hveh: int, hveh2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09cb/ https://gtagmodding.com/opcode-database/opcode/09CB/'''
-	_opcodes.is_car_touching_car(hveh, hveh2)
+	return _opcodes.is_car_touching_car(hveh, hveh2)
 
 def does_object_have_this_model(hobj: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/09cc/ https://gtagmodding.com/opcode-database/opcode/09CC/'''
@@ -5577,9 +5577,9 @@ def set_train_forced_to_slow_down(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09cf/ https://gtagmodding.com/opcode-database/opcode/09CF/'''
 	_opcodes.set_train_forced_to_slow_down(hveh, state)
 
-def is_vehicle_on_all_wheels(hveh: int) -> None:
+def is_vehicle_on_all_wheels(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09d0/ https://gtagmodding.com/opcode-database/opcode/09D0/'''
-	_opcodes.is_vehicle_on_all_wheels(hveh)
+	return _opcodes.is_vehicle_on_all_wheels(hveh)
 
 def does_pickup_exist(pickup: int) -> None:
 	'''More info: https://gtamods.com/wiki/09d1/ https://gtagmodding.com/opcode-database/opcode/09D1/'''
@@ -5613,9 +5613,9 @@ def use_detonator() -> None:
 	'''More info: https://gtamods.com/wiki/09d9/ https://gtagmodding.com/opcode-database/opcode/09D9/'''
 	_opcodes.use_detonator()
 
-def is_money_pickup_at_coords(x_coord: float, y_coord: float, z_coord: float) -> None:
+def is_money_pickup_at_coords(x_coord: float, y_coord: float, z_coord: float) -> bool:
 	'''More info: https://gtamods.com/wiki/09da/ https://gtagmodding.com/opcode-database/opcode/09DA/'''
-	_opcodes.is_money_pickup_at_coords(x_coord, y_coord, z_coord)
+	return _opcodes.is_money_pickup_at_coords(x_coord, y_coord, z_coord)
 
 def set_menu_column_width(unknown1: int, unknown2: int, unknown3: int) -> None:
 	'''More info: https://gtamods.com/wiki/09db/ https://gtagmodding.com/opcode-database/opcode/09DB/'''
@@ -5625,9 +5625,9 @@ def make_room_in_player_gang_for_mission_peds(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/09dd/ https://gtagmodding.com/opcode-database/opcode/09DD/'''
 	_opcodes.make_room_in_player_gang_for_mission_peds(unknown1)
 
-def is_char_getting_in_to_a_car(hchar: int) -> None:
+def is_char_getting_in_to_a_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09de/ https://gtagmodding.com/opcode-database/opcode/09DE/'''
-	_opcodes.is_char_getting_in_to_a_car(hchar)
+	return _opcodes.is_char_getting_in_to_a_car(hchar)
 
 def set_up_skip_for_specific_vehicle(x_coord: float, y_coord: float, z_coord: float, angle: float, hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/09e0/ https://gtagmodding.com/opcode-database/opcode/09E0/'''
@@ -5657,9 +5657,9 @@ def enable_burglary_houses(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09e6/ https://gtagmodding.com/opcode-database/opcode/09E6/'''
 	_opcodes.enable_burglary_houses(state)
 
-def is_player_control_on(player: int) -> None:
+def is_player_control_on(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09e7/ https://gtagmodding.com/opcode-database/opcode/09E7/'''
-	_opcodes.is_player_control_on(player)
+	return _opcodes.is_player_control_on(player)
 
 def get_char_area_visible(hchar: int) -> int:
 	'''More info: https://gtamods.com/wiki/09e8/ https://gtagmodding.com/opcode-database/opcode/09E8/'''
@@ -5677,9 +5677,9 @@ def allow_fixed_camera_collision(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09ec/ https://gtagmodding.com/opcode-database/opcode/09EC/'''
 	_opcodes.allow_fixed_camera_collision(state)
 
-def has_char_spotted_char_in_front(hchar: int, hchar2: int) -> None:
+def has_char_spotted_char_in_front(hchar: int, hchar2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09ed/ https://gtagmodding.com/opcode-database/opcode/09ED/'''
-	_opcodes.has_char_spotted_char_in_front(hchar, hchar2)
+	return _opcodes.has_char_spotted_char_in_front(hchar, hchar2)
 
 def force_big_message_and_counter(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/09ee/ https://gtagmodding.com/opcode-database/opcode/09EE/'''
@@ -5721,17 +5721,17 @@ def do_weapon_stuff_at_start_of_2p_game() -> None:
 	'''More info: https://gtamods.com/wiki/09f8/ https://gtagmodding.com/opcode-database/opcode/09F8/'''
 	_opcodes.do_weapon_stuff_at_start_of_2p_game()
 
-def has_game_just_returned_from_frontend() -> None:
+def has_game_just_returned_from_frontend() -> bool:
 	'''More info: https://gtamods.com/wiki/09fa/ https://gtagmodding.com/opcode-database/opcode/09FA/'''
-	_opcodes.has_game_just_returned_from_frontend()
+	return _opcodes.has_game_just_returned_from_frontend()
 
 def get_current_language() -> int:
 	'''More info: https://gtamods.com/wiki/09fb/ https://gtagmodding.com/opcode-database/opcode/09FB/'''
 	return _opcodes.get_current_language()
 
-def is_object_intersecting_world(hobj: int) -> None:
+def is_object_intersecting_world(hobj: int) -> bool:
 	'''More info: https://gtamods.com/wiki/09fc/ https://gtagmodding.com/opcode-database/opcode/09FC/'''
-	_opcodes.is_object_intersecting_world(hobj)
+	return _opcodes.is_object_intersecting_world(hobj)
 
 def get_string_width(unknown1: str) -> int:
 	'''More info: https://gtamods.com/wiki/09fd/ https://gtagmodding.com/opcode-database/opcode/09FD/'''
@@ -5745,21 +5745,21 @@ def set_respawn_point_for_duration_of_mission(x_coord: float, y_coord: float, z_
 	'''More info: https://gtamods.com/wiki/09ff/ https://gtagmodding.com/opcode-database/opcode/09FF/'''
 	_opcodes.set_respawn_point_for_duration_of_mission(x_coord, y_coord, z_coord)
 
-def is_this_model_a_car(unknown1: int) -> None:
+def is_this_model_a_car(unknown1: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a01/ https://gtagmodding.com/opcode-database/opcode/0A01/'''
-	_opcodes.is_this_model_a_car(unknown1)
+	return _opcodes.is_this_model_a_car(unknown1)
 
 def switch_on_ground_searchlight(searchlight: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a02/ https://gtagmodding.com/opcode-database/opcode/0A02/'''
 	_opcodes.switch_on_ground_searchlight(searchlight, state)
 
-def is_gang_war_fighting_going_on() -> None:
+def is_gang_war_fighting_going_on() -> bool:
 	'''More info: https://gtamods.com/wiki/0a03/ https://gtagmodding.com/opcode-database/opcode/0A03/'''
-	_opcodes.is_gang_war_fighting_going_on()
+	return _opcodes.is_gang_war_fighting_going_on()
 
-def is_next_station_allowed(hveh: int) -> None:
+def is_next_station_allowed(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a06/ https://gtagmodding.com/opcode-database/opcode/0A06/'''
-	_opcodes.is_next_station_allowed(hveh)
+	return _opcodes.is_next_station_allowed(hveh)
 
 def skip_to_next_allowed_station(hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a07/ https://gtagmodding.com/opcode-database/opcode/0A07/'''
@@ -5781,17 +5781,17 @@ def load_scene_in_direction(x_coord: float, y_coord: float, z_coord: float, angl
 	'''More info: https://gtamods.com/wiki/0a0b/ https://gtagmodding.com/opcode-database/opcode/0A0B/'''
 	_opcodes.load_scene_in_direction(x_coord, y_coord, z_coord, angle)
 
-def is_player_using_jetpack(player: int) -> None:
+def is_player_using_jetpack(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a0c/ https://gtagmodding.com/opcode-database/opcode/0A0C/'''
-	_opcodes.is_player_using_jetpack(player)
+	return _opcodes.is_player_using_jetpack(player)
 
 def clear_this_print_big_now(unknown1: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a0e/ https://gtagmodding.com/opcode-database/opcode/0A0E/'''
 	_opcodes.clear_this_print_big_now(unknown1)
 
-def has_language_changed() -> None:
+def has_language_changed() -> bool:
 	'''More info: https://gtamods.com/wiki/0a0f/ https://gtagmodding.com/opcode-database/opcode/0A0F/'''
-	_opcodes.has_language_changed()
+	return _opcodes.has_language_changed()
 
 def increment_int_stat_no_message(unknown1: int, unknown2: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a10/ https://gtagmodding.com/opcode-database/opcode/0A10/'''
@@ -5813,9 +5813,9 @@ def set_no_resprays(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a14/ https://gtagmodding.com/opcode-database/opcode/0A14/'''
 	_opcodes.set_no_resprays(state)
 
-def has_car_been_resprayed(hveh: int) -> None:
+def has_car_been_resprayed(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a15/ https://gtagmodding.com/opcode-database/opcode/0A15/'''
-	_opcodes.has_car_been_resprayed(hveh)
+	return _opcodes.has_car_been_resprayed(hveh)
 
 def attach_mission_audio_to_car(unknown1: int, hveh: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a16/ https://gtagmodding.com/opcode-database/opcode/0A16/'''
@@ -5837,9 +5837,9 @@ def task_play_anim_secondary(hchar: int, unknown2: str, unknown3: str, unknown4:
 	'''More info: https://gtamods.com/wiki/0a1a/ https://gtagmodding.com/opcode-database/opcode/0A1A/'''
 	_opcodes.task_play_anim_secondary(hchar, unknown2, unknown3, unknown4, state, state6, state7, state8, time)
 
-def is_char_touching_char(hchar: int, hchar2: int) -> None:
+def is_char_touching_char(hchar: int, hchar2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a1b/ https://gtagmodding.com/opcode-database/opcode/0A1B/'''
-	_opcodes.is_char_touching_char(hchar, hchar2)
+	return _opcodes.is_char_touching_char(hchar, hchar2)
 
 def disable_heli_audio(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a1c/ https://gtagmodding.com/opcode-database/opcode/0A1C/'''
@@ -5893,17 +5893,17 @@ def set_swim_speed(hchar: int, unknown2: float) -> None:
 	'''More info: https://gtamods.com/wiki/0a28/ https://gtagmodding.com/opcode-database/opcode/0A28/'''
 	_opcodes.set_swim_speed(hchar, unknown2)
 
-def is_player_climbing(player: int) -> None:
+def is_player_climbing(player: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a29/ https://gtagmodding.com/opcode-database/opcode/0A29/'''
-	_opcodes.is_player_climbing(player)
+	return _opcodes.is_player_climbing(player)
 
-def is_this_help_message_being_displayed(unknown1: str) -> None:
+def is_this_help_message_being_displayed(unknown1: str) -> bool:
 	'''More info: https://gtamods.com/wiki/0a2a/ https://gtagmodding.com/opcode-database/opcode/0A2A/'''
-	_opcodes.is_this_help_message_being_displayed(unknown1)
+	return _opcodes.is_this_help_message_being_displayed(unknown1)
 
-def is_widescreen_on_in_options() -> None:
+def is_widescreen_on_in_options() -> bool:
 	'''More info: https://gtamods.com/wiki/0a2b/ https://gtagmodding.com/opcode-database/opcode/0A2B/'''
-	_opcodes.is_widescreen_on_in_options()
+	return _opcodes.is_widescreen_on_in_options()
 
 def draw_subtitles_before_fade(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a2c/ https://gtagmodding.com/opcode-database/opcode/0A2C/'''
@@ -5929,9 +5929,9 @@ def set_player_group_to_follow_never(player: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a31/ https://gtagmodding.com/opcode-database/opcode/0A31/'''
 	_opcodes.set_player_group_to_follow_never(player, state)
 
-def is_char_attached_to_any_car(hchar: int) -> None:
+def is_char_attached_to_any_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a32/ https://gtagmodding.com/opcode-database/opcode/0A32/'''
-	_opcodes.is_char_attached_to_any_car(hchar)
+	return _opcodes.is_char_attached_to_any_car(hchar)
 
 def store_car_char_is_attached_to_no_save(hchar: int) -> int:
 	'''More info: https://gtamods.com/wiki/0a33/ https://gtagmodding.com/opcode-database/opcode/0A33/'''
@@ -5945,9 +5945,9 @@ def set_up_skip_for_vehicle_finished_by_script(x_coord: float, y_coord: float, z
 	'''More info: https://gtamods.com/wiki/0a35/ https://gtagmodding.com/opcode-database/opcode/0A35/'''
 	_opcodes.set_up_skip_for_vehicle_finished_by_script(x_coord, y_coord, z_coord, angle, hveh)
 
-def is_skip_waiting_for_script_to_fade_in() -> None:
+def is_skip_waiting_for_script_to_fade_in() -> bool:
 	'''More info: https://gtamods.com/wiki/0a36/ https://gtagmodding.com/opcode-database/opcode/0A36/'''
-	_opcodes.is_skip_waiting_for_script_to_fade_in()
+	return _opcodes.is_skip_waiting_for_script_to_fade_in()
 
 def force_all_vehicle_lights_off(state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a37/ https://gtagmodding.com/opcode-database/opcode/0A37/'''
@@ -5961,9 +5961,9 @@ def get_player_in_car_camera_mode() -> int:
 	'''More info: https://gtamods.com/wiki/0a39/ https://gtagmodding.com/opcode-database/opcode/0A39/'''
 	return _opcodes.get_player_in_car_camera_mode()
 
-def is_last_building_model_shot_by_player(player: int, unknown2: int) -> None:
+def is_last_building_model_shot_by_player(player: int, unknown2: int) -> bool:
 	'''More info: https://gtamods.com/wiki/0a3a/ https://gtagmodding.com/opcode-database/opcode/0A3A/'''
-	_opcodes.is_last_building_model_shot_by_player(player, unknown2)
+	return _opcodes.is_last_building_model_shot_by_player(player, unknown2)
 
 def clear_last_building_model_shot_by_player(player: int) -> None:
 	'''More info: https://gtamods.com/wiki/0a3b/ https://gtagmodding.com/opcode-database/opcode/0A3B/'''
@@ -6021,11 +6021,10 @@ def get_pc_mouse_movement() -> Tuple[float, float]:
 	'''More info: https://gtamods.com/wiki/0a4a/ https://gtagmodding.com/opcode-database/opcode/0A4A/'''
 	return _opcodes.get_pc_mouse_movement()
 
-def is_pc_using_joypad() -> None:
+def is_pc_using_joypad() -> bool:
 	'''More info: https://gtamods.com/wiki/0a4b/ https://gtagmodding.com/opcode-database/opcode/0A4B/'''
-	_opcodes.is_pc_using_joypad()
+	return _opcodes.is_pc_using_joypad()
 
-def is_mouse_using_vertical_inversion() -> None:
+def is_mouse_using_vertical_inversion() -> bool:
 	'''More info: https://gtamods.com/wiki/0a4c/ https://gtagmodding.com/opcode-database/opcode/0A4C/'''
-	_opcodes.is_mouse_using_vertical_inversion()
-
+	return _opcodes.is_mouse_using_vertical_inversion()
