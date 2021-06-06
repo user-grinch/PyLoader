@@ -30,7 +30,6 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
     if (script_data->exit_flag != EXITING_FLAGS::NORMAL_EXIT)
     {
         PyEvents::ScriptTerminate(script_data->pModule);
-        return PyBool_FromLong(1);
         PyThreadState_SetAsyncExc(script_data->thread_id, PyExc_Exception);
         return PyBool_FromLong(1);
     }

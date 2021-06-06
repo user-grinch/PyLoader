@@ -1,8 +1,8 @@
-#include "PyInternal.h"
+#include "PyPool.h"
 #include "CPools.h"
 #include "../ScriptData.hpp"
 
-PyObject* PyInternal::GetScriptPool(PyObject* self, PyObject* args)
+PyObject* PyPool::GetScriptPool(PyObject* self, PyObject* args)
 {
     size_t size = ScriptData::scripts->size();
     PyObject* list = PyList_New(size);
@@ -16,7 +16,7 @@ PyObject* PyInternal::GetScriptPool(PyObject* self, PyObject* args)
     return list;
 }
 
-PyObject* PyInternal::GetVehPool(PyObject* self, PyObject* args)
+PyObject* PyPool::GetVehPool(PyObject* self, PyObject* args)
 {
     size_t size = 0;
 
@@ -35,7 +35,7 @@ PyObject* PyInternal::GetVehPool(PyObject* self, PyObject* args)
     return list;
 }
 
-PyObject* PyInternal::GetPedPool(PyObject* self, PyObject* args)
+PyObject* PyPool::GetPedPool(PyObject* self, PyObject* args)
 {
     size_t size = 0;
 
@@ -54,7 +54,7 @@ PyObject* PyInternal::GetPedPool(PyObject* self, PyObject* args)
     return list;
 }
 
-PyObject* PyInternal::GetBuildingPool(PyObject* self, PyObject* args)
+PyObject* PyPool::GetBuildingPool(PyObject* self, PyObject* args)
 {
     size_t size = 0;
 
@@ -73,7 +73,7 @@ PyObject* PyInternal::GetBuildingPool(PyObject* self, PyObject* args)
     return list;
 }
 
-PyObject* PyInternal::GetObjectPool(PyObject* self, PyObject* args)
+PyObject* PyPool::GetObjectPool(PyObject* self, PyObject* args)
 {
     size_t size = 0;
 

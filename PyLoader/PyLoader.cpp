@@ -9,7 +9,7 @@
 #include "sdk/PyCLEO.h"
 #include "sdk/PyMemory.h"
 #include "sdk/PyScript.h"
-#include "sdk/PyInternal.h"
+#include "sdk/PyPool.h"
 #include "sdk/PyBass.h"
 #include "PyEvents.h"
 #include "CSoundSystem.h"
@@ -112,18 +112,18 @@ void PyLoader::PluginThread(void* param)
 
     dir = FindFirstFileA("./PyLoader/*.py", &file_data);
 
-    PyImport_AppendInittab("bass", &PyBass::Init);
-    PyImport_AppendInittab("common", &PyCommon::Init);
-    PyImport_AppendInittab("hud", &PyCHud::Init);
-    PyImport_AppendInittab("memory", &PyMemory::Init);
-    PyImport_AppendInittab("opcodes", &PyOpcodes::Init);
-    PyImport_AppendInittab("cleo", &PyCLEO::Init);
-    PyImport_AppendInittab("script", &PyScript::Init);
-    PyImport_AppendInittab("_internal", &PyInternal::Init);
+    PyImport_AppendInittab("_bass", &PyBass::Init);
+    PyImport_AppendInittab("_common", &PyCommon::Init);
+    PyImport_AppendInittab("_hud", &PyCHud::Init);
+    PyImport_AppendInittab("_memory", &PyMemory::Init);
+    PyImport_AppendInittab("_opcodes", &PyOpcodes::Init);
+    PyImport_AppendInittab("_cleo", &PyCLEO::Init);
+    PyImport_AppendInittab("_script", &PyScript::Init);
+    PyImport_AppendInittab("_pool", &PyPool::Init);
     
     Py_Initialize();
     PyEval_InitThreads();
-    PyImport_ImportModule("common");
+    PyImport_ImportModule("_common");
     PyEval_ReleaseLock();
     
     PyEvents::InitAllEvents();

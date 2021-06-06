@@ -1,4 +1,4 @@
-import common
+import libstd.common as common
 
 # Can be used for necessary cleanup
 def on_script_terminate(error_occured: bool):

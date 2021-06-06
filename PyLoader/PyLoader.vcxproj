@@ -100,7 +100,7 @@
     <ClCompile Include="CSoundSystem.cpp" />
     <ClCompile Include="sdk\PyBass.cpp" />
     <ClCompile Include="PyEvents.cpp" />
-    <ClCompile Include="sdk\PyInternal.cpp" />
+    <ClCompile Include="sdk\PyPool.cpp" />
     <ClCompile Include="PyLoader.cpp" />
     <ClCompile Include="sdk\PyCLEO.cpp" />
     <ClCompile Include="sdk\PyScript.cpp" />
@@ -116,7 +116,7 @@
     <ClInclude Include="sdk\PyBass.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="PyEventsInternal.h" />
-    <ClInclude Include="sdk\PyInternal.h" />
+    <ClInclude Include="sdk\PyPool.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PyLoader.h" />
     <ClInclude Include="sdk\PyCLEO.h" />

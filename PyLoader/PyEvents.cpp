@@ -32,6 +32,7 @@ bool PyEvents::ScriptTerminate(PyObject* pModule)
         return false;
     }
 
+    PyErr_Clear();
     return true;
 }
 

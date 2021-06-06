@@ -1,4 +1,6 @@
-import common, script, pool
+import libstd.common as common
+import libstd.pool as pool
+import libstd.script as script
 
 script.name("ReloadAll")
 script.author("Grinch_")

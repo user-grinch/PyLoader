@@ -1,4 +1,7 @@
-import common, opcodes, cleo, script
+import libstd.common as common
+import libstd.opcodes as opcodes
+import libstd.cleo as cleo
+import libstd.script as script
 
 script.name("QuickTeleport")
 script.author("Grinch_")

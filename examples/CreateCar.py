@@ -1,4 +1,7 @@
-import common, opcodes, hud, script
+import libstd.common as common
+import libstd.opcodes as opcodes
+import libstd.hud as hud
+import libstd.script as script
 
 script.name("CreateCar")
 script.author("Grinch_")
@@ -10,7 +13,7 @@ while True:
 
     if common.key_pressed(0xA0):
         while common.key_pressed(0xA0):
-            common.wait(0)
+            common.wait(10)
 
         handle = opcodes.get_player_char(0)
         if opcodes.is_char_in_any_car(handle):

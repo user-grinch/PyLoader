@@ -1,4 +1,8 @@
-import _internal
+# Function definations for the intellisense
+# Author: Grinch_
+# Last updated on: 05/06/2021
+
+import _pool
 
 class pool_base():
     pointers :list = []
@@ -19,23 +23,28 @@ class pool_base():
             return val
 
 class veh(pool_base):
+    '''Vehicle Pool. Contains handle of the current game vehicles'''
     def __init__(self):
-        self.pointers = _internal._get_veh_pool()
+        self.pointers = _pool._get_veh_pool()
 
 class ped(pool_base):
+    '''Ped Pool. Contains handle of the current game peds'''
     def __init__(self):
-        self.pointers = _internal._get_ped_pool()
+        self.pointers = _pool._get_ped_pool()
 
 class object(pool_base):
+    '''Object Pool. Contains handle of the current game objects'''
     def __init__(self):
-        self.pointers = _internal._get_object_pool()
+        self.pointers = _pool._get_object_pool()
 
 class building(pool_base):
+    '''Object Pool. Contains handle of the current game static objects'''
     def __init__(self):
-        self.pointers = _internal._get_building_pool()
+        self.pointers = _pool._get_building_pool()
 
 class script(pool_base):
+    '''Script Pool. Contains name of the loaded PyLoader scripts'''
     def __init__(self):
-        self.pointers = _internal._get_script_pool()   
+        self.pointers = _pool._get_script_pool()   
 
 

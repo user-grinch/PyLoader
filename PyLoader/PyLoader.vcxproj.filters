@@ -9,7 +9,7 @@
     <ClCompile Include="sdk\PyMemory.cpp" />
     <ClCompile Include="sdk\PyScript.cpp" />
     <ClCompile Include="sdk\PyCLEO.cpp" />
-    <ClCompile Include="sdk\PyInternal.cpp" />
+    <ClCompile Include="sdk\PyPool.cpp" />
     <ClCompile Include="PyEvents.cpp" />
     <ClCompile Include="depend\jute.cpp" />
     <ClCompile Include="sdk\PyBass.cpp" />
@@ -25,7 +25,7 @@
     <ClInclude Include="ScriptData.hpp" />
     <ClInclude Include="sdk\PyScript.h" />
     <ClInclude Include="sdk\PyCLEO.h" />
-    <ClInclude Include="sdk\PyInternal.h" />
+    <ClInclude Include="sdk\PyPool.h" />
     <ClInclude Include="PyEvents.h" />
     <ClInclude Include="depend\jute.h" />
     <ClInclude Include="PyEventsInternal.h" />

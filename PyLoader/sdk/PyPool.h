@@ -3,7 +3,7 @@
 #include <extensions/ScriptCommands.h>
 #include <extensions/scripting/ScriptCommandNames.h>
 
-class PyInternal
+class PyPool
 {
 private:
     static PyObject* GetPedPool(PyObject* self, PyObject* args);
@@ -30,7 +30,6 @@ public:
         return PyModule_Create(&Module);
     }
 
-    PyInternal() = delete;
-    PyInternal(PyInternal&) = delete;
+    PyPool() = delete;
+    PyPool(PyPool&) = delete;
 };
-

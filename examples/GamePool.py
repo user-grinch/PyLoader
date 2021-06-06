@@ -1,4 +1,7 @@
-import common, cleo, pool, opcodes
+import libstd.common as common
+import libstd.opcodes as opcodes
+import libstd.pool as pool
+import libstd.cleo as cleo
 
 while True:
     if cleo.test_cheat("peds"):
