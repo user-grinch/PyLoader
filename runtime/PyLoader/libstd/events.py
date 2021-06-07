@@ -1,9 +1,13 @@
 # Function definations for the intellisense
 # Author: Grinch_
-# Last updated on: 06/06/2021
+# Last updated on: 07/06/2021
 
 import _events
 
+def on_script_terminate(error_occured: bool):
+	'''Callback function, is called after a script has been terminated'''
+    pass
+        
 def on_veh_create(hveh :int) -> None:
     '''Callback function, is called after a new vehicle is created'''
     pass
