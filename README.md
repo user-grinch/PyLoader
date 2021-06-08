@@ -22,6 +22,9 @@ This is a **.asi** plugin that allows writing custom Python scripts for GTA SanA
 
 
 # Doc
+## Intellisense
+Setting up intellisense [here](https://youtu.be/OFprh5zxyac)
+
 ## Custom Modules
 
 ### How to import modules?
