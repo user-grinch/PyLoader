@@ -103,5 +103,5 @@ for header in xml_root:
             out_type = "bool"
             rtn_text = "return "
 
-        fout.write('''def {}({}) -> {}:\n\t\'\'\'More info: https://gtamods.com/wiki/{}/ https://gtagmodding.com/opcode-database/opcode/{}/\'\'\'\n\t{}_opcodes.{}({})\n\n'''.format(opcode_name, params_str[:-2], out_type,opcode_str,opcode_str.upper(),rtn_text,opcode_name,params_str_without_type[:-2]))
+        fout.write('''def {}({}) -> {}:\n\t\'\'\'More info: https://gtamods.com/wiki/{} https://gtagmodding.com/opcode-database/opcode/{}\'\'\'\n\t{}_opcodes.{}({})\n\n'''.format(opcode_name, params_str[:-2], out_type,opcode_str.upper(),opcode_str.upper(),rtn_text,opcode_name,params_str_without_type[:-2]))
 fout.close()
