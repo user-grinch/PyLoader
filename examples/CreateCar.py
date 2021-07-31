@@ -12,8 +12,7 @@ while True:
     common.wait(0)
 
     if common.key_pressed(0xA0):
-        while common.key_pressed(0xA0):
-            common.wait(10)
+        common.wait(300)
 
         handle = opcodes.get_player_char(0)
         if opcodes.is_char_in_any_car(handle):
