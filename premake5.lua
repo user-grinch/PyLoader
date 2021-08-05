@@ -25,7 +25,8 @@ workspace "PyLoader"
     characterset "MBCS"
     staticruntime "On"
     location "build"
-
+    linkoptions "/SAFESEH:NO"
+    
 project "PyLoader"
     kind "SharedLib"
     targetdir (GTASA_DIR)

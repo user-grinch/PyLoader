@@ -5,7 +5,7 @@
 import _events
 
 def on_script_terminate(error_occured: bool):
-	'''Callback function, is called after a script has been terminated'''
+    '''Callback function, is called after a script has been terminated'''
     pass
         
 def on_veh_create(hveh :int) -> None:
@@ -42,4 +42,12 @@ def on_obj_render(hobj :int) -> None:
 
 def on_obj_destroy(hobj :int) -> None:
     '''Callback function, is called before a object is destroyed'''
+    pass
+
+def on_game_restart() -> None:
+    '''Callback function, is called when a game is restarted(newgame & savegame)'''
+    pass
+
+def on_save_load() -> None:
+    '''Callback function, is called when a save game is load'''
     pass

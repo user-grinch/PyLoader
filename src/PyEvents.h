@@ -18,7 +18,10 @@ public:
 	static inline PyEventsInternal::ObjCreateEvent objCreateEvent;
 	static inline PyEventsInternal::ObjRenderEvent objRenderEvent;
 	static inline PyEventsInternal::ObjDestroyEvent objDestroyEvent;
-
+	static inline PyEventsInternal::RestartEvent restartEvent;
+	static inline PyEventsInternal::LoadEvent loadEvent;
+	
+	static void RegisterEvents();
 	PyEvents() = delete;
 	PyEvents(PyEvents&) = delete;
 };

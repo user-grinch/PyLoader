@@ -1,7 +1,13 @@
 #pragma once
+#include "EventList.h"
+
+using namespace plugin;
 
 namespace PyEventsInternal
 {
+	extern CdeclEvent<AddressList<0x53C6DB, H_CALL>, PRIORITY_BEFORE, ArgPickNone, void()> restartEvent;
+	extern CdeclEvent <AddressList<0x5D19CE, H_CALL>, PRIORITY_AFTER, ArgPickNone, void()> loadEvent;
+
 	class EventBase
 	{
 	protected:
@@ -103,6 +109,50 @@ namespace PyEventsInternal
 				}
 			}
 			PyGILState_Release(gstate);
+		}
+	};
+
+	class NoParamEvent : public EventBase
+	{
+	public:
+		void Callback(void* ptr)
+		{
+			PyGILState_STATE gstate = PyGILState_Ensure();
+
+			for (auto it = pFuncs.begin(); it != pFuncs.end(); ++it)
+			{
+				PyObject* pFunc = *it;
+				if (pFunc && PyCallable_Check(pFunc))
+				{
+					PyObject* pArgs = PyTuple_New(1);
+					PyObject_CallFunction(pFunc,"");
+				}
+			}
+			PyGILState_Release(gstate);
+		}
+	};
+
+	class RestartEvent : public NoParamEvent
+	{
+	public:
+		void Init()
+		{
+			restartEvent += [&]()
+			{
+				Callback(nullptr);
+			};
+		}
+	};
+
+	class LoadEvent : public NoParamEvent
+	{
+	public:
+		void Init()
+		{
+			loadEvent += [&]()
+			{
+				Callback(nullptr);
+			};
 		}
 	};
 
