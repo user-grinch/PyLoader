@@ -13,10 +13,23 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 	if (str == NULL || str[0] == '\0')
 	{
 		data = ScriptData::Get(GetCurrentThreadId());
+		if (data->no_reload)
+		{
+			flog << str << " has `no_reload` property set" << std::endl;
+			return PyBool_FromLong(0);
+		}
 		str = (char*)data->file_name.c_str();
 	}
 	else
+	{
 		data = ScriptData::FindFromName(std::string(str));
+
+		if (data->no_reload)
+		{
+			flog << str << " has `no_reload` property set" << std::endl;
+			return PyBool_FromLong(0);
+		}
+	}
 
 	if (data != NULL && data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
 	{
@@ -206,6 +219,28 @@ PyObject* PyScript::MinRequiredVersion(PyObject* self, PyObject* args)
 		flog << data->file_name << " requires at least PyLoader v" << str << std::endl;
 		return PyBool_FromLong(0);
 	}
+
+	return PyBool_FromLong(1);
+}
+
+PyObject* PyScript::SetProperties(PyObject* self, PyObject* args)
+{
+	for (size_t i = 0; i < PyTuple_Size(args); i++)
+	{
+		PyObject *ptemp = PyTuple_GetItem(args, 0);
+
+		if(!ptemp)
+		{
+			break;
+		}
+		char *property = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+
+		if (strcmp(property, "no_reload") == 0)
+		{
+			ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
+			data->no_reload = true;
+		}
+	}	
 
 	return PyBool_FromLong(1);
 }

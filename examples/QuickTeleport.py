@@ -7,6 +7,7 @@ script.name("QuickTeleport")
 script.author("Grinch_")
 script.desc("Teleport to marker location pressing X+Y")
 script.version("1.0")
+script.properties("no_reload")
 
 while True:
     common.wait(0)

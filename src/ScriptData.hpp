@@ -19,6 +19,7 @@ public:
         size_t ticks = NULL;
         unsigned long thread_id = NULL;
         bool events_registered = false;
+        bool no_reload = false;
         EXITING_FLAGS exit_flag = EXITING_FLAGS::NORMAL_EXIT;
         std::string name, file_name, author, version, desc;
     };

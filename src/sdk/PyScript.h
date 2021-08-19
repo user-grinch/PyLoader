@@ -17,6 +17,7 @@ private:
     static PyObject* Load(PyObject* self, PyObject* args);
     static PyObject* Reload(PyObject* self, PyObject* args);
     static PyObject* Unload(PyObject* self, PyObject* args);
+    static PyObject* SetProperties(PyObject* self, PyObject* args);
     static inline PyMethodDef Methods[] =
     {
         {"get_author", GetAuthor, METH_VARARGS},
@@ -32,6 +33,7 @@ private:
         {"load", Load, METH_VARARGS},
         {"reload", Reload, METH_VARARGS},
         {"unload", Unload, METH_VARARGS},
+        {"properties", SetProperties, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "script", NULL, -1, Methods, NULL, NULL, NULL, NULL };

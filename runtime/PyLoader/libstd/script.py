@@ -69,5 +69,10 @@ def reload(script_name :str = "") -> None:
 
 	_script.reload(script_name)
 
+def properties(*argv) -> bool:
+	'''Sets script specific property flags.\n\nValid properties:\n\nno_reload: Disables script reloading'''
+
+	return _script.properties(*argv)
+
 
 
