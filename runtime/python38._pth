@@ -1,7 +1,5 @@
-PyLoader\libstd\python38.zip
+PyLoader\python\python38.zip
+PyLoader\python\
 PyLoader\libstd\
 PyLoader\lib\
 PyLoader\
-
-# Uncomment to run site.main() automatically
-#import site

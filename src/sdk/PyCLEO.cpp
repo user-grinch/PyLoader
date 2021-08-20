@@ -25,7 +25,7 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 	addr = PyLong_AsUnsignedLong(PyNumber_Long(ptemp));
 	ptemp = PyTuple_GetItem(args, 1);
 	num_param = PyLong_AsUnsignedLong(PyNumber_Long(ptemp));
-	ptemp = PyTuple_GetItem(args, 1);
+	ptemp = PyTuple_GetItem(args, 2);
 	stack_pop = PyLong_AsUnsignedLong(PyNumber_Long(ptemp))*4;
 
 	AnyType* params = new AnyType[num_param];
