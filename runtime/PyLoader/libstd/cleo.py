@@ -5,13 +5,13 @@
 from typing import Tuple
 import _cleo
 
-def call_function(address :int, num_args:int, pop :int, *arg) -> int:
-	'''Calls the function from the address. Arguments are passed left to right.\nMore info https://gtagmodding.com/opcode-database/opcode/0AA5/'''
+def call_function(address :int, num_args:int = 0, pop :int = 0, *arg) -> int:
+	'''Calls the function from the address. More info https://gtagmodding.com/opcode-database/opcode/0AA5/'''
 
 	return _cleo.call_function(address, num_args, pop, *arg)
 
-def call_method(address :int, struct :int, num_args :int, pop :int, *arg) -> int:
-	'''Calls the method from the address. Arguments are passed left to right.\nMore info https://gtagmodding.com/opcode-database/opcode/0AA6/'''
+def call_method(address :int, struct :int, num_args :int = 0, pop :int = 0, *arg) -> int:
+	'''Calls the method from the address. More info https://gtagmodding.com/opcode-database/opcode/0AA6/'''
 
 	_cleo.call_method(address, struct, num_args, pop, *arg)
 
@@ -131,7 +131,7 @@ def set_vehicle_engine_state(hveh :int, state: bool) -> None:
 	_cleo.set_vehicle_engine_state(hveh, state)
 
 def test_cheat(cheat :str) -> bool:
-	'''Checks whether the particular chracter sequence was pressed'''
+	'''Checks whether the particular character sequence was pressed'''
 
 	return _cleo.test_cheat(cheat)
 

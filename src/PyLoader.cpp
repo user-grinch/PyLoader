@@ -3,7 +3,6 @@
 #include <frameobject.h>
 #include <Urlmon.h>
 #include "depend/jute.h"
-#include "sdk/PyCHud.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
 #include "sdk/PyCLEO.h"
@@ -114,7 +113,6 @@ void PyLoader::PluginThread(void* param)
 
     PyImport_AppendInittab("_bass", &PyBass::Init);
     PyImport_AppendInittab("_common", &PyCommon::Init);
-    PyImport_AppendInittab("_hud", &PyCHud::Init);
     PyImport_AppendInittab("_memory", &PyMemory::Init);
     PyImport_AppendInittab("_opcodes", &PyOpcodes::Init);
     PyImport_AppendInittab("_cleo", &PyCLEO::Init);
