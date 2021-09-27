@@ -9,13 +9,6 @@
 #include "CModelInfo.h"
 #include "CCheat.h"
 
-union AnyType
-{
-	int i;
-	float f;
-	char* c;
-};
-
 PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 {
 	int addr = NULL;
@@ -28,8 +21,9 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 	ptemp = PyTuple_GetItem(args, 2);
 	stack_pop = PyLong_AsUnsignedLong(PyNumber_Long(ptemp))*4;
 
-	AnyType* params = new AnyType[num_param];
-	AnyType* params_end = params + num_param * 0x4;
+	int *pArr = new int[num_param];
+	int param_start = int(pArr);
+	int param_end = param_start + num_param * 0x4;
 
 	for (size_t i = 0; i < num_param; i++)
 	{
@@ -41,26 +35,33 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 			if (PyNumber_Check(ptemp))
 			{
 				if (PyFloat_Check(ptemp))
-					params[i].f = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
+				{
+					pArr[i] = (int)PyFloat_AsDouble(PyNumber_Float(ptemp));
+				}
 				else
-					params[i].i = PyLong_AsLong(PyNumber_Long(ptemp));
+				{
+					pArr[i] = PyLong_AsLong(PyNumber_Long(ptemp));
+				}
 			}
 			else
-				params[i].c = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+			{
+				pArr[i] = (int)PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+			}
 		}
 	}
 
 	DWORD result = 0;
 
+	// Flipping argument order to preserve left to right
 	// CLEO
 	_asm
 	{
-		mov ecx, params
+		mov ecx, param_end
 		loop_ :
-		cmp ecx, params_end
-			jae loop_end
+		cmp ecx, param_start
+			jbe loop_end
+			sub ecx, 0x4
 			push [ecx]
-			add ecx, 0x4
 			jmp loop_
 			loop_end :
 		call addr
@@ -68,7 +69,7 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 			add esp, stack_pop
 	}
 
-	delete[] params;
+	delete[] pArr;
 
 	return Py_BuildValue("i", result);
 }
@@ -87,8 +88,9 @@ PyObject* PyCLEO::CallMethod(PyObject* self, PyObject* args)
 	ptemp = PyTuple_GetItem(args, 3);
 	stack_pop = PyLong_AsUnsignedLong(PyNumber_Long(ptemp)) * 0x4;
 
-	AnyType* params = new AnyType[num_param];
-	AnyType* params_end = (AnyType*)(int(params) + num_param * 0x4);
+	int *pArr = new int[num_param];
+	int param_start = int(pArr);
+	int param_end = param_start + num_param * 0x4;
 
 	for (size_t i = 0; i < num_param; i++)
 	{
@@ -100,33 +102,43 @@ PyObject* PyCLEO::CallMethod(PyObject* self, PyObject* args)
 			if (PyNumber_Check(ptemp))
 			{
 				if (PyFloat_Check(ptemp))
-					params[i].f = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
+				{
+					pArr[i] = (int)PyFloat_AsDouble(PyNumber_Float(ptemp));
+				}
 				else
-					params[i].i = PyLong_AsLong(PyNumber_Long(ptemp));
+				{
+					pArr[i] = PyLong_AsLong(PyNumber_Long(ptemp));
+				}
 			}
 			else
-				params[i].c = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+			{
+				pArr[i] = (int)PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+			}
 		}
 	}
+
 	DWORD result = 0;
 
+
+	// Flipping argument order to preserve left to right
 	// CLEO
 	_asm
 	{
-		mov ecx, params
+		mov ecx, param_end
 		loop_ :
-		cmp ecx, params_end
-			jae loop_end
-			push[ecx]
-			add ecx, 0x4
+		cmp ecx, param_start
+			jbe loop_end
+			sub ecx, 0x4
+			push [ecx]
 			jmp loop_
 			loop_end :
 		mov ecx, struc
 		call addr
-		mov result, eax
-		add esp, stack_pop
+			mov result, eax
+			add esp, stack_pop
 	}
-	delete[] params;
+
+	delete[] pArr;
 
 	return Py_BuildValue("i", result);
 }
