@@ -1,0 +1,24 @@
+#  BASS_ChannelGetTags types : what's returned
+ID3 = 0  # ID3v1 tags : TAG_ID3 structure
+ID3V2 = 1  # ID3v2 tags : variable length block
+OGG = 2  # OGG comments : series of null-terminated UTF-8 strings
+HTTP = 3  # HTTP headers : series of null-terminated ANSI strings
+ICY = 4  # ICY headers : series of null-terminated ANSI strings
+META = 5  # ICY metadata : ANSI string
+APE = 6  # APE tags : series of null-terminated UTF-8 strings
+MP4 = 7  # MP4/iTunes metadata : series of null-terminated UTF-8 strings
+VENDOR = 9  # OGG encoder : UTF-8 string
+LYRICS3 = 10  # Lyric3v2 tag : ASCII string
+CA_CODEC = 11  # CoreAudio codec info : TAG_CA_CODEC structure
+MF = 13  # Media Foundation tags : series of null-terminated UTF-8 strings
+WAVEFORMAT = 14  # WAVE format : WAVEFORMATEEX structure
+RIFF_INFO = 0x100  # RIFF "INFO" tags : series of null-terminated ANSI strings
+RIFF_BEXT = 0x101  # RIFF/BWF "bext" tags : TAG_BEXT structure
+RIFF_CART = 0x102  # RIFF/BWF "cart" tags : TAG_CART structure
+RIFF_DISP = 0x103  # RIFF "DISP" text tag : ANSI string
+APE_BINARY = 0x1000  # + index #, binary APE tag : TAG_APE_BINARY structure
+MUSIC_NAME = 0x10000  # MOD music name : ANSI string
+MUSIC_MESSAGE = 0x10001  # MOD message : ANSI string
+MUSIC_ORDERS = 0x10002  # MOD order list : BYTE array of pattern numbers
+MUSIC_INST = 0x10100  # + instrument #, MOD instrument name : ANSI string
+MUSIC_SAMPLE = 0x10300  # + sample #, MOD sample name : ANSI string
