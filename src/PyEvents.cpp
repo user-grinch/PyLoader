@@ -23,17 +23,17 @@ void PyEvents::InitAllEvents()
 void PyEvents::RegisterEvents()
 {
     ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
-    vehCreateEvent.AddModule(script_data->pModule, "on_veh_create");
-    vehDestroyEvent.AddModule(script_data->pModule, "on_veh_destroy");
-    vehRenderEvent.AddModule(script_data->pModule, "on_veh_render");
-    pedCreateEvent.AddModule(script_data->pModule, "on_ped_create");
-    pedDestroyEvent.AddModule(script_data->pModule, "on_ped_destroy");
-    pedRenderEvent.AddModule(script_data->pModule, "on_ped_render");
-    objCreateEvent.AddModule(script_data->pModule, "on_obj_create");
-    objDestroyEvent.AddModule(script_data->pModule, "on_obj_destroy");
-    objRenderEvent.AddModule(script_data->pModule, "on_obj_render");
-    restartEvent.AddModule(script_data->pModule, "on_game_restart");
-    loadEvent.AddModule(script_data->pModule, "on_save_load");
+    vehCreateEvent.AddModule(script_data->m_pModule, "on_veh_create");
+    vehDestroyEvent.AddModule(script_data->m_pModule, "on_veh_destroy");
+    vehRenderEvent.AddModule(script_data->m_pModule, "on_veh_render");
+    pedCreateEvent.AddModule(script_data->m_pModule, "on_ped_create");
+    pedDestroyEvent.AddModule(script_data->m_pModule, "on_ped_destroy");
+    pedRenderEvent.AddModule(script_data->m_pModule, "on_ped_render");
+    objCreateEvent.AddModule(script_data->m_pModule, "on_obj_create");
+    objDestroyEvent.AddModule(script_data->m_pModule, "on_obj_destroy");
+    objRenderEvent.AddModule(script_data->m_pModule, "on_obj_render");
+    restartEvent.AddModule(script_data->m_pModule, "on_game_restart");
+    loadEvent.AddModule(script_data->m_pModule, "on_save_load");
 }
 
 bool PyEvents::ScriptTerminate(PyObject* pModule)

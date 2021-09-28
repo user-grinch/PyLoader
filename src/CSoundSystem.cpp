@@ -12,10 +12,10 @@ LRESULT(__stdcall * imp_DefWindowProc)(HWND wnd, UINT msg, WPARAM wparam, LPARAM
 
 HWND OnCreateMainWindow(HINSTANCE hinst)
 {
-    if (HIWORD(BASS_GetVersion()) != BASSVERSION) flog << "An incorrect version of bass.dll has been loaded" << std::endl;
-    flog << "Creating main window..." << std::endl;
+    if (HIWORD(BASS_GetVersion()) != BASSVERSION) gLog << "An incorrect version of bass.dll has been loaded" << std::endl;
+    gLog << "Creating main window..." << std::endl;
     HWND wnd = CreateMainWindow(hinst);
-    if (!SoundSystem.Init(wnd)) flog << "CSoundSystem::Init() failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+    if (!SoundSystem.Init(wnd)) gLog << "CSoundSystem::Init() failed. Error code: " << BASS_ErrorGetCode() << std::endl;
     return wnd;
 }
 
@@ -55,7 +55,7 @@ LRESULT __stdcall HOOK_DefWindowProc(HWND wnd, UINT msg, WPARAM wparam, LPARAM l
 
 void CSoundSystem::Inject()
 {
-    flog << "Injecting SoundSystem..." << std::endl;
+    gLog << "Injecting SoundSystem..." << std::endl;
     CreateMainWindow = (HWND(*)(HINSTANCE hinst))0x00745560;
     plugin::patch::ReplaceFunction(0x007487A8, OnCreateMainWindow);
     camera = (CPlaceable*)0x00B6F028;
@@ -76,7 +76,7 @@ void EnumerateBassDevices(int& total, int& enabled, int& default_device)
     {
         if (info.flags & BASS_DEVICE_ENABLED) ++enabled;
         if (info.flags & BASS_DEVICE_DEFAULT) default_device = total;
-        flog << "Found sound device " << total << " " << ((default_device == total) ? "(default)" : "") << info.name << std::endl;
+        gLog << "Found sound device " << total << " " << ((default_device == total) ? "(default)" : "") << info.name << std::endl;
     }
 }
 
@@ -91,7 +91,7 @@ bool CSoundSystem::Init(HWND hwnd)
         info.flags & BASS_DEVICE_ENABLED)
         default_device = forceDevice;
 
-    flog << "On system found " << total_devices << " devices, " << enabled_devices
+    gLog << "On system found " << total_devices << " devices, " << enabled_devices
         << " enabled devices, assuming device to use: " << default_device
         << " " << (BASS_GetDeviceInfo(default_device, &info) ? info.name : "Unknown device")
         << "" << std::endl;
@@ -100,24 +100,24 @@ bool CSoundSystem::Init(HWND hwnd)
         BASS_Set3DFactors(1.0f, 0.3f, 1.0f) &&
         BASS_Set3DPosition(&pos, &vel, &front, &top))
     {
-        flog << "SoundSystem initialized" << std::endl;
+        gLog << "SoundSystem initialized" << std::endl;
 
         // Can we use floating-point (HQ) audio streams?
         DWORD floatable; // floating-point channel support? 0 = no, else yes
         if (floatable = BASS_StreamCreate(44100, 1, BASS_SAMPLE_FLOAT, NULL, NULL))
         {
-            flog << "Floating-point audio supported!" << std::endl;
+            gLog << "Floating-point audio supported!" << std::endl;
             BASS_StreamFree(floatable);
         }
-        else flog << "Floating-point audio not supported!" << std::endl;
+        else gLog << "Floating-point audio not supported!" << std::endl;
 
         // 
         if (BASS_GetInfo(&SoundDevice))
         {
             if (SoundDevice.flags & DSCAPS_EMULDRIVER)
-                flog << "Audio drivers not installed - using DirectSound emulation" << std::endl;
+                gLog << "Audio drivers not installed - using DirectSound emulation" << std::endl;
             if (!SoundDevice.eax)
-                flog << "Audio hardware acceleration disabled (no EAX)" << std::endl;
+                gLog << "Audio hardware acceleration disabled (no EAX)" << std::endl;
         }
 
         initialized = true;
@@ -125,7 +125,7 @@ bool CSoundSystem::Init(HWND hwnd)
         BASS_Apply3D();
         return true;
     }
-    flog << "Could not initialize BASS sound system" << std::endl;
+    gLog << "Could not initialize BASS sound system" << std::endl;
     return false;
 }
 
@@ -146,7 +146,7 @@ void CSoundSystem::UnloadStream(CAudioStream *stream)
     if (streams.erase(stream))
         delete stream;
     else
-        flog << "Unloading of stream that is not in list of loaded streams" << std::endl;
+        gLog << "Unloading of stream that is not in list of loaded streams" << std::endl;
 }
 
 void CSoundSystem::UnloadAllStreams()
@@ -227,7 +227,7 @@ CAudioStream::CAudioStream(const char *src) : state(no), OK(false)
     if (!(streamInternal = BASS_StreamCreateFile(FALSE, src, 0, 0, flags)) &&
         !(streamInternal = BASS_StreamCreateURL(src, 0, flags, 0, nullptr)))
     {
-        flog << "Loading audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+        gLog << "Loading audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
     }
     else OK = true;
 }
@@ -244,7 +244,7 @@ C3DAudioStream::C3DAudioStream(const char *src) : CAudioStream(), link(nullptr)
         flags |= BASS_SAMPLE_FLOAT;
     if (!(streamInternal = BASS_StreamCreateFile(FALSE, src, 0, 0, flags)) && !(streamInternal = BASS_StreamCreateURL(src, 0, flags, nullptr, nullptr)))
     {
-        flog << "Loading 3d-audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+        gLog << "Loading 3d-audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
     }
     else
     {
@@ -349,12 +349,12 @@ void CAudioStream::Process()
 
 void CAudioStream::Set3dPosition(const CVector& pos)
 {
-    flog << "Unimplemented CAudioStream::Set3dPosition()" << std::endl;
+    gLog << "Unimplemented CAudioStream::Set3dPosition()" << std::endl;
 }
 
 void CAudioStream::Link(CPlaceable *placable)
 {
-    flog << "Unimplemented CAudioStream::Link()" << std::endl;
+    gLog << "Unimplemented CAudioStream::Link()" << std::endl;
 }
 
 void C3DAudioStream::Set3dPosition(const CVector& pos)

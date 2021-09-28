@@ -13,22 +13,19 @@
 #include "PyEvents.h"
 #include "CSoundSystem.h"
 
-std::ofstream flog("PyLoader.log");
-size_t game_ticks = 0;
 CSoundSystem SoundSystem;
 
-void PyLoader::LoadPlugins(std::string&& dir_name)
+void PyLoader::LoadPlugins(std::string&& dirName)
 {
-    HANDLE dir;
-    WIN32_FIND_DATA file_data;
+    WIN32_FIND_DATA fileData;
+    std::string path = std::format("%s%s/*.dll", PLUGIN_PATH((char*)"PyLoader/"), dirName);
+    HANDLE dir = FindFirstFileA(path.c_str(), &fileData);
 
-    std::string path = std::string(".\\PyLoader\\") + dir_name + "\\*.dll";
-    dir = FindFirstFileA(path.c_str(), &file_data);
     if (dir != INVALID_HANDLE_VALUE)
     {
         do {
-            std::string file_name = PLUGIN_PATH((char*)"PyLoader\\") + dir_name + "\\" + std::string(file_data.cFileName);
-            HINSTANCE hDll = LoadLibrary(file_name.c_str());
+            std::string fileName = std::format("%s/%s", path.c_str(), fileData.cFileName);
+            HINSTANCE hDll = LoadLibrary(fileName.c_str());
 
             if (hDll)
             {
@@ -36,15 +33,19 @@ void PyLoader::LoadPlugins(std::string&& dir_name)
                 if (func)
                 {
                     func();
-                    flog << "Loaded plugin " << file_data.cFileName << std::endl;
+                    gLog << "Loaded plugin " << fileData.cFileName << std::endl;
                 }
                 else
-                    flog << "Failed to load " << file_data.cFileName << std::endl;
+                {
+                    gLog << "Failed to load " << fileData.cFileName << std::endl;
+                }
             }
             else
-                flog << "Failed to load plugin " << file_data.cFileName << std::endl;
+            {
+                gLog << "Failed to load plugin " << fileData.cFileName << std::endl;
+            }
 
-        } while (FindNextFile(dir, &file_data));
+        } while (FindNextFile(dir, &fileData));
     }
 
     FindClose(dir);
@@ -58,7 +59,7 @@ void PyLoader::CheckUpdate()
 
     if (res == E_OUTOFMEMORY || res == INET_E_DOWNLOAD_FAILURE)
     {
-        flog << "Failed checking for updates." << std::endl;
+        gLog << "Failed checking for updates." << std::endl;
         return;
     }
 
@@ -76,14 +77,20 @@ void PyLoader::CheckUpdate()
         jute::jValue v = jute::parser::parse(buf);
 
         std::string ver = v[0]["name"].as_string();
-        if (ver > plugin_ver)
-            flog << "New version available. Download: https:///github.com/user-grinch/PyLoaderSA/releases/tag/"
-            << ver << std::endl;
+        if (ver > gPluginVer)
+        {
+            gLog << "New version available. Download: https:///github.com/user-grinch/PyLoaderSA/releases/tag/"
+                        << ver << std::endl;
+        }
         else
-            flog << "No updates found" << std::endl;
+        {
+            gLog << "No updates found" << std::endl;
+        }
     }
     else
-        flog << "Failed to download update info" << std::endl;
+    {
+        gLog << "Failed to download update info" << std::endl;
+    }
    
     delete buf;
     std::remove(path);
@@ -93,24 +100,30 @@ void PyLoader::PluginThread(void* param)
 {
     plugin::Events::processScriptsEvent += []
     {
-        game_ticks++;
+        gGameTicks++;
     };
     
-    flog << "------------------------------\nStarting PyLoader v" << plugin_ver
+    gLog << "------------------------------\nStarting PyLoader v" << gPluginVer
         << "\nAuthor: Grinch_\nThanks: CLEO4 & PluginSDK devs\nMore info: https:///github.com/user-grinch/PyLoaderSA/" << std::endl;
 
     CheckUpdate();
 
-    flog << "------------------------------"<< std::endl;
+    gLog << "------------------------------"<< std::endl;
 
     HANDLE dir;
-    WIN32_FIND_DATA file_data;
+    WIN32_FIND_DATA fileData;
 
+    /*
+        Load all the .dll modules from lib and libstd folder
+        libstd folder is reserved for first party modules only
+        put third party ones inside the lib folder
+    */
     LoadPlugins("lib");
     LoadPlugins("libstd");
 
-    dir = FindFirstFileA("./PyLoader/*.py", &file_data);
+    dir = FindFirstFileA("./PyLoader/*.py", &fileData);
 
+    // Init our modules
     PyImport_AppendInittab("_bass", &PyBass::Init);
     PyImport_AppendInittab("_common", &PyCommon::Init);
     PyImport_AppendInittab("_memory", &PyMemory::Init);
@@ -128,16 +141,18 @@ void PyLoader::PluginThread(void* param)
     SoundSystem.Inject();
     SoundSystem.Init(RsGlobal.ps->window);
 
-    // load scripts
+    // Loading .py scripts
     if (dir != INVALID_HANDLE_VALUE)
     {
-        do {
-            std::string* file_name = new std::string("PyLoader." + std::string(file_data.cFileName));
+        do 
+        {
+            std::string* fileName = new std::string("PyLoader." + std::string(fileData.cFileName));
 
-            file_name->erase(file_name->end() - 3, file_name->end());
-            CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, file_name, NULL, NULL);
+            // remove the extension
+            fileName->erase(fileName->end() - 3, fileName->end());
+            CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, fileName, NULL, NULL);
             Sleep(100);
-        } while (FindNextFile(dir, &file_data));
+        } while (FindNextFile(dir, &fileData));
     }
 
     while (true)
@@ -150,52 +165,67 @@ void PyLoader::PluginThread(void* param)
 
 int PyLoader::ExecuteScript(std::string *path)
 {
-    size_t scriptTicks = 0;
-    PyGILState_STATE gstate = PyGILState_Ensure();
+    PyGILState_STATE gState = PyGILState_Ensure();
     PyObject *pGlobal, *pLocal;
 
-    std::string filename = path->substr(path->find_last_of("/.") + 1);
-    std::string fullname = filename + ".py";
-    std::string file_path = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + fullname;
-    flog << "Loading script " << fullname << std::endl;
+    std::string fileName = path->substr(path->find_last_of("/.") + 1);
+    std::string fullName = fileName + ".py";
+    std::string filePath = std::string(plugin::paths::GetPluginDirPathA()) + "PyLoader\\" + fullName;
+    gLog << "Loading script " << fullName << std::endl;
 
-    FILE* fp = fopen(file_path.c_str(), "rb");
-    fseek(fp, 0, SEEK_END);
-    size_t len = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
+    // copy the file into a mem buffer
+    FILE* pFile = fopen(filePath.c_str(), "rb");
+    fseek(pFile, 0, SEEK_END);
+    size_t len = ftell(pFile);
+    fseek(pFile, 0, SEEK_SET);
     char* buf = (char*)malloc(len+1);
-    fread(buf, 1, len, fp);
+    fread(buf, 1, len, pFile);
     buf[len] = '\0';
-    fclose(fp);
+    fclose(pFile);
 
-    DWORD thread_id = GetCurrentThreadId();
-    ScriptData::Data* script_data = ScriptData::Get(thread_id);
-    script_data->file_name = fullname;
-    script_data->ticks = game_ticks;
-    script_data->pModule = PyModule_New(fullname.c_str());
+    DWORD threadId = GetCurrentThreadId();
+    ScriptData::Data* pScriptData = ScriptData::Get(threadId);
+    pScriptData->fileName = fullName;
+    pScriptData->m_nTicks = gGameTicks;
+    pScriptData->m_pModule = PyModule_New(fullName.c_str());
 
-    PyModule_AddStringConstant(script_data->pModule, "__name__", filename.c_str());
-    PyModule_AddStringConstant(script_data->pModule, "__file__", fullname.c_str());
+    PyModule_AddStringConstant(pScriptData->m_pModule, "__name__", fileName.c_str());
+    PyModule_AddStringConstant(pScriptData->m_pModule, "__file__", fullName.c_str());
 
     pGlobal = PyDict_New();
-    pLocal = PyModule_GetDict(script_data->pModule);
+    pLocal = PyModule_GetDict(pScriptData->m_pModule);
+
+    Py_XINCREF(pGlobal);
+    Py_XINCREF(pLocal);
 
     PyRun_String(buf, Py_file_input, pGlobal, pLocal);
     
-    if (script_data->exit_flag != EXITING_FLAGS::NORMAL_EXIT)
+
+    // Force shutdown spits out errors so let's clear those up
+    if (pScriptData->m_eExitFlags != EXITING_FLAGS::NORMAL_EXIT)
+    {
         PyErr_Clear();
+    }
 
-    if (PyEvents::ScriptTerminate(script_data->pModule) && PyErr_Occurred())
+    if (PyEvents::ScriptTerminate(pScriptData->m_pModule) && PyErr_Occurred())
+    {
         PyErr_Print();
+    }
 
-    if (script_data->exit_flag == EXITING_FLAGS::RELOADING)
+    if (pScriptData->m_eExitFlags == EXITING_FLAGS::RELOADING)
+    {
         CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, path, NULL, NULL);
+    }
     else
+    {
         delete path;
+    }
 
-    ScriptData::Remove(thread_id);
-
+    // cleanup
+    ScriptData::Remove(threadId);
     delete buf;
-    PyGILState_Release(gstate);
+    Py_XDECREF(pGlobal);
+    Py_XDECREF(pLocal);
+    PyGILState_Release(gState);
     return 0;
 }

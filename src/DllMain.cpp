@@ -15,7 +15,9 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved )
 			};
 		}
 		else
+		{
 			MessageBox(HWND_DESKTOP, "Unknown game version. GTA SA v1.0 US is required.", "PyLoader", MB_ICONERROR);
+		}
 	}
     return TRUE;
 }

@@ -37,15 +37,15 @@ public:
 
     ~CSoundSystem()
     {
-        flog << "Closing SoundSystem..." << std::endl;
+        gLog << "Closing SoundSystem..." << std::endl;
         UnloadAllStreams();
         if (initialized)
         {
-            flog << "Freeing BASS library" << std::endl;
+            gLog << "Freeing BASS library" << std::endl;
             BASS_Free();
             initialized = false;
         }
-        flog << "SoundSystem closed!" << std::endl;
+        gLog << "SoundSystem closed!" << std::endl;
     }
 
     CAudioStream * LoadStream(const char *filename, bool in3d = false);

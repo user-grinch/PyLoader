@@ -7,33 +7,43 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
     int ms;
     if (!PyArg_ParseTuple(args, "i", &ms))
+    {
         return PyBool_FromLong(0);
+    }
 
-    ScriptData::Data* script_data = ScriptData::Get(GetCurrentThreadId());
-    if (!script_data->events_registered)
+    ScriptData::Data* pScriptData = ScriptData::Get(GetCurrentThreadId());
+    if (!pScriptData->m_bEventsRegistered)
     {
         PyEvents::RegisterEvents();
         PyErr_Clear();
-        script_data->events_registered = true;
+        pScriptData->m_bEventsRegistered = true;
     }
 
-    if (script_data->exit_flag != EXITING_FLAGS::NORMAL_EXIT)
+    /*
+        We're terminating the script here if exit flag is set
+        This is probably an issue here if the script doesn't use wait at all!
+        Doing so also results in high cpu usage
+    */
+    if (pScriptData->m_eExitFlags != EXITING_FLAGS::NORMAL_EXIT)
     {
-        PyEvents::ScriptTerminate(script_data->pModule);
-        PyThreadState_SetAsyncExc(script_data->thread_id, PyExc_Exception);
+        PyEvents::ScriptTerminate(pScriptData->m_pModule);
+        PyThreadState_SetAsyncExc(pScriptData->m_nThreadId, PyExc_Exception);
         return PyBool_FromLong(1);
     }
 
-    while (script_data->ticks == game_ticks)
+    // syncing scripts cycles with game
+    // FIX FOR HIGH CPU USAGE
+    while (pScriptData->m_nTicks == gGameTicks)
     {
         PyRun_SimpleString("import time\ntime.sleep(0.01)");
     }
 
-    script_data->ticks = game_ticks;
+    pScriptData->m_nTicks = gGameTicks;
 
+    // Here, we're waiting the amount of time script requested
     if (ms != 0)
     {
-        std::string str = std::string("time.sleep(") + std::to_string(ms / 1000.0f) + ")";
+        std::string str = std::format("time.sleep(%f)", ms / 1000.0f);
         PyRun_SimpleString(str.c_str());
     }
 
@@ -42,7 +52,7 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 
 PyObject* PyCommon::GetPyLoaderVersion(PyObject* self, PyObject* args)
 {
-    return Py_BuildValue("s", plugin_ver);
+    return Py_BuildValue("s", gPluginVer);
 }
 
 PyObject* PyCommon::GetWorkingDir(PyObject* self, PyObject* args)
@@ -61,30 +71,40 @@ PyObject* PyCommon::KeyPressed(PyObject *self, PyObject *args)
 {
     int key;
     if (!PyArg_ParseTuple(args,"i", &key)) 
+    {
         return PyBool_FromLong(0);                               
+    }
     
     if (plugin::KeyPressed(key))
+    {
         return PyBool_FromLong(1);
+    }
     else
+    {
         return PyBool_FromLong(0);
+    }
 }
 
 PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)
 {
     // Hacky way to fix duplicate call?
-    static bool ignore_call = false;
+    static bool bIgnoreCall = false;
 
-    if (!ignore_call)
+    if (!bIgnoreCall)
     {
         char* text;
         if (!PyArg_ParseTuple(args, "s", &text))
+        {
             return NULL;
+        }
 
         ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
-        if (data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
-            flog << data->file_name << ": " << text  << std::endl;
+        if (data->m_eExitFlags == EXITING_FLAGS::NORMAL_EXIT)
+        {
+            gLog << data->fileName << ": " << text  << std::endl;
+        }
     }
-    ignore_call = !ignore_call;
+    bIgnoreCall = !bIgnoreCall;
 
     return Py_BuildValue("");
 }

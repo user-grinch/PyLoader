@@ -7,34 +7,36 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
 	{
 		data = ScriptData::Get(GetCurrentThreadId());
-		if (data->no_reload)
+		if (data->m_bNoReload)
 		{
-			flog << str << " has `no_reload` property set" << std::endl;
+			gLog << str << " has `no_reload` property set" << std::endl;
 			return PyBool_FromLong(0);
 		}
-		str = (char*)data->file_name.c_str();
+		str = (char*)data->fileName.c_str();
 	}
 	else
 	{
 		data = ScriptData::FindFromName(std::string(str));
 
-		if (data->no_reload)
+		if (data->m_bNoReload)
 		{
-			flog << str << " has `no_reload` property set" << std::endl;
+			gLog << str << " has `no_reload` property set" << std::endl;
 			return PyBool_FromLong(0);
 		}
 	}
 
-	if (data != NULL && data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
+	if (data != NULL && data->m_eExitFlags == EXITING_FLAGS::NORMAL_EXIT)
 	{
-		PyEvents::ScriptTerminate(data->pModule);
-		flog << "Unloading script " << str << std::endl;
+		PyEvents::ScriptTerminate(data->m_pModule);
+		gLog << "Unloading script " << str << std::endl;
 		ScriptData::Reload(str);
 
 		return PyBool_FromLong(1);
@@ -47,21 +49,25 @@ PyObject* PyScript::Unload(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
 	{
 		data = ScriptData::Get(GetCurrentThreadId());
-		str = (char*)data->file_name.c_str();
+		str = (char*)data->fileName.c_str();
 	}
 	else
-		data = ScriptData::FindFromName(std::string(str));
-
-	if (data != NULL && data->exit_flag == EXITING_FLAGS::NORMAL_EXIT)
 	{
-		PyEvents::ScriptTerminate(data->pModule);
-		flog << "Unloading script " << str << std::endl;
+		data = ScriptData::FindFromName(std::string(str));
+	}
+
+	if (data != NULL && data->m_eExitFlags == EXITING_FLAGS::NORMAL_EXIT)
+	{
+		PyEvents::ScriptTerminate(data->m_pModule);
+		gLog << "Unloading script " << str << std::endl;
 		ScriptData::Unload(str);
 
 		return PyBool_FromLong(1);
@@ -74,7 +80,9 @@ PyObject* PyScript::Load(PyObject* self, PyObject* args)
 {
 	char* str;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	std::string *file_name = new std::string(str);
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, file_name, NULL, NULL);
@@ -86,7 +94,9 @@ PyObject* PyScript::GetDesc(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 	
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
@@ -101,7 +111,9 @@ PyObject* PyScript::GetName(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
@@ -116,7 +128,9 @@ PyObject* PyScript::GetFileName(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
@@ -124,7 +138,7 @@ PyObject* PyScript::GetFileName(PyObject* self, PyObject* args)
 	else
 		data = ScriptData::FindFromName(std::string(str));
 
-	return Py_BuildValue("s", data->file_name.c_str());
+	return Py_BuildValue("s", data->fileName.c_str());
 }
 
 
@@ -132,7 +146,9 @@ PyObject* PyScript::GetAuthor(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
@@ -147,7 +163,9 @@ PyObject* PyScript::GetVersion(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "|s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = nullptr;
 	if (str == NULL || str[0] == '\0')
@@ -162,7 +180,9 @@ PyObject* PyScript::SetName(PyObject* self, PyObject* args)
 {
 	char* str;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
 	data->name = str;
@@ -174,7 +194,9 @@ PyObject* PyScript::SetDesc(PyObject* self, PyObject* args)
 {
 	char* str;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
 	data->desc = str;
@@ -186,7 +208,9 @@ PyObject* PyScript::SetAuthor(PyObject* self, PyObject* args)
 {
 	char* str;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
 	data->author = str;
@@ -198,7 +222,9 @@ PyObject* PyScript::SetVersion(PyObject* self, PyObject* args)
 {
 	char* str;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
 	data->version = str;
@@ -210,13 +236,15 @@ PyObject* PyScript::MinRequiredVersion(PyObject* self, PyObject* args)
 {
 	char* str = NULL;
 	if (!PyArg_ParseTuple(args, "s", &str))
+	{
 		return PyBool_FromLong(0);
+	}
 
 	ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
 
-	if (plugin_ver < std::string(str))
+	if (gPluginVer < std::string(str))
 	{
-		flog << data->file_name << " requires at least PyLoader v" << str << std::endl;
+		gLog << data->fileName << " requires at least PyLoader v" << str << std::endl;
 		return PyBool_FromLong(0);
 	}
 
@@ -238,7 +266,7 @@ PyObject* PyScript::SetProperties(PyObject* self, PyObject* args)
 		if (strcmp(property, "no_reload") == 0)
 		{
 			ScriptData::Data* data = ScriptData::Get(GetCurrentThreadId());
-			data->no_reload = true;
+			data->m_bNoReload = true;
 		}
 	}	
 

@@ -49,7 +49,7 @@ project "PyLoader"
         "src/depend/",
         PYTHON_DIR .. "/libs/"
     }
-    
+
     defines { 
         "NDEBUG",
         "GTASA",

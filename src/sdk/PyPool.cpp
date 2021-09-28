@@ -7,9 +7,10 @@ PyObject* PyPool::GetScriptPool(PyObject* self, PyObject* args)
     size_t size = ScriptData::scripts->size();
     PyObject* list = PyList_New(size);
     size_t index = 0;
+
     for (auto it = ScriptData::scripts->begin(); it != ScriptData::scripts->end(); ++it)
     {
-        PyList_SetItem(list, index, Py_BuildValue("s", (*it)->file_name.c_str()));
+        PyList_SetItem(list, index, Py_BuildValue("s", (*it)->fileName.c_str()));
         ++index;
     }
 
@@ -21,7 +22,9 @@ PyObject* PyPool::GetVehPool(PyObject* self, PyObject* args)
     size_t size = 0;
 
     for (CVehicle* pVeh : CPools::ms_pVehiclePool)
+    {
         ++size;
+    }
 
     PyObject* list = PyList_New(size);
     size_t index = 0;
@@ -40,7 +43,9 @@ PyObject* PyPool::GetPedPool(PyObject* self, PyObject* args)
     size_t size = 0;
 
     for (CPed* ele : CPools::ms_pPedPool)
+    {
         ++size;
+    }
 
     PyObject* list = PyList_New(size);
     size_t index = 0;
@@ -59,7 +64,9 @@ PyObject* PyPool::GetBuildingPool(PyObject* self, PyObject* args)
     size_t size = 0;
 
     for (CBuilding* ele : CPools::ms_pBuildingPool)
+    {
         ++size;
+    }
 
     PyObject* list = PyList_New(size);
     size_t index = 0;
@@ -78,7 +85,9 @@ PyObject* PyPool::GetObjectPool(PyObject* self, PyObject* args)
     size_t size = 0;
 
     for (CObject* ele : CPools::ms_pObjectPool)
+    {
         ++size;
+    }
 
     PyObject* list = PyList_New(size);
     size_t index = 0;
