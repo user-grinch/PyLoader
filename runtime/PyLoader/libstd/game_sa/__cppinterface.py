@@ -7,17 +7,26 @@ from typing import TypeVar, Generic, Union, Optional, Any
 T = TypeVar('T')
 pointer = int
 
+class eClassType(Enum):
+    GAME = 0
+    PYTHON = 1
+
 
 class GTAClass:
     def __init__(self, address: Optional[int] = None):
-        self.__address = address
+        self._address = address
 
     @property
     def address(self) -> int:
-        return self.__address
+        return self._address
+
+    @property
+    def class_type(self) -> eClassType:
+        if self.address:
+            return eClassType.GAME
+        return eClassType.PYTHON
 
     def write_to_address(self, address: int):
-        assert self.address, "You can't write directly a python class to a memory address"
         static_type_check(int, address)
 
 
@@ -62,3 +71,23 @@ def write_string_to_memory(address: int, val, size=-1):
 
 def integer_or_enum(value: Union[int, Enum]):
     return value.value if issubclass(type(value), Enum) else value
+
+
+def to_signed(val: int, size: int = 4) -> int:
+    if size == 1:
+        return val - 0x100
+    if size == 2:
+        return val - 0x10000
+    if size == 4:
+        return val - 0x100000000
+    return val
+
+
+def to_unsigned(val: int, size: int = 4) -> int:
+    if size == 1:
+        return val + 0x100
+    if size == 2:
+        return val + 0x10000
+    if size == 4:
+        return val + 0x100000000
+    return val

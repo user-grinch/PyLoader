@@ -54,7 +54,7 @@ class CSprite2d(GTAClass):
                         modeV: Union[RwTextureAddressMode, int]):
         static_type_check(RwTextureAddressMode, modeU)
         static_type_check(RwTextureAddressMode, modeV)
-        call_method(0x727270, self.address, 2, 2, integer_or_enum(modeU), integer_or_enum((modeV)))
+        call_method(0x727270, self.address, 2, 2, integer_or_enum(modeU), integer_or_enum(modeV))
 
     def SetAddressing(self, modeUV: Union[RwTextureAddressMode, int]):
         static_type_check(RwTextureAddressMode, modeUV)
