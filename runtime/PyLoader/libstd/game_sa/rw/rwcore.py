@@ -3,20 +3,194 @@ from libstd.game_sa._cppinterface import *
 from libstd.game_sa.rw.rwplcore import *
 
 # TYPEDEFS (only for further references)
-RwRaster = type()
-RwTexDictionary = type()
-RwTexture = type()
+class RwRaster: pass
+class RwTexture: pass
+class RwTexDictionary: pass
 # END_TYPEDEFS
 
 
 class RwRaster(gtaclass):
-    SIZE = None
+    ######################
+    # RwRaster base info
+    ######################
+    SIZE = 0x34  # 52 bytes
 
     def __init__(self, addr):
         super().__init__(addr)
     
     def write_to_address(self, address):
-        pass
+        write_memory(address +  0x0, 4, self.m_pParent, True)
+        write_memory(address +  0x4, 4, self.m_apPixels, True)
+        write_memory(address +  0x8, 4, self.m_apPalette, True)
+        write_memory(address +  0xC, 4, self.m_nWidth, True)
+        write_memory(address + 0x10, 4, self.m_nHeight, True)
+        write_memory(address + 0x14, 4, self.m_nDepth, True)
+        write_memory(address + 0x18, 4, self.m_nStride, True)
+        write_memory(address + 0x1C, 2, self.m_nOffsetX, True)
+        write_memory(address + 0x1E, 2, self.m_nOffsetY, True)
+        write_memory(address + 0x20, 1, self.m_nType, True)
+        write_memory(address + 0x21, 1, self.m_nFlags, True)
+        write_memory(address + 0x22, 1, self.m_nPrivateFlags, True)
+        write_memory(address + 0x23, 1, self.m_nFormat, True)
+        write_memory(address + 0x24, 4, self.m_apOriginalPixels, True)
+        write_memory(address + 0x28, 4, self.m_nOriginalWidth, True)
+        write_memory(address + 0x2C, 4, self.m_nOriginalHeight, True)
+        write_memory(address + 0x30, 4, self.m_nOriginalStride, True)
+
+
+    ######################
+    # RwRaster class fields
+    ######################
+    @property  # RwRaster* m_pParent  @0x0_4
+    def m_pParent(self) -> RwRaster:
+        return RwRaster(read_memory(self.address, 4, True))
+    @m_pParent.setter
+    def m_pParent(self, val: RwRaster):
+        check_func_type(RwRaster, val)
+        write_memory(self.address, 4, val.address, True)
+    
+    @property  # RwUInt8* m_apPixels  @0x4_4
+    def m_apPixels(self) -> pointer:
+        return read_memory(self.address + 0x4, 4, True)
+    @m_apPixels.setter
+    def m_apPixels(self, val: pointer):
+        check_func_type(pointer, val)
+        write_memory(self.address + 0x4, 4, val, True)
+    
+    @property  # RwUInt8* m_apPalette  @0x8_4
+    def m_apPalette(self) -> pointer:
+        return read_memory(self.address + 0x8, 4, True)
+    @m_apPalette.setter
+    def m_apPalette(self, val: pointer):
+        check_func_type(pointer, val)
+        write_memory(self.address + 0x8, 4, val, True)
+    
+    @property # RwInt32 m_nWidth  @0xC_4
+    def m_nWidth(self) -> int:
+        return read_memory(self.address + 0xC, 4, True)
+    @m_nWidth.setter
+    def m_nWidth(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0xC, 4, val, True)
+
+    @property # RwInt32 m_nHeight  @0x10_4
+    def m_nHeight(self) -> int:
+        return read_memory(self.address + 0x10, 4, True)
+    @m_nHeight.setter
+    def m_nHeight(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x10, 4, val, True)
+
+    @property # RwInt32 m_nDepth  @0x14_4
+    def m_nDepth(self) -> int:
+        return read_memory(self.address + 0x14, 4, True)
+    @m_nDepth.setter
+    def m_nDepth(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x14, 4, val, True)
+    
+    @property # RwInt32 m_nStride  @0x18_4
+    def m_nStride(self) -> int:
+        return read_memory(self.address + 0x18, 4, True)
+    @m_nStride.setter
+    def m_nStride(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x18, 4, val, True)
+
+    @property # RwInt16 m_nOffsetX  @0x1C_2
+    def m_nOffsetX(self) -> int:
+        return read_memory(self.address + 0x1C, 2, True)
+    @m_nOffsetX.setter
+    def m_nOffsetX(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x1C, 2, val, True)
+    
+    @property # RwInt16 m_nOffsetY  @0x1E_2
+    def m_nOffsetY(self) -> int:
+        return read_memory(self.address + 0x1E, 2, True)
+    @m_nOffsetY.setter
+    def m_nOffsetY(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x1E, 2, val, True)
+    
+    @property # RwUInt8 m_nType  @0x20_1
+    def m_nType(self) -> int:
+        return read_memory(self.address + 0x20, 1, True)
+    @m_nType.setter
+    def m_nType(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x20, 1, val, True)
+
+    @property # RwUInt8 m_nFlags  @0x21_1
+    def m_nFlags(self) -> int:
+        return read_memory(self.address + 0x21, 1, True)
+    @m_nFlags.setter
+    def m_nFlags(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x21, 1, val, True)
+
+    @property # RwUInt8 m_nPrivateFlags  @0x22_1
+    def m_nPrivateFlags(self) -> int:
+        return read_memory(self.address + 0x22, 1, True)
+    @m_nPrivateFlags.setter
+    def m_nPrivateFlags(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x22, 1, val, True)
+    
+    @property # RwUInt8 m_nFormat  @0x23_1
+    def m_nFormat(self) -> int:
+        return read_memory(self.address + 0x23, 1, True)
+    @m_nFormat.setter
+    def m_nFormat(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x23, 1, val, True)
+
+    @property  # RwUInt8* m_apOriginalPixels  @0x24_4
+    def m_apOriginalPixels(self) -> pointer:
+        return read_memory(self.address + 0x24, 4, True)
+    @m_apOriginalPixels.setter
+    def m_apOriginalPixels(self, val: pointer):
+        check_func_type(pointer, val)
+        write_memory(self.address + 0x4, 24, val, True)
+
+    @property # RwInt32 m_nOriginalWidth  @0x28_4
+    def m_nOriginalWidth(self) -> int:
+        return read_memory(self.address + 0x28, 4, True)
+    @m_nOriginalWidth.setter
+    def m_nOriginalWidth(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x28, 4, val, True)
+    
+    @property # RwInt32 m_nOriginalHeight  @0x2C_4
+    def m_nOriginalHeight(self) -> int:
+        return read_memory(self.address + 0x2C, 4, True)
+    @m_nOriginalHeight.setter
+    def m_nOriginalHeight(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x2C, 4, val, True)
+
+    @property # RwInt32 m_nOriginalStride  @0x30_4
+    def m_nOriginalStride(self) -> int:
+        return read_memory(self.address + 0x30, 4, True)
+    @m_nOriginalStride.setter
+    def m_nOriginalStride(self, val: int):
+        check_func_type(int, val)
+        write_memory(self.address + 0x30, 4, val, True)
+
+    ######################
+    # RwRaster RenderWare API functions
+    ######################
+    @staticmethod
+    def Create(width: int, height: int, depth: int, flags: int) -> RwRaster:
+        check_func_type(int, width)
+        check_func_type(int, height)
+        check_func_type(int, depth)
+        check_func_type(int, flags)
+        return RwRaster(call_function(0x7FB230, 4, 4, width, height, depth, flags))
+    
+    def Destroy(self) -> bool:
+        return bool(call_function(0x7FB020, 1, 1, self.address))
+
 
 
 class RwTexDictionary(gtaclass):
@@ -197,8 +371,8 @@ class RwTexture(gtaclass):
     ######################
     # RwTexture RenderWare API functions
     ######################
-    @classmethod
-    def Create(cls, raster: RwRaster) -> RwTexture:
+    @staticmethod
+    def Create(raster: RwRaster) -> RwTexture:
         check_func_type(RwRaster, raster)
         return RwTexture(call_function(0x7F37C0, 1, 1, raster.address))
     

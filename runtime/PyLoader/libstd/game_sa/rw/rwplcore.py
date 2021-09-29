@@ -2,9 +2,9 @@ from __future__ import annotations
 from libstd.game_sa._cppinterface import *
 
 # TYPEDEFS (only for further references)
-RwObject = type()
-RwLLLink = type()
-RwLinkList = type()
+class RwObject: pass
+class RwLLLink: pass
+class RwLinkList: pass
 # END_TYPEDEFS
 
 
