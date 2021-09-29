@@ -3,7 +3,7 @@ sys.path.append("../libstd")
 
 import opcodes, cleo
 
-class Character():
+class Ped():
     def __init__(self, model, ped_type, x, y, z):
         self.handle = opcodes.create_char(model, ped_type, x, y, z)
     def remove(self):
