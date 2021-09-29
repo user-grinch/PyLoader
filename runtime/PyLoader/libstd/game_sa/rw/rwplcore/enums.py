@@ -1,0 +1,9 @@
+from enum import Enum
+
+
+class RwTextureAddressMode(Enum):
+    rwTEXTUREADDRESSNATEXTUREADDRESS = 0
+    rwTEXTUREADDRESSWRAP = 1
+    rwTEXTUREADDRESSMIRROR = 2
+    rwTEXTUREADDRESSCLAMP = 3
+    rwTEXTUREADDRESSBORDER = 4
