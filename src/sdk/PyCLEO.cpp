@@ -342,7 +342,7 @@ PyObject* PyCLEO::GetTargetMarkerCoords(PyObject* self, PyObject* args)
 
 		return Py_BuildValue("fff", pos.x, pos.y, pos.z);
 	}
-	return Py_BuildValue("iii", -1, -1, -1);
+	return Py_BuildValue("iii", 0, 0, 0);
 }
 
 PyObject* PyCLEO::GetVehicleNumberOfGears(PyObject* self, PyObject* args)

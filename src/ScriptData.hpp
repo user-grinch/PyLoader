@@ -78,7 +78,7 @@ public:
             // return the exisitng data 
             if ((*it)->m_nThreadId == thread_id)
             {
-                Py_XDECREF((*it)->pModule);
+                Py_XDECREF((*it)->m_pModule);
                 scripts->erase(it);
                 break;
             }

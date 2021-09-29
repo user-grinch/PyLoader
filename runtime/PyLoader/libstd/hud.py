@@ -5,6 +5,7 @@
 import ctypes, cleo
 
 class Hud:
+    # Usage var_name.value
     m_BigMessage = ctypes.c_char.from_address(0xBAACC0) # char[128]
     bScriptDontDisplayAreaName = ctypes.c_bool.from_address(0xBAA3F8)
     bScriptDontDisplayVehicleName = ctypes.c_bool.from_address(0xBAA3F9)
