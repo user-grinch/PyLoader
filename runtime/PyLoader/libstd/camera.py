@@ -1,8 +1,6 @@
-import sys
-sys.path.append("../libstd")
+import libstd.opcodes as opcodes
 
-import opcodes, cleo
-
+# TODO: Merge this with CCamera later
 class Camera():
     '''both point_at and set_position should be properly called'''
     
