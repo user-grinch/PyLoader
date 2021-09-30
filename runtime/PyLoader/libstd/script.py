@@ -1,7 +1,3 @@
-# Function definations for the intellisense
-# Author: Grinch_
-# Last updated on: 06/06/2021
-
 import _script
 
 def get_author(script_file_name : str = "") -> str:

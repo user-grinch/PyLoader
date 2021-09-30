@@ -53,3 +53,54 @@ def write_string_to_memory(address: int, val, size = -1):
         write_memory(address + idx, 1, ord(val[idx]), True)
         idx += 1
     write_memory(address + idx, 1, 0, True)
+
+class mem_handler(object):
+    
+    # Using int as a placeholder for all other types
+    T = TypeVar('T', str, int, float)
+
+    def __init__(self, addr :int, size :int, type : T = int):
+        self.__addr = addr
+        self.__size = size
+        self.__type = type
+    
+    @property 
+    def var(self):
+        if (self.__type == float):
+            return read_float(self.__addr, True)
+        elif (self.__type == str):
+            return read_string_from_memory(self.__addr, self.__size)
+        else:
+            return read_memory(self.__addr, self.__size, True)
+    
+    @var.setter
+    def var(self, val):
+        if (self.__type == float):
+            write_float(self.__addr, val, True)
+        elif (self.__type == str):
+            write_string_to_memory(self.__addr, self.__size)
+        else:
+            write_memory(self.__addr, self.__size, val, True)
+    
+    ###########################
+    # Handling arrays here
+    ###########################
+    def __setitem__(self, key, value):
+        if self.__type == list:
+            root_addr = self.__addr
+            self.__addr += key * self.__size
+            var =  value
+            self.__addr = root_addr
+        else:
+            ValueError("Cannot set item in non-array type")
+
+    def __getitem__(self, key):
+        if self.__type == list:
+            root_addr = self.__addr
+            self.__addr += key * self.__size
+            value = self.var
+            self.__addr = root_addr
+
+            return value
+        else:
+            ValueError("Cannot get item in non-array type")

@@ -1,7 +1,3 @@
-# Function definations for the intellisense
-# Author: Grinch_
-# Last updated on: 29/09/2021
-
 import _events
 
 def on_script_terminate(error_occured: bool):

@@ -1,6 +1,3 @@
-# VK Codes for the intellisense
-# Last updated on: 29/09/2021
-
 class keys():
     VK_LBUTTON = 0x01 
     VK_RBUTTON = 0x02 

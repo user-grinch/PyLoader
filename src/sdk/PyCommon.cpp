@@ -43,7 +43,7 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
     // Here, we're waiting the amount of time script requested
     if (ms != 0)
     {
-        std::string str = std::format("time.sleep(%f)", ms / 1000.0f);
+        std::string str = std::format("time.sleep({})", ms / 1000.0f);
         PyRun_SimpleString(str.c_str());
     }
 

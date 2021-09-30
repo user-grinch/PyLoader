@@ -13,5 +13,5 @@
 #include <plugin.h>
 
 constexpr const char* gPluginVer = "0.08";
-static inline size_t gGameTicks;
-static inline std::ofstream gLog("PyLoader.log");;
+extern size_t gGameTicks;
+extern std::ofstream gLog;

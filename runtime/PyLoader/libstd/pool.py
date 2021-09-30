@@ -1,7 +1,3 @@
-# Function definations for the intellisense
-# Author: Grinch_
-# Last updated on: 05/06/2021
-
 import _pool
 
 class pool_base():
