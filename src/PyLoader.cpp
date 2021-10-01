@@ -11,7 +11,7 @@
 #include "sdk/PyPool.h"
 #include "sdk/PyBass.h"
 #include "PyEvents.h"
-#include "CSoundSystem.h"
+#include "SoundSystem.h"
 
 CSoundSystem SoundSystem;
 

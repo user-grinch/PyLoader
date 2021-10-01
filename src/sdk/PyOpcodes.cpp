@@ -15547,13 +15547,13 @@ PyObject* PyOpcodes::SetVehicleAreaVisible(PyObject* self, PyObject* args)
 	int var1;
 	int var2;
 
-	if (!PyArg_ParseTuple(args, "i", &var1))
+	if (!PyArg_ParseTuple(args,"ii", &var1, &var2))
 	{
 		return PyBool_FromLong(0);
 	}
-
-	plugin::Command<plugin::Commands::SET_VEHICLE_AREA_VISIBLE>(var1, &var2);
-	return Py_BuildValue("i", var2);
+		
+	plugin::Command<plugin::Commands::SET_VEHICLE_AREA_VISIBLE>(var1, var2);
+	return PyBool_FromLong(1);
 }
 
 PyObject* PyOpcodes::SelectWeaponsForVehicle(PyObject* self, PyObject* args)

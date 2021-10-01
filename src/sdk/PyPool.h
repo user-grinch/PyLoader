@@ -14,14 +14,14 @@ private:
 
     static inline PyMethodDef Methods[] =
     {
-        {"_get_building_pool", GetBuildingPool, METH_VARARGS},
-        {"_get_obj_pool", GetObjectPool, METH_VARARGS},
-        {"_get_ped_pool", GetPedPool, METH_VARARGS},
-        {"_get_script_pool", GetScriptPool, METH_VARARGS},
-        {"_get_veh_pool", GetVehPool, METH_VARARGS},
+        {"get_building_pool", GetBuildingPool, METH_VARARGS},
+        {"get_obj_pool", GetObjectPool, METH_VARARGS},
+        {"get_ped_pool", GetPedPool, METH_VARARGS},
+        {"get_script_pool", GetScriptPool, METH_VARARGS},
+        {"get_veh_pool", GetVehPool, METH_VARARGS},
         {} // sentinel
     };
-    static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "_internal", NULL, -1, Methods, NULL, NULL, NULL, NULL };
+    static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "_pool", NULL, -1, Methods, NULL, NULL, NULL, NULL };
 
 
 public:

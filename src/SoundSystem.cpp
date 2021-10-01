@@ -3,7 +3,7 @@
 * This part of the source is taken from the CLEO4 Project
 * https://github.com/cleolibrary/CLEO4
 */
-#include "CSoundSystem.h"
+#include "SoundSystem.h"
 #include "depend/bass.h"
 #include <windows.h>
 

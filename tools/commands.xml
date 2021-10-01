@@ -11210,7 +11210,7 @@
     <Command ID="0x840" Name="SET_VEHICLE_AREA_VISIBLE">
       <Args>
         <Arg Type="INT" Entity="CAR"/>
-        <Arg Type="INT" Out="true"/>
+        <Arg Type="INT"/>
       </Args>
     </Command>
     <Command ID="0x841" Name="SELECT_WEAPONS_FOR_VEHICLE">

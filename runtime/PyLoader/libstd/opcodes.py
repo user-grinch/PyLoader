@@ -4285,9 +4285,9 @@ def get_car_upright_value(hveh: int) -> float:
 	'''More info: https://gtamods.com/wiki/083F https://gtagmodding.com/opcode-database/opcode/083F'''
 	return _opcodes.get_car_upright_value(hveh)
 
-def set_vehicle_area_visible(hveh: int) -> int:
+def set_vehicle_area_visible(hveh: int, interior: int) -> int:
 	'''More info: https://gtamods.com/wiki/0840 https://gtagmodding.com/opcode-database/opcode/0840'''
-	return _opcodes.set_vehicle_area_visible(hveh)
+	return _opcodes.set_vehicle_area_visible(hveh, interior)
 
 def select_weapons_for_vehicle(hveh: int, state: int) -> None:
 	'''More info: https://gtamods.com/wiki/0841 https://gtagmodding.com/opcode-database/opcode/0841'''
