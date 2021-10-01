@@ -20,36 +20,36 @@ class CClock:
     ms_nMillisecondsPerGameMinute = mem_handler(0xB7015C, 4) 
 
     # Returns number of minutes to specified hour & minute.
-    def GetGameClockMinutesUntil(hours :int, minutes :int):
+    def GetGameClockMinutesUntil(self, hours :int, minutes :int):
         return cleo.call_function(0x52CEB0, 2, 0, hours, minutes)
 
     # Returns true current hour is in range of two specified hours.
-    def GetIsTimeInRange(hourA :int, hourB :int):
+    def GetIsTimeInRange(self, hourA :int, hourB :int):
         return cleo.call_function(0x52CEE0, 2, 0, hourA, hourB)
 
-    def Initialise(milisecondsPerGameMinute :int):
+    def Initialise(self, milisecondsPerGameMinute :int):
         cleo.call_function(0x52CD90, 1, 0, milisecondsPerGameMinute)
 
     # Normalizes game clock
     # For example hour of 24 means new day and hour 1.
-    def NormaliseGameClock():
+    def NormaliseGameClock(self):
         cleo.call_function(0x52CDE0, 1, 0)
 
     # Sets new day
     # Directions (0 = one day backwards, 1 = one day forwards)
-    def OffsetClockByADay(timeDirection :int):
+    def OffsetClockByADay(self, timeDirection :int):
         cleo.call_function(0x52D0B0, 1, 0, timeDirection)
 
-    def RestoreClock(): 
+    def RestoreClock(self): 
         cleo.call_function(0x52D070, 0, 0)
 
-    def SetGameClock(hours, minutes, day):
+    def SetGameClock(self, hours, minutes, day):
         cleo.call_function(0x52D150, 3, 0, hours, minutes, day)
 
-    def StoreClock():
+    def StoreClock(self):
         cleo.call_function(0x52D020, 0, 0)
 
-    def Update():
+    def Update(self):
         cleo.call_function(0x52CF10, 0, 0)
 
 # Create instance

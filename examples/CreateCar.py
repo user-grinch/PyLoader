@@ -1,7 +1,7 @@
 import libstd.common as common
 import libstd.opcodes as opcodes
-import libstd.hud as hud
 import libstd.script as script
+from libstd.game_sa.hud import *
 
 script.name("CreateCar")
 script.author("Grinch_")
@@ -16,7 +16,7 @@ while True:
 
         handle = opcodes.get_player_char(0)
         if opcodes.is_char_in_any_car(handle):
-            hud.set_help_message("Already in a car", False, False, False)
+            CHud.set_help_message("Already in a car")
         else:
             opcodes.request_model(400)
             opcodes.load_all_models_now()
