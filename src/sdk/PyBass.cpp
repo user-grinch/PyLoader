@@ -1,5 +1,5 @@
 #include "PyBass.h"
-#include "../CSoundSystem.h"
+#include "../SoundSystem.h"
 
 PyObject* PyBass::Init(void)
 {

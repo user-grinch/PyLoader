@@ -2,6 +2,7 @@
 #include "../ScriptData.hpp"
 #include <frameobject.h>
 #include "../PyEvents.h"
+#include "CTimer.h"
 
 PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
@@ -11,6 +12,7 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
         return PyBool_FromLong(0);
     }
 
+
     ScriptData::Data* pScriptData = ScriptData::Get(GetCurrentThreadId());
     if (!pScriptData->m_bEventsRegistered)
     {
@@ -18,6 +20,8 @@ PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
         PyErr_Clear();
         pScriptData->m_bEventsRegistered = true;
     }
+
+    pScriptData->lastWaitTimer = CTimer::m_snTimeInMilliseconds;
 
     /*
         We're terminating the script here if exit flag is set

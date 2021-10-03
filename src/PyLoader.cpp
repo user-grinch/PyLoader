@@ -12,6 +12,7 @@
 #include "sdk/PyBass.h"
 #include "PyEvents.h"
 #include "SoundSystem.h"
+#include "CTimer.h"
 
 CSoundSystem SoundSystem;
 
@@ -157,7 +158,18 @@ void PyLoader::PluginThread(void* param)
 
     while (true)
     {   
-        Sleep(10000);
+        // Check for infinite looping scripts
+        for (auto it = ScriptData::scripts->begin(); it != ScriptData::scripts->end(); ++it)
+        {
+            if (CTimer::m_snTimeInMilliseconds - (*it)->lastWaitTimer > 2000)
+            {
+                gLog << "Force shutdown " << (*it)->name << ". Infinite loop." << std::endl;
+                (*it)->m_eExitFlags = EXITING_FLAGS::UNLOADING;
+                PyThreadState_SetAsyncExc((*it)->m_nThreadId, PyExc_Exception);
+            }
+        }
+
+        Sleep(2500);
     }
     
     Py_Finalize();

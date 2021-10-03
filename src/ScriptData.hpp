@@ -22,6 +22,7 @@ public:
         bool m_bNoReload = false;
         EXITING_FLAGS m_eExitFlags = EXITING_FLAGS::NORMAL_EXIT;
         std::string name, fileName, author, version, desc;
+        size_t lastWaitTimer = NULL; // used to terminate infinite looping scripts
     };
     static inline std::vector<Data*>* scripts = nullptr;
 

@@ -17,7 +17,7 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 		data = ScriptData::Get(GetCurrentThreadId());
 		if (data->m_bNoReload)
 		{
-			gLog << str << " has `no_reload` property set" << std::endl;
+			gLog << str << " has 'no_reload' property set" << std::endl;
 			return PyBool_FromLong(0);
 		}
 		str = (char*)data->fileName.c_str();
