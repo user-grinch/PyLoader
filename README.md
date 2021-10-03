@@ -8,6 +8,8 @@ This is a **.asi** plugin that allows writing custom Python scripts for GTA SanA
 **Sample scripts**: [here](https://github.com/user-grinch/PyLoaderSA/tree/master/examples)  
 **Plugin template**: [here](https://github.com/user-grinch/PyLoaderSA/tree/plugin-template)  
 
+[![Discord Banner 2](https://discordapp.com/api/guilds/689515979847237649/widget.png?style=banner2)](https://discord.com/invite/ZzW7kmf)
+
 ## Installation
 
 1. You need gta_sa v1.0 US version of the game.
