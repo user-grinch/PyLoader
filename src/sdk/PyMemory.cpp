@@ -90,7 +90,7 @@ PyObject* PyMemory::WriteFloat(PyObject* self, PyObject* args)
     float val = NULL;
     int vp = NULL;
 
-    if (!PyArg_ParseTuple(args, "iifi", &addr, &size, &val, &vp))
+    if (!PyArg_ParseTuple(args, "ifi", &addr, &val, &vp))
     {
         return PyBool_FromLong(0);
     }
@@ -140,7 +140,7 @@ PyObject* PyMemory::GetRaw(PyObject* self, PyObject* args)
     int vp = NULL;
     char* data = nullptr;
 
-    if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &vp))
+    if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
     {
         return PyBool_FromLong(0);
     }
