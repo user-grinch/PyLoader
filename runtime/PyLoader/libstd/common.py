@@ -25,3 +25,8 @@ def wait(time_ms: int = 0):
     '''Freezes the script for specified amount of time. Must be used inside each loop'''
     
     _common.wait(time_ms)
+
+def test_cheat(cheat :str) -> bool:
+	'''Checks whether the particular character sequence was pressed'''
+
+	return _common.test_cheat(cheat)

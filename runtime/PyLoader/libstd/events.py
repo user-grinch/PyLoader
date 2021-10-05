@@ -29,15 +29,15 @@ def on_ped_destroy(hped :int) -> None:
     pass
 
 def on_obj_create(hobj :int) -> None:
-    '''Called after a new object is created'''
+    '''Called after a new object is created. Doesn't work with SilentPatch'''
     pass
 
 def on_obj_render(hobj :int) -> None:
-    '''Called when a object is being rendered'''
+    '''Called when a object is being rendered. Doesn't work with SilentPatch'''
     pass
 
 def on_obj_destroy(hobj :int) -> None:
-    '''Called before a object is destroyed'''
+    '''Called before a object is destroyed. Doesn't work with SilentPatch'''
     pass
 
 def on_game_restart() -> None:

@@ -3,6 +3,7 @@
 #include <frameobject.h>
 #include "../PyEvents.h"
 #include "CTimer.h"
+#include "CCheat.h"
 
 PyObject* PyCommon::Wait(PyObject* self, PyObject* args)
 {
@@ -87,6 +88,42 @@ PyObject* PyCommon::KeyPressed(PyObject *self, PyObject *args)
     {
         return PyBool_FromLong(0);
     }
+}
+
+PyObject* PyCommon::TestCheat(PyObject* self, PyObject* args)
+{
+	char* text;
+
+	if (!PyArg_ParseTuple(args, "s", &text))
+	{
+		return PyBool_FromLong(0);
+	}
+	
+	std::string str = text;
+	std::string cheatstring = CCheat::m_CheatString;
+
+	// reverse + upper
+	size_t size = str.size()-1;
+	for (size_t i = size; i != int(size/2); --i)
+	{
+		char temp = ' ';
+		temp = str[size - i];
+		str[size - i] = toupper(str[i]);
+		str[i] = toupper(temp);
+	}
+
+	if (size % 2 == 0)
+	{
+		str[size / 2] = toupper(str[size / 2]);
+	}
+
+	if (cheatstring.find(str) != std::string::npos)
+	{
+		CCheat::m_CheatString[0] = '\0';
+		return Py_BuildValue("i", 1);
+	}
+
+	return Py_BuildValue("i", 0);
 }
 
 PyObject* PyCommon::WriteStream(PyObject* self, PyObject* args)

@@ -4,6 +4,11 @@
 class PyMemory
 {
 private:
+    static PyObject* _FreeLibrary(PyObject* self, PyObject* args);
+    static PyObject* _GetProcAddress(PyObject* self, PyObject* args);
+    static PyObject* _LoadLibrary(PyObject* self, PyObject* args);
+    static PyObject* CallFunction(PyObject* self, PyObject* args);
+    static PyObject* CallMethod(PyObject* self, PyObject* args);
     static PyObject* GetRaw(PyObject* self, PyObject* args);
     static PyObject* Nop(PyObject* self, PyObject* args);
     static PyObject* PutRetn(PyObject* self, PyObject* args);
@@ -15,6 +20,11 @@ private:
 
     static inline PyMethodDef Methods[] = 
     {
+        {"free_library", _FreeLibrary, METH_VARARGS},
+        {"get_proc_address", _GetProcAddress, METH_VARARGS},
+        {"load_library", _LoadLibrary, METH_VARARGS},
+        {"call_function", CallFunction, METH_VARARGS},
+        {"call_method", CallMethod, METH_VARARGS},
         {"get_raw", GetRaw, METH_VARARGS},
         {"nop", Nop, METH_VARARGS},
         {"put_retn", PutRetn, METH_VARARGS},

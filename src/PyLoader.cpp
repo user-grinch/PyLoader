@@ -5,7 +5,7 @@
 #include "depend/jute.h"
 #include "sdk/PyCommon.h"
 #include "sdk/PyOpcodes.h"
-#include "sdk/PyCLEO.h"
+#include "sdk/PyAddition.h"
 #include "sdk/PyMemory.h"
 #include "sdk/PyScript.h"
 #include "sdk/PyPool.h"
@@ -129,7 +129,7 @@ void PyLoader::PyMain(void* param)
     PyImport_AppendInittab("_common", &PyCommon::Init);
     PyImport_AppendInittab("_memory", &PyMemory::Init);
     PyImport_AppendInittab("_opcodes", &PyOpcodes::Init);
-    PyImport_AppendInittab("_cleo", &PyCLEO::Init);
+    PyImport_AppendInittab("_addition", &PyAddition::Init);
     PyImport_AppendInittab("_script", &PyScript::Init);
     PyImport_AppendInittab("_pool", &PyPool::Init);
     

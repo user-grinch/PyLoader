@@ -3,14 +3,9 @@
 #include <extensions/ScriptCommands.h>
 #include <extensions/scripting/ScriptCommandNames.h>
 
-class PyCLEO
+class PyAddition
 {
 private:
-    static PyObject* _FreeLibrary(PyObject* self, PyObject* args);
-    static PyObject* _GetProcAddress(PyObject* self, PyObject* args);
-    static PyObject* _LoadLibrary(PyObject* self, PyObject* args);
-    static PyObject* CallFunction(PyObject* self, PyObject* args);
-    static PyObject* CallMethod(PyObject* self, PyObject* args);
     static PyObject* GetCarHandle(PyObject* self, PyObject* args);
     static PyObject* GetCarPointer(PyObject* self, PyObject* args);
     static PyObject* GetCharHandle(PyObject* self, PyObject* args);
@@ -31,14 +26,9 @@ private:
     static PyObject* GetVehicleModelFromName(PyObject* self, PyObject* args);
     static PyObject* GetVehicleModelName(PyObject* self, PyObject* args);
     static PyObject* SetVehicleEngineState(PyObject* self, PyObject* args);
-    static PyObject* TestCheat(PyObject* self, PyObject* args);
 
     static inline PyMethodDef Methods[] =
     {
-        {"call_function", CallFunction, METH_VARARGS},
-        {"call_method", CallMethod, METH_VARARGS},
-        {"free_library", _FreeLibrary, METH_VARARGS},
-        {"get_proc_address", _GetProcAddress, METH_VARARGS},
         {"get_car_handle", GetCarHandle, METH_VARARGS},
         {"get_car_pointer", GetCarPointer, METH_VARARGS},
         {"get_char_handle", GetCharHandle, METH_VARARGS},
@@ -58,9 +48,7 @@ private:
         {"is_vehicle_engine_on", IsVehicleEngineOn, METH_VARARGS},
         {"is_vehicle_siren_on", IsVehicleSirenOn, METH_VARARGS},
         {"get_largest_gangid_in_zone", GetLargestGangIdInZone, METH_VARARGS},
-        {"load_library", _LoadLibrary, METH_VARARGS},
         {"set_vehicle_engine_state", SetVehicleEngineState, METH_VARARGS},
-        {"test_cheat", TestCheat, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef Module = { PyModuleDef_HEAD_INIT, "cleo", NULL, -1, Methods, NULL, NULL, NULL, NULL };
@@ -72,7 +60,7 @@ public:
         return PyModule_Create(&Module);
     }
 
-    PyCLEO() = delete;
-    PyCLEO(PyCLEO&) = delete;
+    PyAddition() = delete;
+    PyAddition(PyAddition&) = delete;
 };
 

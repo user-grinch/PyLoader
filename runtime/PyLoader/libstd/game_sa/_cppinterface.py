@@ -7,8 +7,7 @@
 
 from abc import ABCMeta, abstractmethod, abstractproperty, abstractstaticmethod
 from typing import Tuple, Final, Generic, TypeVar
-from libstd.memory import read_memory, write_memory, read_float, write_float
-from libstd.cleo import call_function, call_method
+from libstd.memory import read_memory, write_memory, read_float, write_float, call_function, call_method
 from enum import Enum
 import ctypes
 

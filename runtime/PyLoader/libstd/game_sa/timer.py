@@ -1,4 +1,4 @@
-import cleo
+import memory
 from libstd.game_sa._cppinterface import mem_handler
 
 class CTimer:
@@ -26,44 +26,44 @@ class CTimer:
     m_snTimeInMilliseconds = mem_handler(0xB7CB84, 4)
 
     def Initialise(self):
-        cleo.call_function(0x5617E0)
+        memory.call_function(0x5617E0)
     
     def Shutdown(self):
-        cleo.call_function(0x5618C0)
+        memory.call_function(0x5618C0)
     
     def UpdateVariables(self, timeStep :float):
-        cleo.call_function(0x5618D0, 1, 0, timeStep)
+        memory.call_function(0x5618D0, 1, 0, timeStep)
 
     def Suspend(self):
-        cleo.call_function(0x5619D0)
+        memory.call_function(0x5619D0)
 
     def Resume(self):
-        cleo.call_function(0x561A00)
+        memory.call_function(0x561A00)
 
     def GetCyclesPerMillisecond(self) -> int:
-        return cleo.call_function(0x561A40)
+        return memory.call_function(0x561A40)
 
     def GetCurrentTimeInCycles(self) -> int:
-        return cleo.call_function(0x561A80)
+        return memory.call_function(0x561A80)
     
     # cycles per ms * 20
     def GetCyclesPerFrame(self) -> int:
-        return cleo.call_function(0x561A50)
+        return memory.call_function(0x561A50)
 
     def Stop(self):
-        cleo.call_function(0x561AA0)
+        memory.call_function(0x561AA0)
 
     def GetIsSlowMotionActive(self) -> bool:
-        return cleo.call_function(0x561AD0)
+        return memory.call_function(0x561AD0)
 
     def StartUserPause(self):
-        cleo.call_function(0x561AF0)
+        memory.call_function(0x561AF0)
 
     def EndUserPause(self):
-        cleo.call_function(0x561B00)
+        memory.call_function(0x561B00)
 
     def Update(self):
-        cleo.call_function(0x561B10)
+        memory.call_function(0x561B10)
 
 # Create instance
 CTimer = CTimer()

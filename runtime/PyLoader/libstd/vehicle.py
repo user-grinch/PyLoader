@@ -1,5 +1,5 @@
 import libstd.opcodes as opcodes
-import libstd.cleo as cleo
+import libstd.addition as addition
 
 # TODO: Merge this with CVehicle later
 class Vehicle():
@@ -19,13 +19,13 @@ class Vehicle():
         return opcodes.get_car_model(self.handle)
 
     def exists(self):
-        return cleo.get_car_pointer(self.handle) != 0
+        return addition.get_car_pointer(self.handle) != 0
 
     def set_forward_speed(self, speed):
         opcodes.set_car_forward_speed(self.handle, speed)
 
     def get_model_name(self):
-        return cleo.get_vehicle_model_name(self.get_model())
+        return addition.get_vehicle_model_name(self.get_model())
     
     def get_handle(self):
         return self.handle
