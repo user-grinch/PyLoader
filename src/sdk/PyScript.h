@@ -16,6 +16,7 @@ private:
     static PyObject* MinRequiredVersion(PyObject* self, PyObject* args);
     static PyObject* Load(PyObject* self, PyObject* args);
     static PyObject* Reload(PyObject* self, PyObject* args);
+    static PyObject* ReloadAll(PyObject* self, PyObject* args);
     static PyObject* Unload(PyObject* self, PyObject* args);
     static PyObject* SetProperties(PyObject* self, PyObject* args);
     static inline PyMethodDef Methods[] =
@@ -32,6 +33,7 @@ private:
         {"minimum_version", MinRequiredVersion, METH_VARARGS},
         {"load", Load, METH_VARARGS},
         {"reload", Reload, METH_VARARGS},
+        {"reload_all", ReloadAll, METH_VARARGS},
         {"unload", Unload, METH_VARARGS},
         {"properties", SetProperties, METH_VARARGS},
         {} // sentinel

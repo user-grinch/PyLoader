@@ -97,6 +97,27 @@ void PyLoader::CheckUpdate()
     std::remove(path);
 }
 
+void PyLoader::LoadScripts()
+{
+    HANDLE dir;
+    WIN32_FIND_DATA fileData;
+    dir = FindFirstFileA((LPCSTR)PLUGIN_PATH((char*)"/PyLoader/*.py"), &fileData);
+
+    // Loading .py scripts
+    if (dir != INVALID_HANDLE_VALUE)
+    {
+        do 
+        {
+            std::string* fileName = new std::string("PyLoader." + std::string(fileData.cFileName));
+
+            // remove the extension
+            fileName->erase(fileName->end() - 3, fileName->end());
+            CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, fileName, NULL, NULL);
+            Sleep(50);
+        } while (FindNextFile(dir, &fileData));
+    }
+}
+
 void PyLoader::PyMain(void* param)
 {
     plugin::Events::processScriptsEvent += []
@@ -111,9 +132,6 @@ void PyLoader::PyMain(void* param)
 
     gLog << "------------------------------"<< std::endl;
 
-    HANDLE dir;
-    WIN32_FIND_DATA fileData;
-
     /*
         Load all the .dll modules from lib and libstd folder
         libstd folder is reserved for first party modules only
@@ -121,8 +139,6 @@ void PyLoader::PyMain(void* param)
     */
     LoadPlugins("lib");
     LoadPlugins("libstd");
-
-    dir = FindFirstFileA("./PyLoader/*.py", &fileData);
 
     // Init our modules
     PyImport_AppendInittab("_bass", &PyBass::Init);
@@ -142,20 +158,8 @@ void PyLoader::PyMain(void* param)
     SoundSystem.Inject();
     SoundSystem.Init(RsGlobal.ps->window);
 
-    // Loading .py scripts
-    if (dir != INVALID_HANDLE_VALUE)
-    {
-        do 
-        {
-            std::string* fileName = new std::string("PyLoader." + std::string(fileData.cFileName));
-
-            // remove the extension
-            fileName->erase(fileName->end() - 3, fileName->end());
-            CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::ExecuteScript, fileName, NULL, NULL);
-            Sleep(100);
-        } while (FindNextFile(dir, &fileData));
-    }
-
+    LoadScripts();
+    
     while (true)
     {   
         // Check for infinite looping scripts

@@ -25,12 +25,12 @@ def set_raw(address :int, data :str, size :int, virtual_protect :bool = True) ->
 	_memory.set_raw(address, data, size, virtual_protect)
 
 def call_function(address :int, num_args:int = 0, pop :int = 0, *arg) -> int:
-	'''Calls the function from the address. More info https://gtagmodding.com/opcode-database/opcode/0AA5/'''
+	'''Calls the function from the address. Arguments are passed left to right. More info https://gtagmodding.com/opcode-database/opcode/0AA5/'''
 
 	return _memory.call_function(address, num_args, pop, *arg)
 
 def call_method(address :int, struct :int, num_args :int = 0, pop :int = 0, *arg) -> int:
-	'''Calls the method from the address. More info https://gtagmodding.com/opcode-database/opcode/0AA6/'''
+	'''Calls the method from the address. Arguments are passed left to right. More info https://gtagmodding.com/opcode-database/opcode/0AA6/'''
 
 	return _memory.call_method(address, struct, num_args, pop, *arg)
 

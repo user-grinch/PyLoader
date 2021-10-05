@@ -45,6 +45,17 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 	return PyBool_FromLong(0);
 }
 
+PyObject* PyScript::ReloadAll(PyObject* self, PyObject* args)
+{
+	for (auto it = ScriptData::scripts->begin(); it != ScriptData::scripts->end(); ++it)
+	{
+		PyEvents::ScriptTerminate((*it)->m_pModule);
+		gLog << "Unloading script " << (*it)->fileName << std::endl;
+	}
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::LoadScripts, NULL, NULL, NULL);
+	return PyBool_FromLong(0);
+}
+
 PyObject* PyScript::Unload(PyObject* self, PyObject* args)
 {
 	char* str = NULL;

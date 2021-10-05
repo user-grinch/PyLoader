@@ -1,5 +1,4 @@
 import libstd.common as common
-import libstd.pool as pool
 import libstd.script as script
 
 script.name("ReloadAll")
@@ -12,13 +11,7 @@ while True:
     while common.key_pressed(0xA2) and common.key_pressed(0x52):
       common.wait(5)
       
-    # Reloading other scripts
-    name : str = script.get_file_name()
-    for script_name in pool.script():
-      if script_name != name:
-        script.reload(script_name)
-
-    script.reload() # Reloading current script
+    script.reload_all()
 
   common.wait(0)
 
