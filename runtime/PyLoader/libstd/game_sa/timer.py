@@ -64,3 +64,6 @@ class CTimer:
 
     def Update(self):
         cleo.call_function(0x561B10)
+
+# Create instance
+CTimer = CTimer()

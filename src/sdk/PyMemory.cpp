@@ -86,7 +86,6 @@ PyObject* PyMemory::ReadFloat(PyObject* self, PyObject* args)
 PyObject* PyMemory::WriteFloat(PyObject* self, PyObject* args)
 {
     int addr = NULL;
-    int size = NULL;
     float val = NULL;
     int vp = NULL;
 

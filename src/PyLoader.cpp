@@ -97,7 +97,7 @@ void PyLoader::CheckUpdate()
     std::remove(path);
 }
 
-void PyLoader::PluginThread(void* param)
+void PyLoader::PyMain(void* param)
 {
     plugin::Events::processScriptsEvent += []
     {
