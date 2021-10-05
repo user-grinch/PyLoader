@@ -21,7 +21,7 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 	ptemp = PyTuple_GetItem(args, 2);
 	stack_pop = PyLong_AsUnsignedLong(PyNumber_Long(ptemp))*4;
 
-	int *pArr = new int[num_param];
+	void *pArr = malloc(num_param*4);
 	int param_start = int(pArr);
 	int param_end = param_start + num_param * 0x4;
 
@@ -36,16 +36,19 @@ PyObject* PyCLEO::CallFunction(PyObject* self, PyObject* args)
 			{
 				if (PyFloat_Check(ptemp))
 				{
-					pArr[i] = (int)PyFloat_AsDouble(PyNumber_Float(ptemp));
+					float val = PyFloat_AsDouble(PyNumber_Float(ptemp));
+					memcpy((void*)(int(pArr) + i*4), &val, 4);
 				}
 				else
 				{
-					pArr[i] = PyLong_AsLong(PyNumber_Long(ptemp));
+					int val = PyLong_AsLong(PyNumber_Long(ptemp));
+					memcpy((void*)(int(pArr) + i*4), &val, 4);
 				}
 			}
 			else
 			{
-				pArr[i] = (int)PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+				char *val = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+				memcpy((void*)(int(pArr) + i*4), &val, 4);
 			}
 		}
 	}

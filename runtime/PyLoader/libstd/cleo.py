@@ -9,7 +9,7 @@ def call_function(address :int, num_args:int = 0, pop :int = 0, *arg) -> int:
 def call_method(address :int, struct :int, num_args :int = 0, pop :int = 0, *arg) -> int:
 	'''Calls the method from the address. More info https://gtagmodding.com/opcode-database/opcode/0AA6/'''
 
-	_cleo.call_method(address, struct, num_args, pop, *arg)
+	return _cleo.call_method(address, struct, num_args, pop, *arg)
 
 def free_library(handle) -> None:
 	'''Frees the loaded library'''
