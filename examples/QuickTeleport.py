@@ -1,6 +1,6 @@
 import libstd.common as common
 import libstd.opcodes as opcodes
-import libstd.cleo as cleo
+import libstd.addition as add
 import libstd.script as script
 
 script.name("QuickTeleport")
@@ -16,7 +16,7 @@ while True:
         while common.key_pressed(0x58) and common.key_pressed(0x59):
             common.wait(25)
 
-        coords = cleo.get_target_marker_coords()
+        coords = add.get_target_marker_coords()
         handle = opcodes.get_player_char(0)
         opcodes.do_fade(50,0)
         opcodes.set_char_coordinates(handle, coords[0], coords[1], coords[2]+100)
