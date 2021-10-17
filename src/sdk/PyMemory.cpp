@@ -65,7 +65,7 @@ PyObject* PyMemory::CallFunction(PyObject* self, PyObject* args)
 			{
 				if (PyFloat_Check(ptemp))
 				{
-					float val = PyFloat_AsDouble(PyNumber_Float(ptemp));
+					float val = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
 					memcpy((void*)(int(pArr) + i*4), &val, 4);
 				}
 				else
@@ -135,7 +135,7 @@ PyObject* PyMemory::CallMethod(PyObject* self, PyObject* args)
 			{
 				if (PyFloat_Check(ptemp))
 				{
-					float val = PyFloat_AsDouble(PyNumber_Float(ptemp));
+					float val = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
 					memcpy((void*)(int(pArr) + i*4), &val, 4);
 				}
 				else

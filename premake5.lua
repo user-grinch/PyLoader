@@ -5,7 +5,7 @@
 -- Environment vars
 PSDK_DIR = os.getenv("PLUGIN_SDK_DIR")
 PYTHON_DIR = "C:/Program Files (x86)/Python38-32"
-GTASA_DIR = "C:/Work/GTASanAndreas"
+GTASA_DIR = "F:/GTASanAndreas"
 
 if (PSDK_DIR == nil) then
     error("PLUGIN_SDK_DIR environment variable not set")

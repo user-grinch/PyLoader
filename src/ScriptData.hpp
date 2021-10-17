@@ -7,6 +7,7 @@ enum class EXITING_FLAGS
 {
     NORMAL_EXIT,
     RELOADING,
+    RELOADING_ALL,
     UNLOADING,
 };
 

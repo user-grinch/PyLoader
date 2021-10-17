@@ -221,6 +221,7 @@ int PyLoader::ExecuteScript(std::string *path)
     if (pScriptData->m_eExitFlags != EXITING_FLAGS::NORMAL_EXIT)
     {
         PyErr_Clear();
+        PyRun_SimpleString("import sys\n sys.stdout.flush()");
     }
 
     if (PyEvents::ScriptTerminate(pScriptData->m_pModule) && PyErr_Occurred())

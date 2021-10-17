@@ -53,7 +53,7 @@ bool PyEvents::ScriptTerminate(PyObject* pModule)
         PyObject_CallFunction(pTerminateFunc, "i", error_state);
         return false;
     }
-
+    
     PyErr_Clear();
     return true;
 }

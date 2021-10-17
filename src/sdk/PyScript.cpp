@@ -35,7 +35,7 @@ PyObject* PyScript::Reload(PyObject* self, PyObject* args)
 
 	if (data != NULL && data->m_eExitFlags == EXITING_FLAGS::NORMAL_EXIT)
 	{
-		PyEvents::ScriptTerminate(data->m_pModule);
+		data->m_eExitFlags = EXITING_FLAGS::RELOADING;
 		gLog << "Unloading script " << str << std::endl;
 		ScriptData::Reload(str);
 
@@ -49,7 +49,7 @@ PyObject* PyScript::ReloadAll(PyObject* self, PyObject* args)
 {
 	for (auto it = ScriptData::scripts->begin(); it != ScriptData::scripts->end(); ++it)
 	{
-		PyEvents::ScriptTerminate((*it)->m_pModule);
+		(*it)->m_eExitFlags = EXITING_FLAGS::RELOADING_ALL;
 		gLog << "Unloading script " << (*it)->fileName << std::endl;
 	}
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::LoadScripts, NULL, NULL, NULL);
@@ -77,7 +77,7 @@ PyObject* PyScript::Unload(PyObject* self, PyObject* args)
 
 	if (data != NULL && data->m_eExitFlags == EXITING_FLAGS::NORMAL_EXIT)
 	{
-		PyEvents::ScriptTerminate(data->m_pModule);
+		data->m_eExitFlags = EXITING_FLAGS::UNLOADING;
 		gLog << "Unloading script " << str << std::endl;
 		ScriptData::Unload(str);
 
@@ -264,7 +264,7 @@ PyObject* PyScript::MinRequiredVersion(PyObject* self, PyObject* args)
 
 PyObject* PyScript::SetProperties(PyObject* self, PyObject* args)
 {
-	for (size_t i = 0; i < PyTuple_Size(args); i++)
+	for (int i = 0; i < PyTuple_Size(args); i++)
 	{
 		PyObject *ptemp = PyTuple_GetItem(args, 0);
 
