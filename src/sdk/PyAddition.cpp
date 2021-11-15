@@ -99,7 +99,7 @@ PyObject* PyAddition::GetLargestGangIdInZone(PyObject* self, PyObject* args)
 		CVector pos = FindPlayerPed()->GetPosition();
 		CZone* zone = new CZone();
 
-		CZoneExtraInfo* zone_info = CTheZones::GetZoneInfo(&pos, &zone);
+		CZoneInfo* zone_info = CTheZones::GetZoneInfo(&pos, &zone);
 		int density = zone_info->m_nGangDensity[i];
 
 		if (density > max_density)
