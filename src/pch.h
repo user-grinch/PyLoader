@@ -12,6 +12,6 @@
 
 #include <plugin.h>
 
-constexpr const char* gPluginVer = "0.09";
+constexpr const char* gPluginVer = "0.10";
 extern size_t gGameTicks;
 extern std::ofstream gLog;

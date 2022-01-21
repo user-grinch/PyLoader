@@ -5,15 +5,11 @@
 -- Environment vars
 PSDK_DIR = os.getenv("PLUGIN_SDK_DIR")
 PYTHON_DIR = "C:/Program Files (x86)/Python38-32"
-GTASA_DIR = "F:/GTASanAndreas"
 
 if (PSDK_DIR == nil) then
     error("PLUGIN_SDK_DIR environment variable not set")
 end
 
-if (PSDK_DIR == nil) then
-    error("PLUGIN_SDK_DIR environment variable not set")
-end
 ----------------------------
 
 workspace "PyLoader"
@@ -24,18 +20,18 @@ workspace "PyLoader"
     cppdialect "C++20"
     characterset "MBCS"
     staticruntime "On"
-    location "build"
+    location "../build"
     linkoptions "/SAFESEH:NO"
+    targetdir "../build/bin"
     
 project "PyLoader"
     kind "SharedLib"
-    targetdir (GTASA_DIR)
     targetextension ".asi"
     
     files { 
-        "src/**.h", 
-        "src/**.hpp", 
-        "src/**.cpp" 
+        "../src/**.h", 
+        "../src/**.hpp", 
+        "../src/**.cpp" 
     }
     includedirs {
         PSDK_DIR .. "/plugin_sa/",
@@ -45,8 +41,7 @@ project "PyLoader"
         PYTHON_DIR .. "/include/"
     }
     libdirs {
-        PSDK_DIR .. "/output/lib",
-        "src/depend/",
+        PSDK_DIR .. "/output/lib", "../src/depend/",
         PYTHON_DIR .. "/libs/"
     }
 
