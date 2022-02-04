@@ -1,3 +1,6 @@
+# This is deprecated. Use libstd.classes.memory instead.
+# Will be removed in the future.
+
 import _memory 
 
 def read_memory(address :int, size :int, virtual_protect :bool = True) -> int:
