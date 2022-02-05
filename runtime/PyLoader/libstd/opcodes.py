@@ -465,10 +465,6 @@ def add_continuous_sound(x_coord: float, y_coord: float, z_coord: float, unknown
 	'''More info: https://gtamods.com/wiki/018D https://gtagmodding.com/opcode-database/opcode/018D'''
 	return _opcodes.add_continuous_sound(x_coord, y_coord, z_coord, unknown4)
 
-def remove_sound(sound: int) -> None:
-	'''More info: https://gtamods.com/wiki/018E https://gtagmodding.com/opcode-database/opcode/018E'''
-	_opcodes.remove_sound(sound)
-
 def is_car_stuck_on_roof(hveh: int) -> bool:
 	'''More info: https://gtamods.com/wiki/018F https://gtagmodding.com/opcode-database/opcode/018F'''
 	return _opcodes.is_car_stuck_on_roof(hveh)
