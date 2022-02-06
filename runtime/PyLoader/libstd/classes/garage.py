@@ -1,11 +1,12 @@
 import libstd.opcodes as opcodes
-from typing import Tuple
+from car import Car
+from enums import GarageName, GarageType
 
 class Garage():
    @staticmethod
-   def set_target_car_for_mission(garageName: GarageName, vehicle: Car):
+   def set_target_car_for_mission(garageName: GarageName, obj: Car):
       '''Sets the specified garage to only accept the specified vehicle'''
-      opcodes.set_target_car_for_mission_garage(garageName, vehicle)
+      opcodes.set_target_car_for_mission_garage(garageName, obj.get_handle())
 
    @staticmethod
    def activate(garageId: str):

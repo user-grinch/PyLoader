@@ -1,8 +1,9 @@
 import libstd.opcodes as opcodes
 from typing import Tuple
+from enums import PedType, WeaponType, WeaponSlot, RelationshipType
 
 class Char():
-   def __init__(self, pedType: PedType, modelId: model_char, x: float, y: float, z: float) -> Char:
+   def __init__(self, pedType: PedType, modelId: int, x: float, y: float, z: float):
       '''Creates a character at the specified location, with the specified model and pedtype'''
       self.__handle = opcodes.create_char(self.__handle, pedType, modelId, x, y, z)
 
@@ -122,7 +123,7 @@ class Char():
       '''Returns true if the handle is an invalid character handle or the character is dead (wasted)'''
       return opcodes.is_char_dead(self.__handle, handle)
 
-   def create_inside_car(self, vehicle: Car, pedType: PedType, modelId: model_char) -> Char:
+   def create_inside_car(self, vehicle: Car, pedType: PedType, modelId: int) -> Char:
       '''Creates a character in the driver's seat of the vehicle'''
       return opcodes.create_char_inside_car(self.__handle, vehicle, pedType, modelId)
 
@@ -206,7 +207,7 @@ class Char():
       '''Removes the character from the mission cleanup list, preventing it from being deleted when the mission ends'''
       opcodes.dont_remove_char(self.__handle)
 
-   def create_as_passenger(self, vehicle: Car, pedType: PedType, modelId: model_char, seatId: int) -> Char:
+   def create_as_passenger(self, vehicle: Car, pedType: PedType, modelId: int, seatId: int) -> Char:
       '''Creates a character with the specified model in the passenger seat of the vehicle'''
       return opcodes.create_char_as_passenger(self.__handle, vehicle, pedType, modelId, seatId)
 
@@ -282,7 +283,7 @@ class Char():
       '''Affects how often the character will hit the target when attacking with a weapon'''
       opcodes.set_char_accuracy(self.__handle, accuracy)
 
-   def is_model(self, modelId: model_char):
+   def is_model(self, modelId: int):
       '''Returns true if the character's model ID is equivalent to the model ID passed'''
       return opcodes.is_char_model(self.__handle, modelId)
 
@@ -458,7 +459,7 @@ class Char():
       '''Returns true if the character is in water'''
       return opcodes.is_char_in_water(self.__handle)
 
-   def get_weapon_in_slot(self, weaponSlotId: WeaponSlot) ->  Tuple[WeaponType, int, model_object]:
+   def get_weapon_in_slot(self, weaponSlotId: WeaponSlot) ->  Tuple[WeaponType, int, int]:
       '''Returns the weapon type, ammo and model from the specified slot'''
       return opcodes.get_char_weapon_in_slot(self.__handle, weaponSlotId)
 
@@ -493,7 +494,7 @@ class Char():
       '''Attaches the character to the specified object, in turret mode'''
       opcodes.attach_char_to_object(self.__handle, handle, xOffset, yOffset, zOffset, orientation, angleLimit, weaponType)
 
-   def create_swat_rope(self, pedType: PedType, modelId: model_char, x: float, y: float, z: float) -> Char:
+   def create_swat_rope(self, pedType: PedType, modelId: int, x: float, y: float, z: float) -> Char:
       '''Creates a character descending from a rope'''
       return opcodes.create_swat_rope(self.__handle, pedType, modelId, x, y, z)
 
@@ -639,7 +640,7 @@ class Char():
       '''Returns a float of the length of the animation in milliseconds'''
       return opcodes.get_char_anim_total_time(self.__handle, animationName)
 
-   def create_at_attractor(self, pedType: PedType, modelId: model_char, taskId: int, attractor: Attractor) -> Char:
+   def create_at_attractor(self, pedType: PedType, modelId: int, taskId: int, attractor: Attractor) -> Char:
       return opcodes.create_char_at_attractor(self.__handle, pedType, modelId, taskId, attractor)
 
    def get_script_task_status(self, taskId: int) -> int:

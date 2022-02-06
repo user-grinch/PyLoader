@@ -1,5 +1,5 @@
 import libstd.opcodes as opcodes
-from typing import Tuple
+from enums import GangType, WeaponType
 
 class Game():
    @staticmethod
@@ -23,6 +23,11 @@ class Game():
       opcodes.set_everyone_ignore_player(handle, state)
 
    @staticmethod
+   def set_gang_weapons(gangId: GangType, weaponType1: WeaponType, weaponType2: WeaponType, weaponType3: WeaponType):
+      '''Sets the weapons that the specified gang can use'''
+      opcodes.set_gang_weapons(gangId, weaponType1, weaponType2, weaponType3)
+
+   @staticmethod
    def set_wanted_multiplier(multiplier: float):
       '''Sets sensitivity to crime, changing how many crimes a player can commit before police begin to pursue'''
       opcodes.set_wanted_multiplier(multiplier)
@@ -41,6 +46,10 @@ class Game():
    def set_all_cars_can_be_damaged(state: bool):
       '''Sets whether all cars receive damage'''
       opcodes.set_all_cars_can_be_damaged(state)
+
+   @staticmethod
+   def is_debug_camera_on():
+      return opcodes.is_debug_camera_on()
 
    @staticmethod
    def is_german():

@@ -141,10 +141,6 @@ def is_char_in_any_car(hchar: int) -> bool:
 	'''More info: https://gtamods.com/wiki/00DF https://gtagmodding.com/opcode-database/opcode/00DF'''
 	return _opcodes.is_char_in_any_car(hchar)
 
-def is_button_pressed(unknown1: int, unknown2: int) -> bool:
-	'''More info: https://gtamods.com/wiki/00E1 https://gtagmodding.com/opcode-database/opcode/00E1'''
-	return _opcodes.is_button_pressed(unknown1, unknown2)
-
 def get_pad_state(pad: int, button: int) -> int:
 	'''More info: https://gtamods.com/wiki/00E2 https://gtagmodding.com/opcode-database/opcode/00E2'''
 	return _opcodes.get_pad_state(pad, button)

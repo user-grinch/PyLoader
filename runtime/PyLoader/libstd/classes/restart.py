@@ -1,5 +1,5 @@
 import libstd.opcodes as opcodes
-from typing import Tuple
+from enums import Town
 
 class Restart():
    @staticmethod

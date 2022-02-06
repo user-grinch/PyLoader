@@ -13,7 +13,7 @@ class Conversation():
       opcodes.finish_setting_up_conversation()
 
    @staticmethod
-   def is_at_node(handle: Char, speech: gxt_key):
+   def is_at_node(handle: Char, speech: str):
       '''Returns true if the conversation is at the specified node'''
       return opcodes.is_conversation_at_node(handle, speech)
 
@@ -32,22 +32,22 @@ class Conversation():
       opcodes.clear_conversation_for_char(handle)
 
    @staticmethod
-   def set_up_node_with_speech(question: gxt_key, positiveAnswer: gxt_key, negativeAnswer: gxt_key, questionSoundId: int, positiveAnswerSoundId: int, negativeAnswerSoundId: int):
+   def set_up_node_with_speech(question: str, positiveAnswer: str, negativeAnswer: str, questionSoundId: int, positiveAnswerSoundId: int, negativeAnswerSoundId: int):
       '''Specifies the dialogue GXT's and audio ID's'''
       opcodes.set_up_conversation_node_with_speech(question, positiveAnswer, negativeAnswer, questionSoundId, positiveAnswerSoundId, negativeAnswerSoundId)
 
    @staticmethod
-   def set_up_end_node_with_speech(speech: gxt_key, speechSoundId: int):
+   def set_up_end_node_with_speech(speech: str, speechSoundId: int):
       '''Sets the speech ID for the specified conversation response node'''
       opcodes.set_up_conversation_end_node_with_speech(speech, speechSoundId)
 
    @staticmethod
-   def set_up_node_with_scripted_speech(question: gxt_key, positiveAnswer: gxt_key, negativeAnswer: gxt_key, questionSoundId: int, positiveAnswerSoundId: int, negativeAnswerSoundId: int):
+   def set_up_node_with_scripted_speech(question: str, positiveAnswer: str, negativeAnswer: str, questionSoundId: int, positiveAnswerSoundId: int, negativeAnswerSoundId: int):
       '''Adds a new line to the scripted conversation'''
       opcodes.set_up_conversation_node_with_scripted_speech(question, positiveAnswer, negativeAnswer, questionSoundId, positiveAnswerSoundId, negativeAnswerSoundId)
 
    @staticmethod
-   def set_up_end_node_with_scripted_speech(speech: gxt_key, speechSoundId: int):
+   def set_up_end_node_with_scripted_speech(speech: str, speechSoundId: int):
       '''Sets the script audio ID (see 03CF) for the specified conversation response node'''
       opcodes.set_up_conversation_end_node_with_scripted_speech(speech, speechSoundId)
 

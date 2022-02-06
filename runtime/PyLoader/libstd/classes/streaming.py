@@ -9,7 +9,7 @@ class Streaming():
       _opcodes.load_special_character(slotId, modelName)
 
    @staticmethod
-   def has_special_character_loaded(slotId: int):
+   def has_special_character_loaded(slotId: int) -> bool:
       '''Returns true if the special character's model (023C) is available for creation'''
       return _opcodes.has_special_character_loaded(slotId)
 
@@ -19,7 +19,7 @@ class Streaming():
       _opcodes.request_model(modelId)
 
    @staticmethod
-   def has_model_loaded(modelId: int):
+   def has_model_loaded(modelId: int) -> bool:
       '''Returns true if the model is available for creation'''
       return _opcodes.has_model_loaded(modelId)
 
@@ -49,7 +49,7 @@ class Streaming():
       _opcodes.load_scene(x, y, z)
 
    @staticmethod
-   def is_model_available(modelId: int):
+   def is_model_available(modelId: int) -> bool:
       '''Returns true if the specified model exists in the loaded '''
       return _opcodes.is_model_available(modelId)
 
@@ -69,7 +69,7 @@ class Streaming():
       _opcodes.request_animation(animationFile)
 
    @staticmethod
-   def has_animation_loaded(animationFile: str):
+   def has_animation_loaded(animationFile: str) -> bool:
       '''Returns true if the specified IFP file is loaded'''
       return _opcodes.has_animation_loaded(animationFile)
 
@@ -89,7 +89,7 @@ class Streaming():
       _opcodes.request_vehicle_mod(modelId)
 
    @staticmethod
-   def has_vehicle_mod_loaded(modelId: int):
+   def has_vehicle_mod_loaded(modelId: int) -> bool:
       '''Returns true if the vehicle upgrade model has loaded'''
       return _opcodes.has_vehicle_mod_loaded(modelId)
 
@@ -121,12 +121,12 @@ class Streaming():
       _opcodes.request_car_recording(pathId)
 
    @staticmethod
-   def has_car_recording_been_loaded(pathId: int):
+   def has_car_recording_been_loaded(pathId: int) -> bool:
       '''Returns true if the car recording has finished loading'''
       return _opcodes.has_car_recording_been_loaded(pathId)
 
    @staticmethod
-   def is_model_in_cdimage(modeId: int):
+   def is_model_in_cdimage(modeId: int) -> bool:
       '''Returns true if a file for the model exists'''
       return _opcodes.is_model_in_cdimage(modeId)
 
@@ -135,17 +135,17 @@ class Streaming():
       return _opcodes.get_model_dimensions(modelId)
 
    @staticmethod
-   def is_this_model_a_boat(modelId: int):
+   def is_this_model_a_boat(modelId: int) -> bool:
       '''Returns true if the model is the model of a boat'''
       return _opcodes.is_this_model_a_boat(modelId)
 
    @staticmethod
-   def is_this_model_a_plane(modelId: int):
+   def is_this_model_a_plane(modelId: int) -> bool:
       '''Returns true if the model is the model of a plane'''
       return _opcodes.is_this_model_a_plane(modelId)
 
    @staticmethod
-   def is_this_model_a_heli(modelId: int):
+   def is_this_model_a_heli(modelId: int) -> bool:
       '''Returns true if the model is the model of a helicopter'''
       return _opcodes.is_this_model_a_heli(modelId)
 
@@ -159,7 +159,7 @@ class Streaming():
       return _opcodes.get_random_car_model_in_memory(_p1)
 
    @staticmethod
-   def is_this_model_a_car(modelId: int):
+   def is_this_model_a_car(modelId: int) -> bool:
       '''Returns true if a valid car model is passed'''
       return _opcodes.is_this_model_a_car(modelId)
 
