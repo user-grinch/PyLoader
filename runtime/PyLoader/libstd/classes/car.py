@@ -813,4 +813,3 @@ class Car():
    def add_stuck_check_with_warp(self, speed: float, duration: int, stuck: bool, flipped: bool, warp: bool, pathId: int):
       '''Attempts to automatically restore vehicles that get stuck or flipped'''
       _opcodes.add_stuck_car_check_with_warp(self.__handle, speed, duration, stuck, flipped, warp, pathId)
-
