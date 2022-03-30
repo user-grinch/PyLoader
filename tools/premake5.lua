@@ -40,11 +40,6 @@ project "PyLoader"
         PYTHON_DIR .. "/libs/"
     }
     
-    defines { 
-        "NDEBUG", 
-        "_DX9_SDK_INSTALLED",
-    }
-
     pchheader "pch.h"
     pchsource "../src/pch.cpp"
 

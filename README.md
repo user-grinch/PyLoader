@@ -6,7 +6,7 @@ This is a **.asi** plugin that allows writing custom Python scripts for GTA SanA
 
 **Python version**: 3.10x
 
-This is a rewrite of the original PyLoaderSA with support for GTA3, GTAVC & GTASA. Not ready for actual use yet!
+This is a rewrite of the original [PyLoaderSA](https://github.com/user-grinch/PyLoader/tree/master) with support for GTA3, GTAVC & GTASA. Goals for the rewrite are [here](https://github.com/user-grinch/PyLoader/issues/1). Not ready for actual use yet!
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/689515979847237649/widget.png?style=banner2)](https://discord.com/invite/ZzW7kmf)
 

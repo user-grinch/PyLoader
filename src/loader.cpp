@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "loader.h"
+#include "modules/stream.h"
+
+#include <thread>
 
 void PyLoader::init()
 {
@@ -11,9 +14,19 @@ void PyLoader::init()
     gLog << "Starting PyLoader v" << PYLOADER_VERSION << "\nAuthor: Grinch_\nMore: "<<
         GITHUB_LINK << "\n\n" << std::endl;
 
+    // Rediect stdout and stderr to the log
+    PyImport_AppendInittab("_core_", &IOStream::Init);
+
     // init the python interpreter
     Py_Initialize();
-    
+    if (!Py_IsInitialized()) 
+    {
+        gLog << "Unable to initialize Python interpreter." << std::endl;
+        return;
+    }
+    PyImport_ImportModule("_core_");
+    PyEval_ReleaseLock();
+
     initialized = true;
 }
 
@@ -44,7 +57,8 @@ void PyLoader::process()
 void PyLoader::f_watcher(const std::string& file_path, eFileStatus state)
 {
     // Process only regular files, all other file types are ignored
-    if(!std::filesystem::is_regular_file(std::filesystem::path(file_path)) 
+    std::filesystem::path path = std::filesystem::path(file_path);
+    if(!std::filesystem::is_regular_file(path) 
         && state != eFileStatus::removed) 
     {
         return;
@@ -54,7 +68,7 @@ void PyLoader::f_watcher(const std::string& file_path, eFileStatus state)
     {
         case eFileStatus::created:
         {
-            gLog << file_path << std::endl;
+            std::thread *pthread = new std::thread(PyLoader::load_script, path.stem().string());
             break;
         }
         case eFileStatus::modified:
@@ -72,12 +86,12 @@ void PyLoader::f_watcher(const std::string& file_path, eFileStatus state)
     }
 }
 
-void PyLoader::load_script(std::string& name)
+void PyLoader::load_script(std::string name)
 {
-    PyGILState_STATE gil_state = PyGILState_Ensure();
+    PyGILState_STATE gstate = PyGILState_Ensure();
     PyObject *pglobal, *plocal;
 
-    std::string path = "./PyLoader/" + name;
+    std::string path = "./PyLoader/" + name + ".py";
     gLog << "Loading script " << name << std::endl;
 
 
@@ -103,9 +117,14 @@ void PyLoader::load_script(std::string& name)
     Py_XINCREF(pglobal);
     Py_XINCREF(plocal);
     PyRun_String(buf, Py_file_input, pglobal, plocal);
-    Py_XDECREF(pglobal);
-    Py_XDECREF(plocal);
+
+    if (PyErr_Occurred())
+    {
+        PyErr_Print();
+    }
 
     delete buf;
-    PyGILState_Release(gil_state);
+    Py_XDECREF(pglobal);
+    Py_XDECREF(plocal);
+    PyGILState_Release(gstate);
 }

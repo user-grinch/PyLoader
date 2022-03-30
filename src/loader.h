@@ -30,8 +30,8 @@ private:
         Loads a script from file name
         Relative from the PyLoader directory
     */
-    static void load_script(std::string& file_name);
-    static void unload_script(std::string& file_name){};
+    static void load_script(std::string file_name);
+    static void unload_script(std::string file_name){};
 
 public:
     PyLoader() = delete;

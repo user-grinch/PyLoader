@@ -47,22 +47,27 @@ public:
         }
 
         // Check if a file was created or modified
-        for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) 
+        for(auto &file : std::filesystem::directory_iterator(path_to_watch)) 
         {
             auto current_file_last_write_time = std::filesystem::last_write_time(file);
 
             // File creation
-            if(!paths_.contains(file.path().string())) 
+            std::string file_path = file.path().string();
+
+            if (file_path.contains(".py"))
             {
-                paths_[file.path().string()] = current_file_last_write_time;
-                action(file.path().string(), eFileStatus::created);
-            } 
-            else // File modification
-            {
-                if(paths_[file.path().string()] != current_file_last_write_time) 
+                if(!paths_.contains(file_path)) 
                 {
-                    paths_[file.path().string()] = current_file_last_write_time;
-                    action(file.path().string(), eFileStatus::modified);
+                    paths_[file_path] = current_file_last_write_time;
+                    action(file_path, eFileStatus::created);
+                } 
+                else // File modification
+                {
+                    if(paths_[file_path] != current_file_last_write_time) 
+                    {
+                        paths_[file_path] = current_file_last_write_time;
+                        action(file_path, eFileStatus::modified);
+                    }
                 }
             }
         }
