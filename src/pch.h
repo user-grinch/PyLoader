@@ -5,9 +5,10 @@
 
 #include <fstream>
 #include <Windows.h>
-
 #include <Python.h>
 #include <frameobject.h>
+
+#include "scriptdata.hpp"
 
 enum class eGameVer
 {
@@ -25,8 +26,3 @@ enum class eGameVer
 
 extern eGameVer gGameVer;
 extern std::ofstream gLog;
-
-static size_t getAddrByGame(size_t iii = NULL, size_t vc = NULL, size_t sa = NULL)
-{
-    return (gGameVer == eGameVer::III) ? iii : ((gGameVer == eGameVer::VC) ? vc : sa);
-}

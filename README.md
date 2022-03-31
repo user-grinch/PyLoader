@@ -2,18 +2,24 @@
 
 ## Introduction
 
-This is a **.asi** plugin that allows writing custom Python scripts for GTA SanAndreas. This plugin is still in the early stages of development so, if you find and bugs or have feature suggestions let me know :\) 
+A plugin for Grand Theft Auto 3D Era (NOT definitive editions) which allows you to load Python scripts into the game. This is a complete rewrite of the original [PyLoaderSA](https://github.com/user-grinch/PyLoader/tree/master). To know about rewrite specific changes look [here](https://github.com/user-grinch/PyLoader/issues/1). 
 
-**Python version**: 3.10x
+### Supported games
+- GTA San Andreas v1.0 US (Hoodlum & Compact)
+- GTA Vice City v1.0 US
+- GTA III v1.0 US
 
-This is a rewrite of the original [PyLoaderSA](https://github.com/user-grinch/PyLoader/tree/master) with support for GTA3, GTAVC & GTASA. Goals for the rewrite are [here](https://github.com/user-grinch/PyLoader/issues/1). Not ready for actual use yet!
+**Python version**: 3.10x (Windows 8 & above)<br>
+**C++ required**: C++20
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/689515979847237649/widget.png?style=banner2)](https://discord.com/invite/ZzW7kmf)
 
 ## Installation
 
-1. You need gta_sa v1.0 US version of the game.
-2. Install [Visual C++ Redistributable 2022 x86](https://aka.ms/vs/17/release/vc_redist.x86.exe) and [asi loader](https://www.gtagarage.com/mods/show.php?id=21709)
-3. Download [PyLoader.7z](https://github.com/user-grinch/PyLoaderSA/releases) and extract everything in the game directory.
+1. Install [Visual C++ Redistributable 2022 x86](https://aka.ms/vs/17/release/vc_redist.x86.exe) and [ASI loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/)
+2. Download [PyLoader.7z](https://github.com/user-grinch/PyLoader/releases) and extract everything in the game directory.
+
+
+(The rewrite version isn't released yet, let me know if you're interested to try it out)
 
 

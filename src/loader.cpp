@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "loader.h"
-#include "modules/stream.h"
+#include "modules/core.h"
 
 #include <thread>
 
@@ -14,8 +14,7 @@ void PyLoader::init()
     gLog << "Starting PyLoader v" << PYLOADER_VERSION << "\nAuthor: Grinch_\nMore: "<<
         GITHUB_LINK << "\n\n" << std::endl;
 
-    // Rediect stdout and stderr to the log
-    PyImport_AppendInittab("_core_", &IOStream::Init);
+    PyImport_AppendInittab("_core_", &Core::init);
 
     // init the python interpreter
     Py_Initialize();
@@ -69,6 +68,8 @@ void PyLoader::f_watcher(const std::string& file_path, eFileStatus state)
         case eFileStatus::created:
         {
             std::thread *pthread = new std::thread(PyLoader::load_script, path.stem().string());
+            ScriptData *pdata = ScriptMgr::get(pthread->get_id());
+            pdata->file_name = path.stem().string();
             break;
         }
         case eFileStatus::modified:
@@ -116,6 +117,7 @@ void PyLoader::load_script(std::string name)
 
     Py_XINCREF(pglobal);
     Py_XINCREF(plocal);
+    PyRun_String("from _core_ import *", Py_file_input, pglobal, plocal);
     PyRun_String(buf, Py_file_input, pglobal, plocal);
 
     if (PyErr_Occurred())
