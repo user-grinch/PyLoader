@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "core.h"
 #include "../scriptdata.hpp"
+#include "../opcodehandler.h"
 
 PyObject* Core::wait(PyObject* self, PyObject* args)
 {
@@ -28,6 +29,8 @@ PyObject* Core::wait(PyObject* self, PyObject* args)
         std::string str = std::format("time.sleep({})", ms / 1000.0f);
         PyRun_SimpleString(str.c_str());
     }
+
+    OpcodeHandler::call(0x00C0, 12, 11);
 
     return PyBool_FromLong(1);
 }
