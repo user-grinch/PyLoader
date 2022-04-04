@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "core.h"
 #include "../scriptdata.hpp"
-#include "../opcodehandler.h"
+#include "../opcodehandler.hpp"
 
 PyObject* Core::wait(PyObject* self, PyObject* args)
 {

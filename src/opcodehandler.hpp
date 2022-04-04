@@ -115,22 +115,12 @@ public:
     template<typename... ArgTypes>
     static bool call(unsigned int commandId,  ArgTypes... arguments)
     {
-        unsigned char *buf = new unsigned char[32];
+        static unsigned char *buf = new unsigned char[256];
         static CRunningScriptSA script;
         memset(&script, 0, sizeof(CRunningScriptSA));
-        memset(buf, 0, 32);
+        memset(buf, 0, 256);
 
-        // default init
-        if (gGameVer == eGameVer::SA)
-        {
-            script.Init();
-        }
-        else
-        {
-            script.m_bWastedBustedCheck = true;
-        }
-
-        strcpy(script.m_szName, "pyload");
+        strcpy(script.m_szName, "py-load");
         script.m_bIsMission = false;
         script.m_bUseMissionCleanup = false;
         script.m_bNotFlag = (commandId >> 15) & 1;
@@ -139,17 +129,28 @@ public:
         memcpy(&buf[0], &commandId, 2);
         size = 2;
         mem_cpy(buf, arguments...);
+        buf[size] = '\0';
 
         if (gGameVer == eGameVer::SA)
         {
-            script.m_pBaseIP = script.m_pCurrentIP = (unsigned char*)buf;
+            static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
+            typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
+
+            script.m_pBaseIP = script.m_pCurrentIP = buf;
+
+            // Calling processOneCommand directly seems to crash?
+            ++commands_executed;
+            script.m_pCurrentIP += 2;
+            script.m_bNotFlag = (commandId & 0x8000) != 0;
+            opcodeTable* f = (opcodeTable*)0x8A6168;
+            f[(commandId & 0x7FFF) / 100](&script, commandId & 0x7FFF);
         }
         else
         {
+            script.m_bWastedBustedCheck = true;
             // script.m_nIp = reinterpret_cast<int>(code.GetData()) - reinterpret_cast<int>(CRunningScript::GetScriptSpaceBase());
         }
-
-        script.ProcessOneCommand();
+        
         return script.m_bCondResult ? true : false;
     }
 };
