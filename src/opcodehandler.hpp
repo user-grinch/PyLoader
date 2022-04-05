@@ -34,16 +34,6 @@ public:
     unsigned char  *m_pSceneSkipIP;
     bool            m_bIsMission;
     char            _padDD[3];
-    
-    void Init()
-    {
-        ((void(*__fastcall)(int))0x4648E0)((int)this);
-    }
-
-    void ProcessOneCommand()
-    {
-        ((void(*__fastcall)(int))0x469EB0)((int)this);
-    }
 };
 
 class CRunningScript 
@@ -75,15 +65,44 @@ public:
 
 class OpcodeHandler
 {
-private: 
-    static inline size_t size = 0;
+private:
+    
+    // Calls CRunningScript on a memory buffer
+    static bool call_script_on_buf(unsigned int command_id, unsigned char* buf)
+    {
+        static CRunningScriptSA script;
+        memset(&script, 0, sizeof(CRunningScriptSA));
+        strcpy(script.m_szName, "py-load");
+        script.m_bIsMission = false;
+        script.m_bUseMissionCleanup = false;
+        script.m_bNotFlag = (command_id >> 15) & 1;
 
-public:
-    OpcodeHandler() = delete;
-    OpcodeHandler(const OpcodeHandler&) = delete;
+        if (gGameVer == eGameVer::SA)
+        {
+            static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
+            typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
+
+            script.m_pBaseIP = script.m_pCurrentIP = buf;
+
+            // Calling CRunningScript::ProcessOneCommand directly seems to crash
+            ++commands_executed;
+            script.m_pCurrentIP += 2;
+            script.m_bNotFlag = (command_id & 0x8000) != 0;
+            opcodeTable* f = (opcodeTable*)0x8A6168;
+            f[(command_id & 0x7FFF) / 100](&script, command_id & 0x7FFF);
+        }
+        else
+        {
+            // TODO: VC & III
+            script.m_bWastedBustedCheck = true;
+            // script.m_nIp = reinterpret_cast<int>(code.GetData()) - reinterpret_cast<int>(CRunningScript::GetScriptSpaceBase());
+        }
+
+        return script.m_bCondResult ? true : false;
+    }
 
     template <typename Type>
-    static void mem_cpy(unsigned char*& des, Type value) 
+    static void mem_cpy(unsigned char*& des, size_t& size, Type value) 
     {
         if (typeid(value) == typeid(int))
         {   
@@ -107,50 +126,87 @@ public:
     }
 
     template <typename First, typename... Rest>
-    static void mem_cpy(unsigned char*& des, First firstValue, Rest... rest) {
-        mem_cpy(des, firstValue);
-        mem_cpy(des, rest...);
+    static void mem_cpy(unsigned char*& des, size_t& size, First firstValue, Rest... rest) {
+        mem_cpy(des, size, firstValue);
+        mem_cpy(des, size, rest...);
     }
 
-    template<typename... ArgTypes>
-    static bool call(unsigned int commandId,  ArgTypes... arguments)
+public:
+    OpcodeHandler() = delete;
+    OpcodeHandler(const OpcodeHandler&) = delete;
+    
+    // call opcodes using a external buffer
+    static bool call(unsigned int command_id, unsigned char* buf)
     {
-        static unsigned char *buf = new unsigned char[256];
-        static CRunningScriptSA script;
-        memset(&script, 0, sizeof(CRunningScriptSA));
+        return call_script_on_buf(command_id, buf);
+    }
+
+    // call opcode using a python tuple
+    static bool call(PyObject* args)
+    {
+        static size_t size = 0;
+        static unsigned char* buf = new unsigned char[256]; // 256 should be more than enough
+        Py_ssize_t total_args = PyTuple_Size(args);
+
+        unsigned int command_id = PyLong_AsLong(PyNumber_Long(PyTuple_GetItem(args, 0)));
+
+        // copy args to buffer
+        memset(buf, 0, 256);
+        memcpy(&buf[0], &command_id, 2);
+        size = 2;
+
+        for (size_t i = 1; i < total_args; i++)
+        {
+            PyObject *ptemp = PyTuple_GetItem(args, i);
+            if (ptemp)
+            {
+                if (PyNumber_Check(ptemp))
+                {
+                    if (PyFloat_Check(ptemp))
+                    {
+                        float val = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
+                        memset(&buf[size], 0x6, 1);
+                        size += 1;
+                        memcpy(&buf[size], &val, sizeof(val));
+                        size += sizeof(val);
+                    }
+                    else
+                    {
+                        int val = PyLong_AsLong(PyNumber_Long(ptemp));
+                        memset(&buf[size], 0x1, 1);
+                        size += 1;
+                        memcpy(&buf[size], &val, sizeof(val));
+                        size += sizeof(val);
+                    }
+                }
+                else
+                {
+                    // char *val = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+                    // memcpy((void*)(int(pArr) + i*4), &val, 4);
+                }
+            }
+        }
+
+        return call_script_on_buf(command_id, buf);
+    }
+
+    // call opcode using param pack
+    template<typename... ArgTypes>
+    static bool call(unsigned int command_id, ArgTypes... arguments)
+    {
+        static size_t size = 0;
+        unsigned char* buf = new unsigned char[256]; // 256 should be more than enough
         memset(buf, 0, 256);
 
-        strcpy(script.m_szName, "py-load");
-        script.m_bIsMission = false;
-        script.m_bUseMissionCleanup = false;
-        script.m_bNotFlag = (commandId >> 15) & 1;
-
-        // Copy opcodeID & args to buffer
-        memcpy(&buf[0], &commandId, 2);
+        // We do the buffer handling ourselves here
+        memcpy(&buf[0], &command_id, 2);
         size = 2;
-        mem_cpy(buf, arguments...);
+        mem_cpy(buf, size, arguments...);
         buf[size] = '\0';
 
-        if (gGameVer == eGameVer::SA)
-        {
-            static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
-            typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
+        bool rtn = call_script_on_buf(command_id, buf);
+        delete[] buf;
 
-            script.m_pBaseIP = script.m_pCurrentIP = buf;
-
-            // Calling processOneCommand directly seems to crash?
-            ++commands_executed;
-            script.m_pCurrentIP += 2;
-            script.m_bNotFlag = (commandId & 0x8000) != 0;
-            opcodeTable* f = (opcodeTable*)0x8A6168;
-            f[(commandId & 0x7FFF) / 100](&script, commandId & 0x7FFF);
-        }
-        else
-        {
-            script.m_bWastedBustedCheck = true;
-            // script.m_nIp = reinterpret_cast<int>(code.GetData()) - reinterpret_cast<int>(CRunningScript::GetScriptSpaceBase());
-        }
-        
-        return script.m_bCondResult ? true : false;
+        return rtn;
     }
 };

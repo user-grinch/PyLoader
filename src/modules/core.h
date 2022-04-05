@@ -9,12 +9,14 @@ private:
     static PyObject* flush_stream(PyObject* self, PyObject* args);
     static PyObject* write_stream(PyObject* self, PyObject* args);
     static PyObject* wait(PyObject* self, PyObject* args);
+    static PyObject* call_opcode(PyObject* self, PyObject* args);
 
     static inline PyMethodDef methods[] = 
     {
         {"flush", flush_stream, METH_VARARGS},
         {"write", write_stream, METH_VARARGS},
         {"wait", wait, METH_VARARGS},
+        {"op", call_opcode, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef module = {PyModuleDef_HEAD_INIT, "", NULL, -1, methods, NULL, NULL, NULL, NULL};

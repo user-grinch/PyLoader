@@ -30,8 +30,6 @@ PyObject* Core::wait(PyObject* self, PyObject* args)
         PyRun_SimpleString(str.c_str());
     }
 
-    OpcodeHandler::call(0x00C0, 12, 11);
-
     return PyBool_FromLong(1);
 }
 
@@ -57,5 +55,17 @@ PyObject* Core::write_stream(PyObject* self, PyObject* args)
 
 PyObject* Core::flush_stream(PyObject* self, PyObject* args)
 {
+    return Py_BuildValue("");
+}
+
+PyObject* Core::call_opcode(PyObject *self, PyObject *args)
+{
+    Py_ssize_t total_args = PyTuple_Size(args);
+
+    if(total_args) 
+    {
+        OpcodeHandler::call(args);
+    }
+
     return Py_BuildValue("");
 }
