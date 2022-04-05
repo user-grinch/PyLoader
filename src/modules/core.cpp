@@ -60,12 +60,5 @@ PyObject* Core::flush_stream(PyObject* self, PyObject* args)
 
 PyObject* Core::call_opcode(PyObject *self, PyObject *args)
 {
-    Py_ssize_t total_args = PyTuple_Size(args);
-
-    if(total_args) 
-    {
-        OpcodeHandler::call(args);
-    }
-
-    return Py_BuildValue("");
+    return PyBool_FromLong(OpcodeHandler::call(args));
 }

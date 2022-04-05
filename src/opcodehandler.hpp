@@ -63,6 +63,75 @@ public:
     char ProcessOneCommand();
 };
 
+// Basic wrapper around char buffer
+class ScriptBuffer
+{
+private:
+    unsigned char* _buf = nullptr;
+    size_t _size = 0;
+    size_t _capacity = 0;
+
+    void _resize(size_t new_size)
+    {
+        if (new_size > _capacity)
+        {
+            _capacity += 32;
+            _buf = (unsigned char*)realloc(_buf, _capacity);
+        }
+    }
+
+public:
+    ScriptBuffer(unsigned short opcode_id)
+    {
+        if (_buf)
+        {
+            delete[] _buf;
+        }
+
+        _buf = new unsigned char[32];
+        memset(_buf, NULL, 32);
+        _capacity = 32;
+        memcpy(_buf, &opcode_id, 2);
+        _size = 2;
+    };
+
+    ~ScriptBuffer()
+    {
+        delete[] _buf;
+    }
+    
+    unsigned char* get()
+    {
+        return _buf;
+    }
+    
+    template <typename T>
+    void add_bytes(T value)
+    {
+        _resize(_size + sizeof(T) + 1); // +1 for type descriptor
+
+        if (std::is_same_v<T, int> || std::is_same_v<T, unsigned int>)
+        {   
+            memset(&_buf[_size], 0x1, 1);
+        }
+        if (std::is_same_v<T, short> || std::is_same_v<T, unsigned short>)
+        {
+            memset(&_buf[_size], 0x5, 1);
+        }
+        if (std::is_same_v<T, float>)
+        {
+            memset(&_buf[_size], 0x6, 1);
+        }
+        if (std::is_same_v<T, bool>)
+        {
+            memset(&_buf[_size], 0x4, 1);
+        }
+        _size += 1;
+        memcpy(&_buf[_size], &value, sizeof(value));
+        _size += sizeof(value);
+    }
+};
+
 class OpcodeHandler
 {
 private:
@@ -101,34 +170,16 @@ private:
         return script.m_bCondResult ? true : false;
     }
 
-    template <typename Type>
-    static void mem_cpy(unsigned char*& des, size_t& size, Type value) 
+    template <typename T>
+    static void mem_cpy(ScriptBuffer& buf, T value) 
     {
-        if (typeid(value) == typeid(int))
-        {   
-            memset(&des[size], 0x1, 1);
-        }
-        if (typeid(value) == typeid(short))
-        {
-            memset(&des[size], 0x5, 1);
-        }
-        if (typeid(value) == typeid(float))
-        {
-            memset(&des[size], 0x6, 1);
-        }
-        if (typeid(value) == typeid(bool))
-        {
-            memset(&des[size], 0x4, 1);
-        }
-        size += 1;
-        memcpy(&des[size], &value, sizeof(value));
-        size += sizeof(value);
-    }
+        buf.add_bytes(value);
+    }   
 
     template <typename First, typename... Rest>
-    static void mem_cpy(unsigned char*& des, size_t& size, First firstValue, Rest... rest) {
-        mem_cpy(des, size, firstValue);
-        mem_cpy(des, size, rest...);
+    static void pack_param(ScriptBuffer& buf, First firstValue, Rest... rest) {
+        pack_param(buf, firstValue);
+        pack_param(buf, rest...);
     }
 
 public:
@@ -145,16 +196,31 @@ public:
     static bool call(PyObject* args)
     {
         static size_t size = 0;
-        static unsigned char* buf = new unsigned char[256]; // 256 should be more than enough
-        Py_ssize_t total_args = PyTuple_Size(args);
+        size_t total_args = PyTuple_Size(args);
+        unsigned short command_id = NULL;
 
-        unsigned int command_id = PyLong_AsLong(PyNumber_Long(PyTuple_GetItem(args, 0)));
+        // return of no args provided
+        if (!total_args)
+        {
+            Py_FatalError("No arguments provided!");
+            return false;
+        }
 
-        // copy args to buffer
-        memset(buf, 0, 256);
-        memcpy(&buf[0], &command_id, 2);
-        size = 2;
+        // Error checking for opcode id
+        PyObject *ptr = PyTuple_GetItem(args, 0);
+        if (ptr)
+        {
+            if (PyNumber_Check(ptr) && !PyFloat_Check(ptr))
+            {
+                command_id = (unsigned short)PyLong_AsLong(PyNumber_Long(PyTuple_GetItem(args, 0)));
+            }
+            else
+            {
+                Py_FatalError("Invalid opcode id provided!");
+            }
+        }
 
+        ScriptBuffer buf(command_id);
         for (size_t i = 1; i < total_args; i++)
         {
             PyObject *ptemp = PyTuple_GetItem(args, i);
@@ -165,48 +231,32 @@ public:
                     if (PyFloat_Check(ptemp))
                     {
                         float val = (float)PyFloat_AsDouble(PyNumber_Float(ptemp));
-                        memset(&buf[size], 0x6, 1);
-                        size += 1;
-                        memcpy(&buf[size], &val, sizeof(val));
-                        size += sizeof(val);
+                        buf.add_bytes(val);
                     }
                     else
                     {
                         int val = PyLong_AsLong(PyNumber_Long(ptemp));
-                        memset(&buf[size], 0x1, 1);
-                        size += 1;
-                        memcpy(&buf[size], &val, sizeof(val));
-                        size += sizeof(val);
+                        buf.add_bytes(val);
                     }
                 }
                 else
                 {
+                    // TODO: handle strings
                     // char *val = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
                     // memcpy((void*)(int(pArr) + i*4), &val, 4);
                 }
             }
         }
 
-        return call_script_on_buf(command_id, buf);
+        return call_script_on_buf(command_id, buf.get());
     }
 
     // call opcode using param pack
     template<typename... ArgTypes>
     static bool call(unsigned int command_id, ArgTypes... arguments)
     {
-        static size_t size = 0;
-        unsigned char* buf = new unsigned char[256]; // 256 should be more than enough
-        memset(buf, 0, 256);
-
-        // We do the buffer handling ourselves here
-        memcpy(&buf[0], &command_id, 2);
-        size = 2;
-        mem_cpy(buf, size, arguments...);
-        buf[size] = '\0';
-
-        bool rtn = call_script_on_buf(command_id, buf);
-        delete[] buf;
-
-        return rtn;
+        ScriptBuffer buf(command_id);
+        pack_param(buf, arguments...);
+        return call_script_on_buf(command_id, buf.get());
     }
 };
