@@ -37,5 +37,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{matrix.project}}
-          path: build\bin\${{matrix.buildtype}}.asi
+          path: build\bin\${{matrix.project}}.asi
         
