@@ -32,7 +32,7 @@ project "PyLoader"
     }
     includedirs {
         "../depend/",
-        PYTHON_DIR .. "/include/" 
+        PYTHON_DIR .. "/include/", 
     }
 
     libdirs {

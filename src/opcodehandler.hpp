@@ -110,23 +110,40 @@ public:
     {
         _resize(_size + sizeof(T) + 1); // +1 for type descriptor
 
+        if (std::is_same_v<T, char> || std::is_same_v<T, unsigned char> || std::is_same_v<T, bool>)
+        {   
+            memset(&_buf[_size], 0x4, 1);
+            _size += 1;
+        }
         if (std::is_same_v<T, int> || std::is_same_v<T, unsigned int>)
         {   
             memset(&_buf[_size], 0x1, 1);
+            _size += 1;
         }
         if (std::is_same_v<T, short> || std::is_same_v<T, unsigned short>)
         {
             memset(&_buf[_size], 0x5, 1);
+            _size += 1;
         }
         if (std::is_same_v<T, float>)
         {
             memset(&_buf[_size], 0x6, 1);
+            _size += 1;
         }
-        if (std::is_same_v<T, bool>)
-        {
+        if (std::is_same_v<T, char> || std::is_same_v<T, unsigned char> || std::is_same_v<T, bool>)
+        {   
             memset(&_buf[_size], 0x4, 1);
+            _size += 1;
         }
-        _size += 1;
+        if (std::is_same_v<T, char*> || std::is_same_v<T, unsigned char&> || std::is_same_v<T, const char*>)
+        {   
+            memset(&_buf[_size], 0xE, 1);
+            _size += 1;
+            const char * str = reinterpret_cast<const char*>(&value);
+            memset(&_buf[_size], strlen(str), 1);
+            _size += 1;
+        }
+
         memcpy(&_buf[_size], &value, sizeof(value));
         _size += sizeof(value);
     }
@@ -137,7 +154,7 @@ class OpcodeHandler
 private:
     
     // Calls CRunningScript on a memory buffer
-    static bool call_script_on_buf(unsigned int command_id, unsigned char* buf)
+    static bool call_script_on_buf(unsigned int command_id, ScriptBuffer& buf)
     {
         static CRunningScriptSA script;
         memset(&script, 0, sizeof(CRunningScriptSA));
@@ -151,7 +168,7 @@ private:
             static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
             typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
 
-            script.m_pBaseIP = script.m_pCurrentIP = buf;
+            script.m_pBaseIP = script.m_pCurrentIP = buf.get();
 
             // Calling CRunningScript::ProcessOneCommand directly seems to crash
             ++commands_executed;
@@ -171,7 +188,7 @@ private:
     }
 
     template <typename T>
-    static void mem_cpy(ScriptBuffer& buf, T value) 
+    static void pack_param(ScriptBuffer& buf, T value) 
     {
         buf.add_bytes(value);
     }   
@@ -186,12 +203,6 @@ public:
     OpcodeHandler() = delete;
     OpcodeHandler(const OpcodeHandler&) = delete;
     
-    // call opcodes using a external buffer
-    static bool call(unsigned int command_id, unsigned char* buf)
-    {
-        return call_script_on_buf(command_id, buf);
-    }
-
     // call opcode using a python tuple
     static bool call(PyObject* args)
     {
@@ -241,14 +252,13 @@ public:
                 }
                 else
                 {
-                    // TODO: handle strings
-                    // char *val = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
-                    // memcpy((void*)(int(pArr) + i*4), &val, 4);
+                    char *val = PyBytes_AsString(PyUnicode_AsUTF8String(ptemp));
+                    buf.add_bytes(val);
                 }
             }
         }
 
-        return call_script_on_buf(command_id, buf.get());
+        return call_script_on_buf(command_id, buf);
     }
 
     // call opcode using param pack
@@ -257,6 +267,6 @@ public:
     {
         ScriptBuffer buf(command_id);
         pack_param(buf, arguments...);
-        return call_script_on_buf(command_id, buf.get());
+        return call_script_on_buf(command_id, buf);
     }
 };

@@ -1,0 +1,41 @@
+name: Build PyLoader
+on: push
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        project: [PyLoader]
+        buildtype: [Release]
+        python-ver: ["3.10.4"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+      - name: Setup premake
+        uses: abel0b/setup-premake@v2
+        with:
+          version: "5.0.0-beta1"
+      - name: Configure build
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: Win32 
+      - name: Setup python 
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{matrix.python-ver}} 
+          architecture: x86
+      - name: Move python
+        run: mv "C:/hostedtoolcache/windows/Python/3.10.4/x86/" "C:/Program Files (x86)/Python310-32"
+      - name: Build plugin
+        run: |
+          cd tools
+          premake5 vs2022
+          cd ../build
+          MsBuild ${{matrix.project}}.sln /property:Configuration=${{matrix.buildtype}} /p:Platform=Win32 /t:${{matrix.project}}
+      - name: Upload plugin
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{matrix.project}}
+          path: build\bin\${{matrix.buildtype}}.asi
+        
