@@ -16,19 +16,17 @@ workspace "PyLoader"
     staticruntime "On"
     location "../build"
     targetdir "../build/bin"
-
+        
 project "PyLoader"
     kind "SharedLib"
     targetextension ".asi"
     
     files { 
-        "../depend/**.h", 
-        "../depend/**.hpp", 
-        "../depend/**.c", 
-        "../depend/**.cpp",
-        "../src/**.h", 
-        "../src/**.hpp", 
-        "../src/**.cpp" 
+        "../depend/**",
+        "../src/**", 
+    }
+    removefiles { 
+        "../src/sdk/**"
     }
     includedirs {
         "../depend/",
@@ -48,4 +46,3 @@ project "PyLoader"
 
     filter "configurations:Release"
         optimize "On"
-        

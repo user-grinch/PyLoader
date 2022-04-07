@@ -1,7 +1,6 @@
 #pragma once
 #include "../pch.h"
 
-
 // Redirects stdout and stderr to the log
 class Core
 {

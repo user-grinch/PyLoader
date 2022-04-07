@@ -149,10 +149,10 @@ public:
     }
 };
 
+
 class OpcodeHandler
 {
 private:
-    
     // Calls CRunningScript on a memory buffer
     static bool call_script_on_buf(unsigned int command_id, ScriptBuffer& buf)
     {

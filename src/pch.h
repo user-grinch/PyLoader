@@ -1,4 +1,5 @@
 #pragma once
+#define WIN32_LEAN_AND_MEAN 
 #define _CRT_SECURE_NO_WARNINGS
 #define PYLOADER_VERSION 0.2f
 #define GITHUB_LINK "https://github.com/user-grinch/PyLoader/"
@@ -10,19 +11,8 @@
 
 #include "scriptdata.hpp"
 
-enum class eGameVer
-{
-    III,
-    VC,
-    SA,
-    III_DE,
-    VC_DE,
-    SA_DE,
-    RE_III,
-    RE_VC,
-    RE_SA,
-    UNKNOWN
-};
+// Visual Studio doesn't seem to generate .lib file without including the sdk header
+#include "pyloader_sdk.h"
 
 extern eGameVer gGameVer;
 extern std::ofstream gLog;

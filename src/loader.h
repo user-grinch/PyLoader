@@ -27,6 +27,11 @@ private:
     */
     static void init();
     /*
+        Loads .dll plugins
+        Useful for extending the functionality of PyLoader
+    */
+    static void load_plugins(std::string&& dirName);
+    /*
         Loads a script from file name
         Relative from the PyLoader directory
     */

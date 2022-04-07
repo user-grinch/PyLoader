@@ -16,9 +16,10 @@ PyObject* Core::wait(PyObject* self, PyObject* args)
         This is needed to prevent high cpu usage & crash
     */
     ScriptData *pdata = ScriptMgr::get();
+    PyRun_SimpleString("import time");
     while (pdata->ticks == ScriptMgr::game_ticks)
     {
-        PyRun_SimpleString("import time\ntime.sleep(0.1)");
+        PyRun_SimpleString("time.sleep(0.1)");
     }
 
     pdata->ticks = ScriptMgr::game_ticks;

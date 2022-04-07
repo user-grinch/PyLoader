@@ -16,6 +16,8 @@ void PyLoader::init()
 
     PyImport_AppendInittab("_core_", &Core::init);
 
+    load_plugins("lib");
+    load_plugins("libstd");
     // init the python interpreter
     Py_Initialize();
     if (!Py_IsInitialized()) 
@@ -24,6 +26,7 @@ void PyLoader::init()
         return;
     }
     PyImport_ImportModule("_core_");
+    PyImport_ImportModule("memory");
     PyEval_ReleaseLock();
 
     initialized = true;
@@ -129,4 +132,31 @@ void PyLoader::load_script(std::string name)
     Py_XDECREF(pglobal);
     Py_XDECREF(plocal);
     PyGILState_Release(gstate);
+}
+
+void PyLoader::load_plugins(std::string&& dirName)
+{
+    WIN32_FIND_DATA fileData;
+    std::string path = std::format("./PyLoader/{}/*.dll", dirName);
+    HANDLE dir = FindFirstFileA(path.c_str(), &fileData);
+
+    if (dir != INVALID_HANDLE_VALUE)
+    {
+        do {
+            std::string fileName = std::format("./PyLoader/{}/{}", dirName, fileData.cFileName);
+            HINSTANCE hDll = LoadLibrary(fileName.c_str());
+
+            if (hDll)
+            {
+                FARPROC func = GetProcAddress(hDll, "register_plugin");
+                if (func)
+                {
+                    func();
+                    gLog << "Registered plugin " << fileData.cFileName << std::endl;
+                }
+            }
+        } while (FindNextFile(dir, &fileData));
+    }
+
+    FindClose(dir);
 }
