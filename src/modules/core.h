@@ -1,7 +1,11 @@
 #pragma once
 #include "../pch.h"
 
-// Redirects stdout and stderr to the log
+/*
+    PyLoader Core plugin
+    Contains the core functionality of PyLoader
+    These can't be exposed using the usual plugin system
+*/
 class Core
 {
 private:

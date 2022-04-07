@@ -5,6 +5,7 @@
 #pragma once
 #include <sstream>
 #include <vector>
+#include "pch.h"
 
 class CRunningScriptSA 
 {
@@ -149,10 +150,23 @@ public:
     }
 };
 
-
 class OpcodeHandler
 {
 private:
+    struct PyCommand
+    {
+        std::string name = "Unknown";
+        void* pfunc = nullptr;
+    };
+
+    struct PyModule 
+    {
+        std::string name = "Unknown";
+        std::vector<PyCommand> commands;
+    };
+
+    static inline std::vector<PyModule> modules;
+
     // Calls CRunningScript on a memory buffer
     static bool call_script_on_buf(unsigned int command_id, ScriptBuffer& buf)
     {
@@ -163,7 +177,7 @@ private:
         script.m_bUseMissionCleanup = false;
         script.m_bNotFlag = (command_id >> 15) & 1;
 
-        if (gGameVer == eGameVer::SA)
+        if (gGameVer == eGame::SA)
         {
             static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
             typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
@@ -203,6 +217,54 @@ public:
     OpcodeHandler() = delete;
     OpcodeHandler(const OpcodeHandler&) = delete;
     
+    // Adds new commands to Pyloader
+    static void add_command(const char* cmd_name, const char* mod_name, void* pfunc)
+    {
+        for (auto &mod : modules)
+        {
+            // push to the module if it exists
+            if (mod.name == mod_name)
+            {
+                PyCommand command;
+                command.name = cmd_name;
+                command.pfunc = pfunc;
+                mod.commands.push_back(std::move(command));
+                return;
+            }
+        }
+
+        // otherwise create a new module and push to that
+        PyModule mod;
+        mod.name = mod_name;
+        PyCommand command;
+        command.name = cmd_name;
+        command.pfunc = pfunc;
+        mod.commands.push_back(std::move(command));
+        modules.push_back(std::move(mod));
+    }
+
+    // Registers all the new commands to the interpreter
+    static void register_commands()
+    {
+        for (auto&mod : modules)
+        {
+            // We're leaking meomry here,
+            // Ideally we should clean it up but should be fine
+
+            size_t size = mod.commands.size()+1; // +1 for sentinel
+            PyMethodDef *pmethods = new PyMethodDef[size]; 
+            pmethods[size] = {};
+
+            typedef PyObject* func(PyObject* self, PyObject* args);
+            for (size_t i = 0; i < mod.commands.size(); ++i)
+            {
+                pmethods[i] = {mod.commands[i].name.c_str(), (func*)mod.commands[i].pfunc, METH_VARARGS};
+            }
+            PyModuleDef* pmodule = new PyModuleDef{PyModuleDef_HEAD_INIT, mod.name.c_str(), NULL, -1, pmethods, NULL, NULL, NULL, NULL};
+            PyObject* m = PyModule_Create(&*pmodule);
+        }
+    }
+
     // call opcode using a python tuple
     static bool call(PyObject* args)
     {

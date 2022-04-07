@@ -8,7 +8,6 @@ private:
     static inline bool initialized; // PyLoader init flag
     static inline FileWatcher watcher{"./PyLoader/"};
 
-
     /*
         Does necessary cleanup to exit PyLoader
         Unlikely to be ever called!

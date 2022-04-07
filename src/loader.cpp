@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "loader.h"
 #include "modules/core.h"
-
 #include <thread>
+#include "opcodehandler.hpp"
 
 void PyLoader::init()
 {
@@ -16,8 +16,10 @@ void PyLoader::init()
 
     PyImport_AppendInittab("_core_", &Core::init);
 
+    // look for dll plugins to load
     load_plugins("lib");
     load_plugins("libstd");
+    OpcodeHandler::register_commands();
     // init the python interpreter
     Py_Initialize();
     if (!Py_IsInitialized()) 
@@ -26,7 +28,6 @@ void PyLoader::init()
         return;
     }
     PyImport_ImportModule("_core_");
-    PyImport_ImportModule("memory");
     PyEval_ReleaseLock();
 
     initialized = true;
@@ -144,16 +145,13 @@ void PyLoader::load_plugins(std::string&& dirName)
     {
         do {
             std::string fileName = std::format("./PyLoader/{}/{}", dirName, fileData.cFileName);
-            HINSTANCE hDll = LoadLibrary(fileName.c_str());
-
-            if (hDll)
+            if (LoadLibrary(fileName.c_str()))
             {
-                FARPROC func = GetProcAddress(hDll, "register_plugin");
-                if (func)
-                {
-                    func();
-                    gLog << "Registered plugin " << fileData.cFileName << std::endl;
-                }
+                gLog << "Loading plugin " << fileData.cFileName << std::endl;
+            }
+            else
+            {
+                gLog << "Failed to load plugin " << fileData.cFileName << std::endl;
             }
         } while (FindNextFile(dir, &fileData));
     }

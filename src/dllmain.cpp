@@ -14,7 +14,7 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
 			&& gvm.GetMinorVersion() == 0
 			)
 		{
-			gGameVer = eGameVer::III;
+			gGameVer = eGame::III;
 		}
 
 		if (gvm.IsVC() 
@@ -22,7 +22,7 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
 			&& gvm.GetMinorVersion() == 0
 			)
 		{
-			gGameVer = eGameVer::VC;
+			gGameVer = eGame::VC;
 		}
 
 		if (gvm.IsSA()
@@ -30,10 +30,10 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
 		&& gvm.GetMinorVersion() == 0
 			)
 		{
-			gGameVer = eGameVer::SA;
+			gGameVer = eGame::SA;
 		}
 
-		if (gGameVer != eGameVer::UNKNOWN)
+		if (gGameVer != eGame::UNKNOWN)
 		{
 			CreateThread(nullptr, NULL, (LPTHREAD_START_ROUTINE)&PyLoader::process, nullptr, NULL, nullptr);
 		}

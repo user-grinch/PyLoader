@@ -8,6 +8,7 @@
                 "${workspaceFolder}/depend/"
             ],
             "defines": [
+                "PY_LOADER",
                 "_DEBUG",
                 "_DX9_SDK_INSTALLED"
             ],

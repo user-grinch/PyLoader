@@ -38,6 +38,10 @@ project "PyLoader"
         PYTHON_DIR .. "/libs/"
     }
     
+    defines {
+        "PY_LOADER"
+    }
+
     pchheader "pch.h"
     pchsource "../src/pch.cpp"
 

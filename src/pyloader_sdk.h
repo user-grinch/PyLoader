@@ -1,5 +1,13 @@
 #pragma once
-enum eGameVer
+#ifdef PY_LOADER
+#define PY_API __declspec(dllexport)
+#else
+#define PY_API
+#include <Python.h>
+#include <frameobject.h>
+#endif
+
+enum eGame
 {
     III,
     VC,
@@ -14,8 +22,9 @@ enum eGameVer
 };
 
 extern "C" {
-	float __declspec(dllexport) get_sdk_version();
-	eGameVer __declspec(dllexport) get_game_id();
-	void __declspec(dllexport) get_pyloader_folder(char* buf);
-	void __declspec(dllexport) py_log(const char* text);
+	eGame   PY_API get_game_id();
+	void    PY_API get_pyloader_folder(char* buf);
+	float   PY_API get_sdk_version();
+	void    PY_API py_log(const char* text);
+    void    PY_API register_command(const char* cmd_name, const char* mod_name, void* pfunc);
 }
