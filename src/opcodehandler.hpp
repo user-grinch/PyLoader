@@ -6,7 +6,6 @@
 #include <sstream>
 #include <vector>
 #include "pch.h"
-#include "modules/core.h"
 
 class CRunningScriptSA 
 {
