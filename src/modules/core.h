@@ -8,7 +8,7 @@
 */
 class Core
 {
-private:
+public:
     static PyObject* flush_stream(PyObject* self, PyObject* args);
     static PyObject* write_stream(PyObject* self, PyObject* args);
     static PyObject* wait(PyObject* self, PyObject* args);

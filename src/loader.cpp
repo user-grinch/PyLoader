@@ -20,7 +20,9 @@ void PyLoader::init()
     load_plugins("lib");
     load_plugins("libstd");
     OpcodeHandler::register_commands();
+
     // init the python interpreter
+    Py_SetProgramName((wchar_t*)"PyLoader");
     Py_Initialize();
     if (!Py_IsInitialized()) 
     {
@@ -147,7 +149,7 @@ void PyLoader::load_plugins(std::string&& dirName)
             std::string fileName = std::format("./PyLoader/{}/{}", dirName, fileData.cFileName);
             if (LoadLibrary(fileName.c_str()))
             {
-                gLog << "Loading plugin " << fileData.cFileName << std::endl;
+                gLog << "Loaded plugin " << fileData.cFileName << std::endl;
             }
             else
             {

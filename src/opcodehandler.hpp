@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include "pch.h"
+#include "modules/core.h"
 
 class CRunningScriptSA 
 {
@@ -161,8 +162,40 @@ private:
 
     struct PyModule 
     {
+    private:
+        typedef PyObject* f_cmd(PyObject* self, PyObject* args);
+        typedef PyObject* f_pyvoid();
+
+        static inline PyModule *cur_mod = nullptr;
+        static PyObject* init()
+        {
+            size_t size = cur_mod->commands.size();
+            PyMethodDef *method_def = new PyMethodDef[size]; 
+
+            // create our method defination table
+            for (size_t i = 0; i < size; ++i)
+            {
+                const char* name = cur_mod->commands[i].name.c_str();
+                method_def[i] = {name, (f_cmd*)cur_mod->commands[i].pfunc, METH_VARARGS, NULL};
+            }
+            method_def[size] = {};
+
+            // create our module defination table & create the module
+            PyModuleDef *mod_def = new PyModuleDef{PyModuleDef_HEAD_INIT, cur_mod->name.c_str(), NULL, -1, method_def, NULL, NULL, NULL, NULL};
+            PyObject *module = PyModule_Create(mod_def);
+
+            return module;
+        }
+    public:
         std::string name = "Unknown";
         std::vector<PyCommand> commands;
+
+        // kinda hacky, but it works
+        f_pyvoid* get_init()
+        {
+            cur_mod = this;
+            return init;
+        };
     };
 
     static inline std::vector<PyModule> modules;
@@ -242,26 +275,13 @@ public:
         mod.commands.push_back(std::move(command));
         modules.push_back(std::move(mod));
     }
-
+    
     // Registers all the new commands to the interpreter
     static void register_commands()
     {
         for (auto&mod : modules)
         {
-            // We're leaking meomry here,
-            // Ideally we should clean it up but should be fine
-
-            size_t size = mod.commands.size()+1; // +1 for sentinel
-            PyMethodDef *pmethods = new PyMethodDef[size]; 
-            pmethods[size] = {};
-
-            typedef PyObject* func(PyObject* self, PyObject* args);
-            for (size_t i = 0; i < mod.commands.size(); ++i)
-            {
-                pmethods[i] = {mod.commands[i].name.c_str(), (func*)mod.commands[i].pfunc, METH_VARARGS};
-            }
-            PyModuleDef* pmodule = new PyModuleDef{PyModuleDef_HEAD_INIT, mod.name.c_str(), NULL, -1, pmethods, NULL, NULL, NULL, NULL};
-            PyObject* m = PyModule_Create(&*pmodule);
+            PyImport_AppendInittab(mod.name.c_str(), mod.get_init());
         }
     }
 
