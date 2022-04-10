@@ -2,12 +2,12 @@
 
 ## Introduction
 
-A plugin for Grand Theft Auto 3D Era (NOT definitive editions) which allows you to load Python scripts into the game. This is a complete rewrite of the original [PyLoaderSA](https://github.com/user-grinch/PyLoader/tree/master). To know about rewrite specific changes look [here](https://github.com/user-grinch/PyLoader/issues/1). 
+A plugin for Grand Theft Auto SanAndreas which allows you to load Python scripts into the game. This is a complete rewrite of the original [PyLoaderSA](https://github.com/user-grinch/PyLoader/tree/master). To know about rewrite specific changes look [here](https://github.com/user-grinch/PyLoader/issues/1). 
 
 ### Supported games
 - GTA San Andreas v1.0 US (Hoodlum & Compact)
-- GTA Vice City v1.0 US
-- GTA III v1.0 US
+
+***Support for III & VC may or may not arive later***
 
 **Python version**: 3.10x (Windows 8 & above)<br>
 **C++ required**: C++20

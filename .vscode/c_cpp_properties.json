@@ -5,7 +5,8 @@
             "includePath": [
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/*",
                 "C:/Program Files (x86)/Python310-32/include",
-                "${workspaceFolder}/depend/"
+                "${workspaceFolder}/depend/",
+                "${workspaceFolder}/src/"
             ],
             "defines": [
                 "PY_LOADER",

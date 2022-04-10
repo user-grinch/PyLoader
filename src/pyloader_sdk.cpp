@@ -28,7 +28,6 @@ void register_command(const char* cmd_name, const char* mod_name, void* pfunc)
     if (pfunc != nullptr && mod_name != nullptr && cmd_name != nullptr)
     {
         OpcodeHandler::add_command(cmd_name, mod_name, pfunc);
-        gLog << "Registering command " << cmd_name << std::endl;
     }
 }
 
