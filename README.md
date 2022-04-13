@@ -7,7 +7,7 @@ A plugin for Grand Theft Auto SanAndreas which allows you to load Python scripts
 ### Supported games
 - GTA San Andreas v1.0 US (Hoodlum & Compact)
 
-***Support for III & VC may or may not arive later***
+*Support for III & VC may or may not arive later*
 
 **Python version**: 3.10x (Windows 8 & above)<br>
 **C++ required**: C++20

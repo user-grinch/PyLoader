@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "loader.h"
-#include "modules/core.h"
+#include "module.h"
 #include <thread>
 #include "opcodehandler.hpp"
 
