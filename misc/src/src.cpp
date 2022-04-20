@@ -1,7 +1,6 @@
-#define WIN32_LEAN_AND_MEAN
 #include "pyloader_sdk.h"
 #include "plugin.h"
-#include "CPools.h"
+#include "CPool.h"
 #include "CCutsceneMgr.h"
 #include "CZone.h"
 #include "CTheZones.h"

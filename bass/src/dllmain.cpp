@@ -1,6 +1,8 @@
 #define WIN32_LEAN_AND_MEAN 
 #include "windows.h"
 #include "pyloader_sdk.h"
+#include "soundsystem.h"
+#include "RenderWare.h"
 
 PyObject* GetAudioStreamLength(PyObject* self, PyObject* args);
 PyObject* GetAudioStreamVolume(PyObject* self, PyObject* args);
@@ -19,25 +21,29 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
 {
   if (nReason == DLL_PROCESS_ATTACH)
   {
-    // II, VC & SA
-    if (get_game_id() <= eGame::SA)
+    if (get_game_id() == eGame::SA)
     {
-      register_command("get_audiostream_length", "bass", GetAudioStreamLength);
-      register_command("get_audiostream_volume", "bass", GetAudioStreamVolume);
-      register_command("link_3d_audiostream_to_actor", "bass", Link3dAudioStreamToActor);
-      register_command("link_3d_audiostream_to_obj", "bass", Link3dAudioStreamToObject);
-      register_command("link_3d_audiostream_to_veh", "bass", Link3dAudioStreamToVehicle);
-      register_command("load_audiostream", "bass", LoadAudioStream);
-      register_command("loop_audiostream", "bass", LoopAudioStream);
-      register_command("load_audiostream_with_3d_support", "bass", LoadAudioStreamWith3dSupport);
-      register_command("release_audiostream", "bass", ReleaseAudioStream);
-      register_command("set_audiostream_perform_action", "bass", SetAudioStreamPerformAction);
-      register_command("set_audiostream_volume", "bass", SetAudioStreamVolume);
-      register_command("set_3d_audiostream_position", "bass", Set3dAudioStreamPosition);
+      plugin::Events::initGameEvent += []()
+      {
+        SoundSystem.Inject();
+        SoundSystem.Init(RsGlobal.ps->window);
+      };
+      register_command("get_length", "audiostream", GetAudioStreamLength);
+      register_command("get_volume", "audiostream", GetAudioStreamVolume);
+      register_command("link_3d_to_actor", "audiostream", Link3dAudioStreamToActor);
+      register_command("link_3d_to_obj", "audiostream", Link3dAudioStreamToObject);
+      register_command("link_3d_to_veh", "audiostream", Link3dAudioStreamToVehicle);
+      register_command("load", "audiostream", LoadAudioStream);
+      register_command("loop", "audiostream", LoopAudioStream);
+      register_command("load_with_3d_support", "audiostream", LoadAudioStreamWith3dSupport);
+      register_command("release", "audiostream", ReleaseAudioStream);
+      register_command("set_perform_action", "audiostream", SetAudioStreamPerformAction);
+      register_command("set_volume", "audiostream", SetAudioStreamVolume);
+      register_command("set_3d_position", "audiostream", Set3dAudioStreamPosition);
     }
     else
     {
-      py_log("Unsupported game/ version. Only GTA III, VC & SA (Not DE) are supported.");
+      py_log("Unsupported game/ version. Only GTA SA (Not DE) is supported.");
     }
   }
 

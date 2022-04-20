@@ -21,20 +21,26 @@ workspace "plugin"
     staticruntime "On"
     location "../build"
     targetdir "../build/bin"
-
-project "misc"
+    linkoptions "/SAFESEH:NO"
+    
+project "opcodes"
     kind "SharedLib"
     targetextension ".dll"
     
     defines { 
+        "IS_PLATFORM_WIN",
+        "_CRT_SECURE_NO_WARNINGS",
+        "_CRT_NON_CONFORMING_SWPRINTFS",
         "GTASA",
         "PLUGIN_SGV_10US"
     }
 
     files { 
+        "../include/**", 
         "../src/**"
     }
     includedirs {
+        "../include/",
         PYTHON_DIR .. "/include/", 
         PSDK_DIR .. "/plugin_sa/",
         PSDK_DIR .. "/plugin_sa/game_sa/",

@@ -21,11 +21,20 @@ workspace "plugin"
     staticruntime "On"
     location "../build"
     targetdir "../build/bin"
-
-project "bass"
+    linkoptions "/SAFESEH:NO"
+    
+project "audiostream"
     kind "SharedLib"
     targetextension ".dll"
     
+    defines { 
+        "IS_PLATFORM_WIN",
+        "_CRT_SECURE_NO_WARNINGS",
+        "_CRT_NON_CONFORMING_SWPRINTFS",
+        "GTASA",
+        "PLUGIN_SGV_10US"
+    }
+
     files { 
         "../include/**", 
         "../src/**"
@@ -45,13 +54,19 @@ project "bass"
         PSDK_DIR .. "/output/lib"
     }
 
-    links {
-        "PyLoader"
-    }
-
     filter "configurations:Debug"
         symbols "On"
+        links {
+            "PyLoader",
+            "plugin_d",
+            "bass"
+        }
 
     filter "configurations:Release"
         optimize "On"
+        links {
+            "PyLoader",
+            "plugin",
+            "bass"
+        }
         

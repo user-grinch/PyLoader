@@ -6,17 +6,17 @@
 #include "soundsystem.h"
 #include "bass.h"
 #include <windows.h>
-#include "CPlaceable.h"
+#include <format>
 
 HWND(__cdecl * CreateMainWindow)(HINSTANCE hinst);
 LRESULT(__stdcall * imp_DefWindowProc)(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 HWND OnCreateMainWindow(HINSTANCE hinst)
 {
-    if (HIWORD(BASS_GetVersion()) != BASSVERSION) py_log("An incorrect version of bass.dll has been loaded" << std::endl;
+    if (HIWORD(BASS_GetVersion()) != BASSVERSION) py_log("An incorrect version of bass.dll has been loaded");
     py_log("Creating main window...");
     HWND wnd = CreateMainWindow(hinst);
-    if (!SoundSystem.Init(wnd)) py_log("CSoundSystem::Init() failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+    if (!SoundSystem.Init(wnd)) py_log(std::format("CSoundSystem::Init() failed. Error code: {}", BASS_ErrorGetCode()).c_str());
     return wnd;
 }
 
@@ -77,7 +77,8 @@ void EnumerateBassDevices(int& total, int& enabled, int& default_device)
     {
         if (info.flags & BASS_DEVICE_ENABLED) ++enabled;
         if (info.flags & BASS_DEVICE_DEFAULT) default_device = total;
-        py_log("Found sound device " << total << " " << ((default_device == total) ? "(default)" : "") << info.name << std::endl;
+
+        py_log(std::format("Found sound device {} {} ", total, ((default_device == total) ? "(default)" : "")).c_str());
     }
 }
 
@@ -92,33 +93,31 @@ bool CSoundSystem::Init(HWND hwnd)
         info.flags & BASS_DEVICE_ENABLED)
         default_device = forceDevice;
 
-    py_log("On system found " << total_devices << " devices, " << enabled_devices
-        << " enabled devices, assuming device to use: " << default_device
-        << " " << (BASS_GetDeviceInfo(default_device, &info) ? info.name : "Unknown device")
-        << "" << std::endl;
+    py_log(std::format("On system found {} devices, {} enabled devices, assuming device to use: {} {}", total_devices, enabled_devices
+        ,default_device, (BASS_GetDeviceInfo(default_device, &info) ? info.name : "Unknown device")).c_str());
 
     if (BASS_Init(default_device, 44100, BASS_DEVICE_3D | BASS_DEVICE_DEFAULT, hwnd, nullptr) &&
         BASS_Set3DFactors(1.0f, 0.3f, 1.0f) &&
         BASS_Set3DPosition(&pos, &vel, &front, &top))
     {
-        py_log("SoundSystem initialized" << std::endl;
+        py_log("SoundSystem initialized");
 
         // Can we use floating-point (HQ) audio streams?
         DWORD floatable; // floating-point channel support? 0 = no, else yes
         if (floatable = BASS_StreamCreate(44100, 1, BASS_SAMPLE_FLOAT, NULL, NULL))
         {
-            py_log("Floating-point audio supported!" << std::endl;
+            py_log("Floating-point audio supported!");
             BASS_StreamFree(floatable);
         }
-        else py_log("Floating-point audio not supported!" << std::endl;
+        else py_log("Floating-point audio not supported!");
 
         // 
         if (BASS_GetInfo(&SoundDevice))
         {
             if (SoundDevice.flags & DSCAPS_EMULDRIVER)
-                py_log("Audio drivers not installed - using DirectSound emulation" << std::endl;
+                py_log("Audio drivers not installed - using DirectSound emulation");
             if (!SoundDevice.eax)
-                py_log("Audio hardware acceleration disabled (no EAX)" << std::endl;
+                py_log("Audio hardware acceleration disabled (no EAX)");
         }
 
         initialized = true;
@@ -126,7 +125,7 @@ bool CSoundSystem::Init(HWND hwnd)
         BASS_Apply3D();
         return true;
     }
-    py_log("Could not initialize BASS sound system" << std::endl;
+    py_log("Could not initialize BASS sound system");
     return false;
 }
 
@@ -147,7 +146,7 @@ void CSoundSystem::UnloadStream(CAudioStream *stream)
     if (streams.erase(stream))
         delete stream;
     else
-        py_log("Unloading of stream that is not in list of loaded streams" << std::endl;
+        py_log("Unloading of stream that is not in list of loaded streams");
 }
 
 void CSoundSystem::UnloadAllStreams()
@@ -228,7 +227,7 @@ CAudioStream::CAudioStream(const char *src) : state(no), OK(false)
     if (!(streamInternal = BASS_StreamCreateFile(FALSE, src, 0, 0, flags)) &&
         !(streamInternal = BASS_StreamCreateURL(src, 0, flags, 0, nullptr)))
     {
-        py_log("Loading audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+        py_log(std::format("Loading audiostream {} failed. Error code: {}", src, BASS_ErrorGetCode()).c_str());
     }
     else OK = true;
 }
@@ -245,7 +244,7 @@ C3DAudioStream::C3DAudioStream(const char *src) : CAudioStream(), link(nullptr)
         flags |= BASS_SAMPLE_FLOAT;
     if (!(streamInternal = BASS_StreamCreateFile(FALSE, src, 0, 0, flags)) && !(streamInternal = BASS_StreamCreateURL(src, 0, flags, nullptr, nullptr)))
     {
-        py_log("Loading 3d-audiostream " << src << "failed. Error code: " << BASS_ErrorGetCode() << std::endl;
+        py_log(std::format("Loading audiostream {} failed. Error code: {}", src, BASS_ErrorGetCode()).c_str());
     }
     else
     {
@@ -350,12 +349,12 @@ void CAudioStream::Process()
 
 void CAudioStream::Set3dPosition(const CVector& pos)
 {
-    py_log("Unimplemented CAudioStream::Set3dPosition()" << std::endl;
+    py_log("Unimplemented CAudioStream::Set3dPosition()");
 }
 
 void CAudioStream::Link(CPlaceable *placable)
 {
-    py_log("Unimplemented CAudioStream::Link()" << std::endl;
+    py_log("Unimplemented CAudioStream::Link()");
 }
 
 void C3DAudioStream::Set3dPosition(const CVector& pos)

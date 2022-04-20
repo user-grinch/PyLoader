@@ -7,6 +7,7 @@
 #include <set>
 #include "bass.h"
 #include "pyloader_sdk.h"
+#include "plugin.h"
 
 class CAudioStream;
 class C3DAudioStream;
@@ -115,4 +116,4 @@ public:
     virtual void Process();
 };
 
-extern CSoundSystem SoundSystem;
+static CSoundSystem SoundSystem;

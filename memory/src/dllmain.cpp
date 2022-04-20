@@ -23,19 +23,19 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
     // II, VC & SA
     if (get_game_id() <= eGame::SA)
     {
-      register_command("free_library", "memory", _free_library);
-      register_command("get_proc_address", "memory", _get_proc_address);
-      register_command("load_library", "memory", _load_library);
-      register_command("call_function", "memory", call_function);
-      register_command("call_method", "memory", call_method);
-      register_command("get_raw", "memory", get_raw);
-      register_command("nop", "memory", nop);
-      register_command("put_retn", "memory", put_retn);
-      register_command("read_float", "memory", read_float);
-      register_command("read", "memory", read_memory);
-      register_command("set_raw", "memory", set_raw);
-      register_command("write_float", "memory", write_float);
-      register_command("write", "memory", write_memory);
+      register_command("free_library", "Memory", _free_library);
+      register_command("get_proc_address", "Memory", _get_proc_address);
+      register_command("load_library", "Memory", _load_library);
+      register_command("call_function", "Memory", call_function);
+      register_command("call_method", "Memory", call_method);
+      register_command("get_raw", "Memory", get_raw);
+      register_command("nop", "Memory", nop);
+      register_command("put_retn", "Memory", put_retn);
+      register_command("read_float", "Memory", read_float);
+      register_command("read_memory", "Memory", read_memory);
+      register_command("set_raw", "Memory", set_raw);
+      register_command("write_float", "Memory", write_float);
+      register_command("write_memory", "Memory", write_memory);
     }
     else
     {
