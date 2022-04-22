@@ -17,6 +17,7 @@ public:
     std::thread::id id; // script indentifier
     std::string file_name; // script file name without extension
     eScriptState state; // current script state
+    PyObject *pglobal, *plocal; // script globals and locals
 };
 
 class ScriptMgr
@@ -83,18 +84,17 @@ public:
         return nullptr;
     }
 
-    static void remove(std::thread::id thread_id)
+    static void remove(std::thread::id thread_id = std::this_thread::get_id())
     {
         // create the object if it doesn't exist
-        // for (auto it = script_pool.begin(); it != script_pool.end(); ++it)
-        // {
-        //     // return the exisitng data 
-        //     if (it->id == thread_id)
-        //     {
-        //         Py_XDECREF(it->m_pModule);
-        //         script_pool.erase(it);
-        //         break;
-        //     }
-        // }
+        for (auto it = script_pool.begin(); it != script_pool.end(); ++it)
+        {
+            // return the exisitng data 
+            if (it->id == thread_id)
+            {
+                script_pool.erase(it);
+                break;
+            }
+        }
     }
 };

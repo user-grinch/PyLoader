@@ -18,6 +18,7 @@ public:
     static PyObject* get_working_dir(PyObject* self, PyObject* args);
     static PyObject* key_pressed(PyObject *self, PyObject *args);
     static PyObject* test_cheat(PyObject* self, PyObject* args);
+    static PyObject* imports(PyObject* self, PyObject* args);
 
     static inline PyMethodDef methods[] = 
     {
@@ -30,6 +31,7 @@ public:
         {"get_working_dir", get_working_dir, METH_VARARGS},
         {"key_pressed", key_pressed, METH_VARARGS},
         {"test_cheat", test_cheat, METH_VARARGS},
+        {"imports", imports, METH_VARARGS},
         {} // sentinel
     };
     static inline PyModuleDef module = {PyModuleDef_HEAD_INIT, "", NULL, -1, methods, NULL, NULL, NULL, NULL};

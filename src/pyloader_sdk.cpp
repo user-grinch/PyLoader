@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "loader.h"
 #include "opcodehandler.hpp"
+#include <stdarg.h>
 
 float get_sdk_version()
 {
@@ -31,9 +32,9 @@ void register_command(const char* cmd_name, const char* mod_name, void* pfunc)
     }
 }
 
-int get_int(PyObject *args, char index)
+int get_int(Context ctx, unsigned char index)
 {
-    PyObject* item = PyTuple_GetItem(args, index);
+    PyObject* item = PyTuple_GetItem((PyObject*)ctx, index);
     if (item)
     {
         if (PyNumber_Check(item))
@@ -51,9 +52,9 @@ int get_int(PyObject *args, char index)
     return 0;
 }
 
-unsigned int get_uint(PyObject *args, char index)
+unsigned int get_uint(Context ctx, unsigned char index)
 {
-    PyObject* item = PyTuple_GetItem(args, index);
+    PyObject* item = PyTuple_GetItem((PyObject*)ctx, index);
     if (item)
     {
         if (PyNumber_Check(item))
@@ -71,9 +72,9 @@ unsigned int get_uint(PyObject *args, char index)
     return 0;
 }
 
-float get_float(PyObject *args, char index)
+float get_float(Context ctx, unsigned char index)
 {
-    PyObject* item = PyTuple_GetItem(args, index);
+    PyObject* item = PyTuple_GetItem((PyObject*)ctx, index);
     if (item)
     {
         if (PyFloat_Check(item))
@@ -84,9 +85,9 @@ float get_float(PyObject *args, char index)
     return 0.0f;
 }
 
-void get_string(PyObject *args, char index, const char* buf)
+void get_string(Context ctx, unsigned char index, const char* buf)
 {
-    PyObject* item = PyTuple_GetItem(args, index);
+    PyObject* item = PyTuple_GetItem((PyObject*)ctx, index);
     if (item)
     {
         if (!PyNumber_Check(item))
@@ -96,4 +97,24 @@ void get_string(PyObject *args, char index, const char* buf)
         }
     }
     buf = "";
+}
+
+bool PY_API get_value(Context ctx, const char *fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    bool rtn = PyArg_ParseTuple((PyObject*)ctx, fmt, args);
+    va_end(args);
+
+    return rtn;
+}
+
+Context PY_API set_value(const char *fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    PyObject *rtn = Py_BuildValue(fmt, args);
+    va_end(args);
+    
+    return rtn;
 }

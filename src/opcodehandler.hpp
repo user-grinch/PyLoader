@@ -165,35 +165,44 @@ private:
         typedef PyObject* f_cmd(PyObject* self, PyObject* args);
         typedef PyObject* f_pyvoid();
 
-        static inline PyModule *cur_mod = nullptr;
         static PyObject* init()
         {
-            size_t size = cur_mod->commands.size();
+            if (!init_mod)
+            {
+                return nullptr;
+            }
+            auto mgr = ScriptMgr::get();
+            gLog << mgr->file_name << std::endl;
+
+            size_t size = init_mod->commands.size();
             PyMethodDef *method_def = new PyMethodDef[size]; 
 
             // create our method defination table
             for (size_t i = 0; i < size; ++i)
             {
-                const char* name = cur_mod->commands[i].name.c_str();
-                method_def[i] = {name, (f_cmd*)cur_mod->commands[i].pfunc, METH_VARARGS, NULL};
+                const char* name = init_mod->commands[i].name.c_str();
+                method_def[i] = {name, (f_cmd*)init_mod->commands[i].pfunc, METH_VARARGS, NULL};
             }
             method_def[size] = {};
 
             // create our module defination table & create the module
-            PyModuleDef *mod_def = new PyModuleDef{PyModuleDef_HEAD_INIT, cur_mod->name.c_str(), NULL, -1, method_def, NULL, NULL, NULL, NULL};
+            PyModuleDef *mod_def = new PyModuleDef{PyModuleDef_HEAD_INIT, init_mod->name.c_str(), NULL, -1, method_def, NULL, NULL, NULL, NULL};
             PyObject *module = PyModule_Create(mod_def);
 
             return module;
         }
+
     public:
         std::string name = "Unknown";
         std::vector<PyCommand> commands;
 
-        // kinda hacky, but it works
-        f_pyvoid* get_init()
+        static inline std::vector<std::pair<std::string, PyModule*>> mod_info;
+        static inline PyModule *init_mod = nullptr;
+
+        void reg()
         {
-            cur_mod = this;
-            return init;
+            mod_info.push_back(std::make_pair(this->name, this));
+            PyImport_AppendInittab(name.c_str(), init);
         };
     };
 
@@ -249,6 +258,25 @@ public:
     OpcodeHandler() = delete;
     OpcodeHandler(const OpcodeHandler&) = delete;
     
+    // initialized module on request
+    static void init_module(const char *name)
+    {
+        auto* mgr = ScriptMgr::get();
+        for (auto data : PyModule::mod_info)
+        {
+            if (!strcmp(data.first.c_str(), name))
+            {
+                PyModule::init_mod = data.second;
+                PyRun_String(std::format("import {}", name).c_str(), Py_file_input, mgr->pglobal, mgr->pglobal);
+                PyModule::init_mod = nullptr;
+                return;
+            }
+        }
+        
+        // assume it's a python module if not found
+        PyRun_String(std::format("import {}", name).c_str(), Py_file_input, mgr->pglobal, mgr->pglobal);
+    }
+
     // Adds new commands to Pyloader
     static void add_command(const char* cmd_name, const char* mod_name, void* pfunc)
     {
@@ -278,9 +306,9 @@ public:
     // Registers all the new commands to the interpreter
     static void register_commands()
     {
-        for (auto&mod : modules)
+        for (auto& mod : modules)
         {
-            PyImport_AppendInittab(mod.name.c_str(), mod.get_init());
+            mod.reg();
         }
     }
 

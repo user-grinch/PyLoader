@@ -15,7 +15,6 @@ void PyLoader::init()
         GITHUB_LINK << "\n\n" << std::endl;
 
     PyImport_AppendInittab("_core_", &Core::init);
-
     // look for dll plugins to load
     load_plugins("lib");
     load_plugins("libstd");
@@ -96,7 +95,6 @@ void PyLoader::f_watcher(const std::string& file_path, eFileStatus state)
 void PyLoader::load_script(std::string name)
 {
     PyGILState_STATE gstate = PyGILState_Ensure();
-    PyObject *pglobal, *plocal;
 
     std::string path = "./PyLoader/" + name + ".py";
     gLog << "Loading script " << name << std::endl;
@@ -117,14 +115,17 @@ void PyLoader::load_script(std::string name)
     buf[len] = '\0';
     fclose(pfile);
 
+    auto mgr = ScriptMgr::get();
+    mgr->file_name = name;
+    
     PyObject *pmodule = PyModule_New(name.c_str());
-    pglobal = PyDict_New();
-    plocal = PyModule_GetDict(pmodule);
+    mgr->pglobal = PyDict_New();
+    mgr->plocal = PyModule_GetDict(pmodule);
 
-    Py_XINCREF(pglobal);
-    Py_XINCREF(plocal);
-    PyRun_String("from _core_ import *", Py_file_input, pglobal, plocal);
-    PyRun_String(buf, Py_file_input, pglobal, plocal);
+    Py_XINCREF(mgr->pglobal);
+    Py_XINCREF(mgr->pglobal);
+    PyRun_String("from _core_ import *", Py_file_input, mgr->pglobal, mgr->pglobal);
+    PyRun_String(buf, Py_file_input, mgr->pglobal, mgr->pglobal);
 
     if (PyErr_Occurred())
     {
@@ -132,8 +133,8 @@ void PyLoader::load_script(std::string name)
     }
 
     delete buf;
-    Py_XDECREF(pglobal);
-    Py_XDECREF(plocal);
+    Py_XDECREF(mgr->pglobal);
+    Py_XDECREF(mgr->pglobal);
     PyGILState_Release(gstate);
 }
 

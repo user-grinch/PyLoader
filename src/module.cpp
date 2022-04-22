@@ -85,6 +85,26 @@ PyObject* Core::key_pressed(PyObject *self, PyObject *args)
     return PyBool_FromLong((GetKeyState(key) & 0x8000));
 }
 
+PyObject* Core::imports(PyObject *self, PyObject *args)
+{
+    size_t size = PyTuple_GET_SIZE(args);
+
+    for (size_t i = 0; i != size; ++i)
+    {
+        PyObject* item = PyTuple_GetItem(args, i);
+        if (item)
+        {
+            if (!PyNumber_Check(item))
+            {
+                char *buf = PyBytes_AsString(PyUnicode_AsUTF8String(item));
+                OpcodeHandler::init_module(buf);
+            }
+        }
+    }
+
+    return PyBool_FromLong(0);
+}
+
 PyObject* Core::test_cheat(PyObject* self, PyObject* args)
 {
 	char* text;
