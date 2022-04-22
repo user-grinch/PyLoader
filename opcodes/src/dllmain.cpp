@@ -72,8 +72,8 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
       register_command("alter_wanted_level_no_drop", "Player", alter_wanted_level_no_drop);
       register_command("is_wanted_level_greater", "Player", is_wanted_level_greater);
       register_command("clear_wanted_level", "Player", clear_wanted_level);
-      register_command("", "", set_deatharrest_state);
-      register_command("", "", has_deatharrest_been_executed);
+      register_command("set_state", "DeathArrest", set_deatharrest_state);
+      register_command("has_been_executed", "DeathArrest", has_deatharrest_been_executed);
       register_command("add_ammo", "Char", add_ammo_to_char);
       register_command("is_dead", "Player", is_player_dead);
       register_command("is_dead", "Char", is_char_dead);

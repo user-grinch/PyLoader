@@ -1,4 +1,5 @@
 #include "pyloader_sdk.h"
+#include "Python.h"
 
 PyObject* shake_cam(PyObject* self, PyObject* args);
 PyObject* create_player(PyObject* self, PyObject* args);

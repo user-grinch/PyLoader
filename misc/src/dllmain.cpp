@@ -34,31 +34,31 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
     // II, VC & SA
     if (get_game_id() <= eGame::SA)
     {
-      register_command("get_buildings", "pool", GetBuildingPool);
-      register_command("get_objs", "pool", GetObjectPool);
-      register_command("get_peds", "pool", GetPedPool);
-      register_command("get_vehs", "pool", GetVehPool);
+      register_command("get_buildings", "Pool", GetBuildingPool);
+      register_command("get_objs", "Pool", GetObjectPool);
+      register_command("get_peds", "Pool", GetPedPool);
+      register_command("get_vehs", "Pool", GetVehPool);
       
-      register_command("get_veh_handle", "misc", GetCarHandle);
-      register_command("get_veh_pointer","misc", GetCarPointer);
-      register_command("get_char_handle","misc", GetCharHandle);
-      register_command("get_char_pointer","misc", GetCharPointer);
-      register_command("get_closest_ped","misc", GetClosestPed);
-      register_command("get_closest_veh","misc", GetClosestVehicle);
-      register_command("get_object_handle","misc", GetObjectHandle);
-      register_command("get_object_pointer","misc", GetObjectPointer);
-      register_command("get_player_targeted_char","misc", GetPlayerTargetedChar);
-      register_command("get_target_marker_coords","misc", GetTargetMarkerCoords);
-      register_command("get_veh_current_gear","misc", GetVehicleCurrentGear);
-      register_command("get_veh_model_from_name","misc", GetVehicleModelFromName);
-      register_command("get_veh_model_name","misc", GetVehicleModelName);
-      register_command("get_veh_number_of_gears","misc", GetVehicleNumberOfGears);
-      register_command("is_on_cutscene","misc", IsOnCutscene);
-      register_command("is_on_mission","misc", IsOnMission);
-      register_command("is_veh_engine_on","misc", IsVehicleEngineOn);
-      register_command("is_veh_siren_on","misc", IsVehicleSirenOn);
-      register_command("get_zone_largest_gangid","misc", GetLargestGangIdInZone);
-      register_command("set_veh_engine_state","misc", SetVehicleEngineState);
+      register_command("get_veh_handle", "Misc", GetCarHandle);
+      register_command("get_veh_pointer","Misc", GetCarPointer);
+      register_command("get_char_handle","Misc", GetCharHandle);
+      register_command("get_char_pointer","Misc", GetCharPointer);
+      register_command("get_closest_ped","Misc", GetClosestPed);
+      register_command("get_closest_veh","Misc", GetClosestVehicle);
+      register_command("get_object_handle","Misc", GetObjectHandle);
+      register_command("get_object_pointer","Misc", GetObjectPointer);
+      register_command("get_player_targeted_char","Misc", GetPlayerTargetedChar);
+      register_command("get_target_marker_coords","Misc", GetTargetMarkerCoords);
+      register_command("get_veh_current_gear","Misc", GetVehicleCurrentGear);
+      register_command("get_veh_model_from_name","Misc", GetVehicleModelFromName);
+      register_command("get_veh_model_name","Misc", GetVehicleModelName);
+      register_command("get_veh_number_of_gears","Misc", GetVehicleNumberOfGears);
+      register_command("is_on_cutscene","Misc", IsOnCutscene);
+      register_command("is_on_mission","Misc", IsOnMission);
+      register_command("is_veh_engine_on","Misc", IsVehicleEngineOn);
+      register_command("is_veh_siren_on","Misc", IsVehicleSirenOn);
+      register_command("get_zone_largest_gangid","Misc", GetLargestGangIdInZone);
+      register_command("set_veh_engine_state","Misc", SetVehicleEngineState);
     }
     else
     {

@@ -28,18 +28,18 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
         SoundSystem.Inject();
         SoundSystem.Init(RsGlobal.ps->window);
       };
-      register_command("get_length", "audiostream", GetAudioStreamLength);
-      register_command("get_volume", "audiostream", GetAudioStreamVolume);
-      register_command("link_3d_to_actor", "audiostream", Link3dAudioStreamToActor);
-      register_command("link_3d_to_obj", "audiostream", Link3dAudioStreamToObject);
-      register_command("link_3d_to_veh", "audiostream", Link3dAudioStreamToVehicle);
-      register_command("load", "audiostream", LoadAudioStream);
-      register_command("loop", "audiostream", LoopAudioStream);
-      register_command("load_with_3d_support", "audiostream", LoadAudioStreamWith3dSupport);
-      register_command("release", "audiostream", ReleaseAudioStream);
-      register_command("set_perform_action", "audiostream", SetAudioStreamPerformAction);
-      register_command("set_volume", "audiostream", SetAudioStreamVolume);
-      register_command("set_3d_position", "audiostream", Set3dAudioStreamPosition);
+      register_command("get_length", "Bass", GetAudioStreamLength);
+      register_command("get_volume", "Bass", GetAudioStreamVolume);
+      register_command("link_3d_to_actor", "Bass", Link3dAudioStreamToActor);
+      register_command("link_3d_to_obj", "Bass", Link3dAudioStreamToObject);
+      register_command("link_3d_to_veh", "Bass", Link3dAudioStreamToVehicle);
+      register_command("load", "Bass", LoadAudioStream);
+      register_command("loop", "Bass", LoopAudioStream);
+      register_command("load_with_3d_support", "Bass", LoadAudioStreamWith3dSupport);
+      register_command("release", "Bass", ReleaseAudioStream);
+      register_command("set_perform_action", "Bass", SetAudioStreamPerformAction);
+      register_command("set_volume", "Bass", SetAudioStreamVolume);
+      register_command("set_3d_position", "Bass", Set3dAudioStreamPosition);
     }
     else
     {
