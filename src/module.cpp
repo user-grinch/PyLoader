@@ -79,12 +79,6 @@ PyObject* Core::get_game_dir(PyObject* self, PyObject* args)
     return Py_BuildValue("s", "");
 }
 
-PyObject* Core::key_pressed(PyObject *self, PyObject *args)
-{
-    char key = (char)get_int(args, 0);
-    return PyBool_FromLong((GetKeyState(key) & 0x8000));
-}
-
 PyObject* Core::imports(PyObject *self, PyObject *args)
 {
     size_t size = PyTuple_GET_SIZE(args);
@@ -103,40 +97,4 @@ PyObject* Core::imports(PyObject *self, PyObject *args)
     }
 
     return PyBool_FromLong(0);
-}
-
-PyObject* Core::test_cheat(PyObject* self, PyObject* args)
-{
-	char* text;
-
-	if (!PyArg_ParseTuple(args, "s", &text))
-	{
-		return PyBool_FromLong(0);
-	}
-	
-	std::string str = text;
-	char (&cheatstring)[30] = *(char(*)[30])(Game::getAddr(NULL, NULL, 0x969110));
-
-	// reverse + upper
-	size_t size = str.size()-1;
-	for (size_t i = size; i != int(size/2); --i)
-	{
-		char temp = ' ';
-		temp = str[size - i];
-		str[size - i] = toupper(str[i]);
-		str[i] = toupper(temp);
-	}
-
-	if (size % 2 == 0)
-	{
-		str[size / 2] = toupper(str[size / 2]);
-	}
-
-	if (strstr(cheatstring, str.c_str()) != NULL)
-	{
-		cheatstring[0] = '\0';
-		return PyBool_FromLong(1);
-	}
-
-	return PyBool_FromLong(0);
 }

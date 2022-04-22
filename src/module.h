@@ -16,8 +16,6 @@ public:
     static PyObject* get_pyloader_ver(PyObject* self, PyObject* args);
     static PyObject* get_game_dir(PyObject* self, PyObject* args);
     static PyObject* get_working_dir(PyObject* self, PyObject* args);
-    static PyObject* key_pressed(PyObject *self, PyObject *args);
-    static PyObject* test_cheat(PyObject* self, PyObject* args);
     static PyObject* imports(PyObject* self, PyObject* args);
 
     static inline PyMethodDef methods[] = 
@@ -29,8 +27,6 @@ public:
         {"get_pyloader_ver", get_pyloader_ver, METH_VARARGS},
         {"get_game_dir", get_game_dir, METH_VARARGS},
         {"get_working_dir", get_working_dir, METH_VARARGS},
-        {"key_pressed", key_pressed, METH_VARARGS},
-        {"test_cheat", test_cheat, METH_VARARGS},
         {"imports", imports, METH_VARARGS},
         {} // sentinel
     };
