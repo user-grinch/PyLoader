@@ -26,6 +26,8 @@ PyObject* GetLargestGangIdInZone(PyObject* self, PyObject* args);
 PyObject* GetVehicleModelFromName(PyObject* self, PyObject* args);
 PyObject* GetVehicleModelName(PyObject* self, PyObject* args);
 PyObject* SetVehicleEngineState(PyObject* self, PyObject* args);
+PyObject* KeyPressed(PyObject *self, PyObject *args);
+PyObject* TestCheat(PyObject* self, PyObject* args);
 
 BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
 {
@@ -34,6 +36,9 @@ BOOL WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID Reserved)
     // II, VC & SA
     if (get_game_id() <= eGame::SA)
     {
+      register_command("key_pressed", "Pad", KeyPressed);
+      register_command("test_cheat", "Pad", TestCheat);
+      
       register_command("get_buildings", "Pool", GetBuildingPool);
       register_command("get_objs", "Pool", GetObjectPool);
       register_command("get_peds", "Pool", GetPedPool);
