@@ -3,11 +3,9 @@
     Credits: Plugin-SDK Team
 */
 #pragma once
-#include <sstream>
-#include <vector>
 #include "pch.h"
 
-class CRunningScriptSA 
+class CRunningScriptSA
 {
 public:
     CRunningScriptSA *m_pNext;
@@ -35,33 +33,6 @@ public:
     unsigned char  *m_pSceneSkipIP;
     bool            m_bIsMission;
     char            _padDD[3];
-};
-
-class CRunningScript 
-{
-public:
-    CRunningScript *m_pNext;
-    CRunningScript *m_pPrev;
-    char            m_szName[8];
-    int             m_nIp;
-    int             m_anStack[6];
-    unsigned short  m_nSP;
-    char            _pad2E[2];
-    void*            m_aLocalVars[16];
-    int             m_anTimers[2];
-    bool            m_bIsActive;
-    bool            m_bCondResult;
-    bool            m_bUseMissionCleanup;
-    bool            m_bAwake;
-    int             m_nWakeTime;
-    unsigned short  m_nLogicalOp;
-    bool            m_bNotFlag;
-    bool            m_bWastedBustedCheck;
-    bool            m_bWastedOrBusted;
-    bool            m_bIsMission;
-    char _pad86[2];
-
-    char ProcessOneCommand();
 };
 
 // Basic wrapper around char buffer
@@ -152,62 +123,7 @@ public:
 
 class OpcodeHandler
 {
-private:
-    struct PyCommand
-    {
-        std::string name = "Unknown";
-        void* pfunc = nullptr;
-    };
-
-    struct PyModule 
-    {
-    private:
-        typedef PyObject* f_cmd(PyObject* self, PyObject* args);
-        typedef PyObject* f_pyvoid();
-
-        static PyObject* init()
-        {
-            if (!init_mod)
-            {
-                return nullptr;
-            }
-            auto mgr = ScriptMgr::get();
-            gLog << mgr->file_name << std::endl;
-
-            size_t size = init_mod->commands.size();
-            PyMethodDef *method_def = new PyMethodDef[size]; 
-
-            // create our method defination table
-            for (size_t i = 0; i < size; ++i)
-            {
-                const char* name = init_mod->commands[i].name.c_str();
-                method_def[i] = {name, (f_cmd*)init_mod->commands[i].pfunc, METH_VARARGS, NULL};
-            }
-            method_def[size] = {};
-
-            // create our module defination table & create the module
-            PyModuleDef *mod_def = new PyModuleDef{PyModuleDef_HEAD_INIT, init_mod->name.c_str(), NULL, -1, method_def, NULL, NULL, NULL, NULL};
-            PyObject *module = PyModule_Create(mod_def);
-
-            return module;
-        }
-
-    public:
-        std::string name = "Unknown";
-        std::vector<PyCommand> commands;
-
-        static inline std::vector<std::pair<std::string, PyModule*>> mod_info;
-        static inline PyModule *init_mod = nullptr;
-
-        void reg()
-        {
-            mod_info.push_back(std::make_pair(this->name, this));
-            PyImport_AppendInittab(name.c_str(), init);
-        };
-    };
-
-    static inline std::vector<PyModule> modules;
-
+public:
     // Calls CRunningScript on a memory buffer
     static bool call_script_on_buf(unsigned int command_id, ScriptBuffer& buf)
     {
@@ -218,26 +134,17 @@ private:
         script.m_bUseMissionCleanup = false;
         script.m_bNotFlag = (command_id >> 15) & 1;
 
-        if (gGameVer == eGame::SA)
-        {
-            static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
-            typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
+        static unsigned short &commands_executed = *reinterpret_cast<unsigned short*>(0xA447F4);
+        typedef char (__thiscall* opcodeTable)(CRunningScriptSA*, int);
 
-            script.m_pBaseIP = script.m_pCurrentIP = buf.get();
+        script.m_pBaseIP = script.m_pCurrentIP = buf.get();
 
-            // Calling CRunningScript::ProcessOneCommand directly seems to crash
-            ++commands_executed;
-            script.m_pCurrentIP += 2;
-            script.m_bNotFlag = (command_id & 0x8000) != 0;
-            opcodeTable* f = (opcodeTable*)0x8A6168;
-            f[(command_id & 0x7FFF) / 100](&script, command_id & 0x7FFF);
-        }
-        else
-        {
-            // TODO: VC & III
-            script.m_bWastedBustedCheck = true;
-            // script.m_nIp = reinterpret_cast<int>(code.GetData()) - reinterpret_cast<int>(CRunningScript::GetScriptSpaceBase());
-        }
+        // Calling CRunningScript::ProcessOneCommand directly seems to crash
+        ++commands_executed;
+        script.m_pCurrentIP += 2;
+        script.m_bNotFlag = (command_id & 0x8000) != 0;
+        opcodeTable* f = (opcodeTable*)0x8A6168;
+        f[(command_id & 0x7FFF) / 100](&script, command_id & 0x7FFF);
 
         return script.m_bCondResult ? true : false;
     }
@@ -257,60 +164,6 @@ private:
 public:
     OpcodeHandler() = delete;
     OpcodeHandler(const OpcodeHandler&) = delete;
-    
-    // initialized module on request
-    static void init_module(const char *name)
-    {
-        auto* mgr = ScriptMgr::get();
-        for (auto data : PyModule::mod_info)
-        {
-            if (!strcmp(data.first.c_str(), name))
-            {
-                PyModule::init_mod = data.second;
-                PyRun_String(std::format("import {}", name).c_str(), Py_file_input, mgr->pglobal, mgr->pglobal);
-                PyModule::init_mod = nullptr;
-                return;
-            }
-        }
-        
-        // assume it's a python module if not found
-        PyRun_String(std::format("import {}", name).c_str(), Py_file_input, mgr->pglobal, mgr->pglobal);
-    }
-
-    // Adds new commands to Pyloader
-    static void add_command(const char* cmd_name, const char* mod_name, void* pfunc)
-    {
-        for (auto &mod : modules)
-        {
-            // push to the module if it exists
-            if (mod.name == mod_name)
-            {
-                PyCommand command;
-                command.name = cmd_name;
-                command.pfunc = pfunc;
-                mod.commands.push_back(std::move(command));
-                return;
-            }
-        }
-
-        // otherwise create a new module and push to that
-        PyModule mod;
-        mod.name = mod_name;
-        PyCommand command;
-        command.name = cmd_name;
-        command.pfunc = pfunc;
-        mod.commands.push_back(std::move(command));
-        modules.push_back(std::move(mod));
-    }
-    
-    // Registers all the new commands to the interpreter
-    static void register_commands()
-    {
-        for (auto& mod : modules)
-        {
-            mod.reg();
-        }
-    }
 
     // call opcode using a python tuple
     static bool call(PyObject* args)

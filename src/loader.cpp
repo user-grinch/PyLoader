@@ -18,7 +18,6 @@ void PyLoader::init()
     // look for dll plugins to load
     load_plugins("lib");
     load_plugins("libstd");
-    OpcodeHandler::register_commands();
 
     // init the python interpreter
     Py_SetProgramName((wchar_t*)"PyLoader");
@@ -123,7 +122,6 @@ void PyLoader::load_script(std::string name)
     mgr->plocal = PyModule_GetDict(pmodule);
 
     Py_XINCREF(mgr->pglobal);
-    Py_XINCREF(mgr->pglobal);
     PyRun_String("from _core_ import *", Py_file_input, mgr->pglobal, mgr->pglobal);
     PyRun_String(buf, Py_file_input, mgr->pglobal, mgr->pglobal);
 
@@ -133,7 +131,6 @@ void PyLoader::load_script(std::string name)
     }
 
     delete buf;
-    Py_XDECREF(mgr->pglobal);
     Py_XDECREF(mgr->pglobal);
     PyGILState_Release(gstate);
 }

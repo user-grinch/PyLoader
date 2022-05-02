@@ -78,23 +78,3 @@ PyObject* Core::get_game_dir(PyObject* self, PyObject* args)
 {
     return Py_BuildValue("s", "");
 }
-
-PyObject* Core::imports(PyObject *self, PyObject *args)
-{
-    size_t size = PyTuple_GET_SIZE(args);
-
-    for (size_t i = 0; i != size; ++i)
-    {
-        PyObject* item = PyTuple_GetItem(args, i);
-        if (item)
-        {
-            if (!PyNumber_Check(item))
-            {
-                char *buf = PyBytes_AsString(PyUnicode_AsUTF8String(item));
-                OpcodeHandler::init_module(buf);
-            }
-        }
-    }
-
-    return PyBool_FromLong(0);
-}

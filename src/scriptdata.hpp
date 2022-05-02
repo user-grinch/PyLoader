@@ -1,7 +1,6 @@
 #pragma once
 #include <thread>
 #include "injector/injector.hpp"
-#include "game.h"
 
 enum class eScriptState
 {
@@ -45,8 +44,7 @@ public:
             return;
         }
 
-        // TODO: III, VC
-        injector::MakeJMP(Game::getAddr(NULL, NULL, 0x6F3FE0) ,(DWORD)&hkgame_process);
+        injector::MakeJMP(0x6F3FE0,(DWORD)&hkgame_process);
         initialized = true;
     }
 
