@@ -17,7 +17,7 @@ workspace "plugin"
     location "../build"
     targetdir "../build/bin"
 
-project "memory"
+project "Memory"
     kind "SharedLib"
     targetextension ".dll"
     
@@ -31,12 +31,12 @@ project "memory"
     }
 
     libdirs {
-        "../libs",
+        "../lib/",
         PYTHON_DIR .. "/libs/"
     }
 
     links {
-        "PyLoader"
+        "PyLoader.lib",
     }
 
     filter "configurations:Debug"

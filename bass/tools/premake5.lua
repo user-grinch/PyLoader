@@ -57,7 +57,6 @@ project "audiostream"
     filter "configurations:Debug"
         symbols "On"
         links {
-            "PyLoader",
             "plugin_d",
             "bass"
         }
@@ -65,7 +64,6 @@ project "audiostream"
     filter "configurations:Release"
         optimize "On"
         links {
-            "PyLoader",
             "plugin",
             "bass"
         }

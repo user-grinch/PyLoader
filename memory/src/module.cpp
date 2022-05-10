@@ -1,47 +1,47 @@
 #define WIN32_LEAN_AND_MEAN
-#include "pyloader_sdk.h"
 #include "windows.h"
 #include "injector/injector.hpp"
+#include "module.h"
 
-PyObject* _load_library(PyObject* self, PyObject* args)
+PyObject* Module::_load_library(PyObject* self, PyObject* args)
 {
 	char* str;
 
 	if (!PyArg_ParseTuple(args, "s", &str))
 	{
-		return PyBool_FromLong(0);
+		return Py_BuildValue("i", 0);
 	}
 
 	return Py_BuildValue("i", LoadLibrary(str));
 }
 
-PyObject* _free_library(PyObject* self, PyObject* args)
+PyObject* Module::_free_library(PyObject* self, PyObject* args)
 {
 	int handle;
 
 	if (!PyArg_ParseTuple(args, "i", &handle))
 	{
-		return PyBool_FromLong(0);
+		return Py_BuildValue("i", 0);
 	}
 
 	FreeLibrary((HMODULE)handle);
 	return Py_BuildValue("i", 1);
 }
 
-PyObject* _get_proc_address(PyObject* self, PyObject* args)
+PyObject* Module::_get_proc_address(PyObject* self, PyObject* args)
 {
 	int handle;
 	char* str;
 
 	if (!PyArg_ParseTuple(args, "i", &handle, &str))
 	{
-		return PyBool_FromLong(0);
+		return Py_BuildValue("i", 0);
 	}
 
 	return Py_BuildValue("i", GetProcAddress((HMODULE)handle, str));
 }
 
-PyObject* call_function(PyObject* self, PyObject* args)
+PyObject* Module::call_function(PyObject* self, PyObject* args)
 {
 	int addr = NULL;
 	size_t num_param = NULL, stack_pop = NULL;
@@ -109,7 +109,7 @@ PyObject* call_function(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", result);
 }
 
-PyObject* call_method(PyObject* self, PyObject* args)
+PyObject* Module::call_method(PyObject* self, PyObject* args)
 {
 	int addr = NULL;
 	size_t num_param = NULL, stack_pop = NULL, struc = NULL;
@@ -181,7 +181,7 @@ PyObject* call_method(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", result);
 }
 
-PyObject* read_memory(PyObject* self, PyObject* args)
+PyObject* Module::read_memory(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -190,7 +190,7 @@ PyObject* read_memory(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     switch (size)
@@ -214,7 +214,7 @@ PyObject* read_memory(PyObject* self, PyObject* args)
     return Py_BuildValue("i", val);
 }
 
-PyObject* write_memory(PyObject* self, PyObject* args)
+PyObject* Module::write_memory(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -223,7 +223,7 @@ PyObject* write_memory(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &val, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
 
@@ -245,10 +245,10 @@ PyObject* write_memory(PyObject* self, PyObject* args)
     }
     }
 
-    return PyBool_FromLong(1);
+    return Py_BuildValue("i", 1);
 }
 
-PyObject* read_float(PyObject* self, PyObject* args)
+PyObject* Module::read_float(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int vp = NULL;
@@ -256,7 +256,7 @@ PyObject* read_float(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "ii", &addr, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     val = injector::ReadMemory<float>(addr, vp);
@@ -264,7 +264,7 @@ PyObject* read_float(PyObject* self, PyObject* args)
     return Py_BuildValue("f", val);
 }
 
-PyObject* write_float(PyObject* self, PyObject* args)
+PyObject* Module::write_float(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     float val = NULL;
@@ -272,15 +272,15 @@ PyObject* write_float(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "ifi", &addr, &val, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     injector::WriteMemory<float>(addr, val, vp);
 
-    return PyBool_FromLong(1);
+    return Py_BuildValue("i", 1);
 }
 
-PyObject* nop(PyObject* self, PyObject* args)
+PyObject* Module::nop(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -288,15 +288,15 @@ PyObject* nop(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     injector::MakeNOP(addr, size, vp);
 
-    return PyBool_FromLong(1);
+    return Py_BuildValue("i", 1);
 }
 
-PyObject* put_retn(PyObject* self, PyObject* args)
+PyObject* Module::put_retn(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -305,14 +305,14 @@ PyObject* put_retn(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "iiii", &addr, &size, &pop_bytes, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     injector::MakeRET(addr, pop_bytes, vp);
-    return PyBool_FromLong(1);
+    return Py_BuildValue("i", 1);
 }
 
-PyObject* get_raw(PyObject* self, PyObject* args)
+PyObject* Module::get_raw(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -321,7 +321,7 @@ PyObject* get_raw(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "iii", &addr, &size, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
 
     injector::ReadMemoryRaw(addr, data, size, vp);
@@ -329,7 +329,7 @@ PyObject* get_raw(PyObject* self, PyObject* args)
     return Py_BuildValue("s", data);
 }
 
-PyObject* set_raw(PyObject* self, PyObject* args)
+PyObject* Module::set_raw(PyObject* self, PyObject* args)
 {
     int addr = NULL;
     int size = NULL;
@@ -338,11 +338,11 @@ PyObject* set_raw(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "isii", &addr, &data , &size, &vp))
     {
-        return PyBool_FromLong(0);
+        return Py_BuildValue("i", 0);
     }
         
 
     injector::WriteMemoryRaw(addr, data, size, vp);
 
-    return PyBool_FromLong(1);
+    return Py_BuildValue("i", 1);
 }

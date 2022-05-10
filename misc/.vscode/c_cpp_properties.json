@@ -5,13 +5,14 @@
             "includePath": [
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/*",
                 "C:/Program Files (x86)/Python310-32/include",
-                "${workspaceFolder}/include/*",
+                "${workspaceFolder}/*",
                 "${PLUGIN_SDK_DIR}/plugin_sa/*",
                 "${PLUGIN_SDK_DIR}/plugin_sa/game_sa/*",
                 "${PLUGIN_SDK_DIR}/shared/*",
                 "${PLUGIN_SDK_DIR}/shared/game/*"
             ],
             "defines": [
+                "SUPPORTED_10US",
                 "_DEBUG",
                 "_DX9_SDK_INSTALLED"
             ],

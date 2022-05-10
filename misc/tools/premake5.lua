@@ -22,7 +22,7 @@ workspace "plugin"
     location "../build"
     targetdir "../build/bin"
 
-project "misc"
+project "Misc"
     kind "SharedLib"
     targetextension ".dll"
     
@@ -43,7 +43,7 @@ project "misc"
     }
 
     libdirs {
-        "../libs",
+        "../lib",
         PYTHON_DIR .. "/libs/",
         PSDK_DIR .. "/output/lib"
     }
@@ -51,14 +51,14 @@ project "misc"
     filter "configurations:Debug"
         symbols "On"
         links {
-            "PyLoader",
-            "plugin_d"
+            "plugin_d",
+            "PyLoader"
         }
 
     filter "configurations:Release"
         optimize "On"
         links {
-            "PyLoader",
-            "plugin"
+            "plugin",
+            "PyLoader"
         }
         

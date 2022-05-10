@@ -1,22 +1,37 @@
-#include "pyloader_sdk.h"
+#define WIN32_LEAN_AND_MEAN
+#include "windows.h"
+#include "module.h"
+#include <string>
 #include "plugin.h"
-#include "CPool.h"
+#include "CCheat.h"
 #include "CCutsceneMgr.h"
 #include "CZone.h"
 #include "CTheZones.h"
 #include "CTheScripts.h"
 #include "CRadar.h"
-#include "CMenuManager.h"
 #include "CWorld.h"
+#include "CMenuManager.h"
 #include "CModelInfo.h"
 
-PyObject* KeyPressed(PyObject *self, PyObject *args)
+PyObject* Module::KeyPressed(PyObject *self, PyObject *args)
 {
-    char key = (char)get_int(args, 0);
-    return PyBool_FromLong((GetKeyState(key) & 0x8000));
+    int key;
+    if (!PyArg_ParseTuple(args,"i", &key)) 
+    {
+        return PyBool_FromLong(0);                               
+    }
+    
+    if (plugin::KeyPressed(key))
+    {
+        return PyBool_FromLong(1);
+    }
+    else
+    {
+        return PyBool_FromLong(0);
+    }
 }
 
-PyObject* TestCheat(PyObject* self, PyObject* args)
+PyObject* Module::TestCheat(PyObject* self, PyObject* args)
 {
 	char* text;
 
@@ -26,7 +41,7 @@ PyObject* TestCheat(PyObject* self, PyObject* args)
 	}
 	
 	std::string str = text;
-	char (&cheatstring)[30] = *(char(*)[30])(0x969110);
+	std::string cheatstring = CCheat::m_CheatString;
 
 	// reverse + upper
 	size_t size = str.size()-1;
@@ -43,16 +58,17 @@ PyObject* TestCheat(PyObject* self, PyObject* args)
 		str[size / 2] = toupper(str[size / 2]);
 	}
 
-	if (strstr(cheatstring, str.c_str()) != NULL)
+	if (cheatstring.find(str) != std::string::npos)
 	{
-		cheatstring[0] = '\0';
-		return PyBool_FromLong(1);
+		CCheat::m_CheatString[0] = '\0';
+		return Py_BuildValue("i", 1);
 	}
 
-	return PyBool_FromLong(0);
+	return Py_BuildValue("i", 0);
 }
 
-PyObject* GetCarPointer(PyObject* self, PyObject* args)
+
+PyObject* Module::GetCarPointer(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -64,7 +80,7 @@ PyObject* GetCarPointer(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetVehicle(handle));
 }
 
-PyObject* GetCharPointer(PyObject* self, PyObject* args)
+PyObject* Module::GetCharPointer(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -76,7 +92,7 @@ PyObject* GetCharPointer(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetPed(handle));
 }
 
-PyObject* GetObjectPointer(PyObject* self, PyObject* args)
+PyObject* Module::GetObjectPointer(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -88,7 +104,7 @@ PyObject* GetObjectPointer(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetObject(handle));
 }
 
-PyObject* GetCarHandle(PyObject* self, PyObject* args)
+PyObject* Module::GetCarHandle(PyObject* self, PyObject* args)
 {
 	int ptr;
 
@@ -100,7 +116,7 @@ PyObject* GetCarHandle(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetVehicleRef((CVehicle*)ptr));
 }
 
-PyObject* GetCharHandle(PyObject* self, PyObject* args)
+PyObject* Module::GetCharHandle(PyObject* self, PyObject* args)
 {
 	int ptr;
 
@@ -112,7 +128,7 @@ PyObject* GetCharHandle(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetPedRef((CPed*)ptr));
 }
 
-PyObject* GetObjectHandle(PyObject* self, PyObject* args)
+PyObject* Module::GetObjectHandle(PyObject* self, PyObject* args)
 {
 	int ptr;
 
@@ -124,17 +140,17 @@ PyObject* GetObjectHandle(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", CPools::GetObjectRef((CObject*)ptr));
 }
 
-PyObject* IsOnMission(PyObject* self, PyObject* args)
+PyObject* Module::IsOnMission(PyObject* self, PyObject* args)
 {
 	return Py_BuildValue("i", FindPlayerPed()->CanPlayerStartMission() && !*(plugin::patch::Get<char*>(0x5D5380, false) + CTheScripts::OnAMissionFlag));
 }
 
-PyObject* IsOnCutscene(PyObject* self, PyObject* args)
+PyObject* Module::IsOnCutscene(PyObject* self, PyObject* args)
 {
 	return Py_BuildValue("i", CCutsceneMgr::ms_running);
 }
 
-PyObject* GetLargestGangIdInZone(PyObject* self, PyObject* args)
+PyObject* Module::GetLargestGangIdInZone(PyObject* self, PyObject* args)
 {
 	int gang_id = 0, max_density = 0;
 
@@ -157,7 +173,7 @@ PyObject* GetLargestGangIdInZone(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", gang_id);
 }
 
-PyObject* GetClosestVehicle(PyObject* self, PyObject* args)
+PyObject* Module::GetClosestVehicle(PyObject* self, PyObject* args)
 {
 	CPed* ped = FindPlayerPed();
 	CPedIntelligence* pedintel;
@@ -179,7 +195,7 @@ PyObject* GetClosestVehicle(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", NULL);
 }
 
-PyObject* GetClosestPed(PyObject* self, PyObject* args)
+PyObject* Module::GetClosestPed(PyObject* self, PyObject* args)
 {
 	CPed* _ped = FindPlayerPed();
 	CPedIntelligence* pedintel;
@@ -202,13 +218,13 @@ PyObject* GetClosestPed(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", NULL);
 }
 
-PyObject* GetTargetMarkerCoords(PyObject* self, PyObject* args)
+PyObject* Module::GetTargetMarkerCoords(PyObject* self, PyObject* args)
 {
-	tRadarTrace target_blip = CRadar::ms_RadarTrace[LOWORD(FrontEndMenuManager.m_nTargetBlipIndex)];
+	tRadarTrace target_blip = CRadar::ms_RadarTrace[FrontEndMenuManager.m_nTargetBlipIndex];
 	
 	if (target_blip.m_nBlipDisplayFlag)
 	{
-		CVector pos(target_blip.m_vPosition);
+		CVector pos(target_blip.m_vecPos);
 		pos.z = CWorld::FindGroundZForCoord(pos.x, pos.y);
 
 		return Py_BuildValue("fff", pos.x, pos.y, pos.z);
@@ -216,7 +232,7 @@ PyObject* GetTargetMarkerCoords(PyObject* self, PyObject* args)
 	return Py_BuildValue("iii", 0, 0, 0);
 }
 
-PyObject* GetVehicleNumberOfGears(PyObject* self, PyObject* args)
+PyObject* Module::GetVehicleNumberOfGears(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -235,7 +251,7 @@ PyObject* GetVehicleNumberOfGears(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 0);
 }
 
-PyObject* GetVehicleCurrentGear(PyObject* self, PyObject* args)
+PyObject* Module::GetVehicleCurrentGear(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -254,7 +270,7 @@ PyObject* GetVehicleCurrentGear(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 0);
 }
 
-PyObject* IsVehicleSirenOn(PyObject* self, PyObject* args)
+PyObject* Module::IsVehicleSirenOn(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -273,7 +289,7 @@ PyObject* IsVehicleSirenOn(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 0);
 }
 
-PyObject* IsVehicleEngineOn(PyObject* self, PyObject* args)
+PyObject* Module::IsVehicleEngineOn(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -292,7 +308,7 @@ PyObject* IsVehicleEngineOn(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 0);
 }
 
-PyObject* SetVehicleEngineState(PyObject* self, PyObject* args)
+PyObject* Module::SetVehicleEngineState(PyObject* self, PyObject* args)
 {
 	int handle, state;
 
@@ -311,7 +327,7 @@ PyObject* SetVehicleEngineState(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 1);
 }
 
-PyObject* GetPlayerTargetedChar(PyObject* self, PyObject* args)
+PyObject* Module::GetPlayerTargetedChar(PyObject* self, PyObject* args)
 {
 	CPlayerPed* player = FindPlayerPed();
 	CPed* target = player->m_pPlayerTargettedPed;
@@ -324,7 +340,7 @@ PyObject* GetPlayerTargetedChar(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 0);
 }
 
-PyObject* GetVehicleModelName(PyObject* self, PyObject* args)
+PyObject* Module::GetVehicleModelName(PyObject* self, PyObject* args)
 {
 	int model;
 
@@ -338,7 +354,7 @@ PyObject* GetVehicleModelName(PyObject* self, PyObject* args)
 	return Py_BuildValue("s", (const char*)info + 0x32);
 }
 
-PyObject* GetVehicleModelFromName(PyObject* self, PyObject* args)
+PyObject* Module::GetVehicleModelFromName(PyObject* self, PyObject* args)
 {
 	char* name;
 
@@ -363,14 +379,7 @@ PyObject* GetVehicleModelFromName(PyObject* self, PyObject* args)
 
 PyObject* GetVehPool(PyObject* self, PyObject* args)
 {
-    size_t size = 0;
-
-    for (CVehicle* pVeh : CPools::ms_pVehiclePool)
-    {
-        ++size;
-    }
-
-    PyObject* list = PyList_New(size);
+    PyObject* list = PyList_New(CPools::ms_pVehiclePool->m_nSize);
     size_t index = 0;
 
     for (CVehicle* pVeh : CPools::ms_pVehiclePool)
@@ -384,14 +393,7 @@ PyObject* GetVehPool(PyObject* self, PyObject* args)
 
 PyObject* GetPedPool(PyObject* self, PyObject* args)
 {
-    size_t size = 0;
-
-    for (CPed* ele : CPools::ms_pPedPool)
-    {
-        ++size;
-    }
-
-    PyObject* list = PyList_New(size);
+    PyObject* list = PyList_New(CPools::ms_pPedPool->m_nSize);
     size_t index = 0;
 
     for (CPed* ele : CPools::ms_pPedPool)
@@ -405,14 +407,7 @@ PyObject* GetPedPool(PyObject* self, PyObject* args)
 
 PyObject* GetBuildingPool(PyObject* self, PyObject* args)
 {
-    size_t size = 0;
-
-    for (CBuilding* ele : CPools::ms_pBuildingPool)
-    {
-        ++size;
-    }
-
-    PyObject* list = PyList_New(size);
+    PyObject* list = PyList_New(CPools::ms_pBuildingPool->m_nSize);
     size_t index = 0;
 
     for (CBuilding* ele : CPools::ms_pBuildingPool)
@@ -426,14 +421,7 @@ PyObject* GetBuildingPool(PyObject* self, PyObject* args)
 
 PyObject* GetObjectPool(PyObject* self, PyObject* args)
 {
-    size_t size = 0;
-
-    for (CObject* ele : CPools::ms_pObjectPool)
-    {
-        ++size;
-    }
-
-    PyObject* list = PyList_New(size);
+    PyObject* list = PyList_New(CPools::ms_pObjectPool->m_nSize);
     size_t index = 0;
 
     for (CObject* ele : CPools::ms_pObjectPool)

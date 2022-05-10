@@ -1,8 +1,8 @@
 #define WIN32_LEAN_AND_MEAN
-#include "pyloader_sdk.h"
 #include "SoundSystem.h"
+#include "module.h"
 
-PyObject* Link3dAudioStreamToVehicle(PyObject* self, PyObject* args)
+PyObject* Module::Link3dAudioStreamToVehicle(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	int handle;
@@ -15,7 +15,7 @@ PyObject* Link3dAudioStreamToVehicle(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* Link3dAudioStreamToObject(PyObject* self, PyObject* args)
+PyObject* Module::Link3dAudioStreamToObject(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	int handle;
@@ -28,7 +28,7 @@ PyObject* Link3dAudioStreamToObject(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* Link3dAudioStreamToActor(PyObject* self, PyObject* args)
+PyObject* Module::Link3dAudioStreamToActor(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	int handle;
@@ -41,7 +41,7 @@ PyObject* Link3dAudioStreamToActor(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* LoadAudioStreamWith3dSupport(PyObject* self, PyObject* args)
+PyObject* Module::LoadAudioStreamWith3dSupport(PyObject* self, PyObject* args)
 {
 	char* path;
 
@@ -53,7 +53,7 @@ PyObject* LoadAudioStreamWith3dSupport(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", SoundSystem.LoadStream(path, true));
 }
 
-PyObject* LoadAudioStream(PyObject* self, PyObject* args)
+PyObject* Module::LoadAudioStream(PyObject* self, PyObject* args)
 {
 	char* path;
 
@@ -65,7 +65,7 @@ PyObject* LoadAudioStream(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", SoundSystem.LoadStream(path));
 }
 
-PyObject* ReleaseAudioStream(PyObject* self, PyObject* args)
+PyObject* Module::ReleaseAudioStream(PyObject* self, PyObject* args)
 {
 	int handle;
 
@@ -78,7 +78,7 @@ PyObject* ReleaseAudioStream(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", 1);
 }
 
-PyObject* GetAudioStreamLength(PyObject* self, PyObject* args)
+PyObject* Module::GetAudioStreamLength(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 
@@ -90,7 +90,7 @@ PyObject* GetAudioStreamLength(PyObject* self, PyObject* args)
 	return Py_BuildValue("i", stream->GetLength());
 }
 
-PyObject* GetAudioStreamVolume(PyObject* self, PyObject* args)
+PyObject* Module::GetAudioStreamVolume(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 
@@ -102,7 +102,7 @@ PyObject* GetAudioStreamVolume(PyObject* self, PyObject* args)
 	return Py_BuildValue("f", stream->GetVolume());
 }
 
-PyObject* LoopAudioStream(PyObject* self, PyObject* args)
+PyObject* Module::LoopAudioStream(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	int flag = 0;
@@ -116,7 +116,7 @@ PyObject* LoopAudioStream(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* Set3dAudioStreamPosition(PyObject* self, PyObject* args)
+PyObject* Module::Set3dAudioStreamPosition(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	CVector pos;
@@ -130,7 +130,7 @@ PyObject* Set3dAudioStreamPosition(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* SetAudioStreamVolume(PyObject* self, PyObject* args)
+PyObject* Module::SetAudioStreamVolume(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	float vol;
@@ -144,7 +144,7 @@ PyObject* SetAudioStreamVolume(PyObject* self, PyObject* args)
 	return PyBool_FromLong(1);
 }
 
-PyObject* SetAudioStreamPerformAction(PyObject* self, PyObject* args)
+PyObject* Module::SetAudioStreamPerformAction(PyObject* self, PyObject* args)
 {
 	CAudioStream* stream;
 	int action;
