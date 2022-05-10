@@ -4,6 +4,11 @@
 #include <thread>
 #include "opcodehandler.hpp"
 
+void PyLoader::add_plugin(const char* plugin_name, void* func)
+{
+    plugins.push_back({std::string(plugin_name), func});
+}
+
 void PyLoader::init()
 {
     if (initialized)
@@ -15,9 +20,7 @@ void PyLoader::init()
         GITHUB_LINK << "\n\n" << std::endl;
 
     PyImport_AppendInittab("_core_", &Core::init);
-    // look for dll plugins to load
-    load_plugins("lib");
-    load_plugins("libstd");
+    load_plugins();
 
     // init the python interpreter
     Py_SetProgramName((wchar_t*)"PyLoader");
@@ -135,16 +138,16 @@ void PyLoader::load_script(std::string name)
     PyGILState_Release(gstate);
 }
 
-void PyLoader::load_plugins(std::string&& dirName)
+void PyLoader::load_plugins()
 {
     WIN32_FIND_DATA fileData;
-    std::string path = std::format("./PyLoader/{}/*.dll", dirName);
+    std::string path = std::format("./PyLoader/plugins/*.dll");
     HANDLE dir = FindFirstFileA(path.c_str(), &fileData);
 
     if (dir != INVALID_HANDLE_VALUE)
     {
         do {
-            std::string fileName = std::format("./PyLoader/{}/{}", dirName, fileData.cFileName);
+            std::string fileName = std::format("./PyLoader/plugins/{}", fileData.cFileName);
             if (LoadLibrary(fileName.c_str()))
             {
                 gLog << "Loading plugin " << fileData.cFileName << std::endl;
@@ -155,6 +158,11 @@ void PyLoader::load_plugins(std::string&& dirName)
             }
         } while (FindNextFile(dir, &fileData));
     }
-
+    
     FindClose(dir);
+
+    for (auto& plugin : plugins)
+    {
+        PyImport_AppendInittab(plugin.name.c_str(), (PyObject* (*)(void))plugin.init_func);
+    }
 }

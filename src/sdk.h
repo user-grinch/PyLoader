@@ -10,4 +10,5 @@ typedef void* Context;
 extern "C" {
     void PY_API get_pyloader_folder(char* buf);
     void PY_API py_log(const char* text);
+    void PY_API register_plugin(const char* text, void *init_func);
 }

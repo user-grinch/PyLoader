@@ -8,6 +8,13 @@ private:
     static inline bool initialized; // PyLoader init flag
     static inline FileWatcher watcher{"./PyLoader/"};
 
+    struct PluginInfo
+    {
+        std::string name;
+        void *init_func;
+    };
+    static inline std::vector<PluginInfo> plugins;
+
     /*
         Does necessary cleanup to exit PyLoader
         Unlikely to be ever called!
@@ -29,7 +36,7 @@ private:
         Loads .dll plugins
         Useful for extending the functionality of PyLoader
     */
-    static void load_plugins(std::string&& dirName);
+    static void load_plugins();
     /*
         Loads a script from file name
         Relative from the PyLoader directory
@@ -46,4 +53,5 @@ public:
         Must be called in a separate thread to avoid block
     */
     static void process();
+    static void add_plugin(const char* plugin_name, void* func);
 };
